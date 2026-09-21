@@ -38,7 +38,7 @@ export default function PlannerModal({ title, description, narrow, primaryLabel,
       <div className={`dlg${narrow ? " narrow" : ""}`} role="dialog" aria-modal="true" aria-label={title.toUpperCase()}>
         <div className="dlghd">
           <h2>{title}</h2>
-          <button type="button" className="xbtn" aria-label="Fechar" onClick={onCancel}>
+          <button type="button" className="xbtn" aria-label="Close" onClick={onCancel}>
             <svg width="14" height="14" viewBox="0 0 14 14" aria-hidden="true">
               <path d="M1 1l12 12M13 1L1 13" stroke="currentColor" strokeWidth="1.6" />
             </svg>

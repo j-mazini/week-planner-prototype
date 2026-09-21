@@ -15,7 +15,7 @@ export default function RouteCard({ route, onOpen }: { route: RouteCardModel; on
       type="button"
       className={`rc${isOpen ? " open" : ""}`}
       onClick={() => onOpen(route)}
-      aria-label={`Rota ${route.code}${route.driverName ? ` — ${route.driverName}` : " — sem alocação"}`}
+      aria-label={`Route ${route.code}${route.driverName ? ` — ${route.driverName}` : " — unassigned"}`}
     >
       <span className="plate">
         {route.isFlex && <span className="flexlbl">FLEX</span>}

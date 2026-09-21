@@ -36,7 +36,7 @@ export default function ExceptionsPanel({ exceptions, fallbackLabel }: Exception
                   <span className="exlbl" style={{ color: item.tag === "VOR" ? "var(--orange)" : "var(--ink-faint)" }}>{item.tag}</span>
                   <span className="plate-chip">{item.plate}</span>
                   {item.usable ? (
-                    <button type="button" className="use" onClick={() => showToast("Veículo alocado ao dia (protótipo).")}>Use</button>
+                    <button type="button" className="use" onClick={() => showToast("Vehicle allocated to the day (prototype).")}>Use</button>
                   ) : (
                     <span style={{ width: 34 }} />
                   )}
@@ -57,7 +57,7 @@ export default function ExceptionsPanel({ exceptions, fallbackLabel }: Exception
             <div className="unall">
               <span className="exlbl" style={{ color: "var(--olive-alt)", fontWeight: 600 }}>UNALL</span>
               <span className="exname">{exceptions.drivers.unallocated.name}</span>
-              <button type="button" className="place" onClick={() => showToast(`${exceptions.drivers.unallocated!.name} alocado (protótipo).`)}>
+              <button type="button" className="place" onClick={() => showToast(`${exceptions.drivers.unallocated!.name} allocated (prototype).`)}>
                 Place
               </button>
             </div>

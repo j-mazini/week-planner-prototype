@@ -18,7 +18,7 @@ export default function WeekPickerPopover({ monthIndex, onMonthChange, onPick, o
           <button
             type="button"
             className="chip-nav"
-            aria-label="Mês anterior"
+            aria-label="Previous month"
             onClick={(e) => {
               e.stopPropagation();
               onMonthChange(Math.max(0, monthIndex - 1));
@@ -32,7 +32,7 @@ export default function WeekPickerPopover({ monthIndex, onMonthChange, onPick, o
           <button
             type="button"
             className="chip-nav"
-            aria-label="Próximo mês"
+            aria-label="Next month"
             onClick={(e) => {
               e.stopPropagation();
               onMonthChange(Math.min(MONTH_LABELS.length - 1, monthIndex + 1));

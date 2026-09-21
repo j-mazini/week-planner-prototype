@@ -31,7 +31,7 @@ export default function PlanHorizonPanel({ weeks }: { weeks: HorizonWeekModel[] 
                   key={index}
                   type="button"
                   className={`hzbtn${action.variant === "primary" ? " pri" : action.variant === "pill" ? " pill" : ""}`}
-                  onClick={() => showToast(`${action.label.trim()} — ação do protótipo.`)}
+                  onClick={() => showToast(`${action.label.trim()} — prototype action.`)}
                 >
                   {action.label}
                 </button>

@@ -31,7 +31,7 @@ function WeekPlannerBoard() {
   if (isError) {
     return (
       <div className="week-planner-page">
-        <div className="wrap">Não foi possível carregar o board (falha de fetch do protótipo).</div>
+        <div className="wrap">Could not load the board (prototype fetch failure).</div>
       </div>
     );
   }
@@ -39,7 +39,7 @@ function WeekPlannerBoard() {
   if (isLoading || !board) {
     return (
       <div className="week-planner-page">
-        <div className="wrap">Carregando board…</div>
+        <div className="wrap">Loading board…</div>
       </div>
     );
   }
@@ -63,7 +63,7 @@ function WeekPlannerBoard() {
       <div className="wrap">
         <div className="topbar">
           <h1 className="title disp">WEEK PLANNER</h1>
-          <span className="demo-tag">Protótipo · dados de exemplo</span>
+          <span className="demo-tag">Prototype · sample data</span>
         </div>
 
         <div className="header">
@@ -76,7 +76,7 @@ function WeekPlannerBoard() {
                 className="tbtn"
                 onClick={() => {
                   if (action.id === "save") {
-                    showToast("Semana salva (protótipo — nada foi persistido).");
+                    showToast("Week saved (prototype — nothing was persisted).");
                     return;
                   }
                   if (action.id === "generateWeek") {

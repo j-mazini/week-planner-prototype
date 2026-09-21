@@ -16,7 +16,7 @@ export default function DepotTabs({ selected, onSelect }: { selected: string; on
           aria-pressed={depot === selected}
           onClick={() => {
             onSelect(depot);
-            showToast(`Depósito ${depot} selecionado.`);
+            showToast(`Depot ${depot} selected.`);
           }}
         >
           {depot}

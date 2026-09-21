@@ -41,7 +41,7 @@ export default function DayGrid({ days, variant, selectedDate, onSelectDay, onAd
                 <button
                   type="button"
                   className="dayadd"
-                  aria-label={`Adicionar em ${day.name}`}
+                  aria-label={`Add in ${day.name}`}
                   onClick={() => onAddInDay(day.date)}
                 >
                   +

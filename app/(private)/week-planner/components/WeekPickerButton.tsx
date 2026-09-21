@@ -30,7 +30,7 @@ export default function WeekPickerButton({ week, onPick }: { week: WeekOption; o
   function pick(nextWeek: WeekOption) {
     onPick(nextWeek);
     setOpen(false);
-    showToast(`Semana ${nextWeek.label} carregada.`);
+    showToast(`Week ${nextWeek.label} loaded.`);
   }
 
   const currentWeek = WEEK_OPTIONS.find((w) => w.id === DEFAULT_WEEK_ID)!;

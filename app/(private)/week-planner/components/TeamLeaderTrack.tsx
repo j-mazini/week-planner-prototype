@@ -25,7 +25,7 @@ export default function TeamLeaderTrack({ selectedIndex, onSelect }: { selectedI
       <button
         type="button"
         className="chip-nav"
-        aria-label="Próximos team leaders"
+        aria-label="Next team leaders"
         onClick={() => trackRef.current?.scrollBy({ left: 220, behavior: "smooth" })}
       >
         <svg width="10" height="10" viewBox="0 0 10 10" aria-hidden="true">

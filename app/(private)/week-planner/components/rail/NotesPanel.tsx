@@ -20,9 +20,9 @@ export default function NotesPanel({ notes, onAddNote, onAcknowledge }: NotesPan
           <span className="noteslbl">NOTES</span>
         </span>
         <span style={{ display: "flex", gap: 8 }}>
-          <button type="button" className="mini solid" onClick={onAddNote}>+ NOVA NOTA</button>
+          <button type="button" className="mini solid" onClick={onAddNote}>+ NEW NOTE</button>
           <button type="button" className="mini" onClick={() => setExpanded((v) => !v)}>
-            {expanded ? "RECOLHER" : "EXPANDIR"}
+            {expanded ? "COLLAPSE" : "EXPAND"}
           </button>
         </span>
       </div>
@@ -38,7 +38,7 @@ export default function NotesPanel({ notes, onAddNote, onAcknowledge }: NotesPan
                 </div>
               </div>
               <button type="button" className="mini" onClick={() => onAcknowledge(note.id)}>
-                {note.acknowledged ? "SALVO" : "EDITAR"}
+                {note.acknowledged ? "SAVED" : "EDIT"}
               </button>
             </article>
           ))}

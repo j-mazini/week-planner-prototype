@@ -3,12 +3,12 @@ import "./globals.css";
 import Providers from "./providers";
 
 export const metadata = {
-  title: "LogixSphere Week Planner — Protótipo",
+  title: "LogixSphere Week Planner — Prototype",
 };
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <html lang="pt-BR">
+    <html lang="en">
       <body>
         <Providers>{children}</Providers>
       </body>
