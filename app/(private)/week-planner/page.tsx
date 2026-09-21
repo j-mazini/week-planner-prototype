@@ -7,16 +7,10 @@ import "./styles.css";
 import AdhocSection from "./components/AdhocSection";
 import DayGrid from "./components/DayGrid";
 import DepotTabs from "./components/DepotTabs";
-import ExceptionsPanel from "./components/rail/ExceptionsPanel";
-import ManagementSupportPanel from "./components/rail/ManagementSupportPanel";
-import NotesPanel from "./components/rail/NotesPanel";
-import OffHolidayPanel from "./components/rail/OffHolidayPanel";
-import PlanHorizonPanel from "./components/rail/PlanHorizonPanel";
 import PlannerModalHost, { type ModalKind } from "./components/modals/modalConfigs";
 import TeamLeaderTrack from "./components/TeamLeaderTrack";
 import WeekPickerButton from "./components/WeekPickerButton";
 import { DEFAULT_DEPOT_ID, HEADER_ACTIONS, WEEK_OPTIONS } from "./constants";
-import { useWeekPlannerActions } from "./hooks/useWeekPlannerActions";
 import { useWeekPlannerBoard } from "./hooks/useWeekPlannerBoard";
 import { useToast } from "./components/Toast";
 import type { RouteCardModel, WeekOption } from "./types";
@@ -32,7 +26,6 @@ function WeekPlannerBoard() {
   const [ctxDate, setCtxDate] = useState("13/07/2024");
 
   const { data: board, isLoading, isError } = useWeekPlannerBoard(depot, week.id);
-  const { runAction } = useWeekPlannerActions();
   const { showToast } = useToast();
 
   if (isError) {
@@ -53,7 +46,6 @@ function WeekPlannerBoard() {
 
   const visibleDays = showWeekend ? board.days : board.days.filter((d) => !d.isWeekend);
   const selectedDay = board.days.find((d) => d.date === selectedDate) ?? null;
-  const exceptions = selectedDate ? board.exceptionsByDate[selectedDate] ?? null : null;
 
   function openRouteModal(route: RouteCardModel) {
     setCtxRoute(route.code);
@@ -131,17 +123,6 @@ function WeekPlannerBoard() {
             <AdhocSection days={visibleDays} onAddAdhoc={() => setModal("addAdhoc")} onOpenRoute={openRouteModal} />
           </div>
 
-          <aside className="railcol">
-            <NotesPanel
-              notes={board.notes}
-              onAddNote={() => setModal("addNote")}
-              onAcknowledge={() => runAction("Nota marcada como salva").catch(() => undefined)}
-            />
-            <ManagementSupportPanel days={board.management} />
-            <OffHolidayPanel days={board.absences} />
-            <ExceptionsPanel exceptions={exceptions} fallbackLabel="WEEK" />
-            <PlanHorizonPanel weeks={board.horizon} />
-          </aside>
         </div>
 
         <footer className="pg">© 2026 LOGIX / SPHERE OPERATIONAL SYSTEMS</footer>
