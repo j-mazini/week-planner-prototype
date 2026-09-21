@@ -105,12 +105,19 @@ export const WEEK_PLANNER_BOARD_FIXTURE: WeekPlannerBoardDTO = {
         route("mon-1", "LS1B", "ok", "M. Whitfield", "LK71 XWD", "ok"),
         route("mon-2", "LS2C", "open", null, null, null),
         route("mon-3", "LS1Q", "error", "K. Lennon", null, "none", true),
-        route("mon-4", "LS1B", "ok", "M. Whitfield", "LK71 XWD", "ok"),
+        route("mon-4", "LS3D", "ok", "R. Chandran", "MK19 PLV", "ok"),
         route("mon-5", "LS1B", "warning", "M. Whitfield", "LK71 XWD", "ok"),
+        route("mon-6", "LS4E", "ok", "S. McAlister", "LX68 GTR", "ok"),
+        route("mon-7", "LS2A", "conflict", "J. Corrigan", "BV23 ORE", "sub"),
+        route("mon-8", "LS5F", "ok", "J. Blake", "KV68 TRD", "ok"),
+        route("mon-9", "LS3M", "open", null, null, null),
+        route("mon-10", "LS6G", "ok", "A. Strood", "WM24 QSE", "ok"),
+        route("mon-11", "LS1R", "ok", "V. Ilic", "LR71 PFA", "ok"),
       ],
       adhoc_routes: [
         route("mon-a1", "LS1B", "ok", "M. Whitfield", "LK71 XWD", "ok"),
         route("mon-a2", "LS2C", "open", null, null, null),
+        route("mon-a3", "LS7H", "ok", "D. Adeyemi", "OY69 HDK", "ok"),
       ],
     },
     {
@@ -124,8 +131,17 @@ export const WEEK_PLANNER_BOARD_FIXTURE: WeekPlannerBoardDTO = {
         route("tue-1", "LS1B", "ok", "M. Whitfield", "LK71 XWD", "ok"),
         route("tue-2", "LS2A", "conflict", "J. Corrigan", "BV23 ORE", "sub"),
         route("tue-3", "LS2C", "open", null, null, null),
+        route("tue-4", "LS3D", "ok", "R. Chandran", "MK19 PLV", "ok"),
+        route("tue-5", "LS4E", "ok", "S. McAlister", "LX68 GTR", "ok"),
+        route("tue-6", "LS1Q", "error", "K. Lennon", null, "none", true),
+        route("tue-7", "LS5F", "warning", "J. Blake", "KV68 TRD", "ok"),
+        route("tue-8", "LS6G", "ok", "A. Strood", "WM24 QSE", "ok"),
+        route("tue-9", "LS3M", "open", null, null, null),
       ],
-      adhoc_routes: [route("tue-a1", "LS1B", "ok", "M. Whitfield", "LK71 XWD", "ok")],
+      adhoc_routes: [
+        route("tue-a1", "LS1B", "ok", "M. Whitfield", "LK71 XWD", "ok"),
+        route("tue-a2", "LS7H", "ok", "D. Adeyemi", "OY69 HDK", "ok"),
+      ],
     },
     {
       date: "2024-07-15",
@@ -138,8 +154,16 @@ export const WEEK_PLANNER_BOARD_FIXTURE: WeekPlannerBoardDTO = {
         route("wed-1", "LS1B", "ok", "M. Whitfield", "LK71 XWD", "ok"),
         route("wed-2", "LS2A", "conflict", "J. Corrigan", "BV23 ORE", "sub"),
         route("wed-3", "LS1B", "warning", "M. Whitfield", "LK71 XWD", "ok"),
+        route("wed-4", "LS3D", "ok", "R. Chandran", "MK19 PLV", "ok"),
+        route("wed-5", "LS4E", "ok", "S. McAlister", "LX68 GTR", "ok"),
+        route("wed-6", "LS5F", "ok", "J. Blake", "KV68 TRD", "ok"),
+        route("wed-7", "LS2C", "open", null, null, null),
+        route("wed-8", "LS1Q", "error", "K. Lennon", null, "none", true),
       ],
-      adhoc_routes: [route("wed-a1", "LS1B", "ok", "M. Whitfield", "LK71 XWD", "ok")],
+      adhoc_routes: [
+        route("wed-a1", "LS1B", "ok", "M. Whitfield", "LK71 XWD", "ok"),
+        route("wed-a2", "LS6G", "ok", "A. Strood", "WM24 QSE", "ok"),
+      ],
     },
     {
       date: "2024-07-16",
@@ -153,10 +177,15 @@ export const WEEK_PLANNER_BOARD_FIXTURE: WeekPlannerBoardDTO = {
         route("thu-2", "LS2C", "open", null, null, null),
         route("thu-3", "LS1Q", "error", "K. Lennon", null, "none", true),
         route("thu-4", "LS2A", "conflict", "J. Corrigan", "BV23 ORE", "sub"),
+        route("thu-5", "LS3D", "ok", "R. Chandran", "MK19 PLV", "ok"),
+        route("thu-6", "LS4E", "warning", "S. McAlister", "LX68 GTR", "ok"),
+        route("thu-7", "LS5F", "ok", "J. Blake", "KV68 TRD", "ok"),
+        route("thu-8", "LS3M", "open", null, null, null),
       ],
       adhoc_routes: [
         route("thu-a1", "LS1B", "ok", "M. Whitfield", "LK71 XWD", "ok"),
         route("thu-a2", "LS2C", "open", null, null, null),
+        route("thu-a3", "LS7H", "ok", "D. Adeyemi", "OY69 HDK", "ok"),
       ],
     },
     {
@@ -169,8 +198,15 @@ export const WEEK_PLANNER_BOARD_FIXTURE: WeekPlannerBoardDTO = {
       main_routes: [
         route("fri-1", "LS1B", "ok", "M. Whitfield", "LK71 XWD", "ok"),
         route("fri-2", "LS1Q", "error", "K. Lennon", null, "none", true),
+        route("fri-3", "LS2A", "conflict", "J. Corrigan", "BV23 ORE", "sub"),
+        route("fri-4", "LS3D", "ok", "R. Chandran", "MK19 PLV", "ok"),
+        route("fri-5", "LS4E", "ok", "S. McAlister", "LX68 GTR", "ok"),
+        route("fri-6", "LS2C", "open", null, null, null),
       ],
-      adhoc_routes: [route("fri-a1", "LS1B", "ok", "M. Whitfield", "LK71 XWD", "ok")],
+      adhoc_routes: [
+        route("fri-a1", "LS1B", "ok", "M. Whitfield", "LK71 XWD", "ok"),
+        route("fri-a2", "LS6G", "ok", "A. Strood", "WM24 QSE", "ok"),
+      ],
     },
     {
       date: "2024-07-18",
@@ -178,8 +214,12 @@ export const WEEK_PLANNER_BOARD_FIXTURE: WeekPlannerBoardDTO = {
       day_number: "18",
       is_weekend: true,
       review_badge: null,
-      assignment_count: 3,
-      main_routes: [route("sat-1", "LS1B", "ok", "M. Whitfield", "LK71 XWD", "ok"), route("sat-2", "LS2C", "open", null, null, null)],
+      assignment_count: 8,
+      main_routes: [
+        route("sat-1", "LS1B", "ok", "M. Whitfield", "LK71 XWD", "ok"),
+        route("sat-2", "LS2C", "open", null, null, null),
+        route("sat-3", "LS5F", "ok", "J. Blake", "KV68 TRD", "ok"),
+      ],
       adhoc_routes: [],
     },
     {
@@ -206,19 +246,40 @@ export const WEEK_PLANNER_BOARD_FIXTURE: WeekPlannerBoardDTO = {
       body: "Re-calibrated with 4s tacho verification. Inbound drivers from MSE must use manual bypass lane 1B if camera delay exceeds 10s.",
       acknowledged: false,
     },
+    {
+      id: "n3",
+      severity: "URGENT",
+      body: "LS3M open all week — no vendor confirmed. Escalate to service partner before Thursday's cut-off.",
+      acknowledged: false,
+    },
+    {
+      id: "n4",
+      severity: "CRITICAL",
+      body: "KV68 TRD flagged for tacho recalibration on Friday morning — do not assign before 10:00.",
+      acknowledged: true,
+    },
   ],
   absences: [
-    { day_label: "MON", chips: [{ kind: "OFF", person_name: "T. Farris" }, { kind: "LEAVE", person_name: "G. Adeb.." }], extra_count: 0 },
+    {
+      day_label: "MON",
+      chips: [
+        { kind: "OFF", person_name: "T. Farris" },
+        { kind: "LEAVE", person_name: "G. Adeb.." },
+        { kind: "OFF", person_name: "P. Oyelaran" },
+      ],
+      extra_count: 0,
+    },
     {
       day_label: "TUE",
       chips: [
         { kind: "OFF", person_name: "B. Whit.." },
         { kind: "LEAVE", person_name: "P. Novak" },
         { kind: "OFF", person_name: "J. Carew" },
+        { kind: "OFF", person_name: "H. Mabaso" },
       ],
-      extra_count: 0,
+      extra_count: 1,
     },
-    { day_label: "WED", chips: [], extra_count: 0 },
+    { day_label: "WED", chips: [{ kind: "LEAVE", person_name: "F. Grech" }], extra_count: 0 },
     {
       day_label: "THU",
       chips: [
@@ -229,24 +290,71 @@ export const WEEK_PLANNER_BOARD_FIXTURE: WeekPlannerBoardDTO = {
       ],
       extra_count: 2,
     },
-    { day_label: "FRI", chips: [{ kind: "OFF", person_name: "R. Chan.." }, { kind: "LEAVE", person_name: "E. Kami.." }], extra_count: 0 },
+    {
+      day_label: "FRI",
+      chips: [
+        { kind: "OFF", person_name: "R. Chan.." },
+        { kind: "LEAVE", person_name: "E. Kami.." },
+        { kind: "OFF", person_name: "T. Osei" },
+      ],
+      extra_count: 0,
+    },
   ],
   management: [
-    { day_label: "MON 13", cells: [{ manager_name: "G. Ellison", is_muted: false }, { manager_name: "G. Ellison", is_muted: false }, { manager_name: "G. Ellison", is_muted: false }, { manager_name: "K. Mensah", is_muted: true }] },
-    { day_label: "TUE 14", cells: [{ manager_name: "G. Ellison", is_muted: false }, { manager_name: "G. Ellison", is_muted: false }, { manager_name: "G. Ellison", is_muted: false }, { manager_name: "K. Mensah", is_muted: true }] },
+    { day_label: "MON 13", cells: [{ manager_name: "G. Ellison", is_muted: false }, { manager_name: "Leandro Dias", is_muted: false }, { manager_name: "G. Ellison", is_muted: false }, { manager_name: "K. Mensah", is_muted: true }] },
+    { day_label: "TUE 14", cells: [{ manager_name: "G. Ellison", is_muted: false }, { manager_name: "Leandro Dias", is_muted: false }, { manager_name: "Marlon Valesan", is_muted: false }, { manager_name: "K. Mensah", is_muted: true }] },
     {
       day_label: "WED 15",
       cells: [
         { manager_name: "G. Ellison", is_muted: false },
         { manager_name: "G. Ellison", is_muted: false, tooltip: "+A.STROOD - AT OTHER DEPOT" },
-        { manager_name: "G. Ellison", is_muted: false },
+        { manager_name: "Marlon Valesan", is_muted: false },
         { manager_name: "K. Mensah", is_muted: true },
       ],
     },
-    { day_label: "THU 16", cells: [{ manager_name: "G. Ellison", is_muted: false }, { manager_name: "G. Ellison", is_muted: false }, { manager_name: "G. Ellison", is_muted: false }, { manager_name: "K. Mensah", is_muted: true }] },
-    { day_label: "FRI 17", cells: [{ manager_name: "G. Ellison", is_muted: false }, { manager_name: "G. Ellison", is_muted: false }, { manager_name: "G. Ellison", is_muted: false }, { manager_name: "K. Mensah", is_muted: true }] },
+    { day_label: "THU 16", cells: [{ manager_name: "G. Ellison", is_muted: false }, { manager_name: "Leandro Dias", is_muted: false }, { manager_name: "Marlon Valesan", is_muted: false, tooltip: "+P.RAMANATHAN - COVERING BASP" }, { manager_name: "K. Mensah", is_muted: true }] },
+    { day_label: "FRI 17", cells: [{ manager_name: "G. Ellison", is_muted: false }, { manager_name: "Leandro Dias", is_muted: false }, { manager_name: "G. Ellison", is_muted: false }, { manager_name: "K. Mensah", is_muted: true }] },
   ],
   exceptions_by_date: {
+    "2024-07-13": {
+      day_label: "MONDAY",
+      vehicles: {
+        utilization_label: "10/15",
+        utilization_percent: 67,
+        depot_label: "LCY",
+        items: [
+          { tag: "SPARE", plate: "MK19 PLV", usable: true },
+          { tag: "SPARE", plate: "LX68 GTR", usable: true },
+          { tag: "VOR", plate: "BV23 ORE — BODYWORK", usable: false },
+        ],
+      },
+      drivers: {
+        unallocated: { tag: "UNALLOCATED", name: "P. Oyelaran", placeable: true },
+        items: [
+          { tag: "SPARE", name: "H. Mabaso", placeable: false },
+          { tag: "FLEX", name: "T. Osei", placeable: false },
+        ],
+      },
+    },
+    "2024-07-14": {
+      day_label: "TUESDAY",
+      vehicles: {
+        utilization_label: "13/15",
+        utilization_percent: 87,
+        depot_label: "MSE",
+        items: [
+          { tag: "SPARE", plate: "LR71 PFA", usable: true },
+          { tag: "VOR", plate: "KV68 TRD — TACHO CHECK", usable: false },
+        ],
+      },
+      drivers: {
+        unallocated: null,
+        items: [
+          { tag: "SPARE", name: "V. Ilic", placeable: false },
+          { tag: "FLEX", name: "J. Blake", placeable: false },
+        ],
+      },
+    },
     "2024-07-16": {
       day_label: "THURSDAY",
       vehicles: {
@@ -267,6 +375,27 @@ export const WEEK_PLANNER_BOARD_FIXTURE: WeekPlannerBoardDTO = {
           { tag: "SPARE", name: "J. Blake", placeable: false },
           { tag: "FLEX", name: "A. Strood", placeable: false },
           { tag: "FLEX", name: "V. Ilic", placeable: false },
+        ],
+      },
+    },
+    "2024-07-17": {
+      day_label: "FRIDAY",
+      vehicles: {
+        utilization_label: "9/15",
+        utilization_percent: 60,
+        depot_label: "BASP",
+        items: [
+          { tag: "SPARE", plate: "MK19 PLV", usable: true },
+          { tag: "SPARE", plate: "OY69 HDK", usable: true },
+          { tag: "SPARE", plate: "LX68 GTR", usable: true },
+          { tag: "VOR", plate: "WM24 QSE — GLASS DAMAGE", usable: false },
+        ],
+      },
+      drivers: {
+        unallocated: { tag: "UNALLOCATED", name: "N. Quinn", placeable: true },
+        items: [
+          { tag: "SPARE", name: "C. Reid", placeable: false },
+          { tag: "FLEX", name: "D. Adeyemi", placeable: false },
         ],
       },
     },
