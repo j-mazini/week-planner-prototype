@@ -31,9 +31,17 @@ function WeekPlannerBoard() {
   const [ctxRoute, setCtxRoute] = useState("MD7C");
   const [ctxDate, setCtxDate] = useState("13/07/2024");
 
-  const { data: board, isLoading } = useWeekPlannerBoard(depot, week.id);
+  const { data: board, isLoading, isError } = useWeekPlannerBoard(depot, week.id);
   const { runAction } = useWeekPlannerActions();
   const { showToast } = useToast();
+
+  if (isError) {
+    return (
+      <div className="week-planner-page">
+        <div className="wrap">Não foi possível carregar o board (falha de fetch do protótipo).</div>
+      </div>
+    );
+  }
 
   if (isLoading || !board) {
     return (
@@ -127,7 +135,7 @@ function WeekPlannerBoard() {
             <NotesPanel
               notes={board.notes}
               onAddNote={() => setModal("addNote")}
-              onAcknowledge={() => runAction("Nota marcada como salva")}
+              onAcknowledge={() => runAction("Nota marcada como salva").catch(() => undefined)}
             />
             <ManagementSupportPanel days={board.management} />
             <OffHolidayPanel days={board.absences} />
@@ -139,7 +147,7 @@ function WeekPlannerBoard() {
         <footer className="pg">© 2026 LOGIX / SPHERE OPERATIONAL SYSTEMS</footer>
       </div>
 
-      <PlannerModalHost openModal={modal} contextRoute={ctxRoute} contextDate={ctxDate} onClose={() => setModal(null)} />
+      <PlannerModalHost openModal={modal} contextRoute={ctxRoute} contextDate={ctxDate} days={board.days} onClose={() => setModal(null)} />
     </div>
   );
 }
