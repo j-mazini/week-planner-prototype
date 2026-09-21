@@ -113,7 +113,21 @@
 footer.pg { margin-top: 24px; border-top: 1px solid var(--line); padding-top: 16px; text-align: right; font-size: 10px; line-height: 15px; color: var(--ink-foot); }
 
 .railcol { width: 100%; display: flex; flex-direction: column; gap: 24px; min-width: 0; }
-@media (min-width: 1280px) { .railcol { width: 404px; flex: none; } }
+@media (min-width: 1280px) {
+  .railcol {
+    width: 404px;
+    flex: none;
+    height: min(760px, calc(100vh - 230px));
+    min-height: 0;
+    overflow-y: auto;
+    padding-right: 8px;
+    scrollbar-width: thin;
+    scrollbar-color: var(--line-panel) transparent;
+  }
+  .railcol::-webkit-scrollbar { width: 6px; }
+  .railcol::-webkit-scrollbar-track { background: transparent; }
+  .railcol::-webkit-scrollbar-thumb { background: var(--line-panel); border-radius: 999px; }
+}
 .rhead { letter-spacing: 2px; }
 .rhead b { font-size: 10px; font-weight: 600; color: var(--ink-strong); }
 .rhead span { font-size: 8px; letter-spacing: .8px; color: var(--ink-faint); }
@@ -133,7 +147,11 @@ footer.pg { margin-top: 24px; border-top: 1px solid var(--line); padding-top: 16
 .notebody { font-size: 11px; line-height: 15.13px; color: var(--ink-card); margin: 0; }
 .notemeta { font-size: 9px; line-height: 16px; color: var(--ink-help); }
 
-.mgrid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; }
+.mgrid {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 10px;
+}
 .mday { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
 .mday > b { font-size: 8.5px; font-weight: 600; color: var(--ink-strong); }
 .mcard { box-shadow: var(--sh-card); position: relative; }
