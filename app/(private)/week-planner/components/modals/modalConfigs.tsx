@@ -1,9 +1,9 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { OPTIONS } from "../../constants";
 import { useWeekPlannerActions } from "../../hooks/useWeekPlannerActions";
-import { useToast } from "../Toast";
+import type { DayColumnModel } from "../../types";
 import {
   DaySelectorField,
   DateField,
@@ -31,40 +31,70 @@ export type ModalKind =
   | "generateWeekResult"
   | null;
 
-const FULL_WEEK_DAYS = [
-  { code: "mon", label: "Mon", date: "13/07", count: 50, weekend: false },
-  { code: "tue", label: "Tue", date: "14/07", count: 56, weekend: false },
-  { code: "wed", label: "Wed", date: "15/07", count: 56, weekend: false },
-  { code: "thu", label: "Thu", date: "16/07", count: 56, weekend: false },
-  { code: "fri", label: "Fri", date: "17/07", count: 56, weekend: false },
-  { code: "sat", label: "Sat", date: "18/07", count: 3, weekend: true },
-  { code: "sun", label: "Sun", date: "19/07", count: 0, weekend: true },
-];
-const FULL_WEEK_LABEL = "Full Week (13/07 to 19/07)";
+function formatShortDate(iso: string): string {
+  const [, month, day] = iso.split("-");
+  return `${day}/${month}`;
+}
 
 interface PlannerModalHostProps {
   openModal: ModalKind;
   contextRoute: string;
   contextDate: string;
+  days: DayColumnModel[];
   onClose: () => void;
 }
 
-export default function PlannerModalHost({ openModal, contextRoute, contextDate, onClose }: PlannerModalHostProps) {
+export default function PlannerModalHost({ openModal, contextRoute, contextDate, days, onClose }: PlannerModalHostProps) {
   const { runAction, runGenerateWeek } = useWeekPlannerActions();
-  const { showToast } = useToast();
   const [generated, setGenerated] = useState<Awaited<ReturnType<typeof runGenerateWeek>> | null>(null);
 
+  const fullWeekDays = useMemo(
+    () =>
+      days.map((day) => ({
+        code: day.name.slice(0, 3).toLowerCase(),
+        label: day.name.slice(0, 1).toUpperCase() + day.name.slice(1, 3).toLowerCase(),
+        date: formatShortDate(day.date),
+        count: day.assignmentCount,
+        weekend: day.isWeekend,
+      })),
+    [days],
+  );
+
+  const fullWeekLabel = useMemo(() => {
+    if (days.length === 0) return "Full Week";
+    const first = days[0];
+    const last = days[days.length - 1];
+    return `Full Week (${formatShortDate(first.date)} to ${formatShortDate(last.date)})`;
+  }, [days]);
+
+  const weekRangeLabel = useMemo(() => {
+    if (days.length === 0) return "";
+    const weekdays = days.filter((d) => !d.isWeekend);
+    const first = weekdays[0] ?? days[0];
+    const last = weekdays[weekdays.length - 1] ?? days[days.length - 1];
+    return `${first.date.split("-").reverse().join("/")} to ${last.date.split("-").reverse().join("/")}`;
+  }, [days]);
+
   useEffect(() => {
-    if (openModal === "generateWeekResult" && !generated) {
-      runGenerateWeek().then(setGenerated);
-    }
+    if (openModal !== "generateWeekResult" || generated) return;
+    let cancelled = false;
+    runGenerateWeek().then((result) => {
+      if (!cancelled) setGenerated(result);
+    });
+    return () => {
+      cancelled = true;
+    };
   }, [openModal, generated, runGenerateWeek]);
 
   if (!openModal) return null;
 
   async function submit(title: string) {
-    await runAction(title);
-    onClose();
+    try {
+      await runAction(title);
+      onClose();
+    } catch {
+      // keep the modal open on a failed mock action rather than crash-closing
+    }
   }
 
   if (openModal === "generateWeekResult") {
@@ -129,7 +159,7 @@ export default function PlannerModalHost({ openModal, contextRoute, contextDate,
           <SelectField label="Vehice" placeholder="Select a mananger" options={OPTIONS.vehicle} />
           <SelectField label="Sort" placeholder="YES" options={["YES", "NO"]} />
           <span />
-          <DaySelectorField fullWeekLabel={FULL_WEEK_LABEL} days={FULL_WEEK_DAYS} />
+          <DaySelectorField fullWeekLabel={fullWeekLabel} days={fullWeekDays} />
           <TextareaField label="Notes (optional)" placeholder="WRITE ANY NOTES" />
         </FieldRow>
       </PlannerModal>
@@ -141,7 +171,7 @@ export default function PlannerModalHost({ openModal, contextRoute, contextDate,
       <PlannerModal title="Export Day Schedule" primaryLabel="EXPORT" description="Select one or more days and depots to export." onCancel={onClose} onSubmit={() => submit("Export Day Schedule")}>
         <FieldRow>
           <DepotPickerField />
-          <DaySelectorField fullWeekLabel={FULL_WEEK_LABEL} days={FULL_WEEK_DAYS} />
+          <DaySelectorField fullWeekLabel={fullWeekLabel} days={fullWeekDays} />
         </FieldRow>
       </PlannerModal>
     );
@@ -164,7 +194,7 @@ export default function PlannerModalHost({ openModal, contextRoute, contextDate,
             <span>Include weekends (Sat &amp; Sun)</span>
           </div>
           <div className="callout">
-            <p>Week: <b>13/07/2024 to 17/07/2024</b></p>
+            <p>Week: <b>{weekRangeLabel}</b></p>
             <p>Will generate <b>4 PDFs</b>: LCY, MSE, LSE, BASP</p>
           </div>
         </div>
@@ -196,7 +226,7 @@ export default function PlannerModalHost({ openModal, contextRoute, contextDate,
         <FieldRow>
           <SelectField label="Function" placeholder="Select a function" options={OPTIONS.fn} />
           <SelectField label="Mananger" placeholder="Select a mananger" options={OPTIONS.manager} />
-          <DaySelectorField fullWeekLabel={FULL_WEEK_LABEL} days={FULL_WEEK_DAYS} />
+          <DaySelectorField fullWeekLabel={fullWeekLabel} days={fullWeekDays} />
           <TextareaField label="Notes (optional)" placeholder="WRITE ANY NOTES" />
         </FieldRow>
       </PlannerModal>
@@ -211,7 +241,7 @@ export default function PlannerModalHost({ openModal, contextRoute, contextDate,
           <SelectField label="Adhoc Service" placeholder="Select an adhoc service" options={OPTIONS.adhoc} />
           <ReadonlyField label="Adhoc sort" value="40" />
           <span />
-          <DaySelectorField fullWeekLabel="Select all available weekdays (from tomorrow)" days={FULL_WEEK_DAYS} />
+          <DaySelectorField fullWeekLabel="Select all available weekdays (from tomorrow)" days={fullWeekDays} />
           <TextareaField label="Notes (optional)" placeholder="WRITE ANY NOTES" />
         </FieldRow>
       </PlannerModal>
@@ -232,7 +262,7 @@ export default function PlannerModalHost({ openModal, contextRoute, contextDate,
           <SelectField label="Select the mananger" placeholder="Leandro Dias" options={OPTIONS.manager} />
           <ReadonlyField label="Deposit" value="BOAP" />
           <span />
-          <DaySelectorField fullWeekLabel={FULL_WEEK_LABEL} days={FULL_WEEK_DAYS} />
+          <DaySelectorField fullWeekLabel={fullWeekLabel} days={fullWeekDays} />
         </FieldRow>
       </PlannerModal>
     );
@@ -246,7 +276,7 @@ export default function PlannerModalHost({ openModal, contextRoute, contextDate,
           <SelectField label="Vendor" placeholder="Select a vendor" options={OPTIONS.vendor} />
           <SelectField label="Vehicle" placeholder="Select a vehicle" options={OPTIONS.vehicle} />
           <SelectField label="Sort" placeholder="Yes" options={["Yes", "No"]} />
-          <DaySelectorField fullWeekLabel="Select all available weekdays (from tomorrow)" days={FULL_WEEK_DAYS} />
+          <DaySelectorField fullWeekLabel="Select all available weekdays (from tomorrow)" days={fullWeekDays} />
           <TextareaField label="Notes (optional)" placeholder="WRITE ANY NOTES" />
         </FieldRow>
       </PlannerModal>
