@@ -17,5 +17,5 @@
 .rb-form-actions{display:flex;justify-content:flex-end;gap:10px;margin-top:28px}.rb-form-actions button,.rb-primary{border:1px solid #b4bea0;padding:10px 20px;font:12px 'IBM Plex Mono';cursor:pointer;background:transparent;color:#334f00}.rb-primary{background:#334f00!important;color:#fff!important;border-color:#334f00!important}.rb-primary:disabled{opacity:.45;cursor:not-allowed}
 .rb-file{border:1px dashed #a6b08f;padding:24px}.rb-file input{display:block;margin-top:16px;max-width:100%}.rb-note{font-size:11px}
 .rb-toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);z-index:20;background:#263b14;color:#fff;display:flex;align-items:center;gap:16px;padding:16px 20px;max-width:calc(100vw - 32px);box-shadow:0 6px 24px #0002;font-size:12px}.rb-toast span{color:#b2f746}.rb-toast button{background:none;border:0;color:inherit;cursor:pointer;font-size:20px}
-.rb-added{margin:0 24px 24px 200px;display:flex;flex-wrap:wrap;gap:16px}.rb-added article{border:1px solid #b4bea0;padding:20px;min-width:253px}.rb-added span{font-size:10px}
-@media(max-width:600px){.rb-dialog{padding:24px}.rb-reference-dialog{padding:0}.rb-toast{left:16px;right:16px;transform:none}.rb-added{margin-left:20px}}
+.rb-added{margin:0 auto 24px;box-sizing:border-box;padding-inline:24px;display:flex;flex-wrap:wrap;gap:16px}.rb-added article{border:1px solid #b4bea0;padding:20px;min-width:253px}.rb-added span{font-size:10px}
+@media(max-width:600px){.rb-dialog{padding:24px}.rb-reference-dialog{padding:0}.rb-toast{left:16px;right:16px;transform:none}}

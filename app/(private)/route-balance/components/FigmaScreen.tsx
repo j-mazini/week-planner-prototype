@@ -35,7 +35,12 @@ function textCSS(s:TextStyle):CSSProperties {
 }
 function layerCSS(n:Layer,s:Style,root:boolean):CSSProperties{
   const m=s.relativeTransform??[[1,0,0],[0,1,0]];
-  const css:CSSProperties={position:root?'relative':'absolute',zIndex:0,left:root?0:m[0][2],top:root?0:m[1][2],width:s.width??0,height:s.height??0,opacity:s.opacity,transformOrigin:'0 0',transform:m[0][0]!==1||m[1][1]!==1||m[0][1]||m[1][0]?`matrix(${m[0][0]},${m[1][0]},${m[0][1]},${m[1][1]},0,0)`:undefined,borderRadius:n.t==='ELLIPSE'?'50%':`${s.topLeftRadius??s.cornerRadius??0}px ${s.topRightRadius??s.cornerRadius??0}px ${s.bottomRightRadius??s.cornerRadius??0}px ${s.bottomLeftRadius??s.cornerRadius??0}px`,overflow:s.clipsContent?'hidden':undefined};
+  // Position AND any scale/rotation both come from this same relativeTransform matrix,
+  // and both describe how the node sits within its PARENT — so both are skipped
+  // together for a root render, same as left/top already are. Without this, a node
+  // rendered as root (e.g. an override's `Original` re-render of the same node its
+  // wrapper already positioned) would apply its own transform a second time.
+  const css:CSSProperties={position:root?'relative':'absolute',zIndex:0,left:root?0:m[0][2],top:root?0:m[1][2],width:s.width??0,height:s.height??0,opacity:s.opacity,transformOrigin:'0 0',transform:!root&&(m[0][0]!==1||m[1][1]!==1||m[0][1]||m[1][0])?`matrix(${m[0][0]},${m[1][0]},${m[0][1]},${m[1][1]},0,0)`:undefined,borderRadius:n.t==='ELLIPSE'?'50%':`${s.topLeftRadius??s.cornerRadius??0}px ${s.topRightRadius??s.cornerRadius??0}px ${s.bottomRightRadius??s.cornerRadius??0}px ${s.bottomLeftRadius??s.cornerRadius??0}px`,overflow:s.clipsContent?'hidden':undefined};
   if(n.t==='TEXT'){
     Object.assign(css,textCSS(s),{display:'flex',flexDirection:'column',justifyContent:s.textAlignVertical==='CENTER'?'center':s.textAlignVertical==='BOTTOM'?'flex-end':'flex-start',textAlign:(s.textAlignHorizontal??'LEFT').toLowerCase(),whiteSpace:(s.height??0)<=(s.fontSize??12)*1.6?'pre':'pre-wrap',overflowWrap:'normal',textTransform:s.textCase==='UPPER'?'uppercase':s.textCase==='LOWER'?'lowercase':s.textCase==='TITLE'?'capitalize':undefined});
   } else if(!n.asset){
