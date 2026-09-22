@@ -1,6 +1,6 @@
 @import './fonts.css';
 .rb-app{-webkit-font-smoothing:auto;min-height:100vh;background:#fafaf0;color:#334f00;font-family:'IBM Plex Mono',monospace;overflow-x:auto}
-.rb-canvas-size{position:relative}.rb-canvas{width:1281px;transform-origin:top left}.figma-layer{box-sizing:border-box}
+.rb-canvas-size{position:relative;margin:0 auto}.rb-canvas{width:1281px;transform-origin:top left}.figma-layer{box-sizing:border-box}
 .rb-source-button{display:block;margin:0;padding:0;border:0;text-align:initial;font:inherit;color:inherit;cursor:pointer;appearance:none;background-color:transparent}
 .rb-source-button:focus-visible,.rb-source-input:focus-visible,.rb-app button:focus-visible{outline:2px solid #334f00;outline-offset:3px;z-index:5!important}
 .rb-source-button:hover{filter:brightness(.96)}.rb-source-button[aria-pressed="true"]{font-weight:600}
