@@ -51,3 +51,22 @@ delay simulado. Para ligar ao backend real:
   protótipo de validação isolado, não uma rota do repositório real.
 - Persistência: toda ação de escrita termina em um toast, nada é salvo.
 - Drag-and-drop de assignments — não estava no protótipo visual original.
+
+## Route Balance — Operations e Rebalance
+
+- `/route-balance`: Operations, baseada no frame `198:6865` do ZIP fornecido.
+- `/route-balance?mode=rebalance`: Rebalance, baseada no frame `200:9214`.
+- A navegação lateral do Week Planner inclui o acesso a Route Balance.
+
+As telas usam as camadas, coordenadas, SVGs e fontes locais da referência. O canvas
+mantém as proporções do desktop; em janelas estreitas, a área operacional permite
+rolagem horizontal. Os estados iniciais preservam os dados e textos do arquivo original.
+
+A interface permite alternar abas e turno, buscar rotas, expandir/recolher cards,
+abrir detalhes/paradas/entregas especiais, validar cards e criar rotas flex no rascunho.
+Save persiste o rascunho neste navegador. Importação de planilhas e envio aos
+motoristas dependem de serviços não incluídos no projeto; a interface informa essa
+limitação e não simula processamento nem envio.
+
+Validação: build de produção, TypeScript, testes do projeto e testes de interação
+no Chrome. As capturas em 1281px foram comparadas com o renderer original do ZIP.

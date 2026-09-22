@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import Link from "next/link";
 
 export default function NavbarWrapper({ children }: { children: ReactNode }) {
   return (
@@ -12,7 +13,7 @@ export default function NavbarWrapper({ children }: { children: ReactNode }) {
         <nav className="app-nav">
           <button className="app-navitem" type="button" aria-label="Home"><span className="nav-icon">⌂</span><span>Home</span></button>
           <button className="app-navitem active" type="button" aria-current="page" aria-label="Week Planner"><span className="nav-icon">▥</span><span>Week Planner</span></button>
-          <button className="app-navitem" type="button" aria-label="Route Balance"><span className="nav-icon">☷</span><span>Route Balance</span></button>
+          <Link className="app-navitem" href="/route-balance" aria-label="Route Balance" style={{textDecoration:"none"}}><span className="nav-icon">☷</span><span>Route Balance</span></Link>
           <button className="app-navitem" type="button" aria-label="Cleaning Desk"><span className="nav-icon">▤</span><span>Cleaning Desk</span></button>
         </nav>
         <div className="app-navbottom">

@@ -1,0 +1,21 @@
+@import './fonts.css';
+.rb-app{-webkit-font-smoothing:auto;min-height:100vh;background:#fafaf0;color:#334f00;font-family:'IBM Plex Mono',monospace;overflow-x:auto}
+.rb-canvas-size{position:relative}.rb-canvas{width:1281px;transform-origin:top left}.figma-layer{box-sizing:border-box}
+.rb-source-button{display:block;margin:0;padding:0;border:0;text-align:initial;font:inherit;color:inherit;cursor:pointer;appearance:none;background-color:transparent}
+.rb-source-button:focus-visible,.rb-source-input:focus-visible,.rb-app button:focus-visible{outline:2px solid #334f00;outline-offset:3px;z-index:5!important}
+.rb-source-button:hover{filter:brightness(.96)}.rb-source-button[aria-pressed="true"]{font-weight:600}
+.rb-source-input{border:0;color:#424936;outline:none}.rb-source-input::placeholder{color:#6b7280;opacity:1}
+.rb-expand{width:100%;height:100%;border:1px solid #446900;border-radius:0;display:grid;place-items:center;font:19px 'IBM Plex Mono';color:#334f00}
+.rb-card-expand{position:absolute;bottom:12px;right:16px;border:1px solid #b4bea0;background:#fafaf0;color:#334f00;padding:6px;cursor:pointer}
+.rb-loading{padding:36px}.rb-empty{position:absolute;top:410px;left:210px;background:#fafaf0;padding:24px}
+.rb-empty button{border:0;text-decoration:underline;background:transparent;color:inherit;cursor:pointer}
+.rb-dialog{position:fixed;inset:0;max-width:calc(100vw - 32px);max-height:calc(100dvh - 40px);width:512px;padding:32px;border:1px solid #b4bea0;border-radius:8px;background:#fafaf0;color:#334f00;box-shadow:0 20px 70px #1d281f40;overflow:auto;font:12px 'IBM Plex Mono',monospace}
+.rb-dialog::backdrop{background:#17201875;backdrop-filter:blur(4px)}.rb-reference-dialog{padding:0;border-radius:8px}
+.rb-dialog-close{position:absolute;top:12px;right:14px;z-index:5;border:0;background:#fafaf0;color:#334f00;font:24px monospace;cursor:pointer;width:28px;height:28px}
+.rb-dialog h2{font:700 22px 'Space Grotesk',sans-serif;margin:0 30px 12px 0}.rb-dialog p{line-height:1.7;color:#737b63}
+.rb-dialog label{display:block;margin-top:22px;font-size:11px}.rb-dialog input:not([type=file]){display:block;width:100%;margin-top:8px;padding:12px;border:1px solid #b4bea0;background:transparent;color:#334f00;font:12px 'IBM Plex Mono'}
+.rb-form-actions{display:flex;justify-content:flex-end;gap:10px;margin-top:28px}.rb-form-actions button,.rb-primary{border:1px solid #b4bea0;padding:10px 20px;font:12px 'IBM Plex Mono';cursor:pointer;background:transparent;color:#334f00}.rb-primary{background:#334f00!important;color:#fff!important;border-color:#334f00!important}.rb-primary:disabled{opacity:.45;cursor:not-allowed}
+.rb-file{border:1px dashed #a6b08f;padding:24px}.rb-file input{display:block;margin-top:16px;max-width:100%}.rb-note{font-size:11px}
+.rb-toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);z-index:20;background:#263b14;color:#fff;display:flex;align-items:center;gap:16px;padding:16px 20px;max-width:calc(100vw - 32px);box-shadow:0 6px 24px #0002;font-size:12px}.rb-toast span{color:#b2f746}.rb-toast button{background:none;border:0;color:inherit;cursor:pointer;font-size:20px}
+.rb-added{margin:0 24px 24px 200px;display:flex;flex-wrap:wrap;gap:16px}.rb-added article{border:1px solid #b4bea0;padding:20px;min-width:253px}.rb-added span{font-size:10px}
+@media(max-width:600px){.rb-dialog{padding:24px}.rb-reference-dialog{padding:0}.rb-toast{left:16px;right:16px;transform:none}.rb-added{margin-left:20px}}
