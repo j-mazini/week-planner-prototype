@@ -316,3 +316,13 @@ Thiago — que não se aplica a este repositório sem esses stakeholders reais):
 4. Sem as três camadas de autenticação/permissão do app real — aceitável para
    protótipo de validação isolado, mesmo padrão já assumido por
    `week-planner`.
+5. `check:tokens` varre só os caminhos "governados" pela nova regra
+   (`styles/`, `components/ui/`, `lib/mock-client.ts`, `lib/useMockQuery.ts`,
+   `lib/case.ts`, `app/(private)/daily-ops/`), não o repositório inteiro — o
+   kit original varre tudo porque o kit inteiro segue o Design System; aqui a
+   maior parte do repositório (código antigo) ainda não segue.
+6. `daily-performance-insight` usa DTOs já em camelCase no código real (não
+   snake_case) — achado durante a pesquisa de código, diferente da suposição
+   inicial do design. As fixtures desta page são escritas com o snake_case
+   equivalente de cada campo, para que `camelizeKeys` do mock-client faça a
+   mesma conversão que faria em produção.
