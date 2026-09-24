@@ -12,6 +12,8 @@
   --dgp-line: #c7cdbb;
   --dgp-ink: #1a1c16;
   width: 100%;
+  max-width: var(--content-wide);
+  margin-inline: auto;
   min-height: calc(100vh - 64px);
   /* NavbarWrapper already provides the imported-page gutter. Cancel it so
      this screen has the same single content rail as Route Balance. */
@@ -145,62 +147,3 @@
   }
 }
 
-/* ============================================
-   AJUSTES PARA RESPONDER AO ESTADO DA SIDEBAR
-   ============================================ */
-@media (min-width: 768px) {
-  /* Garante que o container principal se ajuste ao estado da sidebar */
-  [data-slot="sidebar-inset"] .liquid-glass-page-bg {
-    width: 100% !important;
-    max-width: 100% !important;
-    box-sizing: border-box !important;
-    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1) !important;
-  }
-  
-  /* Garante que divs com w-full se ajustem ao container pai */
-  [data-slot="sidebar-inset"] .liquid-glass-page-bg > div[class*="w-full"] {
-    width: 100% !important;
-    max-width: 100% !important;
-    box-sizing: border-box !important;
-  }
-  
-  /* Força que todos os elementos filhos respeitem o container */
-  [data-slot="sidebar-inset"] .liquid-glass-page-bg * {
-    max-width: 100% !important;
-    box-sizing: border-box !important;
-  }
-  
-  /* Zona morta nas laterais - margens em telas grandes */
-  [data-slot="sidebar-inset"] .liquid-glass-page-bg > div[class*="max-w-"] {
-    margin-left: 2rem !important;
-    margin-right: 2rem !important;
-  }
-  
-  /* Quando sidebar está colapsada, permite expandir mais o conteúdo */
-  [data-slot="sidebar-inset"][data-sidebar-state="collapsed"] .liquid-glass-page-bg > div[class*="max-w-"] {
-    max-width: 95% !important;
-    margin-left: 2.5rem !important;
-    margin-right: 2.5rem !important;
-  }
-  
-  /* Em telas muito largas, mantemos uma largura confortável em rem */
-  @media (min-width: 1536px) {
-    [data-slot="sidebar-inset"] .liquid-glass-page-bg > div[class*="max-w-"] {
-      max-width: 90rem !important;
-    }
-    
-    [data-slot="sidebar-inset"][data-sidebar-state="collapsed"] .liquid-glass-page-bg > div[class*="max-w-"] {
-      max-width: 100rem !important;
-    }
-  }
-  
-  @media (min-width: 1920px) {
-    [data-slot="sidebar-inset"] .liquid-glass-page-bg > div[class*="max-w-"] {
-      max-width: 95rem !important;
-    }
-    
-    [data-slot="sidebar-inset"][data-sidebar-state="collapsed"] .liquid-glass-page-bg > div[class*="max-w-"] {
-      max-width: 110rem !important;
-    }
-  }
-}
