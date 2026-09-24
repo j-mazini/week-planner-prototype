@@ -15,9 +15,9 @@
   max-width: var(--content-wide);
   margin-inline: auto;
   min-height: calc(100vh - 64px);
-  /* NavbarWrapper already provides the imported-page gutter. Cancel it so
-     this screen has the same single content rail as Route Balance. */
-  margin: 0;
+  /* NavbarWrapper already provides the imported-page gutter, so cancel the
+     vertical margin; the horizontal axis is centered via margin-inline above. */
+  margin-block: 0;
   padding: 0;
   background: var(--dgp-surface);
   color: var(--dgp-ink);
