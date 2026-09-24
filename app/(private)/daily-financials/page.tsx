@@ -427,7 +427,7 @@ export default function Page() {
 
   return (
     <NavbarWrapper>
-      <div className="daily-financials-page pt-16">
+      <div className="daily-financials-page pt-16 w-full max-w-content-wide mx-auto">
         <div className="p-4">
           <h1 className="text-2xl font-bold">Daily Financials</h1>
           <TodayDateLine className="mt-1 text-xs font-medium text-slate-500" />

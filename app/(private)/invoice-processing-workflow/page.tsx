@@ -525,6 +525,7 @@ const InvoiceProcessingWorkflow: React.FC = () => {
   return (
     <NavbarWrapper>
       <div className="pt-16 invoice-workflow-container">
+        <div className="w-full max-w-content-wide mx-auto">
 
         <main className="page-content">
           <header className="header-section">
@@ -1180,6 +1181,7 @@ const InvoiceProcessingWorkflow: React.FC = () => {
           </div>
         </div>
       </div>
+        </div>
       </div>
     </NavbarWrapper>
   );
