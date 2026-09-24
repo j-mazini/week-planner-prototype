@@ -49,8 +49,12 @@ export function ServicePartnerBadge({
             }}
             className={cn(
               "inline-flex items-center select-none font-semibold uppercase whitespace-nowrap cursor-help",
-              "bg-violet-600 text-white border border-violet-700/40 shadow-sm",
-              "outline-none focus-visible:ring-2 focus-visible:ring-violet-400",
+              // Tokens do :root, não as vars do shell (--teal e afins existem só dentro de
+              // .app-imported-page, e este selo também renderiza em modais e portais).
+              // Teal e não o lime do --accent: o lime tem luminância quase igual à do papel
+              // (1.22:1 contra o fundo), então dependeria só do matiz para ser visto.
+              "bg-primary text-primary-foreground border border-primary/40 shadow-sm",
+              "outline-none focus-visible:ring-2 focus-visible:ring-ring",
               sizeMap[size],
               className
             )}
@@ -63,19 +67,19 @@ export function ServicePartnerBadge({
           sideOffset={6}
           className={cn(
             "z-[1100] max-w-xs px-3 py-2 rounded-lg",
-            "bg-slate-900 text-white border border-violet-500/40 shadow-xl",
+            "bg-foreground text-background border border-border/30 shadow-xl",
             "text-xs font-medium tracking-wide"
           )}
         >
           <div className="flex items-center gap-2">
             <span
-              className="inline-flex items-center justify-center w-5 h-5 rounded-md bg-violet-600 text-[9px] font-bold tracking-wider shrink-0"
+              className="inline-flex items-center justify-center w-5 h-5 rounded-md bg-primary text-primary-foreground text-[9px] font-bold tracking-wider shrink-0"
               aria-hidden
             >
               SP
             </span>
             <div className="flex flex-col leading-tight">
-              <span className="text-[10px] uppercase tracking-[0.15em] text-violet-300/90">
+              <span className="text-[10px] uppercase tracking-[0.15em] text-background/70">
                 Service Partner
               </span>
               <span className="text-sm font-semibold text-white">
