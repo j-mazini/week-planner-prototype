@@ -43,7 +43,7 @@ export function DgpPageFrame({
   children,
   backgroundVariant = 'default',
   width = 'standard',
-  containerClassName = "mx-auto px-4 md:px-6 lg:px-8 xl:px-12 py-4 md:py-6 space-y-4 md:space-y-6",
+  containerClassName = "mx-auto px-4 md:px-[clamp(1.5rem,3vw,3rem)] py-4 md:py-[clamp(1.25rem,2vw,1.75rem)] space-y-4 md:space-y-6",
   className = "",
 }: DgpPageFrameProps) {
   const [isMounted, setIsMounted] = useState(false);

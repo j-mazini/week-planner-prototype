@@ -35,4 +35,22 @@ describe('DgpPageFrame width', () => {
     render(<DgpPageFrame width="wide"><p>content</p></DgpPageFrame>);
     expect(container()).toContainHTML('<p>content</p>');
   });
+
+  it('scales the gutter continuously above md instead of freezing it at xl', () => {
+    render(<DgpPageFrame><p>content</p></DgpPageFrame>);
+    expect(container()).toHaveClass('md:px-[clamp(1.5rem,3vw,3rem)]');
+    expect(container()).not.toHaveClass('xl:px-12');
+  });
+
+  it('leaves the sub-md gutter exactly as it was', () => {
+    // Global constraint: nada abaixo de `md` muda de renderização.
+    render(<DgpPageFrame><p>content</p></DgpPageFrame>);
+    expect(container()).toHaveClass('px-4');
+  });
+
+  it('lets a page opt out of the default container entirely', () => {
+    render(<DgpPageFrame containerClassName="w-full px-0"><p>content</p></DgpPageFrame>);
+    expect(container()).toHaveClass('px-0');
+    expect(container()).not.toHaveClass('px-[clamp(1rem,3vw,3rem)]');
+  });
 });
