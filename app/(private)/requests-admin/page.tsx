@@ -241,7 +241,7 @@ export default function RequestsAdminPage() {
   };
 
   return (
-    <StandardPageLayout bottomPadding="pb-[86px]">
+    <StandardPageLayout bottomPadding="pb-[86px]" width="wide">
       <PageHeader alignHeader="between">
         <div className="flex flex-col gap-1">
           <div className="text-[18px] sm:text-[20px] font-semibold text-slate-900">Requests Management</div>
