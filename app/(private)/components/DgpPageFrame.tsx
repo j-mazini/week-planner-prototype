@@ -26,12 +26,6 @@ type DgpPageFrameProps = {
    */
   width?: DgpPageFrameWidth;
   /**
-   * Mantém o padrão do daily-game-plan:
-   * - fundo em gradiente claro
-   * - container bem largo (para tabelas grandes)
-   */
-  maxWidthClassName?: string;
-  /**
    * Permite customizar o container interno (padding/spacing) por página,
    * evitando dependência de breakpoints (`md:`, `lg:`) quando desejado.
    */
@@ -49,7 +43,6 @@ export function DgpPageFrame({
   children,
   backgroundVariant = 'default',
   width = 'standard',
-  maxWidthClassName,
   containerClassName = "mx-auto px-4 md:px-6 lg:px-8 xl:px-12 py-4 md:py-6 space-y-4 md:space-y-6",
   className = "",
 }: DgpPageFrameProps) {
@@ -77,7 +70,7 @@ export function DgpPageFrame({
             }
           }
         `}} />
-        <div className={`${maxWidthClassName ?? widthClass[width]} ${containerClassName} dgp-page-frame-container`}>
+        <div className={`${widthClass[width]} ${containerClassName} dgp-page-frame-container`}>
           {children}
         </div>
       </div>

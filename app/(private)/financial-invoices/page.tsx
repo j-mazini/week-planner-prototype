@@ -300,7 +300,7 @@ export default function FinancialInvoicesPage() {
     <NavbarWrapper>
       <div className="w-full min-w-0">
         <DgpPageFrame
-          maxWidthClassName="w-full max-w-full"
+          width="wide"
           containerClassName="w-full px-0"
           className="font-sans text-slate-800 text-sm"
         >

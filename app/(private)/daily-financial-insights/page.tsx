@@ -396,7 +396,7 @@ const DailyFinancialInsightsContent: React.FC = () => {
       <div className="w-full min-w-0">
         <DgpPageFrame
           className={dailyFinancialInsightsStyles.pageContainer}
-          maxWidthClassName="w-full max-w-full"
+          width="wide"
           containerClassName="w-full px-2 sm:px-3 md:px-0"
         >
           <div id="main-content" className={dailyFinancialInsightsStyles.mainContent}>

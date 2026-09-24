@@ -99,7 +99,7 @@ export default function ServicePartnerInvoicesPage() {
     <NavbarWrapper>
       <div className="w-full min-w-0 bg-gradient-to-br from-purple-100 via-pink-50 to-purple-50">
         <DgpPageFrame
-          maxWidthClassName="w-full max-w-5xl"
+          width="wide"
           className="font-sans text-slate-800 text-sm"
         >
           <div className="space-y-6 py-6">

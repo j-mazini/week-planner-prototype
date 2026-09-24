@@ -329,7 +329,7 @@ const VendorDashboard = () => {
   return (
     <NavbarWrapper>
       <BootstrapLoader />
-      <DgpPageFrame className={vendorStyles.pageContainer}>
+      <DgpPageFrame className={vendorStyles.pageContainer} width="wide">
         <div id="main-content" className={vendorStyles.mainContent}>
           {/* Desktop Version */}
           <main className={vendorStyles.desktopMain}>

@@ -195,7 +195,7 @@ export default function VendorPerformancePage() {
   return (
     <NavbarWrapper>
       <DgpPageFrame
-        maxWidthClassName="max-w-6xl"
+        width="wide"
         containerClassName="mx-auto px-4 py-6 sm:px-6 lg:px-8"
         className="font-sans text-slate-800 text-sm"
       >

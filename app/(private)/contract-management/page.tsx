@@ -554,7 +554,7 @@ const RoutesManagement = () => {
   return (
     <NavbarWrapper>
       <BootstrapLoader />
-      <DgpPageFrame className={contractManagementStyles.pageContainer}>
+      <DgpPageFrame className={contractManagementStyles.pageContainer} width="wide">
         <div id="main-content" className={contractManagementStyles.mainContent}>
           {/* Desktop */}
           <main className={contractManagementStyles.desktopMain}>

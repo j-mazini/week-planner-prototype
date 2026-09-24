@@ -1934,7 +1934,7 @@ export default function DailyOperationsManagementPage() {
 
   return (
     <NavbarWrapper>
-      <DgpPageFrame maxWidthClassName="w-full max-w-full" containerClassName="w-full px-0">
+      <DgpPageFrame width="wide" containerClassName="w-full px-0">
         <div className="w-full px-2 sm:px-4 md:px-6 pt-4 sm:pt-6 pb-4 sm:pb-6">
           <OperationsHeaderControls
             selectedDate={selectedDate}

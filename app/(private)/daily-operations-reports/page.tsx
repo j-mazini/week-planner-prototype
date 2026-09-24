@@ -434,7 +434,7 @@ export default function Page() {
         <NavbarWrapper>
             <div className="w-full min-w-0">
                 <DgpPageFrame
-                    maxWidthClassName="w-full max-w-full"
+                    width="wide"
                     containerClassName="w-full px-2 sm:px-3 md:px-0"
                     className={dailyOperationsReportsStyles.pageContainer}
                 >

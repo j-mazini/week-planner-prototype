@@ -293,7 +293,7 @@ export default function RequestsPage() {
       <NavbarWrapper>
         <div className="w-full min-w-0">
           <DgpPageFrame
-            maxWidthClassName="w-full max-w-full"
+            width="narrow"
             containerClassName="w-full px-[3%] md:px-6 lg:px-8 py-[2%] md:py-6 space-y-[2%] md:space-y-6"
             className="font-sans text-slate-800 text-sm"
           >
