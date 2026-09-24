@@ -152,7 +152,7 @@ export const processMonthData = (
       day,
       dayOfWeek,
       route,
-      stops: dayAgg.spr > 0 ? dayAgg.spr : '--:--',
+      stops: dayOperations.reduce((total, operation) => total + (Number.isFinite(operation.totalStops) ? operation.totalStops : 0), 0),
       sporH,
       tw,
       spr,

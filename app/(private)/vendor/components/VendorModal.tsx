@@ -6055,7 +6055,7 @@ const VendorModal: React.FC<VendorModalProps> = memo(({
             {mode === 'edit' && showNewCostModels.vsr && (
               <>
                 <div className="col-12 mt-3 d-flex justify-content-between align-items-center">
-                  <strong className="text-primary" style={{ color: '#6f42c1' }}>New VSR</strong>
+                  <strong className="text-primary" style={{ color: '#003b3e' }}>New VSR</strong>
                   <button
                     type="button"
                     className="btn btn-sm btn-outline-secondary"
@@ -6116,7 +6116,7 @@ const VendorModal: React.FC<VendorModalProps> = memo(({
             {mode === 'edit' && showNewCostModels.vsrEletric && (
               <>
                 <div className="col-12 mt-3 d-flex justify-content-between align-items-center">
-                  <strong className="text-primary" style={{ color: '#6f42c1' }}>New VSR <span className="text-success">Eletric</span></strong>
+                  <strong className="text-primary" style={{ color: '#003b3e' }}>New VSR <span className="text-success">Eletric</span></strong>
                   <button
                     type="button"
                     className="btn btn-sm btn-outline-secondary"
@@ -6181,7 +6181,7 @@ const VendorModal: React.FC<VendorModalProps> = memo(({
             {mode === 'edit' && showNewCostModels.spVsr && (
               <>
                 <div className="col-12 mt-3 d-flex justify-content-between align-items-center">
-                  <strong className="text-primary" style={{ color: '#6f42c1' }}>New SP VSR</strong>
+                  <strong className="text-primary" style={{ color: '#003b3e' }}>New SP VSR</strong>
                   <button
                     type="button"
                     className="btn btn-sm btn-outline-secondary"
@@ -6250,7 +6250,7 @@ const VendorModal: React.FC<VendorModalProps> = memo(({
             {mode === 'edit' && showNewCostModels.spVsrEletric && (
               <>
                 <div className="col-12 mt-3 d-flex justify-content-between align-items-center">
-                  <strong className="text-primary" style={{ color: '#6f42c1' }}>New SP VSR <span className="text-success">Eletric</span></strong>
+                  <strong className="text-primary" style={{ color: '#003b3e' }}>New SP VSR <span className="text-success">Eletric</span></strong>
                   <button type="button" className="btn btn-sm btn-outline-secondary" onClick={() => toggleNewCostModel('spVsrEletric')}>
                     <i className="bi bi-x-lg"></i> Cancel
                   </button>
@@ -6304,7 +6304,7 @@ const VendorModal: React.FC<VendorModalProps> = memo(({
             {mode === 'edit' && showNewCostModels.fsr && (
               <>
                 <div className="col-12 mt-3 d-flex justify-content-between align-items-center">
-                  <strong className="text-primary" style={{ color: '#6f42c1' }}>New FSR</strong>
+                  <strong className="text-primary" style={{ color: '#003b3e' }}>New FSR</strong>
                   <button
                     type="button"
                     className="btn btn-sm btn-outline-secondary"
@@ -6356,7 +6356,7 @@ const VendorModal: React.FC<VendorModalProps> = memo(({
             {mode === 'edit' && showNewCostModels.fsrEletric && (
               <>
                 <div className="col-12 mt-3 d-flex justify-content-between align-items-center">
-                  <strong className="text-primary" style={{ color: '#6f42c1' }}>New FSR Eletric</strong>
+                  <strong className="text-primary" style={{ color: '#003b3e' }}>New FSR Eletric</strong>
                   <button type="button" className="btn btn-sm btn-outline-secondary" onClick={() => toggleNewCostModel('fsrEletric')}>
                     <i className="bi bi-x-lg"></i> Cancel
                   </button>
@@ -6403,7 +6403,7 @@ const VendorModal: React.FC<VendorModalProps> = memo(({
             {mode === 'edit' && showNewCostModels.dr && (
               <>
                 <div className="col-12 mt-3 d-flex justify-content-between align-items-center">
-                  <strong className="text-primary" style={{ color: '#6f42c1' }}>New DR</strong>
+                  <strong className="text-primary" style={{ color: '#003b3e' }}>New DR</strong>
                   <button
                     type="button"
                     className="btn btn-sm btn-outline-secondary"
@@ -6455,7 +6455,7 @@ const VendorModal: React.FC<VendorModalProps> = memo(({
             {mode === 'edit' && showNewCostModels.drEletric && (
               <>
                 <div className="col-12 mt-3 d-flex justify-content-between align-items-center">
-                  <strong className="text-primary" style={{ color: '#6f42c1' }}>New DR Eletric</strong>
+                  <strong className="text-primary" style={{ color: '#003b3e' }}>New DR Eletric</strong>
                   <button type="button" className="btn btn-sm btn-outline-secondary" onClick={() => toggleNewCostModel('drEletric')}>
                     <i className="bi bi-x-lg"></i> Cancel
                   </button>
@@ -6509,7 +6509,7 @@ const VendorModal: React.FC<VendorModalProps> = memo(({
             {mode === 'edit' && showNewCostModels.daf && (
               <>
                 <div className="col-12 mt-3 d-flex justify-content-between align-items-center">
-                  <strong className="text-primary" style={{ color: '#6f42c1' }}>New DAF</strong>
+                  <strong className="text-primary" style={{ color: '#003b3e' }}>New DAF</strong>
                   <button
                     type="button"
                     className="btn btn-sm btn-outline-secondary"
@@ -6570,7 +6570,7 @@ const VendorModal: React.FC<VendorModalProps> = memo(({
             {mode === 'edit' && showNewCostModels.dafEletric && (
               <>
                 <div className="col-12 mt-3 d-flex justify-content-between align-items-center">
-                  <strong className="text-primary" style={{ color: '#6f42c1' }}>New DAF <span className="text-success">Eletric</span></strong>
+                  <strong className="text-primary" style={{ color: '#003b3e' }}>New DAF <span className="text-success">Eletric</span></strong>
                   <button
                     type="button"
                     className="btn btn-sm btn-outline-secondary"
@@ -6651,7 +6651,7 @@ const VendorModal: React.FC<VendorModalProps> = memo(({
             {mode === 'edit' && showNewCostModels.hourlyEletric && (
               <>
                 <div className="col-12 mt-3 d-flex justify-content-between align-items-center">
-                  <strong className="text-primary" style={{ color: '#6f42c1' }}>New Hourly Eletric</strong>
+                  <strong className="text-primary" style={{ color: '#003b3e' }}>New Hourly Eletric</strong>
                   <button type="button" className="btn btn-sm btn-outline-secondary" onClick={() => toggleNewCostModel('hourlyEletric')}>
                     <i className="bi bi-x-lg"></i> Cancel
                   </button>
@@ -6750,7 +6750,7 @@ const VendorModal: React.FC<VendorModalProps> = memo(({
         aria-modal="true"
       >
         <div
-          className={vendorStyles.vendorModalContent}
+          className={`vendor-theme ${vendorStyles.vendorModalContent}`}
           onClick={(e) => e.stopPropagation()}
         >
           {/* Header */}
@@ -7001,4 +7001,3 @@ const VendorModal: React.FC<VendorModalProps> = memo(({
 VendorModal.displayName = 'VendorModal';
 
 export default VendorModal;
-

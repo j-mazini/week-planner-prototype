@@ -1,12 +1,12 @@
 "use client";
 
-import { useState, type ReactNode } from "react";
+import { useEffect, useState, type ReactNode } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
-  Activity, BarChart3, CalendarDays, CarFront, ClipboardList, FileBarChart,
+  ArrowRightLeft, Building2, Handshake, Inbox, TrendingUp, Wallet, Activity, BarChart3, CalendarDays, CarFront, ClipboardList, FileBarChart,
   FileSpreadsheet, FileText, Gauge, Home, Landmark, LayoutDashboard, ListChecks,
-  Package, Receipt, Route as RouteIcon, Settings2, ShieldCheck, Truck, Users,
+  Menu, Package, Receipt, Route as RouteIcon, Settings2, ShieldCheck, Truck, Users,
 } from "lucide-react";
 import "./NavbarWrapper.css";
 
@@ -30,7 +30,7 @@ const importedGroups = [
       ["/op-management", "Operations control", Settings2],
       ["/performance", "Performance", Gauge],
       ["/current-month", "Current month", CalendarDays],
-      ["/subcontractor", "Subcontractor", Users], ["/schedule", "Schedule", CalendarDays],
+      ["/schedule", "Schedule", CalendarDays],
       ["/vehicles", "Vehicles", CarFront], ["/week-planner-operations", "Planner operations", ClipboardList],
     ],
   },
@@ -50,27 +50,103 @@ const importedGroups = [
     label: "CONTROL",
     items: [
       ["/assets", "Assets", Package], ["/contract-management", "Contracts", ShieldCheck],
-      ["/requests", "Requests", ClipboardList], ["/requests-inbox", "Requests inbox", ListChecks],
+      ["/requests-inbox", "Requests inbox", ListChecks],
       ["/requests-admin", "Requests admin", ShieldCheck],
       ["/vendor", "Vendor", Users], ["/vendor-performance", "Vendor performance", BarChart3],
     ],
   },
 ] as const;
 
-export default function NavbarWrapper({ children, title, active }: { children: ReactNode; title: string; active: NavKey }) {
+// Names, order and destinations follow the original Logixsphere BeamSidebar.
+const primaryItems = [
+  ["/home", "Home", Home],
+  ["/requests-inbox", "Vendor Requests", Inbox],
+] as const;
+
+const sidebarGroups = [
+  {
+    label: "My Performance",
+    items: [
+      ["/daily-performance-insight", "Today", Gauge],
+      ["/current-performance", "Month", BarChart3],
+      ["/subcontractor", "Subcontractor", Users],
+      ["/deductions", "Deductions", Wallet],
+      ["/current-month", "Current month", CalendarDays],
+      ["/mobile-invoice", "Mobile invoice", FileText],
+      ["/requests", "Requests", ClipboardList],
+    ],
+  },
+  {
+    label: "Operations",
+    items: [
+      ["/vendor", "Vendor", Building2],
+      ["/vehicles", "Vehicles", Truck],
+      ["/contract-management", "Contract Management", RouteIcon],
+      ["/assets", "Assets", Package],
+      ["/week-planner", "Week Planner", CalendarDays],
+      ["/daily-game-plan", "Daily Game Plan", ListChecks],
+      ["/daily-operations-management", "Daily Operations Management", ClipboardList],
+      ["/daily-operations-reports", "Daily Operations Insights", ArrowRightLeft],
+      ["/vendor-performance", "Vendor performance", BarChart3],
+    ],
+  },
+  {
+    label: "Financial",
+    items: [
+      ["/daily-financial-insights", "Daily Financial Insights", TrendingUp],
+      ["/deductions-disbursements-recharges", "Disbursements & recharges", Receipt],
+      ["/financial-invoices", "Invoices", Receipt],
+      ["/service-partner-invoices", "Service Partner Invoices", Handshake],
+      ["/adhoc-works-invoice-management", "Adhoc Works Invoice Management", FileSpreadsheet],
+    ],
+  },
+] as const;
+
+export default function NavbarWrapper({ children, title }: { children: ReactNode; title: string; active: NavKey }) {
   const [collapsed, setCollapsed] = useState(true);
   const [search, setSearch] = useState("");
-  const pages = [
-    ["/home", "Home"], ["/week-planner", "Week Planner"], ["/route-balance", "Route Balance"],
-    ...importedGroups.flatMap(group => group.items.map(([href, label]) => [href, label])),
-  ];
+  useEffect(() => {
+    try { setCollapsed(sessionStorage.getItem("logix-sidebar-expanded") !== "true"); } catch { /* Storage may be unavailable. */ }
+  }, []);
+  const toggleSidebar = () => {
+    setCollapsed(previous => {
+      try { sessionStorage.setItem("logix-sidebar-expanded", String(previous)); } catch { /* Keep navigation usable without storage. */ }
+      return !previous;
+    });
+  };
+  const closeSidebar = () => {
+    setCollapsed(true);
+    try { sessionStorage.setItem("logix-sidebar-expanded", "false"); } catch { /* Optional preference. */ }
+  };
+  const closeOnMobile = () => {
+    if (window.matchMedia("(max-width: 640px)").matches) closeSidebar();
+  };
+  const pages = [...new Map([
+    ...sidebarGroups.flatMap(group => group.items.map(([href, label]) => [href, label] as const)),
+    ...primaryItems.map(([href, label]) => [href, label] as const),
+    ...importedGroups.flatMap(group => group.items.map(([href, label]) => [href, label] as const)),
+    ["/route-balance", "Route Balance"] as const,
+  ]).entries()];
   const matches = pages.filter(([, label]) => label.toLowerCase().includes(search.trim().toLowerCase()));
   const pathname = usePathname() ?? "";
-  const navClass = (key: NavKey) => `app-navitem${pathname === `/${key}` ? " active" : ""}`;
-  const navCurrent = (key: NavKey) => (pathname === `/${key}` ? "page" : undefined);
+  const renderItem = ([href, label, Icon]: (typeof primaryItems)[number] | (typeof sidebarGroups)[number]["items"][number]) => (
+    <Link
+      prefetch={false}
+      key={href}
+      className={`app-navitem${pathname === href ? " active" : ""}`}
+      href={href}
+      aria-label={label}
+      title={collapsed ? label : undefined}
+      aria-current={pathname === href ? "page" : undefined}
+      onClick={closeOnMobile}
+    >
+      <span className="nav-icon"><Icon size={20} strokeWidth={1.8} /></span>
+      <span>{label}</span>
+    </Link>
+  );
   return (
     <div className={`app-shell${collapsed ? "" : " sidebar-expanded"}`}>
-      <aside className="app-sidebar" aria-label="Main navigation">
+      <aside className="app-sidebar" aria-label="Main navigation" onKeyDown={event => { if (event.key === "Escape") { closeSidebar(); event.currentTarget.querySelector<HTMLButtonElement>(".sidebar-toggle")?.focus(); } }}>
         <div className="app-brand" aria-label="LogixSphere">
           <span>LOGIX /</span>
           <span>SPHERE</span>
@@ -79,31 +155,19 @@ export default function NavbarWrapper({ children, title, active }: { children: R
           className="sidebar-toggle"
           type="button"
           aria-label={collapsed ? "Expand navigation" : "Collapse navigation"}
-          onClick={() => setCollapsed((prev) => !prev)}
+          aria-expanded={!collapsed}
+          aria-controls="sidebar-navigation"
+          onClick={toggleSidebar}
         >
           {collapsed ? "›" : "‹"}
         </button>
-        <nav className="app-nav">
-          <Link prefetch={false} className={navClass("home")} href="/home" aria-current={navCurrent("home")} aria-label="Home"><span className="nav-icon"><Home size={17} /></span><span>Home</span></Link>
-          <Link prefetch={false} className={navClass("week-planner")} href="/week-planner" aria-current={navCurrent("week-planner")} aria-label="Week Planner"><span className="nav-icon"><CalendarDays size={17} /></span><span>Week Planner</span></Link>
-          <Link prefetch={false} className={navClass("route-balance")} href="/route-balance" aria-current={navCurrent("route-balance")} aria-label="Route Balance"><span className="nav-icon"><RouteIcon size={17} /></span><span>Route Balance</span></Link>
-          <button className={navClass("cleaning-desk")} type="button" aria-current={navCurrent("cleaning-desk")} aria-label="Cleaning Desk"><span className="nav-icon"><Package size={17} /></span><span>Cleaning Desk</span></button>
-          {importedGroups.map((group) => (
-            <div className="app-navgroup" key={group.label}>
-              <div className="app-navsection-label">{group.label}</div>
-              {group.items.map(([href, label, Icon]) => (
-                <Link
-                  prefetch={false}
-                  key={href}
-                  className={`app-navitem${pathname === href ? " active" : ""}`}
-                  href={href}
-                  aria-label={label}
-                  aria-current={pathname === href ? "page" : undefined}
-                >
-                  <span className="nav-icon"><Icon size={17} strokeWidth={1.8} /></span><span>{label}</span>
-                </Link>
-              ))}
-            </div>
+        <nav className="app-nav" id="sidebar-navigation">
+          <div className="app-navprimary">{primaryItems.map(renderItem)}</div>
+          {sidebarGroups.map(group => (
+            <section className="app-navgroup" key={group.label} aria-label={group.label}>
+              <h2 className="app-navsection-label">{group.label}</h2>
+              {group.items.map(renderItem)}
+            </section>
           ))}
         </nav>
         <div className="app-navbottom">
@@ -111,13 +175,17 @@ export default function NavbarWrapper({ children, title, active }: { children: R
           <button className="app-navitem" type="button" aria-label="System status"><span className="nav-icon">▣</span><span>System Status</span></button>
         </div>
       </aside>
+      {!collapsed && <button className="app-sidebar-backdrop" type="button" aria-label="Close navigation" onClick={closeSidebar} />}
       <div className="app-main">
         <header className="app-topbar">
+          <button className="app-mobile-menu" type="button" aria-label="Open navigation" aria-expanded={!collapsed} onClick={toggleSidebar}>
+            <Menu size={20} strokeWidth={1.8} />
+          </button>
           <h1>{title}</h1>
           <div className="app-toptools">
             <label className="app-search">
               <span className="sr-only">Search system</span>
-              <input type="search" placeholder="SEARCH SYSTEM..." value={search} onChange={event => setSearch(event.target.value)} onKeyDown={event => { if (event.key === "Escape") setSearch(""); }} aria-controls="system-search-results" />
+              <input type="search" aria-label="Search system" placeholder="SEARCH SYSTEM..." value={search} onChange={event => setSearch(event.target.value)} onKeyDown={event => { if (event.key === "Escape") setSearch(""); }} aria-controls="system-search-results" />
               {search.trim() && (
                 <span id="system-search-results" className="app-search-results" role="region" aria-label="Matching pages">
                   {matches.length ? matches.map(([href, label]) => <Link prefetch={false} key={href} href={href} onClick={() => setSearch("")}>{label}</Link>) : <span role="status">No pages found.</span>}

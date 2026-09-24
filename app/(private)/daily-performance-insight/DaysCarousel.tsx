@@ -22,20 +22,19 @@ export const DaysCarousel = React.memo<DaysCarouselProps>(({
 
   // Rola o carrossel para o dia atual quando a página é carregada ou a data muda
   useEffect(() => {
-    const scrollToActive = () => {
-      const activeElement = carouselRef.current?.querySelector('[data-day-active="true"]');
-      if (activeElement) {
-        activeElement.scrollIntoView({ behavior: 'auto', block: 'nearest', inline: 'center' });
-      }
+    const container = carouselRef.current;
+    if (!container) return;
+    const centerActive = () => {
+      const active = container.querySelector<HTMLElement>('[data-day-active="true"]');
+      if (!active) return;
+      const bounds = container.getBoundingClientRect();
+      const item = active.getBoundingClientRect();
+      container.scrollTo({ left: container.scrollLeft + item.left - bounds.left - (bounds.width - item.width) / 2, behavior: "instant" });
     };
-
-    const timeout1 = setTimeout(scrollToActive, 100);
-    const timeout2 = setTimeout(scrollToActive, 300);
-    
-    return () => {
-      clearTimeout(timeout1);
-      clearTimeout(timeout2);
-    };
+    centerActive();
+    const observer = new ResizeObserver(centerActive);
+    observer.observe(container);
+    return () => observer.disconnect();
   }, [selectedDate, displayMonth]);
 
   // Gera os itens do carrossel memoizado
@@ -57,8 +56,8 @@ export const DaysCarousel = React.memo<DaysCarouselProps>(({
         <motion.button
           key={day}
           type="button"
-          role="option"
-          aria-selected={isSelected}
+          aria-label={format(d, "EEEE, dd MMMM yyyy")}
+          aria-pressed={isSelected}
           data-day-active={isSelected}
           onClick={() => onDayClick(day)}
           whileHover={{ scale: 1.03 }}

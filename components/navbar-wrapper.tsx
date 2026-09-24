@@ -7,6 +7,8 @@ import { SidebarProvider } from "@/components/ui/sidebar";
 
 const TITLES: Record<string, string> = {
   "/home": "HOME",
+  "/daily-performance-insight": "MY PERFORMANCE",
+  "/current-performance": "MY PERFORMANCE",
   "/assets": "ASSETS",
   "/contract-management": "CONTRACT MANAGEMENT",
   "/daily": "DAILY OPERATIONS",

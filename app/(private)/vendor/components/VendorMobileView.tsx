@@ -102,7 +102,7 @@ const VendorMobileViewComponent: React.FC<VendorMobileViewProps> = ({
           subtitle="Vendor management and information"
           metrics={metrics}
           gradientFrom="slate-900"
-          gradientTo="indigo-600"
+          gradientTo="teal-600"
           metricsLayout="grid4compact"
         />
       </div>
@@ -142,7 +142,7 @@ const VendorMobileViewComponent: React.FC<VendorMobileViewProps> = ({
             <button
               type="button"
               onClick={handleClearSelection}
-              className="text-xs font-medium text-blue-600 hover:text-blue-700 px-2 py-1 rounded"
+              className="text-xs font-medium text-[#27676c] hover:text-[#003b3e] px-2 py-1 rounded"
             >
               Change vendor
             </button>
@@ -165,7 +165,7 @@ const VendorMobileViewComponent: React.FC<VendorMobileViewProps> = ({
               placeholder="Search by name or email..."
               value={selectorSearch}
               onChange={(e) => setSelectorSearch(e.target.value)}
-              className="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent"
+              className="w-full border border-[#c7cdbb] rounded-lg px-3 py-2 text-sm bg-[#fffef8] text-[#1a1c16] focus:outline-none focus:ring-0 focus:border-[#27676c]"
               aria-label="Search vendors"
             />
           </div>
@@ -232,5 +232,3 @@ const areEqual = (prevProps: VendorMobileViewProps, nextProps: VendorMobileViewP
 const VendorMobileView = memo(VendorMobileViewComponent, areEqual);
 
 export default VendorMobileView;
-
-

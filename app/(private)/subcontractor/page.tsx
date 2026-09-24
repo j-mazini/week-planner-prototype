@@ -77,7 +77,7 @@ export default function SubcontractorPage() {
   );
 
   return (
-    <StandardPageLayout bottomPadding="pb-[70px]">
+    <StandardPageLayout width="wide" bottomPadding="pb-[70px]">
       <PageHeader alignHeader="between">
         <MonthSelector
           date={date}

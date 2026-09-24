@@ -39,6 +39,8 @@ export const MonthCarousel = memo(function MonthCarousel({
           key={`${year}-${month}`}
           type="button"
           data-active={isActive}
+          aria-pressed={isActive}
+          aria-label={date.toLocaleString("en-GB", { month: "long", year: "numeric" })}
           whileHover={{ scale: 1.03 }}
           whileTap={{ scale: 0.98 }}
           className={`${currentPerformanceStyles.monthCarouselButtonBase} ${
@@ -97,22 +99,14 @@ export const MonthCarousel = memo(function MonthCarousel({
       
       scrollContainer.scrollTo({
         left: finalScroll,
-        behavior: "smooth"
+        behavior: "instant"
       });
     };
 
-    // Múltiplos timers para garantir que funcione
-    const timer1 = setTimeout(centerActive, 100);
-    const timer2 = setTimeout(centerActive, 300);
-    const timer3 = setTimeout(centerActive, 500);
-    const timer4 = setTimeout(centerActive, 700);
-
-    return () => {
-      clearTimeout(timer1);
-      clearTimeout(timer2);
-      clearTimeout(timer3);
-      clearTimeout(timer4);
-    };
+    centerActive();
+    const observer = new ResizeObserver(centerActive);
+    observer.observe(scrollContainer);
+    return () => observer.disconnect();
   }, [selectedYear, selectedMonth, carouselItems]);
 
   return (

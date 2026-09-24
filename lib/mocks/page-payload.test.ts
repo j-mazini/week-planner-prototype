@@ -58,6 +58,12 @@ describe('demo page data', () => {
     expect(detail.details.reduce((sum, row) => sum + row.total, 0)).toBe(invoices[0].totalPayment);
     expect(detail.vendor.vendorId).toBe(101);
   });
+  it('preserves the user envelope expected by invoice dialogs', () => {
+    const result = mockPayload('/bff/users/by-company/1/without-invoice?month=9&year=2026&servicePartnerId=501') as { users: { userName: string; userLastName: string; servicePartnerId: number }[] };
+    expect(result.users).toHaveLength(6);
+    expect(result.users[0].userName).toBe('João');
+    expect(result.users.every(user => user.servicePartnerId === 501)).toBe(true);
+  });
   it.each(['/bff/vendor', '/bff/routes', '/bff/deposits', '/bff/invoices', '/bff/service-partner-invoices', '/bff/adhoc-works', '/bff/reports', '/bff/vendor-requests', '/bff/week-planners', '/bff/service-types'])('populates %s', path => {
     const rows = mockPayload(path);
     expect(Array.isArray(rows)).toBe(true);

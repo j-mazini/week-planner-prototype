@@ -2,35 +2,53 @@
    Owned by NavbarWrapper so any page that renders it gets consistent
    chrome without depending on another feature's stylesheet. */
 .app-shell { --mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace; --display: "Space Grotesk", "Helvetica Neue", Arial, sans-serif; --lime: #b2f746; --olive: #446900; min-height: 100vh; background: #fafaef; color: #1a1c16; }
-.app-sidebar { position: fixed; inset: 0 auto 0 0; z-index: 20; width: 58px; display: flex; flex-direction: column; align-items: stretch; background: #e9e9de; border-right: 1px solid #c9cec7; transition: width .15s ease; }
-.app-brand { height: 106px; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 0; font-family: var(--display); font-size: 0; font-weight: 700; line-height: 1.02; color: #17171a; }
-.app-brand::before { content: "L/"; font-size: 29px; letter-spacing: -2px; }
-.app-brand::after { content: "S"; font-size: 29px; letter-spacing: -2px; }
+.app-sidebar { position: fixed; inset: 0 auto 0 0; z-index: 20; width: 58px; display: flex; flex-direction: column; align-items: stretch; background: #e9e9de; border-right: 1px solid #bfc8c9; transition: width .15s ease; }
+.app-mobile-menu { display: none; }
+.app-sidebar-backdrop { display: none; }
+.app-brand { height: 133px; flex: none; display: flex; flex-direction: column; align-items: center; padding-top: 18px; font-family: var(--display); font-weight: 700; line-height: 1.2; color: #1a1c16; }
+.app-brand::before { content: "L/"; font-size: 32px; letter-spacing: -1.6px; }
+.app-brand::after { content: "S"; font-size: 32px; letter-spacing: -1.6px; }
 .app-brand span { display: none; }
-/* Expanded: matches the canonical "Property 1=Opened" sidebar variant
-   (175px, full wordmark, icon+label nav items) instead of the icon-only
-   58px rail shown by default. */
+/* Figma: 58px compact rail, 175px opened sidebar. Long product labels wrap. */
 .sidebar-expanded .app-sidebar { width: 175px; }
-.sidebar-expanded .app-brand { height: auto; padding: 24px 0 12px 20px; align-items: flex-start; font-size: 16px; }
+.sidebar-expanded .app-brand { padding: 24px 16px 0; align-items: flex-start; }
 .sidebar-expanded .app-brand::before, .sidebar-expanded .app-brand::after { content: none; }
-.sidebar-expanded .app-brand span { display: block; font-size: 29px; letter-spacing: -1.6px; }
-.sidebar-expanded .app-navitem { justify-content: flex-start; padding-left: 20px; }
-.sidebar-expanded .app-navitem > span:last-child { display: inline; }
+.sidebar-expanded .app-brand span { display: block; font-size: 32px; letter-spacing: -1.6px; }
+.sidebar-expanded .app-navitem { justify-content: flex-start; padding: 12px 12px 12px 20px; }
+.sidebar-expanded .app-navitem > span:last-child { display: block; min-width: 0; overflow-wrap: anywhere; }
 .sidebar-expanded .app-main { margin-left: 175px; }
-.sidebar-toggle { position: absolute; top: 94px; right: -12px; width: 24px; height: 24px; border-radius: 50%; display: grid; place-items: center; padding: 0; border: 1px solid #c9cec7; background: #fff; color: var(--olive); font-size: 13px; line-height: 1; cursor: pointer; box-shadow: 0 1px 3px rgba(23, 23, 26, .18); transition: background-color .15s ease, transform .1s ease; }
-.sidebar-toggle:hover { background: #f3f3ec; }
-.sidebar-toggle:active { transform: scale(.92); }
-.app-nav { flex: 1; min-height: 0; display: flex; flex-direction: column; gap: 2px; padding-top: 22px; overflow-y: auto; overflow-x: hidden; scrollbar-width: thin; }
-.app-navsection-label { display: none; }
-.sidebar-expanded .app-navsection-label { display: block; padding: 18px 20px 6px; color: #7a8176; font: 700 9px/1 var(--mono); letter-spacing: .08em; white-space: nowrap; }
-.sidebar-expanded .app-navgroup + .app-navgroup { border-top: 1px solid #d2d5cc; margin-top: 9px; padding-top: 1px; }
-.app-navbottom { margin-top: auto; display: flex; flex-direction: column; gap: 2px; padding-bottom: 12px; border-top: 1px solid #c9cec7; }
-.app-navitem { width: 100%; min-height: 40px; display: flex; align-items: center; justify-content: center; gap: 10px; padding: 0; border: 0; background: transparent; color: #586052; font-family: var(--mono); font-size: 11px; font-weight: 600; text-align: left; cursor: pointer; text-decoration: none; }
-.app-navitem.active { background: var(--lime); color: var(--olive); }
-.app-navitem:hover { background: rgba(178, 247, 70, .56); color: var(--olive); }
-.nav-icon { width: 22px; height: 20px; flex: none; display: grid; place-items: center; font-family: Arial, sans-serif; font-size: 20px; line-height: 1; }
+.sidebar-toggle { position: absolute; top: 107px; right: -12px; width: 24px; height: 24px; display: grid; place-items: center; padding: 0; border: 0; border-radius: 0; background: #1a1c16; color: #fafaef; font-size: 25px; line-height: 1; cursor: pointer; }
+.sidebar-toggle:hover { background: #003b3e; }
+.app-nav { flex: 1; min-height: 0; overflow-y: auto; overflow-x: hidden; scrollbar-width: thin; scrollbar-color: #bfc8c9 transparent; padding-bottom: 12px; }
+.app-navsection-label { display: none; margin: 0; }
+.app-navgroup { border-top: 1px solid #bfc8c9; margin-top: 10px; padding-top: 10px; }
+.sidebar-expanded .app-navsection-label { display: block; padding: 4px 16px 10px; color: #3f4849; font: 500 10px/1.5 var(--mono); letter-spacing: .06em; text-transform: uppercase; }
+.app-navbottom { flex: none; margin: 0 16px 24px; padding-top: 12px; border-top: 1px solid #bfc8c9; }
+.app-navitem { position: relative; width: 100%; min-height: 43px; display: flex; align-items: center; justify-content: center; gap: 12px; padding: 12px 0; border: 0; border-radius: 0; background: transparent; color: #3f4849; font-family: var(--mono); font-size: 12px; font-weight: 500; line-height: 1.35; text-align: left; cursor: pointer; text-decoration: none; }
+.app-navitem.active { background: var(--lime); color: #416400; font-weight: 700; box-shadow: inset 4px 0 #003b3e; }
+.app-navitem:hover { background: #dce9c5; color: #003b3e; }
+.app-navitem.active:hover { background: var(--lime); color: #416400; }
+.app-navitem:focus-visible, .sidebar-toggle:focus-visible { outline: 2px solid #003b3e; outline-offset: -3px; }
+.nav-icon { width: 20px; height: 20px; flex: none; display: grid; place-items: center; font-family: Arial, sans-serif; font-size: 20px; line-height: 1; }
 .app-navitem > span:last-child { display: none; }
+.app-navbottom .app-navitem { min-height: 23px; padding: 4px 0; gap: 8px; font-size: 10px; font-weight: 400; line-height: 1.5; text-transform: uppercase; }
+.app-navbottom .nav-icon { width: 12px; height: 15px; font-size: 14px; }
 .app-main { min-height: 100vh; margin-left: 58px; }
+@media (max-width: 640px) {
+  .app-sidebar { width: min(280px, 84vw); transform: translateX(-100%); transition: transform .2s ease; }
+  .sidebar-expanded .app-sidebar { width: min(280px, 84vw); transform: translateX(0); box-shadow: 8px 0 24px #1a1c1633; }
+  .app-main, .sidebar-expanded .app-main { margin-left: 0; }
+  .sidebar-toggle { display: none; }
+  .sidebar-expanded .app-sidebar-backdrop { display: block; position: fixed; inset: 0; z-index: 19; width: 100%; height: 100%; border: 0; background: #10171366; }
+  .sidebar-toggle { right: -12px; }
+  .app-topbar { justify-content: flex-start; }
+  .app-mobile-menu { width: 40px; height: 40px; flex: none; display: grid; place-items: center; padding: 0; border: 1px solid #c7cdbb; background: #fffef8; color: #003b3e; cursor: pointer; }
+  .app-topbar h1 { flex: 1; }
+  .app-toptools { margin-left: auto; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .app-sidebar { transition: none; }
+}
 .app-topbar { height: 64px; display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: 0 45px 0 37px; border-bottom: 1px solid #d7d9d0; background: #fbfbf2; }
 .app-topbar h1 { margin: 0; font-family: var(--display); font-size: 28px; font-weight: 700; letter-spacing: -.8px; }
 .app-toptools { display: flex; align-items: center; gap: 23px; }
@@ -201,6 +219,65 @@
 .app-imported-page textarea:focus-visible { outline: 2px solid var(--lime); outline-offset: 2px; }
 .app-imported-page [role="dialog"],
 .app-imported-page [data-radix-dialog-content] { border: 1px solid var(--line) !important; background: var(--paper) !important; color: var(--ink) !important; }
+
+/* LogixSphere modal surfaces shared by Radix dialogs and LightModal. */
+.logix-dialog {
+  max-height: 90dvh;
+  overflow-y: auto;
+  border: 1px solid #c7cdbb !important;
+  border-radius: 3px !important;
+  background: #fffef8 !important;
+  color: #1a1c16 !important;
+  box-shadow: 0 16px 48px rgba(0, 59, 62, .18) !important;
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+}
+.logix-dialog h1, .logix-dialog h2, .logix-dialog h3 {
+  color: #1a1c16;
+  font-family: "Space Grotesk", "Helvetica Neue", Arial, sans-serif;
+  letter-spacing: -.02em;
+}
+.logix-dialog [data-radix-dialog-close] {
+  border-radius: 2px;
+  color: #27676c;
+}
+.logix-dialog [data-radix-dialog-close]:hover { background: #e5f1dc; color: #003b3e; }
+.logix-dialog input, .logix-dialog select, .logix-dialog textarea {
+  border: 1px solid #c7cdbb;
+  border-radius: 2px;
+  background: #fffef8;
+  color: #1a1c16;
+  box-shadow: none;
+}
+.logix-invoice-dialog { max-height: 95dvh; }
+.logix-invoice-dialog #invoice-content {
+  border: 1px solid #e3e5d9;
+  background: #fffef8;
+  color: #1a1c16;
+  box-shadow: none;
+}
+.logix-light-modal-panel {
+  max-height: 90dvh;
+  overflow: hidden;
+  border: 1px solid #c7cdbb;
+  border-radius: 3px;
+  background: #fffef8;
+  color: #1a1c16;
+  box-shadow: 0 16px 48px rgba(0, 59, 62, .18);
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+}
+.light-modal-backdrop { background: rgba(0, 59, 62, .38); backdrop-filter: blur(3px); -webkit-backdrop-filter: blur(3px); }
+.light-modal-header { border-color: #c7cdbb; background: #eef1df; }
+.light-modal-header h2 { color: #1a1c16; font-family: "Space Grotesk", "Helvetica Neue", Arial, sans-serif; }
+.light-modal-close { border-radius: 2px; color: #27676c; }
+.light-modal-close:hover { background: #e5f1dc; color: #003b3e; }
+.logix-light-modal-panel > div:last-child { max-height: calc(90dvh - 74px); }
+@media (max-width: 640px) {
+  .logix-dialog { width: calc(100vw - 24px); max-width: calc(100vw - 24px); max-height: 88dvh; padding: 18px !important; }
+  .logix-invoice-dialog { width: calc(100vw - 16px); max-width: calc(100vw - 16px); max-height: 94dvh; padding: 10px !important; }
+  .logix-light-modal-panel { width: calc(100vw - 24px); max-height: 88dvh; margin: 0; }
+  .light-modal-header { padding: 16px; }
+  .logix-light-modal-panel > div:last-child { max-height: calc(88dvh - 62px); padding: 16px; }
+}
 
 @media (max-width: 680px) {
   .app-imported-page { padding: 18px 14px 36px; }

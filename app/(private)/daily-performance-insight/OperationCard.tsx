@@ -1,4 +1,4 @@
-﻿import React, { useMemo } from 'react';
+import React, { useMemo } from 'react';
 import { motion } from 'framer-motion';
 import { DailyPerformanceData } from './types';
 import { isDayOff, shouldShowMetrics } from './utils';
@@ -58,14 +58,14 @@ export const OperationCard = React.memo<OperationCardProps>(({ operation, index,
             <Timeline operation={operation} />
           </div>
 
-          <div>
+          <div className="performance-failures">
             <FailedDeliveriesCard unpaidStops={operation.deliveryDetails.unpaidStops} />
           </div>
         </>
       )}
 
       {operation.note && (
-        <div>
+        <div className="performance-notes">
           <NotesSection note={operation.note} />
         </div>
       )}

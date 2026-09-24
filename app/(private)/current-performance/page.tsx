@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useCallback, useMemo } from "react";
-import { StandardPageLayout, PageHeader, PageSection, PageContent, PerformanceTabs } from "../components";
+import { PerformanceLayout } from "../components/PerformanceLayout";
 import { MonthCarousel } from "./components/MonthCarousel";
 import { MonthlyAverages } from "./components/MonthlyAverages";
 import { DailyBreakdownTable } from "./components/DailyBreakdownTable";
@@ -23,25 +23,20 @@ export default function CurrentPerformancePage() {
   }, []);
 
   return (
-    <StandardPageLayout bottomPadding="pb-[70px]">
-      <PageHeader alignHeader="between">
-        <PerformanceTabs />
-      </PageHeader>
-
-      <PageSection>
+    <PerformanceLayout view="monthly">
         <MonthCarousel
           selectedYear={selectedYear}
           selectedMonth={selectedMonth}
           onMonthSelect={handleMonthSelect}
           today={today}
         />
-      </PageSection>
 
-      <PageContent>
+
+      <div className="performance-month-content" aria-busy={loading}>
         <MonthlyAverages averages={averages} />
 
         <DailyBreakdownTable monthData={monthData} loading={loading} error={error} />
-      </PageContent>
-    </StandardPageLayout>
+      </div>
+    </PerformanceLayout>
   );
 }

@@ -212,7 +212,7 @@ const VendorInfoModal: React.FC<VendorInfoModalProps> = memo(({ show, vendor, ty
         aria-modal="true"
       >
         <div 
-          className={vendorStyles.modalContentLarge}
+          className={`vendor-theme ${vendorStyles.modalContentLarge}`}
           onClick={(e) => e.stopPropagation()}
         >
           <div className={vendorStyles.modalHeader}>
@@ -289,6 +289,5 @@ const VendorInfoModal: React.FC<VendorInfoModalProps> = memo(({ show, vendor, ty
 VendorInfoModal.displayName = 'VendorInfoModal';
 
 export default VendorInfoModal;
-
 
 

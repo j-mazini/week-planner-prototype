@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { useEffect, useState, useCallback, useMemo } from "react";
 import { useRouter } from "next/navigation";
@@ -6,7 +6,7 @@ import { format } from "date-fns";
 import { getUserIdFromToken, hasAuthSession, getBearerAuthHeader } from "../../../lib/auth";
 import { useDateStore } from "../../../lib/date-store";
 import { getApiBaseUrl } from "../../../lib/apiBaseUrl";
-import { StandardPageLayout, PageHeader, PageSection, PageContent, PerformanceTabs } from "../components";
+import { PerformanceLayout } from "../components/PerformanceLayout";
 import { DailyPerformanceData } from "./types";
 import { DaysCarousel } from "./DaysCarousel";
 import { OperationCard } from "./OperationCard";
@@ -87,57 +87,6 @@ export default function DailyPerformanceInsight() {
       try {
         const formattedDate = format(dateToFetch, "yyyy-MM-dd");
         
-        // Force example data for November 13 (day off)----remove later
-        const isNovember13 = dateToFetch.getMonth() === 10 && dateToFetch.getDate() === 13;
-        if (isNovember13) {
-          const mockDayOffData: DailyPerformanceData = {
-            operationId: 99999,
-            operationDate: formattedDate,
-            status: "Day Off",
-            note: "Day off - Folga",
-            dailyCash: {
-              rate: 0,
-              dailyServiceCharge: 0
-            },
-            route: {
-              routeId: 0,
-              routeName: "DAY OFF"
-            },
-            timeWindows: {
-              percentageOnTime: 0
-            },
-            deliveryDetails: {
-              totalAfd: 0,
-              paidStops: {
-                pu: 0,
-                ok: 0,
-                hn: 0,
-                pd: null
-              },
-              unpaidStops: {
-                nr: 0,
-                fp: 0,
-                rd: 0,
-                ba: 0,
-                nh: 0,
-                cm: 0,
-                ca: 0
-              },
-              departTime: null,
-              arriveTime: null
-            },
-            dailyMetrics: {
-              totalStops: 0,
-              sporh: 0,
-              breakMinutes: 0
-            },
-            isSpms: true
-          };
-          setPerformanceData([mockDayOffData]);
-          setLoading(false);
-          return;
-        }
-        
         const response = await fetch(
           `${getApiBaseUrl()}/bff/day-overview/${userId}/${formattedDate}?metrics=performance`,
           {
@@ -201,15 +150,15 @@ export default function DailyPerformanceInsight() {
   // Handlers para navegação memoizados
   const handlePrevMonth = useCallback(() => {
     const prev = new Date(selectedDate);
-    prev.setMonth(prev.getMonth() - 1);
     prev.setDate(1);
+    prev.setMonth(prev.getMonth() - 1);
     setSelectedDate(prev);
   }, [selectedDate, setSelectedDate]);
 
   const handleNextMonth = useCallback(() => {
     const next = new Date(selectedDate);
-    next.setMonth(next.getMonth() + 1);
     next.setDate(1);
+    next.setMonth(next.getMonth() + 1);
     setSelectedDate(next);
   }, [selectedDate, setSelectedDate]);
 
@@ -251,30 +200,16 @@ export default function DailyPerformanceInsight() {
   }, [loading, performanceData]);
 
   return (
-    <StandardPageLayout bottomPadding="pb-[100px]">
-      <PageHeader alignHeader="between">
-        <PerformanceTabs />
-        <MonthSelector
-          displayMonth={displayMonth}
-          onPrevMonth={handlePrevMonth}
-          onNextMonth={handleNextMonth}
-        />
-      </PageHeader>
-
-      <PageSection>
-        <DaysCarousel 
-          displayMonth={displayMonth}
-          selectedDate={selectedDate}
-          onDayClick={handleDayClick}
-          hasNoData={!loading && performanceData.length === 0}
-          isLoading={loading}
-        />
-      </PageSection>
-      
-      <PageContent className={dailyPerformanceInsightStyles.pageContent}>
+    <PerformanceLayout view="daily" period={
+      <>
+        <div><span className="performance-eyebrow">SELECTED DAY</span><strong className="performance-selected-date">{format(selectedDate, "EEEE, dd MMMM yyyy")}</strong></div>
+        <MonthSelector displayMonth={displayMonth} onPrevMonth={handlePrevMonth} onNextMonth={handleNextMonth} />
+      </>
+    }>
+      <DaysCarousel displayMonth={displayMonth} selectedDate={selectedDate} onDayClick={handleDayClick} hasNoData={!loading && performanceData.length === 0} isLoading={loading} />
+      <div className={dailyPerformanceInsightStyles.pageContent} aria-busy={loading}>
         {renderContent}
-      </PageContent>
-    </StandardPageLayout>
+      </div>
+    </PerformanceLayout>
   );
 }
-

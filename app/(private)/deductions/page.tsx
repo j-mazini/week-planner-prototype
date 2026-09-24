@@ -112,7 +112,7 @@ export default function DeductionsPage() {
   }, [selectedDate]);
 
   return (
-    <StandardPageLayout bottomPadding="pb-[70px]">
+    <StandardPageLayout width="wide" bottomPadding="pb-[70px]">
       <PageHeader />
 
       <PageSection>

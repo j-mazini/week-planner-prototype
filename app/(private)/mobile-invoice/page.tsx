@@ -61,7 +61,7 @@ export default function MobileInvoicePage() {
   }, []);
 
   return (
-    <StandardPageLayout bottomPadding={mobileInvoiceStyles.bottomPadding}>
+    <StandardPageLayout width="wide" bottomPadding={mobileInvoiceStyles.bottomPadding}>
       <PageHeader />
 
       <PageSection className={mobileInvoiceStyles.sectionPadding}>

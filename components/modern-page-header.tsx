@@ -65,6 +65,8 @@ export const ModernPageHeader: React.FC<ModernPageHeaderProps> = ({
                       ? 'bg-gradient-to-br from-slate-900 to-indigo-600'
                       : gradientFrom === 'slate-900' && gradientTo === 'blue-600'
                       ? 'bg-gradient-to-br from-slate-900 to-blue-600'
+                      : gradientFrom === 'slate-900' && gradientTo === 'teal-600'
+                      ? 'bg-gradient-to-br from-slate-900 to-teal-600'
                       : 'bg-gradient-to-br from-slate-900 to-indigo-600'
                   } bg-clip-text text-transparent dark:from-white dark:to-indigo-300`}
                 >

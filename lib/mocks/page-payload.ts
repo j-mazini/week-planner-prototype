@@ -102,6 +102,9 @@ export function pagePayload(url: URL): unknown {
     return list(id ? d.requests.filter(r => r.userId === Number(id)) : d.requests);
   }
   if (path.includes('/cost-model-employees') || path.includes('/vendor-cost-model')) return d.vendors[0].costModels;
+  if (/\/users\/by-company\/\d+\/without-invoice$/.test(path)) {
+    return { users: demoCollection(d.vendors.map(v => ({ ...v, userName: v.firstName, userLastName: v.lastName })), url) };
+  }
   if (/\/vendors?(?:\/|$)|\/users(?:\/|$)/.test(path)) {
     const depositId = path.match(/by-deposit\/(\d+)/)?.[1];
     return depositId ? d.vendors.filter(v => v.depositId === Number(depositId)) : detailOrList(d.vendors, 'userId');

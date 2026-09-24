@@ -38,7 +38,7 @@ export const MonthlyAverages = memo(function MonthlyAverages({ averages }: Month
   const metrics = [
     {
       label: "TW",
-      value: averages.avgTw,
+      value: /^\d+(\.\d+)?$/.test(averages.avgTw) ? `${averages.avgTw}%` : averages.avgTw,
       color: avgTwColorClass,
       icon: "bi-clock-history",
     },

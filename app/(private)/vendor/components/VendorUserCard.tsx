@@ -46,8 +46,8 @@ function VendorUserCardComponent({ vendor, vendorTypeName, onClick, servicePartn
       onClick={() => onClick(vendor)}
       className="
         w-full text-left rounded-xl border border-slate-200/80 bg-white p-3
-        shadow-sm hover:shadow-md hover:border-blue-200 hover:bg-blue-50/30
-        transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2
+        shadow-sm hover:shadow-md hover:border-[#c7cdbb] hover:bg-[#eef1df]
+        transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-[#27676c]/20 focus:ring-offset-2
         flex items-center gap-3 min-h-0
       "
       aria-label={`Open ${name} (${isActive ? 'Active' : 'Inactive'})`}

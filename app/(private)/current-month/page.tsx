@@ -155,7 +155,7 @@ export default function CurrentMonthPage() {
   }
 
   return (
-    <StandardPageLayout bottomPadding="pb-[clamp(3.5rem,8vh,4.375rem)]">
+    <StandardPageLayout width="wide" bottomPadding="pb-[clamp(3.5rem,8vh,4.375rem)]">
       <PageHeader />
 
       <PageSection>

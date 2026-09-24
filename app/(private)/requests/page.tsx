@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
@@ -293,12 +293,12 @@ export default function RequestsPage() {
       <NavbarWrapper>
         <div className="w-full min-w-0">
           <DgpPageFrame
-            width="narrow"
+            width="wide"
             containerClassName="w-full px-[3%] md:px-6 lg:px-8 py-[2%] md:py-6 space-y-[2%] md:space-y-6"
             className="font-sans text-slate-800 text-sm"
           >
             <div id="main-content" className="flex-grow flex flex-col min-w-0 relative">
-              <main className="pt-[2%] md:pt-6 space-y-[2%] md:space-y-4">
+              <main className="mx-auto w-full max-w-[86rem] pt-[2%] md:pt-6 space-y-[2%] md:space-y-4">
                 {/* Header com logout (padrão mobile-invoice) */}
                 <div className="mb-[2%] md:mb-4">
                   <PageHeader alignHeader="right" />

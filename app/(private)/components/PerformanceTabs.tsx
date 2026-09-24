@@ -12,10 +12,9 @@ export function PerformanceTabs() {
   const pathname = usePathname();
 
   return (
-    <div
-      role="tablist"
+    <nav
       aria-label="My Performance"
-      className="inline-flex items-center gap-1 rounded-full border border-border bg-muted/40 p-1"
+      className="performance-tabs"
     >
       {TABS.map((tab) => {
         const active = pathname === tab.href;
@@ -23,19 +22,14 @@ export function PerformanceTabs() {
           <Link
             key={tab.href}
             href={tab.href}
-            role="tab"
-            aria-selected={active}
-            className={[
-              "rounded-full px-3 py-1 text-xs font-medium transition-colors",
-              active
-                ? "bg-primary text-primary-foreground shadow-sm"
-                : "text-muted-foreground hover:text-foreground",
-            ].join(" ")}
+            prefetch={false}
+            aria-current={active ? "page" : undefined}
+            className={active ? "performance-tab is-active" : "performance-tab"}
           >
             {tab.label}
           </Link>
         );
       })}
-    </div>
+    </nav>
   );
 }

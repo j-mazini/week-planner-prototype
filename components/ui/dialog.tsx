@@ -25,46 +25,16 @@ const DialogOverlay = React.forwardRef<
 
   return (
     <>
-      <style dangerouslySetInnerHTML={{__html: `
-        .dialog-gradient-backdrop {
-          background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 25%, #e8f0f5 50%, #f1f5f9 75%, #f8fafc 100%);
-          background-image: radial-gradient(#cbd5e1 1px, transparent 1px);
-          background-size: 24px 24px;
-          background-attachment: fixed;
-          background-position: 0 0;
-          position: relative;
-        }
-
-        .dialog-gradient-backdrop::before {
-          content: "";
-          position: absolute;
-          top: 0;
-          left: 0;
-          right: 0;
-          bottom: 0;
-          width: 100%;
-          min-width: 100vw;
-          height: 100%;
-          min-height: 100vh;
-          background: radial-gradient(circle at 20% 20%, rgba(99, 102, 241, 0.08), transparent 50%),
-                      radial-gradient(circle at 80% 10%, rgba(236, 72, 153, 0.08), transparent 45%),
-                      radial-gradient(circle at 75% 80%, rgba(14, 165, 233, 0.08), transparent 50%),
-                      linear-gradient(135deg, rgba(99, 102, 241, 0.02) 0%, rgba(139, 92, 246, 0.03) 50%, rgba(236, 72, 153, 0.02) 100%);
-          pointer-events: none;
-          mix-blend-mode: screen;
-          z-index: -1;
-        }
-      `}} />
       <DialogPrimitive.Overlay
       ref={ref}
       className={cn(
-        "fixed inset-0 z-50 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=open]:duration-300 data-[state=closed]:duration-200",
+        "logix-dialog-overlay fixed inset-0 z-50 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=open]:duration-300 data-[state=closed]:duration-200",
         className
       )}
         style={{
-          background: 'rgba(15, 23, 42, 0.25)',
-          backdropFilter: 'blur(8px) saturate(120%)',
-          WebkitBackdropFilter: 'blur(8px) saturate(120%)',
+          background: 'rgba(0, 59, 62, 0.38)',
+          backdropFilter: 'blur(3px)',
+          WebkitBackdropFilter: 'blur(3px)',
           ...(isSidebarOpen && typeof window !== 'undefined' && window.innerWidth >= 768
             ? { left: '16rem', width: 'calc(100vw - 16rem)' }
             : {}),
@@ -91,7 +61,7 @@ const DialogContent = React.forwardRef<
       <DialogPrimitive.Content
         ref={ref}
         className={cn(
-          "fixed left-[50%] top-[50%] z-50 grid w-full max-w-lg translate-x-[-50%] translate-y-[-50%] gap-4 border bg-background p-6 shadow-2xl duration-300 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[state=closed]:slide-out-to-left-1/2 data-[state=closed]:slide-out-to-top-[48%] data-[state=open]:slide-in-from-left-1/2 data-[state=open]:slide-in-from-top-[48%] sm:rounded-xl ring-1 ring-black/5",
+          "logix-dialog fixed left-[50%] top-[50%] z-50 grid w-full max-w-lg translate-x-[-50%] translate-y-[-50%] gap-4 border bg-background p-6 shadow-2xl duration-300 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[state=closed]:slide-out-to-left-1/2 data-[state=closed]:slide-out-to-top-[48%] data-[state=open]:slide-in-from-left-1/2 data-[state=open]:slide-in-from-top-[48%] sm:rounded-xl ring-1 ring-black/5",
           className
         )}
         style={{

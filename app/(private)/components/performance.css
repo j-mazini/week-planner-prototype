@@ -1,0 +1,85 @@
+/* My Performance uses the paper / teal / lime palette from the Figma shell. */
+.app-imported-page .my-performance { max-width: var(--content-narrow); margin: 0 auto; padding: 8px 0 36px; font-family: var(--mono); }
+.my-performance .performance-heading { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 20px; border-bottom: 1px solid var(--line); padding-bottom: 24px; margin-bottom: 24px; }
+.my-performance .performance-eyebrow { display: block; font-size: 10px; letter-spacing: .12em; font-weight: 600; color: var(--olive); margin: 0 0 8px; }
+.my-performance .performance-heading h2 { font-size: 28px !important; margin: 0 0 8px; }
+.my-performance .performance-heading p:last-child { margin: 0; font-size: 12px; }
+.my-performance .performance-tabs { display: inline-flex; flex: none; border: 1px solid var(--line); background: var(--paper); }
+.my-performance a.performance-tab { min-width: 96px; padding: 12px 20px; text-align: center; text-decoration: none; font: 600 12px/1.4 var(--mono); color: var(--teal); }
+.my-performance a.performance-tab.is-active { background: var(--lime); color: var(--olive); box-shadow: inset 0 -3px var(--teal-deep); }
+.my-performance a.performance-tab:hover { background: #e5f1dc; }
+.my-performance .performance-toolbar { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px; margin-bottom: 16px; }
+.my-performance .performance-selected-date { display: block; font-size: 13px; font-weight: 500; }
+.my-performance .mp-month-selector-container { display: flex; align-items: center; gap: 12px; border: 1px solid var(--line); background: var(--paper); padding: 4px; }
+.my-performance .mp-month-selector-nav-button { width: 40px; height: 40px; flex: none; border: 0; color: var(--teal); background: #e9e9de; }
+.my-performance .mp-month-selector-nav-button:hover { background: var(--lime); }
+.my-performance .mp-month-selector-text { text-align: center; min-width: 140px; font-size: 12px; font-weight: 600; }
+.my-performance .mp-days-carousel-wrapper { margin-bottom: 24px; min-width: 0; }
+.my-performance .mp-days-carousel-scroll { display: flex; gap: 8px; overflow-x: auto; padding: 2px 0 10px; scrollbar-width: thin; scrollbar-color: var(--line) transparent; }
+.my-performance .mp-day-card-base { display: flex; flex-direction: column; align-items: center; justify-content: center; width: 60px; min-height: 70px; flex: none; border: 1px solid var(--line); color: var(--muted); }
+.my-performance .mp-day-card-selected { background: var(--lime); color: var(--olive); border-color: var(--olive); }
+.my-performance .mp-day-card-unselected { background: var(--paper); }
+.my-performance .mp-day-card-unselected:hover { background: #eef1df; }
+.my-performance .mp-operation-card-root { display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1fr); gap: 16px; margin-bottom: 24px; }
+.my-performance .mp-operation-card-root > * { min-width: 0; }
+.my-performance .mp-verified-card { grid-column: 1/-1; display: flex; justify-content: space-between; align-items: center; padding: 16px 20px; background: var(--teal-deep); color: var(--paper); border-left: 4px solid var(--lime); font: 700 24px/1.3 var(--display); }
+.my-performance .mp-vehicle-info-container { grid-column: 1/-1; display: flex; align-items: center; gap: 8px; font-size: 12px; }
+.my-performance .mp-card-base { border: 1px solid var(--line); background: var(--paper); padding: 20px; }
+.my-performance .mp-card-base:has(.mp-metrics-card-grid) { grid-column: 1/-1; padding: 0; }
+.my-performance .mp-metrics-card-grid { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); }
+.my-performance .mp-metrics-card-item { padding: 24px; min-width: 0; border-right: 1px solid var(--line-soft); }
+.my-performance .mp-metrics-card-item:last-child { border: 0; }
+.my-performance .mp-metrics-card-header { display: flex; align-items: center; gap: 10px; margin-bottom: 16px; }
+.my-performance .mp-metrics-card-icon-wrapper { width: 30px; height: 30px; display: grid; place-items: center; background: #e5f1dc; color: var(--teal); }
+.my-performance .mp-metrics-card-label { font-size: 11px; letter-spacing: .08em; font-weight: 600; }
+.my-performance .mp-metrics-card-value { font: 700 32px/1.1 var(--display); font-variant-numeric: tabular-nums; }
+.my-performance .mp-timeline-container { display: flex; align-items: center; justify-content: space-between; height: 100%; min-height: 140px; position: relative; gap: 8px; }
+.my-performance .mp-timeline-line { position: absolute; left: 12%; right: 12%; top: calc(50% - 19px); height: 1px; background: var(--line); }
+.my-performance .mp-timeline-item { display: flex; align-items: center; flex-direction: column; position: relative; flex: 1; gap: 12px; }
+.my-performance .mp-timeline-dot { width: 32px; height: 32px; border: 1px solid var(--line); border-radius: 50%; display: grid; place-items: center; background: var(--paper); color: var(--teal); }
+.my-performance .mp-timeline-dot-icon { font-size: 16px; }
+.my-performance .performance-failures .mp-card-base { height: 100%; }
+.my-performance h3.mp-failed-deliveries-title { font: 600 11px/1.5 var(--mono) !important; margin: 0; letter-spacing: .03em; }
+.my-performance .mp-failed-deliveries-grid { display: grid; grid-template-columns: repeat(7,minmax(0,1fr)); gap: 8px; }
+.my-performance .mp-failed-deliveries-item { text-align: center; min-width: 0; }
+.my-performance .mp-failed-deliveries-icon-wrapper { display: grid; place-items: center; color: var(--teal); height: 28px; margin-bottom: 8px; }
+.my-performance .performance-notes { grid-column: 1/-1; }
+.my-performance .mp-notes-card { border: 1px solid #d7cca0; border-left: 3px solid #b8941f; background: #fffbea; padding: 16px 20px; overflow-wrap: anywhere; }
+.my-performance .mp-month-carousel-section { margin-bottom: 24px; border-bottom: 1px solid var(--line); }
+.my-performance .mp-month-carousel-scroll { overflow-x: auto; padding-bottom: 12px; scrollbar-width: thin; }
+.my-performance .mp-month-carousel-items { display: flex; gap: 8px; }
+.my-performance .mp-month-carousel-button-base { flex: none; min-width: 78px; padding: 10px 16px; min-height: 60px; border: 1px solid var(--line); }
+.my-performance .mp-month-carousel-button-active { background: var(--lime); color: var(--olive); border-color: var(--olive); }
+.my-performance .mp-month-carousel-button-inactive { background: var(--paper); color: var(--muted); }
+.my-performance .mp-monthly-card { margin-bottom: 28px; }
+.my-performance .mp-monthly-header { margin-bottom: 14px; }
+.my-performance .mp-monthly-title, .my-performance .mp-daily-header { font: 700 20px/1.3 var(--display); display: flex; gap: 10px; align-items: center; margin: 0 0 16px; }
+.my-performance .mp-monthly-metrics-grid { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 16px; }
+.my-performance .mp-monthly-metric-card { display: grid; grid-template-columns: 32px 1fr; align-items: center; gap: 12px; padding: 20px; background: var(--paper); border: 1px solid var(--line); }
+.my-performance .mp-monthly-metric-card > span:last-child { grid-column: 2; font: 700 32px/1.1 var(--display); font-variant-numeric: tabular-nums; }
+.my-performance .mp-monthly-metric-label { font-size: 11px; font-weight: 600; letter-spacing: .08em; }
+.my-performance .mp-daily-section { min-width: 0; }
+.my-performance .mp-daily-scroll { overflow: auto; max-height: 65vh; border: 1px solid var(--line); }
+.my-performance table.mp-daily-table { min-width: 540px; border: 0; font-size: 12px; }
+.my-performance .mp-daily-thead { position: sticky; top: 0; z-index: 1; }
+.my-performance .mp-daily-th { text-align: center; white-space: nowrap; }
+.my-performance .mp-metrics-card-icon-wrapper, .my-performance .mp-timeline-dot, .my-performance .mp-failed-deliveries-icon-wrapper { background-image: none !important; }
+@media (max-width: 900px) {
+  .my-performance .mp-operation-card-root { grid-template-columns: minmax(0,1fr); }
+  .my-performance .mp-metrics-card-item { padding: 16px; }
+}
+@media (max-width: 540px) {
+  .my-performance .performance-heading { gap: 16px; }
+  .my-performance .performance-tabs { width: 100%; }
+  .my-performance a.performance-tab { flex: 1; }
+  .my-performance .mp-month-selector-container { width: 100%; justify-content: space-between; }
+  .my-performance .mp-month-selector-text { min-width: 0; }
+  .my-performance .mp-metrics-card-grid { grid-template-columns: repeat(2,minmax(0,1fr)); }
+  .my-performance .mp-metrics-card-item { border-bottom: 1px solid var(--line-soft); }
+  .my-performance .mp-metrics-card-value { font-size: 28px; }
+  .my-performance .mp-card-base { padding: 14px; }
+  .my-performance .mp-failed-deliveries-grid { grid-template-columns: repeat(4,minmax(0,1fr)); row-gap: 16px; }
+  .my-performance .mp-monthly-metrics-grid { grid-template-columns: 1fr; gap: 10px; }
+  .my-performance .mp-monthly-metric-card { grid-template-columns: 24px 1fr auto; padding: 16px; }
+  .my-performance .mp-monthly-metric-card > span:last-child { grid-column: 3; font-size: 26px; }
+}

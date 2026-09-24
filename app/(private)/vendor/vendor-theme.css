@@ -1,0 +1,121 @@
+.vendor-theme {
+  --vendor-paper: #fffef8;
+  --vendor-surface: #fafaef;
+  --vendor-line: #c7cdbb;
+  --vendor-line-soft: #e3e5d9;
+  --vendor-ink: #1a1c16;
+  --vendor-muted: #68705f;
+  --vendor-teal: #27676c;
+  --vendor-teal-deep: #003b3e;
+  --vendor-lime: #b2f746;
+  --vendor-olive: #446900;
+  color: var(--vendor-ink);
+}
+
+.vendor-theme input,
+.vendor-theme select,
+.vendor-theme textarea,
+.vendor-theme .form-control,
+.vendor-theme .form-select {
+  border-color: var(--vendor-line) !important;
+  border-radius: 2px !important;
+  background-color: var(--vendor-paper) !important;
+  color: var(--vendor-ink) !important;
+  box-shadow: none !important;
+}
+
+.vendor-theme input::placeholder,
+.vendor-theme textarea::placeholder { color: var(--vendor-muted) !important; opacity: 1; }
+.vendor-theme input:focus,
+.vendor-theme select:focus,
+.vendor-theme textarea:focus,
+.vendor-theme .form-control:focus,
+.vendor-theme .form-select:focus {
+  border-color: var(--vendor-teal) !important;
+  outline: 2px solid rgba(39, 103, 108, .16) !important;
+  outline-offset: 1px;
+  box-shadow: none !important;
+}
+.vendor-theme input:disabled,
+.vendor-theme select:disabled,
+.vendor-theme textarea:disabled,
+.vendor-theme .form-control:disabled,
+.vendor-theme .form-select:disabled {
+  background-color: #f1f2e9 !important;
+  color: var(--vendor-muted) !important;
+}
+
+.vendor-theme .btn-primary {
+  border-color: var(--vendor-teal-deep) !important;
+  background-color: var(--vendor-teal-deep) !important;
+  color: var(--vendor-paper) !important;
+  box-shadow: none !important;
+}
+.vendor-theme .btn-primary:hover {
+  border-color: var(--vendor-teal) !important;
+  background-color: var(--vendor-teal) !important;
+}
+.vendor-theme .text-primary { color: var(--vendor-teal) !important; }
+
+.vendor-theme [class~="shadow-[0_4px_6px_-1px_rgb(0_0_0/0.1),0_2px_4px_-2px_rgb(0_0_0/0.1)]"],
+.vendor-theme [class~="shadow-sm"] { border-color: var(--vendor-line); background-color: var(--vendor-paper); box-shadow: 0 2px 8px rgba(26, 28, 22, .05) !important; }
+.vendor-theme table { border-color: var(--vendor-line); background: var(--vendor-paper); }
+.vendor-theme th { background: #eef1df; color: var(--vendor-olive); }
+.vendor-theme td, .vendor-theme th { border-color: var(--vendor-line-soft); }
+.vendor-theme [class~="max-w-6xl"] { border: 1px solid var(--vendor-line); border-radius: 3px; background: var(--vendor-paper); box-shadow: 0 16px 48px rgba(0, 59, 62, .18); }
+.vendor-theme [class~="max-w-6xl"] > div:first-child,
+.vendor-theme [class~="max-w-6xl"] > div:last-child { border-color: var(--vendor-line); background: #eef1df; }
+.vendor-theme [class~="max-w-6xl"] h5 { color: var(--vendor-ink); }
+.vendor-theme [class~="max-w-6xl"] .form-label { color: var(--vendor-muted) !important; }
+.vendor-theme .stepsContainer { border-color: var(--vendor-line); background: #f1f2e9; }
+
+/* Status, training, and document indicators use quiet, readable state chips. */
+.vendor-theme .status-badge {
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid var(--vendor-line) !important;
+  border-radius: 2px !important;
+  padding: 3px 8px;
+  color: var(--vendor-ink) !important;
+  box-shadow: none !important;
+  font: 600 10px/1.35 "IBM Plex Mono", ui-monospace, monospace;
+  animation: none;
+  transition: background-color .15s ease, border-color .15s ease, color .15s ease;
+}
+.vendor-theme .status-badge::before { display: none !important; }
+.vendor-theme .status-badge:hover { transform: none !important; box-shadow: none !important; }
+.vendor-theme .status-badge-active,
+.vendor-theme .status-badge-completed,
+.vendor-theme .status-badge-delivered,
+.vendor-theme .status-badge-verified,
+.vendor-theme .status-badge-green,
+.vendor-theme .status-badge-paid {
+  border-color: #c8d5a7 !important;
+  background: #eef1df !important;
+  color: #446900 !important;
+}
+.vendor-theme .status-badge-pending,
+.vendor-theme .status-badge-incomplete,
+.vendor-theme .status-badge-in-progress,
+.vendor-theme .status-badge-maintenance,
+.vendor-theme .status-badge-working {
+  border-color: #e4d9af !important;
+  background: #f6f1df !important;
+  color: #6a5725 !important;
+}
+.vendor-theme .status-badge-inactive,
+.vendor-theme .status-badge-off,
+.vendor-theme .status-badge-expiring,
+.vendor-theme .status-badge-expired,
+.vendor-theme .status-badge-disputed {
+  border-color: #e6c7c7 !important;
+  background: #f8eaea !important;
+  color: #8e3e3e !important;
+}
+.vendor-theme .status-badge-default { background: #f1f2e9 !important; color: var(--vendor-muted) !important; }
+
+@media (max-width: 640px) {
+  .vendor-theme input,
+  .vendor-theme select,
+  .vendor-theme textarea { font-size: 16px !important; }
+}

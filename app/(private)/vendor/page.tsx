@@ -16,6 +16,7 @@ import VendorMobileView from './components/VendorMobileView';
 import VendorTable from './components/VendorTable';
 import { Pagination, type VendorPaginationState } from './components/Pagination';
 import { vendorStyles } from './styles';
+import './vendor-theme.css';
 
 import { ModalLoading } from "@/components/modal-loading";
 
@@ -328,6 +329,7 @@ const VendorDashboard = () => {
 
   return (
     <NavbarWrapper>
+      <div className="vendor-theme">
       <BootstrapLoader />
       <DgpPageFrame className={vendorStyles.pageContainer} width="wide">
         <div id="main-content" className={vendorStyles.mainContent}>
@@ -339,7 +341,7 @@ const VendorDashboard = () => {
                 subtitle="Vendor management and information"
                 metrics={headerMetricsForKpis}
                 gradientFrom="slate-900"
-                gradientTo="indigo-600"
+                gradientTo="teal-600"
                 metricsLayout="grid2x2"
               />
             </div>
@@ -429,6 +431,7 @@ const VendorDashboard = () => {
           </Suspense>
         )}
       </DgpPageFrame>
+      </div>
     </NavbarWrapper>
   );
 };

@@ -30,6 +30,7 @@ export function useCurrentPerformanceData(year: number, month: number) {
       try {
         setLoading(true);
         setError(null);
+        setAverages({ avgTw: "--:--", avgSpr: "--:--", avgSporH: "--:--" });
         const apiMonth = month + 1;
 
         const response = await fetch(
