@@ -1,0 +1,1032 @@
+/* ===================================================================
+ * VARIÁVEIS E ESTILOS BASE DO PLANNER
+ * ===================================================================
+ */
+:root {
+  --bg-body: #f8fafc;
+  --sidebar-bg: #ffffff;
+  --main-bg: #f7f8fa;
+  --text-dark: #1e293b;
+  --text-light: #6c7a92;
+  --border-color: #e3e8ef;
+  --primary-blue: #2563eb;
+  --primary-rgb: 37, 99, 235;
+  --danger-red: #dc3545;
+  --holding-orange: #fd7e14;
+  --card-shadow: 0 6px 18px -2px rgba(15, 23, 42, 0.14);
+  --neon-indigo: #6366f1;
+  --neon-cyan: #0ea5e9;
+  --neon-pink: #ec4899;
+  --neon-purple: #a855f7;
+  --neon-mint: #22d3ee;
+  --card-gradient-soft: linear-gradient(150deg, rgba(255,255,255,0.98) 0%, rgba(239, 244, 255, 0.96) 55%, rgba(230, 245, 255, 0.95) 100%);
+  --card-gradient-strong: linear-gradient(150deg, rgba(255,255,255,0.98) 0%, rgba(235, 241, 255, 0.97) 45%, rgba(226, 244, 255, 0.98) 100%);
+  --card-border-glow: rgba(99, 102, 241, 0.22);
+  --card-glow-shadow: 0 18px 36px rgba(99, 102, 241, 0.12), 0 12px 24px rgba(14, 165, 233, 0.1);
+  --card-hover-shadow: 0 30px 52px rgba(99, 102, 241, 0.18), 0 16px 36px rgba(14, 165, 233, 0.16);
+  --neon-glow-soft: 0 0 25px rgba(14, 165, 233, 0.35), 0 0 55px rgba(99, 102, 241, 0.25);
+  --neon-glow-strong: 0 0 45px rgba(99, 102, 241, 0.55), 0 0 85px rgba(236, 72, 153, 0.45);
+  --off-leave-bg: #fdf2f2;
+  --off-leave-text: #dc3545;
+  --off-leave-border: #f1aeae;
+  --off-holding-bg: #fff8f0;
+  --off-holding-text: #fd7e14;
+  --off-holding-border: #fddba7;
+}
+
+/* Background com gradiente e padrão */
+.planner-page-wrapper {
+  /* Background removido - agora gerenciado pelo componente GradientDotsBackground */
+  min-height: 100vh;
+  position: relative;
+}
+
+/* Pseudo-elemento ::before removido - agora gerenciado pelo componente GradientDotsBackground */
+
+/* Page Header Styles */
+.planner-page-header {
+  background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+  display: flex;
+  flex-direction: column;
+  gap: 1.4rem;
+  padding: 1.5rem 1.9rem;
+  border-radius: 18px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  position: relative;
+  overflow: hidden;
+}
+
+.planner-page-header-top {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1.5rem;
+  position: relative;
+  z-index: 1;
+}
+
+.planner-page-title-area {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex: 1 1 auto;
+  min-width: 260px;
+}
+
+.planner-page-title-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.planner-page-title {
+  font-size: 1.85rem;
+  font-weight: 700;
+  margin: 0;
+  color: #ffffff;
+  letter-spacing: 0.3px;
+  text-shadow: 0 0 22px rgba(148, 163, 255, 0.4);
+}
+
+.planner-page-subtitle {
+  margin: 0;
+  font-size: 0.88rem;
+  color: rgba(255, 255, 255, 0.8);
+  font-weight: 500;
+  text-shadow: 0 0 18px rgba(148, 163, 255, 0.35);
+}
+
+.planner-page-header-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 1.1rem;
+}
+
+.planner-header-pill-group {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+}
+
+.planner-header-pill {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  padding: 0.6rem 0.85rem;
+  border-radius: 12px;
+  background: linear-gradient(140deg, rgba(255,255,255,0.25) 0%, rgba(224, 231, 255, 0.22) 50%, rgba(148, 163, 255, 0.18) 100%);
+  border: 1px solid rgba(224, 231, 255, 0.4);
+  min-width: 130px;
+  box-shadow: 0 10px 24px rgba(37, 99, 235, 0.18), 
+              0 0 18px rgba(148, 163, 255, 0.32),
+              inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  position: relative;
+  overflow: hidden;
+}
+
+.planner-header-pill::before {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.15) 0%, transparent 70%);
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+.planner-header-pill .pill-label {
+  font-size: 0.66rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: rgba(255, 255, 255, 0.72);
+  position: relative;
+  z-index: 1;
+}
+
+.planner-header-pill .pill-value {
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: #ffffff;
+  position: relative;
+  z-index: 1;
+}
+
+.planner-page-header-bottom {
+  width: 100%;
+  position: relative;
+  z-index: 1;
+}
+
+.planner-page-header-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+}
+
+.planner-page-header-controls-left,
+.planner-page-header-controls-right {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1.25rem;
+}
+
+/* Button Styles */
+.planner-date-selector-group {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.planner-filter-group {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.planner-date-selector-group button,
+.planner-filter-group button {
+  border-radius: 10px;
+  padding: 0.45rem 0.65rem;
+  background: linear-gradient(135deg, rgba(224, 231, 255, 0.3), rgba(192, 228, 255, 0.28));
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  color: #ffffff;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.planner-date-selector-group button:hover,
+.planner-filter-group button:hover {
+  background: linear-gradient(135deg, rgba(224, 231, 255, 0.4), rgba(192, 228, 255, 0.35));
+  /* Removido transform e box-shadow pesados */
+}
+
+.planner-btn-submit-week {
+  background: linear-gradient(135deg, #22c55e 0%, #16a34a 35%, #15803d 70%, #166534 100%) !important;
+  border: 1px solid rgba(34, 197, 94, 0.7) !important;
+  color: #ffffff !important;
+  font-weight: 600;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.planner-btn-submit-week::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s ease;
+  z-index: 0;
+}
+
+.planner-btn-submit-week > * {
+  position: relative;
+  z-index: 1;
+}
+
+.planner-btn-submit-week:hover:not(:disabled)::before {
+  left: 100%;
+}
+
+.planner-btn-submit-week:hover:not(:disabled) {
+  background: linear-gradient(135deg, #4ade80 0%, #22c55e 35%, #16a34a 70%, #15803d 100%) !important;
+  border: 1px solid rgba(74, 222, 128, 0.9) !important;
+  /* Removido transform e box-shadow pesados */
+}
+
+.planner-btn-submit-week:disabled {
+  background: linear-gradient(135deg, rgba(148, 163, 184, 0.2), rgba(100, 116, 139, 0.18)) !important;
+  border: 1px solid rgba(148, 163, 184, 0.25) !important;
+  color: rgba(255, 255, 255, 0.5) !important;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.planner-btn-default-schedule {
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.5), rgba(79, 70, 229, 0.45)) !important;
+  border: 1px solid rgba(99, 102, 241, 0.6) !important;
+  color: #ffffff !important;
+  font-weight: 600;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.planner-btn-default-schedule::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s ease;
+  z-index: 0;
+}
+
+.planner-btn-default-schedule > * {
+  position: relative;
+  z-index: 1;
+}
+
+.planner-btn-default-schedule:hover::before {
+  left: 100%;
+}
+
+.planner-btn-default-schedule:hover {
+  background: linear-gradient(135deg, rgba(129, 140, 248, 0.65), rgba(99, 102, 241, 0.55)) !important;
+  border: 1px solid rgba(129, 140, 248, 0.8) !important;
+  /* Removido transform e box-shadow pesados */
+}
+
+/* Submit Success Animation */
+.planner-submit-success-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10000;
+  animation: fadeIn 0.3s ease;
+}
+
+.planner-submit-success-content {
+  background: linear-gradient(135deg, #22c55e 0%, #16a34a 50%, #15803d 100%);
+  border-radius: 24px;
+  padding: 3rem 4rem;
+  box-shadow: 0 25px 50px rgba(34, 197, 94, 0.4),
+              0 0 80px rgba(34, 197, 94, 0.3),
+              inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  text-align: center;
+  color: #ffffff;
+  position: relative;
+  overflow: hidden;
+  animation: scaleIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  border: 2px solid rgba(255, 255, 255, 0.3);
+}
+
+.planner-submit-success-content::before {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.3) 0%, transparent 70%);
+  animation: rotateGlow 3s linear infinite;
+}
+
+.planner-submit-success-icon {
+  font-size: 5rem;
+  margin-bottom: 1.5rem;
+  position: relative;
+  z-index: 1;
+  animation: checkMark 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) 0.2s both;
+}
+
+.planner-submit-success-title {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  position: relative;
+  z-index: 1;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+.planner-submit-success-message {
+  font-size: 1.1rem;
+  opacity: 0.95;
+  position: relative;
+  z-index: 1;
+  margin-bottom: 1.5rem;
+}
+
+.planner-submit-success-download-btn {
+  background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+  border: none;
+  border-radius: 12px;
+  padding: 0.75rem 1.5rem;
+  color: #ffffff;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.4);
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.planner-submit-success-download-btn:hover {
+  background: linear-gradient(135deg, #1d4ed8 0%, #1e40af 100%);
+  /* Removido transform e box-shadow pesados */
+}
+
+.planner-confetti-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.planner-confetti {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  background: #ffffff;
+  animation: confettiFall 3s ease-out forwards;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes scaleIn {
+  from { 
+    transform: scale(0.5);
+    opacity: 0;
+  }
+  to { 
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes checkMark {
+  0% {
+    transform: scale(0) rotate(-45deg);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1.2) rotate(5deg);
+  }
+  100% {
+    transform: scale(1) rotate(0deg);
+    opacity: 1;
+  }
+}
+
+@keyframes rotateGlow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes confettiFall {
+  0% {
+    transform: translateY(-100vh) rotate(0deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(100vh) rotate(720deg);
+    opacity: 0;
+  }
+}
+
+/* Card Styles */
+.planner-card {
+  background: var(--card-gradient-soft);
+  border: 1px solid rgba(148, 163, 184, 0.32);
+  border-radius: 16px;
+  box-shadow: var(--card-glow-shadow);
+  padding: 1rem 1.25rem;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  backdrop-filter: blur(8px);
+  transition: border-color 0.2s ease;
+}
+
+.planner-card:hover {
+  border-color: rgba(99, 102, 241, 0.32);
+  /* Removido transform e box-shadow pesados */
+}
+
+/* Responsive */
+@media (max-width: 992px) {
+  .planner-page-header {
+    gap: 1.2rem;
+  }
+  
+  .planner-page-header-meta {
+    justify-content: flex-start;
+  }
+  
+  .planner-page-header-controls {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .planner-page-header-controls-left,
+  .planner-page-header-controls-right {
+    width: 100%;
+    justify-content: space-between;
+  }
+}
+
+@media (max-width: 768px) {
+  .planner-page-header-controls-left,
+  .planner-page-header-controls-right {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.5rem;
+  }
+  
+  .planner-date-selector-group,
+  .planner-filter-group {
+    justify-content: flex-start;
+    flex-wrap: wrap;
+  }
+  
+  .planner-page-header-meta {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .planner-header-pill-group {
+    width: 100%;
+  }
+}
+
+/* ===================================================================
+ * VENDORS PANEL - NOVO POSICIONAMENTO (Abaixo do Header)
+ * ===================================================================
+ */
+.vendors-panel-container {
+  margin: 0 0 1.5rem 0;
+  position: sticky;
+  top: 1rem;
+  z-index: 1010;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.vendors-panel {
+  position: relative;
+}
+
+/* Ajuste para quando colapsado */
+.vendors-panel-container.collapsed {
+  margin-bottom: 0;
+}
+
+/* Layout para vista diária */
+.daily-vendors-lists {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  padding: 1rem;
+}
+
+.vendors-section h6 {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-light);
+  margin-bottom: 0.5rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.vendor-chips-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  min-height: 60px;
+  align-items: flex-start;
+}
+
+/* Estados dos chips */
+.vendor-chip.hold {
+  background: var(--off-holding-bg);
+  color: var(--off-holding-text);
+  border-color: var(--off-holding-border);
+  cursor: grab;
+}
+
+.vendor-chip.off {
+  background: var(--off-leave-bg);
+  color: var(--off-leave-text);
+  border-color: var(--off-leave-border);
+  cursor: not-allowed;
+}
+
+/* Responsividade para Vendors Panel */
+@media (max-width: 768px) {
+  .daily-vendors-lists {
+    grid-template-columns: 1fr;
+  }
+  
+  .vendors-panel-container {
+    margin: 0 0 1rem 0;
+  }
+}
+
+/* ===================================================================
+ * VENDOR CARD STYLES
+ * ===================================================================
+ */
+.vendor-card {
+  display: flex;
+  width: 100%;
+  flex: 1 1 auto;
+  justify-content: space-between;
+  align-items: center;
+  gap: 4px;
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.12), rgba(14, 165, 233, 0.16));
+  border: 1px solid rgba(148, 163, 184, 0.45);
+  padding: 2px 6px;
+  border-radius: 8px;
+  cursor: move;
+  font-size: 0.72rem;
+  transition: box-shadow 0.2s ease, transform 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+  box-shadow: 0 10px 18px rgba(59, 130, 246, 0.14);
+  position: relative;
+  overflow: hidden;
+}
+
+.vendor-card::after {
+  content: "";
+  position: absolute;
+  inset: -25% 30% auto;
+  height: 80%;
+  background: radial-gradient(circle at top, rgba(236, 72, 153, 0.18), transparent 70%);
+  opacity: 0;
+  transition: opacity 0.25s ease;
+  pointer-events: none;
+}
+
+.vendor-card:hover {
+  border-color: rgba(99, 102, 241, 0.45);
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.18), rgba(14, 165, 233, 0.2));
+  /* Removido transform e box-shadow pesados */
+}
+
+.vendor-card:hover::after {
+  opacity: 1;
+}
+
+.vendor-card.dragging {
+  opacity: 0.5;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transform: scale(1.05);
+}
+
+.vendor-card .card-top {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex: 1;
+  min-width: 0;
+}
+
+.vendor-card .vendor-name {
+  font-weight: 600;
+  color: #1e293b;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.vendor-card .card-meta {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.vendor-card .note-indicator {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: rgba(236, 72, 153, 0.2);
+  color: #ec4899;
+  font-size: 0.6rem;
+  font-weight: 700;
+  cursor: help;
+}
+
+.vendor-card .sort-status-badge {
+  font-size: 0.6rem;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.vendor-card .sort-status-badge.status-sort-yes {
+  background: rgba(34, 197, 94, 0.15);
+  color: #16a34a;
+}
+
+.vendor-card .sort-status-badge.status-sort-no {
+  background: rgba(239, 68, 68, 0.15);
+  color: #dc2626;
+}
+
+.vendor-card .sort-status-badge.status-sort-flyers {
+  background: rgba(59, 130, 246, 0.15);
+  color: #2563eb;
+}
+
+.vendor-card .sort-status-badge.status-sort-cmp {
+  background: rgba(168, 85, 247, 0.15);
+  color: #9333ea;
+}
+
+.vendor-card .sort-status-badge.status-sort-boat {
+  background: rgba(14, 165, 233, 0.15);
+  color: #0284c7;
+}
+
+.vendor-card .sort-status-badge.status-sort-pre9 {
+  background: rgba(245, 158, 11, 0.15);
+  color: #d97706;
+}
+
+.vendor-card .vrn {
+  font-size: 0.65rem;
+  color: #64748b;
+  white-space: nowrap;
+}
+
+/* ===================================================================
+ * VENDOR CHIP STYLES
+ * ===================================================================
+ */
+.vendor-off-tag {
+  font-size: 0.64rem;
+  padding: 0.36rem 0.44rem;
+  margin: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+  border-radius: 8px;
+  font-weight: 600;
+  border: 1px solid transparent;
+  text-align: center;
+  min-height: 28px;
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
+}
+
+.vendor-chip-label {
+  flex: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.vendor-off-tag.off {
+  background: var(--off-leave-bg);
+  color: var(--off-leave-text);
+  border-color: var(--off-leave-border);
+  cursor: not-allowed;
+}
+
+.vendor-off-tag.holding {
+  background: var(--off-holding-bg);
+  color: var(--off-holding-text);
+  border-color: var(--off-holding-border);
+  cursor: grab;
+}
+
+.vendor-off-tag.holding:hover {
+  /* Removido transform e box-shadow pesados */
+}
+
+.vendor-off-tag.holding:active {
+  cursor: grabbing;
+}
+
+.day-off-remove-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(99, 102, 241, 0.12);
+  color: #6366f1;
+  padding: 0;
+  font-size: 0.58rem;
+  line-height: 1;
+  cursor: pointer;
+  transition: transform 0.18s ease, background-color 0.18s ease, color 0.18s ease;
+  flex-shrink: 0;
+}
+
+.day-off-remove-btn:hover {
+  background: rgba(236, 72, 153, 0.2);
+  color: #ec4899;
+  transform: scale(1.05);
+}
+
+/* ===================================================================
+ * ROUTE LABEL STYLES
+ * ===================================================================
+ */
+.route-label {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.5rem 0.75rem;
+  background: #f8fafc;
+  border-right: 1px solid rgba(148, 163, 184, 0.2);
+  border-bottom: 1px solid rgba(148, 163, 184, 0.2);
+  font-weight: 600;
+  font-size: 0.85rem;
+  color: #1e293b;
+  min-height: 80px;
+}
+
+.route-label-content {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex: 1;
+  min-width: 0;
+}
+
+.route-badge {
+  font-size: 0.65rem;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.route-badge.variant-flex {
+  background: rgba(168, 85, 247, 0.15);
+  color: #9333ea;
+}
+
+.route-badge.variant-core {
+  background: rgba(34, 197, 94, 0.15);
+  color: #16a34a;
+}
+
+.route-name {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.route-remove-btn {
+  padding: 0.25rem;
+  color: #64748b;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.route-remove-btn:hover {
+  color: #dc2626;
+}
+
+/* ===================================================================
+ * PLANNER GRID STYLES
+ * ===================================================================
+ */
+.planner-grid {
+  display: grid;
+  grid-template-columns: 120px repeat(7, 1fr);
+  gap: 0;
+  align-items: stretch;
+  border: 1px solid rgba(148, 163, 184, 0.2);
+  border-radius: 8px;
+  overflow: hidden;
+  background: #ffffff;
+}
+
+.planner-weekly-grid {
+  border: none;
+  border-radius: 0;
+}
+
+.grid-header {
+  padding: 0.75rem 1rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-align: center;
+  background: #f8fafc;
+  border-right: 1px solid rgba(148, 163, 184, 0.2);
+  border-bottom: 1px solid rgba(148, 163, 184, 0.2);
+  color: #475569;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.grid-header.label-header {
+  text-align: left;
+  background: #f1f5f9;
+  font-weight: 700;
+  color: #1e293b;
+}
+
+.grid-header.weekend {
+  background: #f1f5f9;
+  color: #64748b;
+}
+
+.grid-header:last-child {
+  border-right: none;
+}
+
+/* ===================================================================
+ * DAY CELL STYLES
+ * ===================================================================
+ */
+.day-cell {
+  min-height: 80px;
+  padding: 4px;
+  border-right: 1px solid rgba(148, 163, 184, 0.2);
+  border-bottom: 1px solid rgba(148, 163, 184, 0.2);
+  background: #ffffff;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  transition: background-color 0.2s ease;
+}
+
+.day-cell.weekend {
+  background: #f8fafc;
+}
+
+.day-cell.drag-over {
+  background: rgba(59, 130, 246, 0.15) !important;
+  border: 2px dashed rgba(59, 130, 246, 0.6) !important;
+  box-shadow: inset 0 0 10px rgba(59, 130, 246, 0.2);
+}
+
+.day-cell:last-child {
+  border-right: none;
+}
+
+.day-cell:hover {
+  background: #f8fafc;
+}
+
+.empty-slot {
+  font-size: 0.7rem;
+  color: #94a3b8;
+  text-align: center;
+  padding: 1rem;
+  font-style: italic;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 60px;
+}
+
+/* ===================================================================
+ * VENDOR DAY CARD STYLES (for VendorsPanel)
+ * ===================================================================
+ */
+.vendor-day-card {
+  background: linear-gradient(150deg, rgba(255, 255, 255, 0.98) 0%, rgba(235, 241, 255, 0.97) 45%, rgba(226, 244, 255, 0.98) 100%);
+  border: 1px solid rgba(148, 163, 184, 0.32);
+  border-radius: 14px;
+  padding: 0.65rem 0.8rem;
+  box-shadow: 0 18px 36px rgba(99, 102, 241, 0.12), 0 12px 24px rgba(14, 165, 233, 0.1);
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  min-height: 180px;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+  transition: border-color 0.2s ease;
+}
+
+.vendor-day-card:hover {
+  border-color: rgba(99, 102, 241, 0.38);
+  /* Removido transform e box-shadow pesados */
+}
+
+.vendor-day-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 0.4rem;
+  border-bottom: 1px solid rgba(148, 163, 184, 0.2);
+}
+
+.vendor-day-name {
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: #1e293b;
+}
+
+.vendor-day-date {
+  font-size: 0.75rem;
+  color: #64748b;
+}
+
+.vendor-day-lists {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  flex: 1;
+}
+
+.vendor-day-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.24rem;
+  flex: 1;
+}
+
+.vendor-day-list-title {
+  font-size: 0.66rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: #6c7a92;
+  letter-spacing: 0.05em;
+}
+
+.vendor-chip-group {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.28rem;
+  align-items: stretch;
+}
+
+.vendor-chip-empty {
+  grid-column: 1 / -1;
+  font-size: 0.64rem;
+  color: #94a3b8;
+  font-style: italic;
+  text-align: center;
+  padding: 0.5rem;
+}
+

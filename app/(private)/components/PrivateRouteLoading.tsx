@@ -1,4 +1,4 @@
-export default function PrivateRouteLoading() {
+export function PrivateRouteLoading() {
   return (
     <div
       style={{
@@ -15,3 +15,15 @@ export default function PrivateRouteLoading() {
     </div>
   );
 }
+
+export function TableLoadingSkeleton() {
+  return (
+    <div style={{ display: "grid", gap: 8, padding: "16px 0" }} aria-label="Loading table">
+      {Array.from({ length: 4 }).map((_, index) => (
+        <div key={index} style={{ height: 40, borderRadius: 8, background: "#e5e7eb" }} />
+      ))}
+    </div>
+  );
+}
+
+export default PrivateRouteLoading;

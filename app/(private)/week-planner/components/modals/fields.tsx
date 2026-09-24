@@ -26,11 +26,11 @@ export function TextField({ label, placeholder }: { label: string; placeholder: 
   );
 }
 
-export function DateField({ label, defaultValue }: { label: string; defaultValue: string }) {
+export function DateField({ label, defaultValue, disabled }: { label: string; defaultValue: string; disabled?: boolean }) {
   return (
     <label className="fld">
       <span>{label}</span>
-      <input className="ctl" type="date" defaultValue={defaultValue} />
+      <input className="ctl" type="date" defaultValue={defaultValue} disabled={disabled} />
     </label>
   );
 }

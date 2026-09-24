@@ -1,0 +1,206 @@
+/* Daily Game Plan styles
+   Observação:
+   - Os inputs de data desta página são estilizados via Tailwind no JSX.
+   - Evite CSS global em `input[type="date"]` aqui, pois pode adicionar ícones/overlays
+     e causar sobreposição com o ícone nativo do navegador (especialmente no hover). */
+
+/* Estilização para os selects (dropdowns) */
+/* Canonical Route Balance / Week Planner surface for this imported screen. */
+.app-imported-page .daily-game-plan-page {
+  --dgp-paper: #fffef8;
+  --dgp-surface: #fafaef;
+  --dgp-line: #c7cdbb;
+  --dgp-ink: #1a1c16;
+  width: 100%;
+  min-height: calc(100vh - 64px);
+  /* NavbarWrapper already provides the imported-page gutter. Cancel it so
+     this screen has the same single content rail as Route Balance. */
+  margin: 0;
+  padding: 0;
+  background: var(--dgp-surface);
+  color: var(--dgp-ink);
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+}
+.app-imported-page .daily-game-plan-page .daily-game-plan-header-wrapper { margin-bottom: 24px; }
+.app-imported-page .daily-game-plan-page .daily-game-plan-header-wrapper h1 span {
+  color: var(--dgp-ink) !important;
+  -webkit-text-fill-color: var(--dgp-ink) !important;
+  background: none !important;
+  background-image: none !important;
+}
+.app-imported-page .daily-game-plan-page .daily-game-plan-header-wrapper > div > div:first-child {
+  border: 1px solid var(--dgp-line) !important;
+  border-radius: 3px !important;
+  background: var(--dgp-paper) !important;
+  box-shadow: 0 2px 8px rgba(23,23,26,.05) !important;
+}
+.app-imported-page .daily-game-plan-page .daily-game-plan-header-wrapper input {
+  min-height: 40px;
+  border-color: var(--dgp-line) !important;
+  border-radius: 2px !important;
+  background: var(--dgp-paper) !important;
+  color: var(--dgp-ink) !important;
+  font: 11px "IBM Plex Mono", ui-monospace, monospace !important;
+}
+.app-imported-page .daily-game-plan-page .daily-game-plan-header-wrapper svg { color: #27676c; }
+.app-imported-page .daily-game-plan-page table { min-width: 720px; }
+.app-imported-page .daily-game-plan-page .overflow-x-auto { max-width: 100%; }
+.app-imported-page .daily-game-plan-page [class*="bg-white"],
+.app-imported-page .daily-game-plan-page [class*="bg-slate-50"],
+.app-imported-page .daily-game-plan-page [class*="bg-gray-50"] { background-color: var(--dgp-paper) !important; }
+.app-imported-page .daily-game-plan-page [class*="bg-gradient"] { background-image: none !important; }
+.app-imported-page .daily-game-plan-page [class*="rounded-3xl"],
+.app-imported-page .daily-game-plan-page [class*="rounded-2xl"],
+.app-imported-page .daily-game-plan-page [class*="rounded-xl"] { border-radius: 3px !important; }
+
+@media (max-width: 680px) {
+  .app-imported-page .daily-game-plan-page { margin: 0; padding: 0; }
+  .app-imported-page .daily-game-plan-page .daily-game-plan-header-wrapper { margin-bottom: 18px; }
+}
+
+.daily-game-plan-page select {
+  background-image: none !important;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  transition: all 0.2s ease-in-out;
+}
+
+/* Estilização das opções do select */
+.daily-game-plan-page select option {
+  background-color: #ffffff;
+  color: #334155;
+  padding: 0.75rem 1rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.daily-game-plan-page select option:hover {
+  background-color: #f1f5f9;
+  color: #1e293b;
+}
+
+.daily-game-plan-page select option:checked {
+  background-color: #3b82f6;
+  color: #ffffff;
+  font-weight: 600;
+}
+
+.daily-game-plan-page select:focus {
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+  outline: none;
+}
+
+.daily-game-plan-page select:hover {
+  border-color: #cbd5e1;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.05);
+}
+
+.daily-game-plan-page select:focus-visible {
+  outline: 2px solid #3b82f6;
+  outline-offset: 2px;
+}
+
+/* Wrapper de select com ícone (quando usado) */
+.daily-game-plan-select-wrapper {
+  position: relative;
+}
+
+.daily-game-plan-select-wrapper::after {
+  content: '';
+  position: absolute;
+  right: 0.75rem;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 1.25rem;
+  height: 1.25rem;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%2364758b'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: center;
+  pointer-events: none;
+  z-index: 0;
+  transition: transform 0.2s ease, background-image 0.2s ease;
+}
+
+.daily-game-plan-select-wrapper:hover::after {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%233b82f6'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'/%3E%3C/svg%3E");
+}
+
+.daily-game-plan-select-wrapper:has(select:focus)::after {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%233b82f6'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'/%3E%3C/svg%3E");
+  transform: translateY(-50%) rotate(180deg);
+}
+
+/* ============================================
+   REDUÇÃO DA LARGURA DAS MÉTRICAS EM TELAS GRANDES
+   ============================================ */
+@media (min-width: 768px) {
+  /* Reduz a largura do grid de métricas pela metade */
+  .daily-game-plan-header-wrapper .grid.grid-cols-2 {
+    max-width: 50%;
+  }
+}
+
+/* ============================================
+   AJUSTES PARA RESPONDER AO ESTADO DA SIDEBAR
+   ============================================ */
+@media (min-width: 768px) {
+  /* Garante que o container principal se ajuste ao estado da sidebar */
+  [data-slot="sidebar-inset"] .liquid-glass-page-bg {
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  }
+  
+  /* Garante que divs com w-full se ajustem ao container pai */
+  [data-slot="sidebar-inset"] .liquid-glass-page-bg > div[class*="w-full"] {
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+  }
+  
+  /* Força que todos os elementos filhos respeitem o container */
+  [data-slot="sidebar-inset"] .liquid-glass-page-bg * {
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+  }
+  
+  /* Zona morta nas laterais - margens em telas grandes */
+  [data-slot="sidebar-inset"] .liquid-glass-page-bg > div[class*="max-w-"] {
+    margin-left: 2rem !important;
+    margin-right: 2rem !important;
+  }
+  
+  /* Quando sidebar está colapsada, permite expandir mais o conteúdo */
+  [data-slot="sidebar-inset"][data-sidebar-state="collapsed"] .liquid-glass-page-bg > div[class*="max-w-"] {
+    max-width: 95% !important;
+    margin-left: 2.5rem !important;
+    margin-right: 2.5rem !important;
+  }
+  
+  /* Em telas muito largas, mantemos uma largura confortável em rem */
+  @media (min-width: 1536px) {
+    [data-slot="sidebar-inset"] .liquid-glass-page-bg > div[class*="max-w-"] {
+      max-width: 90rem !important;
+    }
+    
+    [data-slot="sidebar-inset"][data-sidebar-state="collapsed"] .liquid-glass-page-bg > div[class*="max-w-"] {
+      max-width: 100rem !important;
+    }
+  }
+  
+  @media (min-width: 1920px) {
+    [data-slot="sidebar-inset"] .liquid-glass-page-bg > div[class*="max-w-"] {
+      max-width: 95rem !important;
+    }
+    
+    [data-slot="sidebar-inset"][data-sidebar-state="collapsed"] .liquid-glass-page-bg > div[class*="max-w-"] {
+      max-width: 110rem !important;
+    }
+  }
+}

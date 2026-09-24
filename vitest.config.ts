@@ -5,8 +5,9 @@ import path from "node:path";
 export default defineConfig({
   plugins: [react()],
   test: {
+    maxWorkers: 1,
     environment: "jsdom",
-    include: ["app/**/*.test.{ts,tsx}", "lib/**/*.test.{ts,tsx}"],
+    include: ["app/**/*.test.{ts,tsx}", "lib/**/*.test.{ts,tsx}", "hooks/**/*.test.{ts,tsx}"],
     globals: true,
   },
   resolve: {

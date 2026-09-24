@@ -1,3 +1,28 @@
 *, *::before, *::after { box-sizing: border-box; }
 html, body { margin: 0; padding: 0; }
 body { -webkit-font-smoothing: antialiased; }
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face { font-family: 'IBM Plex Mono'; src: url('/route-balance/assets/ibm-plex-mono-latin-400-normal-DMJ8VG8y.woff2') format('woff2'); font-weight: 400; font-display: swap; }
+@font-face { font-family: 'Space Grotesk'; src: url('/route-balance/assets/space-grotesk-latin-700-normal-RjhwGPKo.woff2') format('woff2'); font-weight: 700; font-display: swap; }
+:root {
+  --font-sans: 'Space Grotesk', Arial, sans-serif;
+  --font-mono: 'IBM Plex Mono', monospace;
+  --background: 60 52% 96%; --foreground: 80 12% 10%;
+  --card: 51 100% 99%; --card-foreground: 80 12% 10%;
+  --popover: 51 100% 99%; --popover-foreground: 80 12% 10%;
+  --primary: 184 47% 29%; --primary-foreground: 0 0% 100%;
+  --secondary: 70 30% 91%; --secondary-foreground: 81 100% 21%;
+  --muted: 70 22% 92%; --muted-foreground: 88 8% 41%;
+  --accent: 83 92% 62%; --accent-foreground: 81 100% 21%;
+  --destructive: 0 72% 45%; --destructive-foreground: 0 0% 100%;
+  --border: 80 15% 77%; --input: 80 15% 77%; --ring: 184 47% 29%;
+  --radius: .375rem;
+
+  /* Escala de largura de conteúdo. Ver docs/superpowers/specs/2026-09-24-wide-screen-content-width-design.md */
+  --content-narrow: 48rem;
+  --content-standard: 80rem;
+  --content-wide: 100rem;
+}

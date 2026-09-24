@@ -31,6 +31,31 @@ export type ModalKind =
   | "generateWeekResult"
   | null;
 
+function RegisterDayOffModal({ onClose, onSubmit }: { onClose: () => void; onSubmit: (title: string) => void }) {
+  const [singleDay, setSingleDay] = useState(true);
+  return (
+    <PlannerModal
+      title="Register Day Off"
+      narrow
+      primaryLabel="SAVE"
+      description={"Register a day off for a vendor. Choose a single\nday or a period."}
+      onCancel={onClose}
+      onSubmit={() => onSubmit("Register Day Off")}
+    >
+      <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+        <SelectField label="Vendor" placeholder="Select a vendor" options={OPTIONS.vendor} />
+        <SegmentedField options={["Single Day", "Period"]} onChange={(index) => setSingleDay(index === 0)} />
+        <FieldRow>
+          <DateField label="Start Date" defaultValue="2024-07-13" />
+          <DateField label="End Date" defaultValue="2024-07-13" disabled={singleDay} />
+        </FieldRow>
+        <TextField label="Reason" placeholder="Reason for the day off" />
+        <TextareaField label="Notes" placeholder="WRITE ANY NOTES" tall />
+      </div>
+    </PlannerModal>
+  );
+}
+
 function formatShortDate(iso: string): string {
   const [, month, day] = iso.split("-");
   return `${day}/${month}`;
@@ -121,25 +146,7 @@ export default function PlannerModalHost({ openModal, contextRoute, contextDate,
   }
 
   if (openModal === "registerDayOff") {
-    return (
-      <PlannerModal
-        title="Register Day Off"
-        narrow
-        primaryLabel="SAVE"
-        description={"Register a day off for a vendor. Choose a single\nday or a period."}
-        onCancel={onClose}
-        onSubmit={() => submit("Register Day Off")}
-      >
-        <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
-          <SelectField label="Vendor" placeholder="Select a vendor" options={OPTIONS.vendor} />
-          <SegmentedField options={["Single Day", "Period"]} />
-          <DateField label="Start Date" defaultValue="2024-07-13" />
-          <DateField label="End Date" defaultValue="2024-07-13" />
-          <TextField label="Reason" placeholder="Reason for the day off" />
-          <TextareaField label="Notes" placeholder="WRITE ANY NOTES" tall />
-        </div>
-      </PlannerModal>
-    );
+    return <RegisterDayOffModal onClose={onClose} onSubmit={submit} />;
   }
 
   if (openModal === "addAssignment" || openModal === "editAssignment") {

@@ -1,0 +1,164 @@
+:where(.app-imported-page[data-page="logistics"]) {
+    --sidebar-bg: #ffffff;
+    --main-bg: #f7f8fa;
+    --text-dark: #2c3e50;
+    --text-light: #8491a1;
+    --border-color: #e9ecef;
+    --primary-blue: #0d6efd;
+    --card-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    --badge-child-bg: #ffebeb;
+    --badge-child-text: #dc3545;
+    --badge-flex-bg: #e9d5ff;
+    --badge-flex-text: #9333ea;
+    --badge-postcode-bg: #e9ecef;
+    --badge-postcode-text: #495057;
+}
+
+:where(.app-imported-page[data-page="logistics"]) {
+    font-family: 'Inter', sans-serif;
+    background-color: var(--main-bg);
+    color: var(--text-dark);
+}
+
+:where(.app-imported-page[data-page="logistics"]) .page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    background-color: var(--sidebar-bg);
+    border-bottom: 1px solid var(--border-color);
+    padding: 1rem 2rem;
+}
+
+:where(.app-imported-page[data-page="logistics"]) .page-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin: 0;
+    margin-right: auto;
+}
+
+:where(.app-imported-page[data-page="logistics"]) .page-content {
+    padding: 2rem;
+}
+
+@media (max-width: 992px) {
+    :where(.app-imported-page[data-page="logistics"]) .page-header {
+        padding: 1rem;
+    }
+    :where(.app-imported-page[data-page="logistics"]) .page-content {
+        padding: 1.5rem;
+    }
+}
+
+:where(.app-imported-page[data-page="logistics"]) .loop-card {
+    background-color: #fff;
+    border: 1px solid var(--border-color);
+    border-radius: 0.5rem;
+    margin-bottom: 2rem;
+    box-shadow: var(--card-shadow);
+}
+
+:where(.app-imported-page[data-page="logistics"]) .loop-header {
+    padding: 1rem 1.5rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+:where(.app-imported-page[data-page="logistics"]) .loop-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--text-dark);
+}
+
+:where(.app-imported-page[data-page="logistics"]) .loop-body {
+    padding: 1.5rem;
+}
+
+:where(.app-imported-page[data-page="logistics"]) .rates-section {
+    font-size: 0.9rem;
+    margin-bottom: 1.5rem;
+}
+
+:where(.app-imported-page[data-page="logistics"]) .rates-section strong {
+    font-weight: 500;
+    color: var(--text-dark);
+}
+
+:where(.app-imported-page[data-page="logistics"]) .rates-section span {
+    margin-right: 1rem;
+    color: var(--text-light);
+}
+
+:where(.app-imported-page[data-page="logistics"]) .table {
+    vertical-align: middle;
+}
+
+:where(.app-imported-page[data-page="logistics"]) .table thead th {
+    font-weight: 500;
+    color: var(--text-light);
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    border: none;
+}
+
+:where(.app-imported-page[data-page="logistics"]) .table tbody td {
+    border-top: 1px solid var(--border-color);
+    font-size: 0.9rem;
+}
+
+:where(.app-imported-page[data-page="logistics"]) .badge-custom {
+    padding: 0.4em 0.8em;
+    font-weight: 500;
+    font-size: 0.75rem;
+    border-radius: 0.3rem;
+}
+
+:where(.app-imported-page[data-page="logistics"]) .badge-child {
+    background-color: var(--badge-child-bg);
+    color: var(--badge-child-text);
+}
+
+:where(.app-imported-page[data-page="logistics"]) .badge-flex {
+    background-color: var(--badge-flex-bg);
+    color: var(--badge-flex-text);
+}
+
+:where(.app-imported-page[data-page="logistics"]) .badge-postcode {
+    background-color: var(--badge-postcode-bg);
+    color: var(--badge-postcode-text);
+}
+
+:where(.app-imported-page[data-page="logistics"]) .action-icon {
+    color: var(--primary-blue);
+    text-decoration: none;
+    font-size: 1.1rem;
+    margin: 0 0.3rem;
+    cursor: pointer;
+}
+
+:where(.app-imported-page[data-page="logistics"]) .postcode-card {
+    background-color: #fff;
+    border: 1px solid var(--border-color);
+    border-radius: 0.5rem;
+    box-shadow: var(--card-shadow);
+}
+
+:where(.app-imported-page[data-page="logistics"]) .postcode-header {
+    padding: 1rem 1.5rem;
+    font-weight: 500;
+}
+
+:where(.app-imported-page[data-page="logistics"]) .postcode-body {
+    padding: 1.5rem;
+    border-bottom-left-radius: 0.5rem;
+    border-bottom-right-radius: 0.5rem;
+}
+
+:where(.app-imported-page[data-page="logistics"]) .modal-body .form-section-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--text-dark);
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--border-color);
+}
+

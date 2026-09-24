@@ -1,0 +1,235 @@
+:where(.app-imported-page[data-page="op-dashboard"]) {
+    --sidebar-bg: #ffffff;
+    --main-bg: #f7f8fa;
+    --text-dark: #2c3e50;
+    --text-light: #8491a1;
+    --border-color: #e9ecef;
+    --primary-blue: #0d6efd;
+    --card-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    --badge-logistics: #e74c3c;
+    --badge-sorting: #f1c40f;
+    --badge-delivery: #2ecc71;
+    --badge-child: #3498db;
+    --badge-flex: #9b59b6;
+}
+
+:where(.app-imported-page[data-page="op-dashboard"]) {
+    font-family: 'Inter', sans-serif;
+    color: var(--text-dark);
+}
+
+:where(.app-imported-page[data-page="op-dashboard"]) .page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    background-color: var(--sidebar-bg);
+    border-bottom: 1px solid var(--border-color);
+    padding: 1rem 2rem;
+}
+
+:where(.app-imported-page[data-page="op-dashboard"]) .page-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin: 0;
+    margin-right: auto;
+}
+
+:where(.app-imported-page[data-page="op-dashboard"]) .page-content {
+    padding: 2rem;
+}
+
+@media (max-width: 992px) {
+    :where(.app-imported-page[data-page="op-dashboard"]) .page-header {
+        padding: 1rem;
+    }
+    :where(.app-imported-page[data-page="op-dashboard"]) .page-content {
+        padding: 1.5rem;
+    }
+}
+
+:where(.app-imported-page[data-page="op-dashboard"]) .card {
+    border: none;
+    border-radius: 12px;
+    box-shadow: var(--card-shadow);
+}
+
+:where(.app-imported-page[data-page="op-dashboard"]) .card-header {
+    background-color: #fff;
+    border-bottom: 1px solid var(--border-color);
+}
+
+:where(.app-imported-page[data-page="op-dashboard"]) .table {
+    vertical-align: middle;
+    font-size: 0.85rem;
+}
+
+:where(.app-imported-page[data-page="op-dashboard"]) .table th {
+    color: var(--text-light);
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.7rem;
+    border: 0;
+}
+
+:where(.app-imported-page[data-page="op-dashboard"]) .table td {
+    border-top: 1px solid var(--border-color);
+}
+
+:where(.app-imported-page[data-page="op-dashboard"]) .table tr:first-child td {
+    border-top: 0;
+}
+
+:where(.app-imported-page[data-page="op-dashboard"]) .kpi-card-top .kpi-value {
+    font-size: 2.2rem;
+    font-weight: 700;
+}
+
+:where(.app-imported-page[data-page="op-dashboard"]) .kpi-card-top .kpi-title {
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+}
+
+:where(.app-imported-page[data-page="op-dashboard"]) .dashboard-nav .nav-pills .nav-link {
+    color: var(--text-dark);
+    font-weight: 600;
+}
+
+:where(.app-imported-page[data-page="op-dashboard"]) .dashboard-nav .nav-pills .nav-link.active {
+    background-color: var(--primary-blue);
+    color: #fff;
+}
+
+:where(.app-imported-page[data-page="op-dashboard"]) .view-container {
+    display: none;
+}
+
+:where(.app-imported-page[data-page="op-dashboard"]) .view-container.active {
+    display: block;
+    animation: fadeIn 0.5s;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+:where(.app-imported-page[data-page="op-dashboard"]) .badge.bg-logistics {
+    background-color: var(--badge-logistics);
+}
+
+:where(.app-imported-page[data-page="op-dashboard"]) .badge.bg-sorting {
+    background-color: var(--badge-sorting);
+    color: #000 !important;
+}
+
+:where(.app-imported-page[data-page="op-dashboard"]) .badge.bg-delivery {
+    background-color: var(--badge-delivery);
+}
+
+:where(.app-imported-page[data-page="op-dashboard"]) .badge.bg-child {
+    background-color: var(--badge-child);
+}
+
+:where(.app-imported-page[data-page="op-dashboard"]) .badge.bg-flex {
+    background-color: var(--badge-flex);
+}
+
+:where(.app-imported-page[data-page="op-dashboard"]) .custom-chart-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    height: 250px;
+}
+
+:where(.app-imported-page[data-page="op-dashboard"]) .custom-chart-bars {
+    flex: 1;
+    display: flex;
+    align-items: flex-end;
+    gap: 1.5rem;
+    padding: 0.5rem 0;
+}
+
+:where(.app-imported-page[data-page="op-dashboard"]) .chart-bar {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.6rem;
+    min-width: 60px;
+}
+
+:where(.app-imported-page[data-page="op-dashboard"]) .bar-wrapper {
+    width: 100%;
+    display: flex;
+    align-items: flex-end;
+    gap: 0.5rem;
+    height: 100%;
+}
+
+:where(.app-imported-page[data-page="op-dashboard"]) .bar {
+    flex: 1;
+    position: relative;
+    border-radius: 8px 8px 4px 4px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    min-height: 10px;
+    transition: transform 0.2s ease;
+}
+
+:where(.app-imported-page[data-page="op-dashboard"]) .bar:hover {
+    transform: translateY(-4px);
+}
+
+:where(.app-imported-page[data-page="op-dashboard"]) .bar-deliveries {
+    background: rgba(13, 110, 253, 0.85);
+    box-shadow: inset 0 -6px 12px rgba(255, 255, 255, 0.25);
+}
+
+:where(.app-imported-page[data-page="op-dashboard"]) .bar-pickups {
+    background: rgba(155, 89, 182, 0.85);
+    box-shadow: inset 0 -6px 12px rgba(255, 255, 255, 0.25);
+}
+
+:where(.app-imported-page[data-page="op-dashboard"]) .bar-value {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #fff;
+    padding: 0.25rem 0.35rem;
+    line-height: 1;
+}
+
+:where(.app-imported-page[data-page="op-dashboard"]) .bar-label {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text-dark);
+}
+
+:where(.app-imported-page[data-page="op-dashboard"]) .custom-chart-legend {
+    display: flex;
+    gap: 1.5rem;
+    font-size: 0.85rem;
+    color: var(--text-light);
+}
+
+:where(.app-imported-page[data-page="op-dashboard"]) .legend-box {
+    width: 12px;
+    height: 12px;
+    border-radius: 3px;
+    margin-right: 6px;
+    display: inline-block;
+}
+
+:where(.app-imported-page[data-page="op-dashboard"]) .legend-box.deliveries {
+    background: rgba(13, 110, 253, 0.85);
+}
+
+:where(.app-imported-page[data-page="op-dashboard"]) .legend-box.pickups {
+    background: rgba(155, 89, 182, 0.85);
+}
+

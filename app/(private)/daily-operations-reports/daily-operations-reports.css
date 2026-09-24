@@ -1,0 +1,6 @@
+/* Reduzir largura dos componentes de métricas pela metade na página daily-operations-reports */
+.daily-operations-reports-metrics-wrapper .grid.grid-cols-2 {
+  max-width: 50% !important;
+  width: 50% !important;
+}
+

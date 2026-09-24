@@ -1,0 +1,1000 @@
+:root {
+  --primary-blue: #0d6efd;
+  --primary-blue-hover: #0b5ed7;
+  --success-green: #16a34a;
+  --success-green-hover: #15803d;
+  --danger-red: #dc2626;
+  --danger-red-hover: #b91c1c;
+  --border-color: #e9ecef;
+  --text-dark: #2c3e50;
+  --text-light: #8491a1;
+  --main-bg: #f7f8fa;
+}
+
+/* Animações unificadas para botões */
+@keyframes buttonPulse {
+  0%, 100% {
+    box-shadow: 0 4px 12px rgba(13, 110, 253, 0.3);
+  }
+  50% {
+    box-shadow: 0 6px 20px rgba(13, 110, 253, 0.45);
+  }
+}
+
+@keyframes buttonRipple {
+  0% {
+    transform: translate(-50%, -50%) scale(0);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(4);
+    opacity: 0;
+  }
+}
+
+@keyframes buttonShine {
+  0% {
+    transform: translateX(-100%) translateY(-100%) rotate(45deg);
+  }
+  100% {
+    transform: translateX(100%) translateY(100%) rotate(45deg);
+  }
+}
+
+/* Liquid glass animations */
+@keyframes liquidBlobA {
+  0% { transform: translate(-20%, -10%) scale(1); }
+  33% { transform: translate(10%, 8%) scale(1.08); }
+  66% { transform: translate(-5%, 18%) scale(0.98); }
+  100% { transform: translate(-20%, -10%) scale(1); }
+}
+
+@keyframes liquidBlobB {
+  0% { transform: translate(25%, 15%) scale(1); }
+  33% { transform: translate(5%, -5%) scale(1.12); }
+  66% { transform: translate(18%, 8%) scale(0.96); }
+  100% { transform: translate(25%, 15%) scale(1); }
+}
+
+@keyframes liquidSheen {
+  0% { transform: translateX(-120%) skewX(-18deg); opacity: 0; }
+  20% { opacity: 0.55; }
+  60% { opacity: 0.35; }
+  100% { transform: translateX(220%) skewX(-18deg); opacity: 0; }
+}
+
+/* Modern premium animations */
+@keyframes gradientFlow {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+@keyframes borderRotate {
+  0% { --angle: 0deg; }
+  100% { --angle: 360deg; }
+}
+
+@keyframes shimmer {
+  0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+  100% { transform: translateX(200%) translateY(200%) rotate(45deg); }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-4px) rotate(1deg); }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.8; transform: scale(1.05); }
+}
+
+@keyframes glowPulse {
+  0%, 100% { 
+    filter: drop-shadow(0 0 8px currentColor) drop-shadow(0 0 16px currentColor);
+    opacity: 0.6;
+  }
+  50% { 
+    filter: drop-shadow(0 0 12px currentColor) drop-shadow(0 0 24px currentColor);
+    opacity: 1;
+  }
+}
+
+/* Estilos base para botões */
+.styled-button {
+  border-radius: 8px;
+  font-weight: 500;
+  padding: 0.5rem 1rem;
+  transition: all 0.25s ease;
+  position: relative;
+  overflow: hidden;
+  border: none;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+  outline: none;
+  will-change: transform;
+  backface-visibility: hidden;
+}
+
+.styled-button:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* Botão Primary */
+.styled-button--primary {
+  background-color: var(--primary-blue);
+  border-color: var(--primary-blue);
+  color: #ffffff;
+}
+
+.styled-button--primary::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.3);
+  transform: translate(-50%, -50%);
+  transition: width 0.3s ease, height 0.3s ease;
+}
+
+.styled-button--primary::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+  transition: left 0.5s ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .styled-button--primary:hover:not(:disabled) {
+    background-color: var(--primary-blue-hover);
+    border-color: var(--primary-blue-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(13, 110, 253, 0.4);
+    animation: buttonPulse 1.2s ease-in-out infinite;
+  }
+
+  .styled-button--primary:hover:not(:disabled)::before {
+    width: 300px;
+    height: 300px;
+  }
+
+  .styled-button--primary:hover:not(:disabled)::after {
+    left: 100%;
+  }
+}
+
+.styled-button--primary:active:not(:disabled) {
+  transform: translateY(0) scale(0.98);
+}
+
+.styled-button--primary:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(13, 110, 253, 0.2), 0 4px 12px rgba(13, 110, 253, 0.3);
+}
+
+/* Botão Success */
+.styled-button--success {
+  background-color: var(--success-green);
+  border-color: var(--success-green);
+  color: #ffffff;
+}
+
+.styled-button--success::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.28);
+  transform: translate(-50%, -50%);
+  transition: width 0.3s ease, height 0.3s ease;
+}
+
+.styled-button--success::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.28), transparent);
+  transition: left 0.5s ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .styled-button--success:hover:not(:disabled) {
+    border-color: var(--success-green-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(22, 163, 74, 0.35);
+    animation: buttonPulse 1.2s ease-in-out infinite;
+  }
+
+  .styled-button--success:hover:not(:disabled)::before {
+    width: 300px;
+    height: 300px;
+  }
+
+  .styled-button--success:hover:not(:disabled)::after {
+    left: 100%;
+  }
+}
+
+.styled-button--success:active:not(:disabled) {
+  transform: translateY(0) scale(0.98);
+}
+
+.styled-button--success:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(22, 163, 74, 0.18), 0 4px 12px rgba(22, 163, 74, 0.25);
+}
+
+/* Botão Danger */
+.styled-button--danger {
+  background-color: var(--danger-red);
+  border-color: var(--danger-red);
+  color: #ffffff;
+}
+
+.styled-button--danger::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.28);
+  transform: translate(-50%, -50%);
+  transition: width 0.3s ease, height 0.3s ease;
+}
+
+.styled-button--danger::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.28), transparent);
+  transition: left 0.5s ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .styled-button--danger:hover:not(:disabled) {
+    border-color: var(--danger-red-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(220, 38, 38, 0.35);
+    animation: buttonPulse 1.2s ease-in-out infinite;
+  }
+
+  .styled-button--danger:hover:not(:disabled)::before {
+    width: 300px;
+    height: 300px;
+  }
+
+  .styled-button--danger:hover:not(:disabled)::after {
+    left: 100%;
+  }
+}
+
+.styled-button--danger:active:not(:disabled) {
+  transform: translateY(0) scale(0.98);
+}
+
+.styled-button--danger:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.18), 0 4px 12px rgba(220, 38, 38, 0.25);
+}
+
+/* Botão Outline Secondary */
+.styled-button--outline-secondary {
+  background-color: transparent;
+  border: 1px solid var(--border-color);
+  color: var(--text-dark);
+  transition: all 0.2s ease;
+}
+
+/* -----------------------------
+   Premium "Neo" variants - Completely Redesigned (Daily Game Plan)
+   ----------------------------- */
+.styled-button--neo-primary,
+.styled-button--neo-success,
+.styled-button--neo-danger,
+.styled-button--neo-glass {
+  position: relative;
+  border: none;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  overflow: hidden;
+  isolation: isolate;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  text-transform: uppercase;
+  font-size: 0.75rem;
+}
+
+/* Ensure content is above effects */
+.styled-button--neo-primary > *,
+.styled-button--neo-success > *,
+.styled-button--neo-danger > *,
+.styled-button--neo-glass > * {
+  position: relative;
+  z-index: 2;
+}
+
+/* Base with animated gradient background */
+.styled-button--neo-primary,
+.styled-button--neo-success,
+.styled-button--neo-danger {
+  background: var(--bg-gradient);
+  background-size: 200% 200%;
+  animation: gradientFlow 4s ease infinite;
+  color: #ffffff;
+  box-shadow: 
+    0 8px 24px rgba(0, 0, 0, 0.15),
+    0 0 0 1px rgba(255, 255, 255, 0.2) inset,
+    0 2px 8px rgba(0, 0, 0, 0.1) inset;
+  position: relative;
+}
+
+.styled-button--neo-primary {
+  --bg-gradient: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 50%, #ec4899 100%);
+  --glow-color: rgba(59, 130, 246, 0.6);
+}
+
+.styled-button--neo-success {
+  --bg-gradient: linear-gradient(135deg, #10b981 0%, #22c55e 50%, #34d399 100%);
+  --glow-color: rgba(34, 197, 94, 0.6);
+}
+
+.styled-button--neo-danger {
+  --bg-gradient: linear-gradient(135deg, #f43f5e 0%, #ef4444 50%, #f97316 100%);
+  --glow-color: rgba(239, 68, 68, 0.6);
+}
+
+/* Shimmer overlay */
+.styled-button--neo-primary::before,
+.styled-button--neo-success::before,
+.styled-button--neo-danger::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(
+    45deg,
+    transparent 30%,
+    rgba(255, 255, 255, 0.5) 50%,
+    transparent 70%
+  );
+  animation: shimmer 3s infinite;
+  z-index: 1;
+  pointer-events: none;
+  border-radius: inherit;
+}
+
+/* Glow effect on hover */
+.styled-button--neo-primary::after,
+.styled-button--neo-success::after,
+.styled-button--neo-danger::after {
+  content: '';
+  position: absolute;
+  inset: -6px;
+  border-radius: inherit;
+  background: var(--bg-gradient);
+  filter: blur(24px) brightness(1.3);
+  opacity: 0;
+  z-index: -1;
+  transition: opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .styled-button--neo-primary:hover:not(:disabled)::after,
+  .styled-button--neo-success:hover:not(:disabled)::after,
+  .styled-button--neo-danger:hover:not(:disabled)::after {
+    opacity: 0.9;
+  }
+}
+
+/* Hover effects with 3D transform - apenas em dispositivos com mouse */
+@media (hover: hover) and (pointer: fine) {
+  .styled-button--neo-primary:hover:not(:disabled),
+  .styled-button--neo-success:hover:not(:disabled),
+  .styled-button--neo-danger:hover:not(:disabled) {
+    transform: translateY(-4px) scale(1.05);
+    box-shadow:
+      0 20px 50px rgba(0, 0, 0, 0.25),
+      0 0 0 1px rgba(255, 255, 255, 0.4) inset,
+      0 0 80px var(--glow-color);
+    filter: brightness(1.1);
+  }
+}
+
+.styled-button--neo-primary:active:not(:disabled),
+.styled-button--neo-success:active:not(:disabled),
+.styled-button--neo-danger:active:not(:disabled) {
+  transform: translateY(-1px) scale(0.97);
+  transition: all 0.1s ease;
+}
+
+/* Premium Glass variant */
+.styled-button--neo-glass {
+  /* Fallback sólido */
+  background: rgba(255, 255, 255, 0.95);
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.95) 0%,
+    rgba(255, 255, 255, 0.85) 100%
+  );
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  color: #0f172a;
+  border: 2px solid rgba(255, 255, 255, 0.5);
+  box-shadow: 
+    0 8px 32px rgba(0, 0, 0, 0.1),
+    0 0 0 1px rgba(255, 255, 255, 0.8) inset,
+    0 2px 8px rgba(0, 0, 0, 0.05) inset;
+}
+
+.styled-button--neo-glass::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.6) 0%,
+    rgba(255, 255, 255, 0.2) 50%,
+    rgba(255, 255, 255, 0.4) 100%
+  );
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  z-index: 1;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .styled-button--neo-glass:hover:not(:disabled)::before {
+    opacity: 1;
+  }
+
+  .styled-button--neo-glass:hover:not(:disabled) {
+    transform: translateY(-3px) scale(1.03);
+    background: linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 1) 0%,
+      rgba(255, 255, 255, 0.95) 100%
+    );
+    box-shadow:
+      0 16px 48px rgba(0, 0, 0, 0.15),
+      0 0 0 1px rgba(255, 255, 255, 1) inset,
+      0 4px 12px rgba(0, 0, 0, 0.08) inset;
+    border-color: rgba(255, 255, 255, 0.8);
+  }
+}
+
+.styled-button--neo-glass:active:not(:disabled) {
+  transform: translateY(-1px) scale(0.98);
+}
+
+/* Focus states with enhanced visibility */
+.styled-button--neo-primary:focus-visible,
+.styled-button--neo-success:focus-visible,
+.styled-button--neo-danger:focus-visible,
+.styled-button--neo-glass:focus-visible {
+  outline: none;
+  box-shadow: 
+    0 0 0 4px rgba(59, 130, 246, 0.4),
+    0 20px 40px rgba(0, 0, 0, 0.2),
+    0 0 80px currentColor;
+  animation: pulse 1.5s ease infinite;
+}
+
+.styled-button--outline-secondary::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.05);
+  transform: translate(-50%, -50%);
+  transition: width 0.3s ease, height 0.3s ease;
+}
+
+.styled-button--outline-secondary::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(0, 0, 0, 0.05), transparent);
+  transition: left 0.5s ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .styled-button--outline-secondary:hover:not(:disabled) {
+    background-color: var(--main-bg);
+    border-color: var(--text-light);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  }
+}
+
+/* -----------------------------
+   Liquid Glass variant (system StyledButton)
+   ----------------------------- */
+.styled-button--liquid-glass {
+  color: rgba(15, 23, 42, 0.92);
+  /* Fallback sólido para quando backdrop-filter não funciona (Safari antigo, overflow:hidden) */
+  background: rgba(220, 252, 231, 0.85);
+  /* Glass com backdrop-filter para navegadores que suportam */
+  background:
+    linear-gradient(135deg,
+      rgba(16, 185, 129, 0.18) 0%,
+      rgba(34, 197, 94, 0.10) 45%,
+      rgba(255, 255, 255, 0.06) 100%
+    );
+  border: 1px solid rgba(255, 255, 255, 0.26);
+  backdrop-filter: blur(18px) saturate(180%);
+  -webkit-backdrop-filter: blur(18px) saturate(180%);
+  box-shadow:
+    0 18px 42px rgba(15, 23, 42, 0.14),
+    0 0 0 1px rgba(255, 255, 255, 0.10) inset,
+    0 8px 18px rgba(0, 0, 0, 0.08);
+}
+
+@supports not ((-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px))) {
+  .styled-button--liquid-glass {
+    background: rgba(220, 252, 231, 0.95) !important;
+    border-color: rgba(34, 197, 94, 0.3) !important;
+  }
+}
+
+/* -----------------------------
+   Floating Chat Button (FAB) - Glass (no animations)
+   ----------------------------- */
+.chat-fab-glass {
+  position: relative;
+  overflow: hidden;
+  border-radius: 9999px;
+  width: 64px;
+  height: 64px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  /* blue-tinted glass */
+  background: linear-gradient(135deg,
+    rgba(59, 130, 246, 0.18) 0%,
+    rgba(99, 102, 241, 0.14) 45%,
+    rgba(255, 255, 255, 0.06) 100%
+  );
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  backdrop-filter: blur(18px) saturate(180%);
+  -webkit-backdrop-filter: blur(18px) saturate(180%);
+  box-shadow:
+    0 18px 42px rgba(15, 23, 42, 0.18),
+    0 0 0 1px rgba(255, 255, 255, 0.10) inset,
+    0 10px 24px rgba(0, 0, 0, 0.10),
+    0 0 0 6px rgba(59, 130, 246, 0.05);
+  transition: transform 180ms ease, box-shadow 180ms ease, background 180ms ease;
+  outline: none;
+}
+
+/* refractive border rim */
+.chat-fab-glass::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(
+    135deg,
+    rgba(255,255,255,0.65),
+    rgba(59,130,246,0.14),
+    rgba(255,255,255,0.22)
+  );
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+/* static specular highlight */
+.chat-fab-glass::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  background:
+    radial-gradient(120px 90px at 30% 25%, rgba(255,255,255,0.30), transparent 60%),
+    radial-gradient(140px 100px at 70% 75%, rgba(59,130,246,0.22), transparent 62%);
+  filter: blur(8px);
+  opacity: 0.9;
+  mix-blend-mode: screen;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .chat-fab-glass:hover:not(:disabled) {
+    transform: translateY(-2px);
+    background: linear-gradient(135deg,
+      rgba(59, 130, 246, 0.24) 0%,
+      rgba(99, 102, 241, 0.18) 45%,
+      rgba(255, 255, 255, 0.08) 100%
+    );
+    box-shadow:
+      0 22px 54px rgba(15, 23, 42, 0.22),
+      0 0 0 1px rgba(255, 255, 255, 0.14) inset,
+      0 12px 28px rgba(0, 0, 0, 0.12),
+      0 0 0 6px rgba(59, 130, 246, 0.08);
+  }
+}
+
+.chat-fab-glass:active:not(:disabled) {
+  transform: translateY(0) scale(0.98);
+}
+
+.chat-fab-glass:focus-visible {
+  box-shadow:
+    0 0 0 4px rgba(59, 130, 246, 0.25),
+    0 22px 54px rgba(15, 23, 42, 0.22);
+}
+
+.chat-fab-glass .chat-fab-icon {
+  position: relative;
+  z-index: 2;
+  color: rgba(37, 99, 235, 0.95);
+  filter: drop-shadow(0 10px 18px rgba(15, 23, 42, 0.22));
+}
+
+.chat-fab-badge {
+  position: absolute;
+  top: -2px;
+  right: -2px;
+  min-width: 22px;
+  height: 22px;
+  padding: 0 6px;
+  border-radius: 9999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(90deg, #ef4444 0%, #dc2626 100%);
+  border: 2px solid rgba(255, 255, 255, 0.95);
+  box-shadow: 0 10px 24px rgba(15, 23, 42, 0.25);
+  z-index: 10;
+  pointer-events: none;
+}
+
+.chat-fab-badge span {
+  font-size: 10px;
+  line-height: 1;
+  font-weight: 800;
+  color: white;
+}
+
+/* Preview pequeno da última mensagem (quando notificação estiver ativada) */
+.chat-fab-preview {
+  position: absolute;
+  right: 0;
+  bottom: 74px;
+  width: 260px;
+  max-width: min(260px, calc(100vw - 2.5rem));
+  border-radius: 16px;
+  padding: 10px 12px;
+
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.42) 0%, rgba(241, 245, 249, 0.30) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  backdrop-filter: blur(18px) saturate(180%);
+  -webkit-backdrop-filter: blur(18px) saturate(180%);
+  box-shadow:
+    0 18px 42px rgba(15, 23, 42, 0.18),
+    0 0 0 1px rgba(255, 255, 255, 0.10) inset;
+}
+
+.chat-fab-preview-title {
+  font-size: 11px;
+  font-weight: 800;
+  color: rgba(15, 23, 42, 0.88);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.chat-fab-preview-text {
+  margin-top: 2px;
+  font-size: 12px;
+  color: rgba(51, 65, 85, 0.92);
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.chat-fab-preview-hint {
+  margin-top: 6px;
+  font-size: 11px;
+  font-weight: 700;
+  color: rgba(37, 99, 235, 0.92);
+}
+
+/* refractive border */
+.styled-button--liquid-glass::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(
+    135deg,
+    rgba(255,255,255,0.55),
+    rgba(34,197,94,0.10),
+    rgba(255,255,255,0.22)
+  );
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+/* liquid blobs */
+.styled-button--liquid-glass::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  background:
+    radial-gradient(160px 120px at 18% 28%, rgba(34,197,94,0.32), transparent 62%),
+    radial-gradient(180px 140px at 82% 72%, rgba(16,185,129,0.24), transparent 64%),
+    radial-gradient(140px 120px at 55% 12%, rgba(167,243,208,0.18), transparent 62%);
+  filter: blur(10px);
+  opacity: 0.85;
+  mix-blend-mode: screen;
+}
+
+/* extra moving blobs layer (via background-position trick) */
+.styled-button--liquid-glass {
+  background-image:
+    radial-gradient(220px 160px at 15% 20%, rgba(34,197,94,0.14), transparent 62%),
+    radial-gradient(240px 180px at 85% 80%, rgba(255,255,255,0.08), transparent 66%);
+  background-repeat: no-repeat;
+  background-size: 120% 120%;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .styled-button--liquid-glass:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow:
+      0 22px 54px rgba(15, 23, 42, 0.18),
+      0 0 0 1px rgba(255, 255, 255, 0.18) inset,
+      0 10px 22px rgba(0, 0, 0, 0.10);
+  }
+}
+
+.styled-button--liquid-glass:active:not(:disabled) {
+  transform: translateY(0) scale(0.98);
+}
+
+.styled-button--liquid-glass:focus-visible {
+  outline: none;
+  box-shadow:
+    0 0 0 4px rgba(59, 130, 246, 0.25),
+    0 22px 54px rgba(15, 23, 42, 0.20);
+}
+
+/* sheen overlay on hover */
+.styled-button--liquid-glass .liquid-sheen {
+  position: absolute;
+  top: 0;
+  left: -40%;
+  width: 40%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(167, 243, 208, 0.65),
+    transparent
+  );
+  transform: skewX(-18deg);
+  opacity: 0;
+  pointer-events: none;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .styled-button--liquid-glass:hover:not(:disabled) .liquid-sheen {
+    animation: liquidSheen 900ms ease-out;
+  }
+}
+
+/* -----------------------------
+   Sidebar variant (match AppSidebar hover palette)
+   ----------------------------- */
+.styled-button--sidebar {
+  background: rgba(255, 255, 255, 0.80);
+  border: 1px solid rgba(99, 102, 241, 0.20);
+  color: #111827;
+  border-radius: 0.75rem;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 4px 12px rgba(99, 102, 241, 0.12);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.styled-button--sidebar::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(99, 102, 241, 0.10) 0%,
+    rgba(139, 92, 246, 0.10) 50%,
+    rgba(236, 72, 153, 0.10) 100%
+  );
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  border-radius: inherit;
+  pointer-events: none;
+}
+
+.styled-button--sidebar::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -120%;
+  width: 60%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.55), transparent);
+  transform: skewX(-18deg);
+  opacity: 0;
+  pointer-events: none;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .styled-button--sidebar:hover:not(:disabled) {
+    background: rgba(255, 255, 255, 0.88);
+    transform: translateY(-1px);
+    box-shadow: 0 6px 18px rgba(99, 102, 241, 0.16);
+  }
+
+  .styled-button--sidebar:hover:not(:disabled)::before {
+    opacity: 1;
+  }
+
+  .styled-button--sidebar:hover:not(:disabled)::after {
+    opacity: 1;
+    animation: liquidSheen 850ms ease-out;
+  }
+
+  .styled-button--sidebar:hover:not(:disabled) svg,
+  .styled-button--sidebar:hover:not(:disabled) i {
+    color: #6366f1;
+  }
+}
+
+.styled-button--sidebar:active:not(:disabled) {
+  transform: translateY(0) scale(0.98);
+}
+
+.styled-button--sidebar:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.22), 0 6px 18px rgba(99, 102, 241, 0.14);
+}
+
+/* Reduce motion */
+@media (prefers-reduced-motion: reduce) {
+  .styled-button--liquid-glass:hover:not(:disabled) .liquid-sheen {
+    animation: none !important;
+    opacity: 0 !important;
+  }
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .styled-button--outline-secondary:hover:not(:disabled)::before {
+    width: 300px;
+    height: 300px;
+  }
+
+  .styled-button--outline-secondary:hover:not(:disabled)::after {
+    left: 100%;
+  }
+}
+
+.styled-button--outline-secondary:active:not(:disabled) {
+  transform: translateY(0) scale(0.98);
+}
+
+.styled-button--outline-secondary:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.1), 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Tamanhos */
+.styled-button--sm {
+  padding: 0.375rem 0.75rem;
+  font-size: 0.875rem;
+}
+
+.styled-button--md {
+  padding: 0.5rem 1rem;
+  font-size: 0.9rem;
+}
+
+.styled-button--lg {
+  padding: 0.625rem 1.25rem;
+  font-size: 1rem;
+}
+
+/* Ícones dentro dos botões */
+.styled-button i,
+.styled-button svg {
+  transition: transform 0.3s ease;
+  display: inline-block;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .styled-button:hover:not(:disabled) i,
+  .styled-button:hover:not(:disabled) svg {
+    transform: scale(1.1);
+  }
+}
+
+.styled-button:active:not(:disabled) i,
+.styled-button:active:not(:disabled) svg {
+  transform: scale(0.95);
+}
+
+/* Compatibilidade com classes Bootstrap existentes */
+.btn-primary.styled-button,
+.btn.styled-button.btn-primary {
+  background-color: var(--primary-blue) !important;
+  border-color: var(--primary-blue) !important;
+  color: #ffffff !important;
+}
+
+.btn-outline-secondary.styled-button,
+.btn.styled-button.btn-outline-secondary {
+  background-color: transparent !important;
+  border: 1px solid var(--border-color) !important;
+  color: var(--text-dark) !important;
+}
+
+/* Permitir background branco quando especificado explicitamente */
+.btn-outline-secondary.styled-button.bg-white,
+.btn.styled-button.btn-outline-secondary.bg-white,
+.btn-outline-secondary.styled-button.\!bg-white,
+.btn.styled-button.btn-outline-secondary.\!bg-white {
+  background-color: #ffffff !important;
+}
+
+/* Redução de movimento para acessibilidade */
+@media (prefers-reduced-motion: reduce) {
+  .styled-button,
+  .styled-button::before,
+  .styled-button::after {
+    animation: none !important;
+    transition: none !important;
+  }
+  
+  .styled-button:hover:not(:disabled) {
+    transform: none !important;
+  }
+}
+

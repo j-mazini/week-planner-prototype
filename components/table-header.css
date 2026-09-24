@@ -1,0 +1,268 @@
+/* ===================================================================
+ * TABLE HEADER - Estilização Unificada para Labels de Tabelas
+ * ===================================================================
+ * Componente reutilizável que unifica a estilização e animações
+ * das labels (th) em todas as tabelas do sistema
+ */
+
+:root {
+  --table-header-bg-gradient: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+  --table-header-text-dark: #2c3e50;
+  --table-header-text-light: #8491a1;
+  --table-header-border: #e2e8f0;
+  --table-header-primary-blue: #0d6efd;
+  --table-header-hover-bg: rgba(13, 110, 253, 0.06);
+}
+
+/* ===================================================================
+ * BASE STYLES
+ * ===================================================================
+ */
+.table-header {
+  position: relative;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+  user-select: none;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+}
+
+.table-header-content {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  width: 100%;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Alinhamento à direita quando text-right é aplicado */
+.table-header.text-right .table-header-content {
+  justify-content: flex-end;
+}
+
+.table-header-content > *:first-child {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  flex: 1;
+  min-width: 0;
+}
+
+.table-header-sort-indicator {
+  color: var(--table-header-text-dark);
+  font-size: 0.9em;
+  margin-left: 0.25rem;
+  flex-shrink: 0;
+}
+
+/* ===================================================================
+ * ANIMATION - Linha animada no hover
+ * ===================================================================
+ */
+.table-header::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: var(--table-header-border);
+  transition: width 0.3s ease;
+  z-index: 1;
+}
+
+.table-header:hover::after {
+  width: 100%;
+}
+
+/* ===================================================================
+ * VARIANT: STANDARD (Padrão - usado em vendor, vehicles, deductions)
+ * ===================================================================
+ */
+.table-header--standard {
+  background: var(--table-header-bg-gradient);
+  color: var(--table-header-text-dark);
+  font-weight: 700;
+  font-size: 0.8rem;
+  border-bottom: 2px solid var(--table-header-border);
+  padding: 1rem 0.75rem;
+}
+
+.table-header--standard:hover {
+  background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
+}
+
+/* ===================================================================
+ * VARIANT: CONTAINER (Usado em daily-operations-reports, daily-financial-insights)
+ * ===================================================================
+ */
+.table-header--container {
+  color: var(--table-header-text-light);
+  font-weight: 600;
+  font-size: 0.75rem;
+  border-bottom-width: 1px;
+  border-bottom-color: var(--table-header-border);
+  background-color: rgba(247, 248, 250, 0.8);
+  text-align: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 100%;
+  position: relative;
+  cursor: help; /* Indica que há informação adicional no hover */
+}
+
+.table-header--container:hover {
+  background-color: rgba(247, 248, 250, 1);
+  color: var(--table-header-text-dark);
+}
+
+/* Compatibilidade com .table-container */
+.table-container .table-header--container {
+  color: var(--text-light, var(--table-header-text-light));
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  border-bottom-width: 1px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  cursor: help;
+}
+
+/* Tooltip styling - garante que o tooltip apareça mesmo com overflow hidden */
+.table-header--container[title]:hover {
+  z-index: 10;
+}
+
+/* ===================================================================
+ * VARIANT: MINIMAL (Usado em week-planner, algumas tabelas simples)
+ * ===================================================================
+ */
+.table-header--minimal {
+  background-color: #f8fafc;
+  color: #475569;
+  font-weight: 600;
+  font-size: 0.75rem;
+  border-bottom: 1px solid rgba(148, 163, 184, 0.2);
+  padding: 0.75rem 1rem;
+  text-align: center;
+}
+
+.table-header--minimal:hover {
+  background-color: #f1f5f9;
+}
+
+/* ===================================================================
+ * VARIANT: PERFORMANCE (Usado em vendor-performance)
+ * ===================================================================
+ */
+.table-header--performance {
+  color: var(--table-header-text-light);
+  font-weight: 600;
+  font-size: 0.75rem;
+  border-bottom-width: 1px;
+  background-color: rgba(247, 248, 250, 0.8);
+  padding: 0.5rem 0.75rem;
+  position: sticky;
+  top: 0;
+  z-index: 5;
+}
+
+.table-header--performance:hover {
+  background-color: rgba(247, 248, 250, 1);
+}
+
+/* ===================================================================
+ * SORTABLE STYLES
+ * ===================================================================
+ */
+.table-header--sortable {
+  cursor: pointer;
+}
+
+.table-header--sortable:hover {
+  background-color: rgba(0, 0, 0, 0.02);
+}
+
+.table-header--sort-asc,
+.table-header--sort-desc {
+  color: var(--table-header-text-dark);
+  background: rgba(0, 0, 0, 0.03);
+}
+
+.table-header--sort-asc::after,
+.table-header--sort-desc::after {
+  width: 100%;
+  background: var(--table-header-border);
+}
+
+/* ===================================================================
+ * TABLE HEADER ROW
+ * ===================================================================
+ */
+.table-header-row {
+  /* Estilos específicos para a linha do cabeçalho, se necessário */
+}
+
+.table-header-row--standard thead & {
+  /* Estilos quando dentro de thead */
+}
+
+/* ===================================================================
+ * RESPONSIVE & ACCESSIBILITY
+ * ===================================================================
+ */
+@media (max-width: 768px) {
+  .table-header {
+    font-size: 0.7rem;
+    padding: 0.5rem 0.5rem;
+  }
+  
+  .table-header--standard {
+    font-size: 0.75rem;
+    padding: 0.75rem 0.5rem;
+  }
+}
+
+/* Focus styles para acessibilidade */
+.table-header--sortable:focus {
+  outline: 2px solid var(--table-header-border);
+  outline-offset: 2px;
+}
+
+/* ===================================================================
+ * ANIMATIONS
+ * ===================================================================
+ */
+@keyframes tableHeaderFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.table-header {
+  animation: tableHeaderFadeIn 0.3s ease-out;
+}
+
+/* Stagger animation para múltiplos headers */
+.table-header-row .table-header:nth-child(1) { animation-delay: 0.05s; }
+.table-header-row .table-header:nth-child(2) { animation-delay: 0.1s; }
+.table-header-row .table-header:nth-child(3) { animation-delay: 0.15s; }
+.table-header-row .table-header:nth-child(4) { animation-delay: 0.2s; }
+.table-header-row .table-header:nth-child(5) { animation-delay: 0.25s; }
+.table-header-row .table-header:nth-child(6) { animation-delay: 0.3s; }
+.table-header-row .table-header:nth-child(7) { animation-delay: 0.35s; }
+.table-header-row .table-header:nth-child(8) { animation-delay: 0.4s; }
+

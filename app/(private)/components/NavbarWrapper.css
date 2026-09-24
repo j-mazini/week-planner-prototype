@@ -2,20 +2,33 @@
    Owned by NavbarWrapper so any page that renders it gets consistent
    chrome without depending on another feature's stylesheet. */
 .app-shell { --mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace; --display: "Space Grotesk", "Helvetica Neue", Arial, sans-serif; --lime: #b2f746; --olive: #446900; min-height: 100vh; background: #fafaef; color: #1a1c16; }
-.app-sidebar { position: fixed; inset: 0 auto 0 0; z-index: 20; width: 58px; display: flex; flex-direction: column; align-items: stretch; background: #e9e9de; border-right: 1px solid #c9cec7; }
+.app-sidebar { position: fixed; inset: 0 auto 0 0; z-index: 20; width: 58px; display: flex; flex-direction: column; align-items: stretch; background: #e9e9de; border-right: 1px solid #c9cec7; transition: width .15s ease; }
 .app-brand { height: 106px; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 0; font-family: var(--display); font-size: 0; font-weight: 700; line-height: 1.02; color: #17171a; }
 .app-brand::before { content: "L/"; font-size: 29px; letter-spacing: -2px; }
 .app-brand::after { content: "S"; font-size: 29px; letter-spacing: -2px; }
 .app-brand span { display: none; }
+/* Expanded: matches the canonical "Property 1=Opened" sidebar variant
+   (175px, full wordmark, icon+label nav items) instead of the icon-only
+   58px rail shown by default. */
+.sidebar-expanded .app-sidebar { width: 175px; }
+.sidebar-expanded .app-brand { height: auto; padding: 24px 0 12px 20px; align-items: flex-start; font-size: 16px; }
+.sidebar-expanded .app-brand::before, .sidebar-expanded .app-brand::after { content: none; }
+.sidebar-expanded .app-brand span { display: block; font-size: 29px; letter-spacing: -1.6px; }
+.sidebar-expanded .app-navitem { justify-content: flex-start; padding-left: 20px; }
+.sidebar-expanded .app-navitem > span:last-child { display: inline; }
+.sidebar-expanded .app-main { margin-left: 175px; }
 .sidebar-toggle { position: absolute; top: 94px; right: -12px; width: 24px; height: 24px; border-radius: 50%; display: grid; place-items: center; padding: 0; border: 1px solid #c9cec7; background: #fff; color: var(--olive); font-size: 13px; line-height: 1; cursor: pointer; box-shadow: 0 1px 3px rgba(23, 23, 26, .18); transition: background-color .15s ease, transform .1s ease; }
 .sidebar-toggle:hover { background: #f3f3ec; }
 .sidebar-toggle:active { transform: scale(.92); }
-.app-nav { display: flex; flex-direction: column; gap: 2px; padding-top: 22px; }
+.app-nav { flex: 1; min-height: 0; display: flex; flex-direction: column; gap: 2px; padding-top: 22px; overflow-y: auto; overflow-x: hidden; scrollbar-width: thin; }
+.app-navsection-label { display: none; }
+.sidebar-expanded .app-navsection-label { display: block; padding: 18px 20px 6px; color: #7a8176; font: 700 9px/1 var(--mono); letter-spacing: .08em; white-space: nowrap; }
+.sidebar-expanded .app-navgroup + .app-navgroup { border-top: 1px solid #d2d5cc; margin-top: 9px; padding-top: 1px; }
 .app-navbottom { margin-top: auto; display: flex; flex-direction: column; gap: 2px; padding-bottom: 12px; border-top: 1px solid #c9cec7; }
 .app-navitem { width: 100%; min-height: 40px; display: flex; align-items: center; justify-content: center; gap: 10px; padding: 0; border: 0; background: transparent; color: #586052; font-family: var(--mono); font-size: 11px; font-weight: 600; text-align: left; cursor: pointer; text-decoration: none; }
 .app-navitem.active { background: var(--lime); color: var(--olive); }
 .app-navitem:hover { background: rgba(178, 247, 70, .56); color: var(--olive); }
-.nav-icon { width: 22px; flex: none; display: grid; place-items: center; font-family: Arial, sans-serif; font-size: 20px; line-height: 1; }
+.nav-icon { width: 22px; height: 20px; flex: none; display: grid; place-items: center; font-family: Arial, sans-serif; font-size: 20px; line-height: 1; }
 .app-navitem > span:last-child { display: none; }
 .app-main { min-height: 100vh; margin-left: 58px; }
 .app-topbar { height: 64px; display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: 0 45px 0 37px; border-bottom: 1px solid #d7d9d0; background: #fbfbf2; }
@@ -23,11 +36,175 @@
 .app-toptools { display: flex; align-items: center; gap: 23px; }
 .app-search input { width: 256px; height: 28px; border: 1px solid #c6cbc6; background: #f6f6ef; padding: 0 12px; font-family: var(--mono); font-size: 10px; color: var(--ink); }
 .app-search input::placeholder { color: #7a807b; opacity: 1; }
+.app-search { position: relative; }
+.app-search-results { position: absolute; top: calc(100% + 6px); right: 0; z-index: 100; width: 280px; max-height: 320px; overflow-y: auto; padding: 6px; background: #fffef8; border: 1px solid #c7cdbb; box-shadow: 0 6px 18px #003b3e18; }
+.app-search-results a, .app-search-results > span { display: block; padding: 10px; color: #003b3e; text-decoration: none; font: 11px/1.4 var(--mono); }
+.app-search-results a:hover, .app-search-results a:focus-visible { background: #e5f1dc; }
 .app-date { font-family: var(--mono); font-size: 10px; color: #5e655f; white-space: nowrap; }
 .app-divider { width: 1px; height: 24px; background: #c5cbc5; }
 .app-user { display: flex; align-items: center; gap: 6px; padding: 0; border: 0; background: transparent; font-family: var(--mono); font-size: 11px; color: #424936; }
 .user-circle { font-family: Arial, sans-serif; font-size: 24px; line-height: 1; }
 .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
+
+/* Shared Figma surface for imported screens. The source pages keep their
+   content and interactions, while this skin gives every screen the same
+   paper/teal/lime language as the new Week Planner and Route Balance. */
+.app-imported-page {
+  --surface: #fafaef;
+  --paper: #fffef8;
+  --line: #c7cdbb;
+  --line-soft: #e3e5d9;
+  --ink: #1a1c16;
+  --muted: #68705f;
+  --teal: #27676c;
+  --teal-deep: #003b3e;
+  --lime: #b2f746;
+  --olive: #446900;
+  min-height: calc(100vh - 64px);
+  padding: 24px 28px 48px;
+  background: var(--surface);
+  color: var(--ink);
+  font-family: var(--mono);
+  font-size: 12px;
+  line-height: 1.45;
+}
+.app-global-page { min-height: 100vh; background: #fafaef; color: #1a1c16; font-family: "IBM Plex Mono", ui-monospace, monospace; }
+.app-global-page > main, .app-global-page > div:not(.app-shell) { background: #fafaef; }
+.app-imported-page *, .app-imported-page *::before, .app-imported-page *::after { box-sizing: border-box; }
+.app-imported-page .liquid-glass-page-bg,
+.app-imported-page [class*="page-bg"],
+.app-imported-page [class*="glass"] { background: var(--surface) !important; color: var(--ink); }
+.app-imported-page h1, .app-imported-page h2, .app-imported-page h3, .app-imported-page h4 {
+  color: var(--ink) !important;
+  font-family: var(--display) !important;
+  letter-spacing: -.02em;
+}
+.app-imported-page h1 { font-size: clamp(22px, 2.4vw, 32px) !important; font-weight: 700 !important; }
+.app-imported-page h2 { font-size: 20px !important; }
+.app-imported-page p, .app-imported-page label, .app-imported-page small { color: var(--muted); }
+.app-imported-page table { width: 100%; border-collapse: collapse; background: var(--paper); border: 1px solid var(--line); }
+.app-imported-page thead th { background: #eef1df !important; color: var(--olive) !important; font: 700 10px/1.2 var(--mono); letter-spacing: .06em; text-transform: uppercase; }
+.app-imported-page th, .app-imported-page td { border-bottom: 1px solid var(--line-soft) !important; padding: 11px 12px; }
+.app-imported-page tbody tr:hover { background: #f2f7d9 !important; }
+.app-imported-page input, .app-imported-page select, .app-imported-page textarea {
+  border: 1px solid var(--line) !important; border-radius: 2px !important; background: var(--paper) !important;
+  color: var(--ink) !important; font: 11px var(--mono) !important; box-shadow: none !important;
+}
+.app-imported-page input:focus, .app-imported-page select:focus, .app-imported-page textarea:focus { outline: 2px solid var(--lime) !important; outline-offset: 1px; border-color: var(--olive) !important; }
+.app-imported-page button {
+  border-radius: 2px; font-family: var(--mono); font-size: 11px; box-shadow: none;
+}
+.app-imported-page :is(button, a):is(.bg-indigo-500, .bg-indigo-600, .bg-indigo-700, .bg-blue-500, .bg-blue-600, .bg-blue-700, .bg-primary) { background: var(--teal) !important; border-color: var(--teal) !important; color: #fff !important; }
+.app-imported-page :is(button, a):is(.bg-indigo-500, .bg-indigo-600, .bg-indigo-700, .bg-blue-500, .bg-blue-600, .bg-blue-700, .bg-primary):hover { background: var(--teal-deep) !important; }
+.app-imported-page [class*="rounded-2xl"], .app-imported-page [class*="rounded-xl"] {
+  border-color: var(--line) !important; box-shadow: 0 2px 8px rgba(23, 23, 26, .05) !important;
+}
+.app-imported-page [class*="bg-white"], .app-imported-page [class*="bg-slate-50"], .app-imported-page [class*="bg-gray-50"] { background-color: var(--paper) !important; }
+.app-imported-page [class*="text-indigo"], .app-imported-page [class*="text-blue"] { color: var(--teal) !important; }
+.app-imported-page [class*="border-indigo"], .app-imported-page [class*="border-blue"] { border-color: var(--line) !important; }
+
+/* Cross-page visual normalization. Imported screens use several generations
+   of Tailwind tokens; these rules translate their shared primitives into the
+   same paper / teal / lime system as Route Balance and Week Planner. */
+.app-imported-page [class*="min-h-screen"],
+.app-imported-page [class*="h-screen"],
+.app-imported-page [class*="bg-background"],
+.app-imported-page [class*="bg-gradient"],
+.app-imported-page [class*="bg-[radial-gradient"],
+.app-imported-page [class*="bg-[linear-gradient"] {
+  background: var(--surface) !important;
+  background-image: none !important;
+}
+.app-imported-page [class*="backdrop-blur"],
+.app-imported-page [class*="glass"],
+.app-imported-page [class*="shadow-lg"],
+.app-imported-page [class*="shadow-xl"],
+.app-imported-page [class*="shadow-2xl"] {
+  backdrop-filter: none !important;
+  box-shadow: 0 2px 10px rgba(23, 23, 26, .055) !important;
+}
+.app-imported-page [class*="text-slate-"],
+.app-imported-page [class*="text-gray-"],
+.app-imported-page [class*="text-zinc-"] { color: var(--muted) !important; }
+.app-imported-page [class*="text-slate-900"],
+.app-imported-page [class*="text-gray-900"],
+.app-imported-page [class*="text-zinc-900"],
+.app-imported-page [class*="text-black"] { color: var(--ink) !important; }
+.app-imported-page [class*="border-slate-"],
+.app-imported-page [class*="border-gray-"],
+.app-imported-page [class*="border-zinc-"] { border-color: var(--line-soft) !important; }
+.app-imported-page [class*="divide-slate-"],
+.app-imported-page [class*="divide-gray-"] > :not([hidden]) ~ :not([hidden]) { border-color: var(--line-soft) !important; }
+.app-imported-page [class*="bg-slate-50"],
+.app-imported-page [class*="bg-slate-100"],
+.app-imported-page [class*="bg-gray-50"],
+.app-imported-page [class*="bg-gray-100"],
+.app-imported-page [class*="bg-zinc-50"],
+.app-imported-page [class*="bg-white/"] { background-color: var(--paper) !important; }
+.app-imported-page [class~="bg-blue-600"],
+.app-imported-page [class~="bg-blue-700"],
+.app-imported-page [class~="bg-indigo-600"],
+.app-imported-page [class~="bg-indigo-700"],
+.app-imported-page [class~="bg-primary"] { background-color: var(--teal) !important; color: #fff !important; }
+.app-imported-page [class*="hover:bg-blue-"],
+.app-imported-page [class*="hover:bg-indigo-"] { transition: background-color .16s ease; }
+.app-imported-page [class*="hover:bg-blue-"]:hover,
+.app-imported-page [class*="hover:bg-indigo-"]:hover { background-color: #e5f1dc !important; color: var(--teal-deep) !important; }
+.app-imported-page [class*="rounded-3xl"],
+.app-imported-page [class*="rounded-2xl"],
+.app-imported-page [class*="rounded-xl"] { border-radius: 3px !important; }
+.app-imported-page [class*="rounded-lg"] { border-radius: 2px !important; }
+.app-imported-page [class*="ring-blue"],
+.app-imported-page [class*="ring-indigo"] { --tw-ring-color: var(--lime) !important; }
+.app-imported-page a { color: var(--teal); }
+.app-imported-page a:hover { color: var(--teal-deep); }
+.app-imported-page .bg-clip-text {
+  background: none !important;
+  color: var(--ink) !important;
+  -webkit-text-fill-color: var(--ink) !important;
+}
+.app-shell { width: 100%; min-width: 0; }
+.app-main { min-width: 0; }
+.app-imported-page { min-width: 0; }
+.app-imported-page .gradient-dots-background::before,
+.app-imported-page .gradient-dots-background::after { display: none; }
+.app-imported-page .overflow-x-auto { min-width: 0; max-width: 100%; }
+.app-imported-page input::placeholder { color: #68705f !important; opacity: 1; }
+/* Bootstrap's px-* helpers use !important; preserve room for search icons. */
+.app-imported-page input.pl-8 { padding-left: 2rem !important; }
+.app-imported-page input.pl-9 { padding-left: 2.25rem !important; }
+.app-imported-page input.pl-10 { padding-left: 2.5rem !important; }
+.app-imported-page input.pl-11 { padding-left: 2.75rem !important; }
+.app-imported-page input.pl-12 { padding-left: 3rem !important; }
+@media (max-width: 767px) {
+  .app-imported-page .page-header { flex-wrap: wrap; padding: 12px; }
+  .app-imported-page .page-content { padding: 12px; }
+  .app-imported-page .custom-chart-container { overflow-x: auto; }
+  .app-imported-page .custom-chart-bars { min-width: 480px; }
+  .app-imported-page .header-section { flex-wrap: wrap; gap: 12px; }
+  .app-imported-page .table-responsive { max-width: 100%; overflow-x: auto; }
+  .app-imported-page div:has(> table) { max-width: 100%; overflow-x: auto; }
+  .app-imported-page [role="tablist"] { max-width: 100%; height: auto; flex-wrap: wrap; }
+  .app-imported-page[data-page="op-management"] [data-animate="slide-down"],
+  .app-imported-page[data-page="op-management"] [data-animate="slide-down"] > .flex { flex-wrap: wrap; gap: 12px; }
+}
+.app-topbar h1 { min-width: 0; overflow-wrap: anywhere; }
+@media (max-width: 680px) {
+  .app-topbar { height: auto; min-height: 64px; padding: 12px; gap: 8px; }
+  .app-topbar h1 { font-size: 18px; }
+  .app-search { display: none; }
+}
+.app-imported-page button:focus-visible,
+.app-imported-page a:focus-visible,
+.app-imported-page input:focus-visible,
+.app-imported-page select:focus-visible,
+.app-imported-page textarea:focus-visible { outline: 2px solid var(--lime); outline-offset: 2px; }
+.app-imported-page [role="dialog"],
+.app-imported-page [data-radix-dialog-content] { border: 1px solid var(--line) !important; background: var(--paper) !important; color: var(--ink) !important; }
+
+@media (max-width: 680px) {
+  .app-imported-page { padding: 18px 14px 36px; }
+}
 
 @media (max-width: 980px) {
   .app-topbar { padding-inline: 20px; }

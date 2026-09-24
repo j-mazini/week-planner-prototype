@@ -1,0 +1,36 @@
+export interface FrontendOperationRecord {
+    weekPlannerId?: number;
+    operationId?: number;
+    dailyGamePlanOperationId?: number;
+    userId?: number;
+    routeId?: number;
+    vehicleId?: number;
+    costModelId?: number;
+    date: string;
+    route: string;
+    name: string;
+    paymentMode: string;
+    rate: number | string;
+    rateValue?: number | string;
+    routeCost?: number | string;
+    routeSort?: number | string;
+    sort: string;
+    sortLate?: boolean;
+    adhocSort: number | string;
+    extras: number | string;
+    notes: string;
+    vehicle: string;
+    vendorType: string;
+    status: string;
+    isDayOff?: boolean;
+    depositId?: number;
+    depositName?: string;
+    rtSortConfirmed?: boolean;
+    emailConfirmed?: boolean;
+    dhlConfirmed?: boolean;
+    email?: string;
+    departTime?: string;
+    returnTime?: string;
+    raw?: Record<string, unknown>;
+    [key: string]: string | number | boolean | undefined | Record<string, unknown>;
+}

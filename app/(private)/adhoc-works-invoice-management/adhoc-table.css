@@ -1,0 +1,28 @@
+/* Alinhamento consistente entre headers e células da tabela */
+/* Deslocamento de 4px para a esquerda em todas as colunas */
+.adhoc-works-table th,
+.adhoc-works-table td {
+  padding-left: calc(0.75rem - 4px);
+  padding-right: 0.75rem;
+  vertical-align: middle;
+}
+
+.adhoc-works-table th {
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
+}
+
+.adhoc-works-table td {
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+}
+
+/* Colunas Adhoc received payment e Vendor payment alinhadas à esquerda */
+.adhoc-works-table th:nth-child(7),
+.adhoc-works-table th:nth-child(8),
+.adhoc-works-table td:nth-child(7),
+.adhoc-works-table td:nth-child(8),
+.adhoc-works-table tfoot td:nth-child(7),
+.adhoc-works-table tfoot td:nth-child(8) {
+  text-align: left;
+}

@@ -14,6 +14,12 @@ const CONTENT_WIDTH = 1057;
 // it), leftover width grows the existing cards/tiles instead of sitting
 // unused as margin — capped so they stay proportionate on very wide monitors.
 const MAX_BLOCK_SCALE = 1.5;
+// How many route-card columns a very wide screen can add before the grid
+// stops growing and leftover width scales the cards instead (see blockScale
+// below). The KPI header below reads the same grid width and reflows itself
+// to match it (see the "KPI Header" block), so this is no longer bounded by
+// how far a 4-tile header can stretch.
+const MAX_COLUMNS = 7;
 // Natural width of the "Main Content/home" frame — the screen minus the
 // Figma-drawn sidebar/app-bar, which are no longer rendered (the real
 // NavbarWrapper shell replaces them, same as the Week Planner page).
@@ -72,7 +78,7 @@ export default function RouteBalance() {
       // scaling up, so the extra room on a wide monitor shows more routes at
       // their real size rather than stretching the original design. This is
       // naturally bounded later by how many cards actually exist to fill them.
-      setColumns(4 + Math.floor(Math.max(0, available - DESIGN_WIDTH) / CARD_STEP));
+      setColumns(Math.min(MAX_COLUMNS, 4 + Math.floor(Math.max(0, available - DESIGN_WIDTH) / CARD_STEP)));
     };
     resize(); window.addEventListener('resize', resize);
     return () => { window.removeEventListener('popstate', sync); window.removeEventListener('resize', resize); };
@@ -205,16 +211,46 @@ export default function RouteBalance() {
       if (kpiHeader?.c?.length) {
         const n = kpiHeader.c.length;
         const tileWidth = copy.styles[kpiHeader.c[0].s].width ?? 0;
-        // Grow the stat tiles themselves (same technique as the cards above)
-        // to fill the row, keeping a plain 16px gutter between them, instead
-        // of leaving them their original size with a wide gap.
         const targetWidth = CONTENT_WIDTH + extraWidth;
+        // Only 4 tiles share this row, so matching a wide grid (up to 7 card
+        // columns) by scaling them alone would blow well past what cards use
+        // — grow them only up to the same cap, then let a wider gutter (not
+        // a bigger tile) absorb whatever width is still left over. That
+        // keeps the tiles visually consistent with the cards below while
+        // still reaching the grid's exact right edge.
         const tileScale = Math.min(MAX_BLOCK_SCALE, (targetWidth - (n - 1) * CARD_GUTTER) / (n * tileWidth));
-        const tileStep = tileWidth * tileScale + CARD_GUTTER;
+        const scaledTile = tileWidth * tileScale;
+        const tileGutter = Math.max(CARD_GUTTER, (targetWidth - n * scaledTile) / (n - 1));
+        const tileStep = scaledTile + tileGutter;
         kpiHeader.c.forEach((tile, i) => {
           const s = copy.styles[tile.s];
           tile.s = copy.styles.push({ ...s, relativeTransform: [[tileScale, 0, i * tileStep], [0, tileScale, s.relativeTransform?.[1][2] ?? 0]] }) - 1;
         });
+        // Scaling a tile grows it in both directions from its top-left
+        // corner, so a tileScale above 1 also makes the row taller. The card
+        // grid ('Frame 11', a sibling positioned right after KPI Header —
+        // not the small 'Main Workspace…' toolbar strip that sits *above*
+        // the header) and the footer must shift down to keep clear of it,
+        // and Main Content/home must grow to still contain them.
+        const tileHeight = copy.styles[kpiHeader.c[0].s].height ?? 0;
+        const headerGrowth = tileHeight * (tileScale - 1);
+        // 'Frame 11' isn't a unique name — every route card has its own
+        // internal frame with the same auto-generated name — so this only
+        // walks Main Content/home's own direct children instead of a
+        // recursive name search, or it would also drag a card's internal
+        // layout down and corrupt it.
+        const mainContentNode = findNodes(copy.root, n => n.n === 'Main Content/home')[0];
+        if (headerGrowth && mainContentNode) {
+          const mcStyle = { ...copy.styles[mainContentNode.s] };
+          mainContentNode.s = copy.styles.push(mcStyle) - 1;
+          if (mcStyle.height) mcStyle.height += headerGrowth;
+          for (const child of mainContentNode.c ?? []) {
+            if (child.n !== 'Frame 11' && child.n !== 'Footer') continue;
+            const s = { ...copy.styles[child.s] };
+            child.s = copy.styles.push(s) - 1;
+            if (s.relativeTransform) s.relativeTransform = [[1, 0, s.relativeTransform[0][2]], [0, 1, s.relativeTransform[1][2] + headerGrowth]];
+          }
+        }
       }
     }
     return copy;

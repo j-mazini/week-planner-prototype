@@ -37,6 +37,9 @@
     ".next-dev/types/**/*.ts"
   ],
   "exclude": [
-    "node_modules"
+    "node_modules",
+    "app/(private)/daily-financial-insights/page-refactored.tsx",
+    "app/(private)/week-planner-operations/page.new.tsx",
+    ".worktrees"
   ]
 }

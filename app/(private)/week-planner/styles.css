@@ -106,7 +106,8 @@
 .veh.none { background: rgba(255, 255, 255, .6); border: 1px dashed var(--orange); color: var(--orange); }
 .veh.sub { background: #fff; border: 1px solid var(--amber); color: var(--amber-ink); }
 .drop { margin: 0 10px 0 12px; height: 32px; flex: 1; display: flex; align-items: center; justify-content: flex-end; border: 1px dashed rgba(70, 78, 12, .45); padding: 0 8px; }
-.assign { height: 19px; background: var(--ink-strong); color: #fff; border: 0; padding: 0 12px; font-size: 9px; font-weight: 600; }
+.assign { height: 19px; background: var(--lime-primary); border: 1px solid var(--olive); padding: 0 12px; font-size: 9px; font-weight: 600; }
+.week-planner-page .assign { color: var(--olive-deep); }
 
 .sechead { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding-top: 16px; }
 .sechead h2 { font-family: var(--display); font-size: 20px; font-weight: 700; line-height: 32px; }
@@ -178,9 +179,11 @@ footer.pg { margin-top: 24px; border-top: 1px solid var(--line); padding-top: 16
 .exrow { display: flex; align-items: center; justify-content: space-between; gap: 4px; padding: 4px 5px; border-bottom: 1px solid var(--line-row); }
 .exlbl { font-size: 6.5px; letter-spacing: .52px; color: var(--ink-faint); }
 .plate-chip { border: 1px solid rgba(0, 0, 0, .3); padding: 4px; font-size: 7.5px; font-weight: 600; letter-spacing: .6px; color: var(--ink-plate); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.use { background: #000; color: #fff; border: 0; padding: 4px 8px; font-family: var(--display); font-size: 8.5px; font-weight: 700; }
+.use { background: var(--lime-primary); border: 1px solid var(--olive); padding: 4px 8px; font-family: var(--display); font-size: 8.5px; font-weight: 700; }
+.week-planner-page .use { color: var(--olive-deep); }
 .unall { display: flex; align-items: center; justify-content: space-between; gap: 4px; padding: 7px 6px; background: rgba(228, 240, 99, .28); border: 1px dashed rgba(70, 78, 12, .4); }
-.place { background: var(--ink-strong); color: #fff; border: 0; border-radius: 999px; padding: 4px 12px; font-family: var(--display); font-size: 8.5px; font-weight: 700; }
+.place { background: var(--lime-primary); border: 1px solid var(--olive); border-radius: 999px; padding: 4px 12px; font-family: var(--display); font-size: 8.5px; font-weight: 700; }
+.week-planner-page .place { color: var(--olive-deep); }
 .exname { font-family: var(--display); font-size: 10.5px; font-weight: 700; color: var(--ink-strong); }
 .foot { font-size: 6.5px; line-height: 11px; letter-spacing: .325px; color: var(--ink-faint); margin: 0; }
 
@@ -220,7 +223,8 @@ footer.pg { margin-top: 24px; border-top: 1px solid var(--line); padding-top: 16
 .dlgdesc { font-size: 14px; line-height: 20px; color: #4a4a4a; margin: 0; white-space: pre-line; }
 .dlgft { display: flex; justify-content: flex-end; gap: 10px; padding: 24px; background: var(--surface); }
 .ghost { height: 30px; background: transparent; border: 1px solid var(--line-hard); padding: 0 17px; font-family: var(--display); font-size: 12px; font-weight: 700; letter-spacing: .6px; text-transform: uppercase; color: var(--olive-deep); }
-.primary { height: 30px; background: var(--lime-primary); border: 1px solid var(--olive); padding: 0 17px; font-size: 12px; font-weight: 600; text-transform: uppercase; color: var(--olive-deep); }
+.primary { height: 30px; background: var(--lime-primary); border: 1px solid var(--olive); padding: 0 17px; font-size: 12px; font-weight: 600; text-transform: uppercase; }
+.week-planner-page .primary { color: #fff; }
 .two { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
 @media (max-width: 700px) { .two { grid-template-columns: 1fr; } }
 .span2 { grid-column: 1 / -1; }
@@ -294,6 +298,18 @@ textarea.ctl.tall { height: 100px; }
 .week-planner-page .cols { display: block; }
 .week-planner-page .board { width: 100%; }
 .week-planner-page .railcol { display: none; }
+/* Opened on demand via the team-leader row's chevron button (see
+   TeamLeaderTrack) instead of always showing — the rail's own width
+   (404px, see .railcol above) needs real horizontal room, so it only
+   lays out side-by-side with the board on wide viewports; narrower ones
+   stack it below. */
+.week-planner-page.rail-open .cols { display: flex; flex-direction: column; gap: 24px; }
+.week-planner-page.rail-open .board { width: auto; flex: 1; min-width: 0; }
+.week-planner-page.rail-open .railcol { display: flex; width: 100%; }
+@media (min-width: 1280px) {
+  .week-planner-page.rail-open .cols { flex-direction: row; }
+  .week-planner-page.rail-open .railcol { width: 404px; }
+}
 
 @media (max-width: 980px) {
   .week-planner-page .wrap { padding-inline: 20px; }

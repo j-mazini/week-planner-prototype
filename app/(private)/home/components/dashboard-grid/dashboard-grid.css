@@ -1,0 +1,22 @@
+/* Dashboard grid: base and edit-mode grid background */
+
+/* Wrapper when edit mode is on: visible grid for placing/resizing blocks */
+.dashboard-grid-edit-bg {
+  position: relative;
+  border-radius: 1rem;
+  background-color: rgb(241 245 249);
+  /* Grid pattern: subtle lines every 20px for visual alignment when dragging/resizing */
+  background-image: linear-gradient(rgba(148, 163, 184, 0.25) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(148, 163, 184, 0.25) 1px, transparent 1px);
+  background-size: 20px 20px;
+  min-height: 320px;
+  transition: background-color 0.2s ease;
+}
+
+/* Normal mode: clean, minimal background */
+.dashboard-grid-wrapper {
+  position: relative;
+  border-radius: 1rem;
+  min-height: 320px;
+  transition: background-color 0.2s ease;
+}

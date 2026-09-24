@@ -1,0 +1,432 @@
+/* InvoiceDashboard.css */
+
+:where(.app-imported-page[data-page="invoice-history"]) {
+    --sidebar-bg: #ffffff;
+    --main-bg: #f7f8fa;
+    --text-dark: #2c3e50;
+    --text-light: #8491a1;
+    --border-color: #e9ecef;
+    --primary-blue: #0d6efd;
+    --card-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+:where(.app-imported-page[data-page="invoice-history"]) {
+    font-family: "Inter", sans-serif;
+    background: linear-gradient(135deg, #e0e7ff 0%, #c7d2fe 30%, #e0e7ff 60%, #f0f4f8 100%) !important;
+    background-image: radial-gradient(#cbd5e1 1px, transparent 1px) !important;
+    background-size: 24px 24px !important;
+    background-attachment: fixed;
+    color: var(--text-dark);
+    margin: 0;
+}
+
+/* Container principal */
+:where(.app-imported-page[data-page="invoice-history"]) .invoice-dashboard-container {
+    font-family: 'Inter', sans-serif;
+    background: linear-gradient(135deg, #e0e7ff 0%, #c7d2fe 30%, #e0e7ff 60%, #f0f4f8 100%) !important;
+    background-image: radial-gradient(#cbd5e1 1px, transparent 1px) !important;
+    background-size: 24px 24px !important;
+    background-attachment: fixed;
+    color: var(--text-dark);
+    min-height: 100vh;
+    position: relative;
+    width: 100%;
+    z-index: 1;
+    overflow-x: hidden;
+}
+
+:where(.app-imported-page[data-page="invoice-history"]) .invoice-dashboard-container::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100vw;
+    height: 100vh;
+    background: radial-gradient(circle at 20% 20%, rgba(99, 102, 241, 0.12), transparent 50%),
+                radial-gradient(circle at 80% 10%, rgba(236, 72, 153, 0.12), transparent 45%),
+                radial-gradient(circle at 75% 80%, rgba(14, 165, 233, 0.12), transparent 50%);
+    pointer-events: none;
+    mix-blend-mode: screen;
+    z-index: 0;
+    animation: neonAura 18s ease-in-out infinite alternate;
+}
+
+@keyframes neonAura {
+    0% { transform: scale(1); opacity: 1; filter: blur(0); }
+    50% { transform: scale(1.05); opacity: 0.95; filter: blur(2px); }
+    100% { transform: scale(1.02); opacity: 1; filter: blur(1px); }
+}
+
+/* Estrutura */
+:where(.app-imported-page[data-page="invoice-history"]) .wrapper {
+    display: flex;
+    min-height: 100vh;
+    position: relative;
+    z-index: 1;
+}
+
+:where(.app-imported-page[data-page="invoice-history"]) #main-content {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    margin-left: 0;
+    position: relative;
+    z-index: 1;
+}
+
+/* Page Header */
+:where(.app-imported-page[data-page="invoice-history"]) .page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    background-color: var(--sidebar-bg);
+    border-bottom: 1px solid var(--border-color);
+    padding: 1rem 2rem;
+}
+
+:where(.app-imported-page[data-page="invoice-history"]) .page-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin: 0;
+    margin-right: auto;
+}
+
+:where(.app-imported-page[data-page="invoice-history"]) .user-profile-box {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+:where(.app-imported-page[data-page="invoice-history"]) .user-info {
+    text-align: right;
+}
+
+:where(.app-imported-page[data-page="invoice-history"]) .company-name {
+    font-weight: 700;
+    font-size: 0.9rem;
+    color: var(--text-dark);
+}
+
+:where(.app-imported-page[data-page="invoice-history"]) .user-name {
+    font-size: 0.8rem;
+    color: var(--text-light);
+}
+
+:where(.app-imported-page[data-page="invoice-history"]) .sync-icon {
+    color: var(--text-light);
+    text-decoration: none;
+    font-size: 1.2rem;
+    transition: color 0.3s;
+}
+
+:where(.app-imported-page[data-page="invoice-history"]) .sync-icon:hover {
+    color: var(--primary-blue);
+}
+
+:where(.app-imported-page[data-page="invoice-history"]) .page-content {
+    padding: 2rem;
+}
+
+/* Action Bar */
+:where(.app-imported-page[data-page="invoice-history"]) .content-actions-bar {
+    background: #fff;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    box-shadow: var(--card-shadow);
+}
+
+:where(.app-imported-page[data-page="invoice-history"]) .actions-top-row {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    margin-bottom: 1rem;
+    flex-wrap: wrap;
+}
+
+:where(.app-imported-page[data-page="invoice-history"]) .filter-groups-row {
+    display: flex;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+:where(.app-imported-page[data-page="invoice-history"]) .filter-group {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+:where(.app-imported-page[data-page="invoice-history"]) .filter-group strong {
+    font-size: 0.9rem;
+    color: var(--text-dark);
+}
+
+/* Stats Cards */
+:where(.app-imported-page[data-page="invoice-history"]) .summary-stats {
+    margin-bottom: 2rem;
+}
+
+:where(.app-imported-page[data-page="invoice-history"]) .stat-card {
+    background: #fff;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    box-shadow: var(--card-shadow);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+:where(.app-imported-page[data-page="invoice-history"]) .stat-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+}
+
+:where(.app-imported-page[data-page="invoice-history"]) .stat-card-icon {
+    width: 60px;
+    height: 60px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.8rem;
+    flex-shrink: 0;
+}
+
+:where(.app-imported-page[data-page="invoice-history"]) .stat-card-icon.blue {
+    background-color: #e6f2ff;
+    color: #0d6efd;
+}
+
+:where(.app-imported-page[data-page="invoice-history"]) .stat-card-icon.yellow {
+    background-color: #fff8e1;
+    color: #f57c00;
+}
+
+:where(.app-imported-page[data-page="invoice-history"]) .stat-card-icon.green {
+    background-color: #eaf6ec;
+    color: #28a745;
+}
+
+:where(.app-imported-page[data-page="invoice-history"]) .stat-card-info {
+    flex: 1;
+}
+
+:where(.app-imported-page[data-page="invoice-history"]) .stat-card-info label {
+    display: block;
+    font-size: 0.85rem;
+    color: var(--text-light);
+    margin-bottom: 0.25rem;
+    font-weight: 500;
+}
+
+:where(.app-imported-page[data-page="invoice-history"]) .stat-card-info .value {
+    display: block;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--text-dark);
+}
+
+/* Table */
+:where(.app-imported-page[data-page="invoice-history"]) .table-container {
+    background: #fff;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    box-shadow: var(--card-shadow);
+    overflow: hidden;
+}
+
+:where(.app-imported-page[data-page="invoice-history"]) .table-container .table {
+    margin-bottom: 0;
+}
+
+:where(.app-imported-page[data-page="invoice-history"]) .table-container th {
+    color: var(--text-light);
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    padding: 16px 20px;
+    border-bottom: 2px solid var(--border-color);
+}
+
+:where(.app-imported-page[data-page="invoice-history"]) .table-container td {
+    padding: 16px 20px;
+    font-size: 0.9rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+:where(.app-imported-page[data-page="invoice-history"]) .table tbody tr:hover {
+    background-color: rgba(13, 110, 253, 0.03);
+}
+
+:where(.app-imported-page[data-page="invoice-history"]) .table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+/* Buttons */
+:where(.app-imported-page[data-page="invoice-history"]) .btn-icon {
+    width: 34px;
+    height: 34px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--border-color);
+    color: var(--text-light);
+    border-radius: 6px;
+    transition: all 0.3s;
+    margin-right: 4px;
+    background: transparent;
+    cursor: pointer;
+}
+
+:where(.app-imported-page[data-page="invoice-history"]) .btn-icon:hover {
+    background-color: #e6f2ff;
+    color: var(--primary-blue);
+    border-color: var(--primary-blue);
+}
+
+:where(.app-imported-page[data-page="invoice-history"]) .edit-btn {
+    margin-right: 4px;
+}
+
+/* Status Tags */
+:where(.app-imported-page[data-page="invoice-history"]) .status-tag {
+    font-size: 0.8rem;
+    font-weight: 600;
+    padding: 0.25rem 0.6rem;
+    border-radius: 50px;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+}
+
+:where(.app-imported-page[data-page="invoice-history"]) .status-tag.pending {
+    background-color: #fff8e1;
+    color: #f57c00;
+}
+
+:where(.app-imported-page[data-page="invoice-history"]) .status-tag.approved {
+    background-color: #eaf6ec;
+    color: #28a745;
+}
+
+:where(.app-imported-page[data-page="invoice-history"]) .status-tag.sent {
+    background-color: #e6f2ff;
+    color: #0d6efd;
+}
+
+:where(.app-imported-page[data-page="invoice-history"]) .status-tag.draft {
+    background-color: #f0f2f5;
+    color: #5a6a7d;
+}
+
+/* No Results */
+:where(.app-imported-page[data-page="invoice-history"]) .no-results {
+    padding: 3rem 1rem;
+}
+
+:where(.app-imported-page[data-page="invoice-history"]) .no-results i {
+    opacity: 0.5;
+}
+
+/* Modals */
+:where(.app-imported-page[data-page="invoice-history"]) .modal {
+    z-index: 1050;
+}
+
+:where(.app-imported-page[data-page="invoice-history"]) .modal-content {
+    border-radius: 8px;
+    border: none;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+}
+
+:where(.app-imported-page[data-page="invoice-history"]) .modal-header {
+    padding: 1.5rem;
+}
+
+:where(.app-imported-page[data-page="invoice-history"]) .modal-title {
+    font-weight: 600;
+    font-size: 1.25rem;
+}
+
+:where(.app-imported-page[data-page="invoice-history"]) .modal-body {
+    padding: 1.5rem;
+}
+
+:where(.app-imported-page[data-page="invoice-history"]) .modal-footer {
+    padding: 1rem 1.5rem;
+}
+
+/* Form Controls */
+:where(.app-imported-page[data-page="invoice-history"]) .form-control, :where(.app-imported-page[data-page="invoice-history"]) .form-select {
+    padding: 10px 14px;
+    border: 2px solid var(--border-color);
+    border-radius: 8px;
+    font-size: 0.9rem;
+    transition: all 0.3s;
+    background-color: #fff;
+}
+
+:where(.app-imported-page[data-page="invoice-history"]) .form-control:focus, :where(.app-imported-page[data-page="invoice-history"]) .form-select:focus {
+    outline: none;
+    border-color: var(--primary-blue);
+    box-shadow: 0 0 0 4px rgba(13, 110, 253, 0.1);
+}
+
+:where(.app-imported-page[data-page="invoice-history"]) .form-label {
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+    color: var(--text-dark);
+    font-size: 0.9rem;
+}
+
+/* Animations */
+:where(.app-imported-page[data-page="invoice-history"]) .reveal {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+:where(.app-imported-page[data-page="invoice-history"]) .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    :where(.app-imported-page[data-page="invoice-history"]) .page-header {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 1rem;
+    }
+
+    :where(.app-imported-page[data-page="invoice-history"]) .page-content {
+        padding: 1rem;
+    }
+
+    :where(.app-imported-page[data-page="invoice-history"]) .actions-top-row {
+        flex-direction: column;
+    }
+
+    :where(.app-imported-page[data-page="invoice-history"]) .actions-top-row > * {
+        width: 100%;
+    }
+
+    :where(.app-imported-page[data-page="invoice-history"]) .filter-groups-row {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    :where(.app-imported-page[data-page="invoice-history"]) .filter-group {
+        flex-direction: column;
+        align-items: stretch;
+    }
+}
+

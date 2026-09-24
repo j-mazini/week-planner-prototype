@@ -1,0 +1,288 @@
+/* Routes Management Modern Styles - Complex Pseudo-elements */
+
+/* Container Background Particles Effect */
+.routes-container-bg::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: 
+    radial-gradient(circle at 10% 20%, rgba(67, 97, 238, 0.05) 0%, transparent 20%),
+    radial-gradient(circle at 90% 80%, rgba(114, 9, 183, 0.05) 0%, transparent 20%),
+    radial-gradient(circle at 50% 50%, rgba(248, 37, 133, 0.03) 0%, transparent 30%);
+  pointer-events: none;
+  z-index: -1;
+}
+
+/* Page Header Modern Styles */
+.page-header-modern::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100px;
+  height: 4px;
+  background: linear-gradient(to right, #4361ee, #f72585);
+  border-radius: 2px;
+}
+
+.subtitle-modern::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: -60px;
+  width: 50px;
+  height: 1px;
+  background: linear-gradient(to right, transparent, #adb5bd);
+}
+
+.subtitle-modern::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  right: -60px;
+  width: 50px;
+  height: 1px;
+  background: linear-gradient(to left, transparent, #adb5bd);
+}
+
+/* Deposit Header Gradient Overlay */
+.deposit-header-modern::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  right: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+  opacity: 0.3;
+}
+
+/* Summary Item Hover Overlay */
+.summary-item-modern::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.2), transparent);
+  opacity: 0;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.summary-item-modern:hover::before {
+  opacity: 1;
+}
+
+/* Summary Item States */
+.summary-item-modern.active {
+  background: rgba(76, 201, 240, 0.2) !important;
+  border-color: rgba(76, 201, 240, 0.3) !important;
+}
+
+.summary-item-modern.inactive {
+  background: rgba(247, 37, 133, 0.2) !important;
+  border-color: rgba(247, 37, 133, 0.3) !important;
+}
+
+.summary-item-modern.percentage {
+  background: rgba(248, 150, 30, 0.2) !important;
+  border-color: rgba(248, 150, 30, 0.3) !important;
+}
+
+/* Service Type Header Bottom Line */
+.service-type-header-modern::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(to right, transparent, #4895ef, transparent);
+}
+
+/* Service Type Name Indicator */
+.service-type-name-modern::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 8px;
+  height: 8px;
+  background: #4361ee;
+  border-radius: 50%;
+}
+
+/* Summary Item Divider */
+.st-summary-item-modern::after {
+  content: '';
+  position: absolute;
+  right: -8px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 1px;
+  height: 60%;
+  background: rgba(0, 0, 0, 0.08);
+}
+
+.st-summary-item-modern:last-child::after {
+  display: none;
+}
+
+/* Route Item Left Border Indicator */
+.route-item-modern::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 4px;
+  background: rgba(0, 0, 0, 0.08);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.route-item-modern:hover::before {
+  width: 8px;
+}
+
+.route-item-modern.active::before {
+  background: linear-gradient(to bottom, #4cc9f0, #4361ee);
+}
+
+.route-item-modern.inactive::before {
+  background: linear-gradient(to bottom, #f72585, #ff6b6b);
+}
+
+/* Route Name Arrow */
+.route-name-modern::before {
+  content: '→';
+  position: absolute;
+  left: 0;
+  color: #4361ee;
+}
+
+/* Empty State Emoji */
+.empty-state-modern::before {
+  content: '📊';
+  font-size: 3rem;
+  display: block;
+  margin-bottom: 1.5rem;
+  opacity: 0.5;
+}
+
+/* Custom Scrollbar */
+.routes-scrollbar::-webkit-scrollbar {
+  width: 10px;
+}
+
+.routes-scrollbar::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.05);
+  border-radius: 10px;
+}
+
+.routes-scrollbar::-webkit-scrollbar-thumb {
+  background: linear-gradient(to bottom, #4361ee, #7209b7);
+  border-radius: 10px;
+}
+
+.routes-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(to bottom, #3a0ca3, #7209b7);
+}
+
+/* Spinner Animation */
+.spinner-modern {
+  width: 60px;
+  height: 60px;
+  border: 3px solid rgba(67, 97, 238, 0.1);
+  border-top: 3px solid #4361ee;
+  border-right: 3px solid #7209b7;
+  border-radius: 50%;
+  animation: spin 1s cubic-bezier(0.68, -0.55, 0.265, 1.55) infinite;
+  position: relative;
+}
+
+.spinner-modern::after {
+  content: '';
+  position: absolute;
+  top: -5px;
+  left: -5px;
+  right: -5px;
+  bottom: -5px;
+  border: 2px solid transparent;
+  border-top: 2px solid #f72585;
+  border-radius: 50%;
+  animation: spin 1.5s linear infinite reverse;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .subtitle-modern::before,
+  .subtitle-modern::after {
+    display: none;
+  }
+  
+  .st-summary-item-modern::after {
+    display: none;
+  }
+  
+  .deposit-header-modern {
+    padding: 1.5rem !important;
+  }
+  
+  .service-type-header-modern {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+  
+  .route-item-modern {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .summary-item-modern {
+    grid-column: 1 / -1;
+  }
+}
+
+/* Fix icon sizes - prevent icons from shrinking when sidebar opens */
+[data-slot="sidebar-inset"] .bi {
+  font-size: inherit !important;
+  line-height: inherit !important;
+  width: 1em !important;
+  height: 1em !important;
+  flex-shrink: 0 !important;
+}
+
+/* Ensure icons maintain their size regardless of sidebar state */
+[data-sidebar-state="expanded"] .bi,
+[data-sidebar-state="collapsed"] .bi {
+  font-size: inherit !important;
+  line-height: inherit !important;
+  width: 1em !important;
+  height: 1em !important;
+  flex-shrink: 0 !important;
+}
+
+/* Fix form label color in modals - ensure they are black instead of white */
+.modal-body .form-label {
+  color: #000000 !important;
+}
+
+.modal-body .form-check-label {
+  color: #000000 !important;
+}
+

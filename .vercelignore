@@ -1,0 +1,7 @@
+.git/
+.claude/
+.worktrees/
+.next/
+.next-dev/
+node_modules/
+tsconfig.tsbuildinfo

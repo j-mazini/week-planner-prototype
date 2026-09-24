@@ -1,0 +1,281 @@
+:root {
+  --bg-body: #f8fafc;
+  --sidebar-bg: #ffffff;
+  --main-bg: #f7f8fa;
+  --text-dark: #2c3e50;
+  --text-light: #8491a1;
+  --text-primary: #0f172a;
+  --text-secondary: #64748b;
+  --border-color: #e9ecef;
+  --primary-blue: #0d6efd;
+  --danger-red: #dc3545;
+  --card-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --color-light-blue: #e6f2ff;
+  --color-green-tag: #28a745;
+  --color-green-tag-bg: #eaf6ec;
+}
+
+/* Tabela - Estilos da daily-operations-reports */
+.table-container {
+  width: 100%;
+  overflow-x: hidden;
+  overflow-y: visible;
+  background-color: #fff;
+  border-left: 1px solid var(--border-color);
+  border-right: 1px solid var(--border-color);
+  position: relative;
+}
+
+.table-container .table {
+  margin-bottom: 0;
+  vertical-align: middle;
+  width: 100%;
+  table-layout: fixed;
+}
+
+.table-container th {
+  color: var(--text-light); 
+  font-weight: 600; 
+  text-transform: uppercase; 
+  font-size: 0.75rem; 
+  border-bottom-width: 1px;
+  white-space: nowrap;
+}
+
+.table-container th,
+.table-container td {
+  padding: 10px 8px;
+  font-size: 0.85rem;
+  vertical-align: middle;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-align: center;
+  line-height: 1.5;
+  height: auto;
+  min-height: auto;
+  max-height: none;
+}
+
+.table-container th {
+  height: auto;
+  min-height: auto;
+}
+
+.table-container td {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  height: auto;
+  min-height: auto;
+}
+
+.table-container td.num,
+.table-container th.num {
+  text-align: center;
+}
+
+/* Linhas alternadas - zebra striping */
+.table-container tbody tr:nth-child(odd) {
+  background-color: #ffffff;
+}
+
+.table-container tbody tr:nth-child(even) {
+  background-color: #f8f9fa;
+}
+
+.table-container tbody tr {
+  transition: background-color 0.15s ease-out;
+  height: auto;
+  min-height: auto;
+}
+
+.table-container tbody tr td {
+  height: inherit;
+  min-height: inherit;
+}
+
+.table-container tbody tr:hover {
+  background-color: #e9ecef !important;
+}
+
+.table-container .table tfoot td {
+  font-weight: 600;
+  background-color: var(--main-bg);
+  text-align: center;
+}
+
+.table td a {
+  color: var(--primary-blue);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+/* Larguras específicas para colunas da tabela daily-financials */
+/* 1: Data, 2: Route, 3: Courier, 4: Status, 5: Stops, 6: Cost Model, 7: Paid Stops, 8: Route Sort, 9: AdHoc Sort, 10: Extra, 11: Total, 12: Note */
+.table-container th:nth-child(1),
+.table-container td:nth-child(1) {
+  width: 8%;
+}
+.table-container th:nth-child(2),
+.table-container td:nth-child(2) {
+  width: 7%;
+}
+.table-container th:nth-child(3),
+.table-container td:nth-child(3) {
+  width: 12%;
+  white-space: normal;
+  word-wrap: break-word;
+}
+.table-container th:nth-child(4),
+.table-container td:nth-child(4) {
+  width: 7%;
+}
+.table-container th:nth-child(5),
+.table-container td:nth-child(5) {
+  width: 6%;
+  text-align: center;
+}
+.table-container th:nth-child(6),
+.table-container td:nth-child(6) {
+  width: 8%;
+}
+.table-container th:nth-child(7),
+.table-container td:nth-child(7) {
+  width: 9%;
+}
+.table-container th:nth-child(8),
+.table-container td:nth-child(8) {
+  width: 8%;
+}
+.table-container th:nth-child(9),
+.table-container td:nth-child(9) {
+  width: 8%;
+}
+.table-container th:nth-child(10),
+.table-container td:nth-child(10) {
+  width: 7%;
+}
+.table-container th:nth-child(11),
+.table-container td:nth-child(11) {
+  width: 9%;
+}
+.table-container th:nth-child(12),
+.table-container td:nth-child(12) {
+  width: 10%;
+  white-space: normal;
+  word-wrap: break-word;
+}
+
+.table-container td:nth-child(3),
+.table-container td:nth-child(12) {
+  white-space: normal;
+  overflow: visible;
+  text-overflow: clip;
+}
+
+/* Ajustes para garantir que o select de status não aumente a altura da linha */
+.table-container td [data-slot="select-trigger"],
+.table-container td .select-trigger {
+  height: 28px !important;
+  min-height: 28px !important;
+  max-height: 28px !important;
+  line-height: 1.2 !important;
+  padding: 4px 8px !important;
+  margin: 0 !important;
+  font-size: 0.85rem !important;
+}
+
+/* Garantir que elementos dentro das células não alterem a altura */
+.table-container td > * {
+  vertical-align: middle;
+  line-height: 1.5;
+}
+
+.table-container td span,
+.table-container td div {
+  display: inline-block;
+  vertical-align: middle;
+  line-height: 1.5;
+}
+
+/* Garantir altura consistente das linhas */
+.table-container tbody tr {
+  height: auto;
+}
+
+.table-container tbody tr td {
+  padding-top: 10px;
+  padding-bottom: 10px;
+  box-sizing: border-box;
+}
+
+/* Remover qualquer padding/margin extra que possa afetar a altura */
+.table-container td * {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+/* Garantir que o select não quebre o layout */
+.table-container td .select-trigger {
+  vertical-align: middle;
+  display: inline-flex;
+  align-items: center;
+}
+
+/* Footer */
+.footer-totals-bar {
+  padding: 1rem 1.5rem;
+  border-top: 1px solid var(--border-color);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--main-bg);
+  border-radius: 0 0 8px 8px;
+  border: 1px solid var(--border-color);
+  border-top: none;
+  margin-top: -1px;
+}
+
+.footer-info { 
+  font-size: 0.9rem; 
+  color: var(--text-light); 
+}
+
+.footer-totals { 
+  display: flex; 
+  gap: 20px; 
+  font-size: 0.9rem; 
+}
+
+.footer-totals div { 
+  font-weight: 600; 
+  color: var(--text-dark); 
+}
+
+.footer-totals span { 
+  font-weight: normal; 
+  color: var(--text-light); 
+  margin-right: 6px; 
+}
+
+
+/* Populated reports retain readable columns and keep totals inside mobile pages. */
+.daily-financials-page .table-container {
+  max-width: 100%;
+  overflow-x: auto;
+}
+
+.daily-financials-page .table-container .table {
+  min-width: 1100px;
+}
+
+.daily-financials-page .footer-totals-bar,
+.daily-financials-page .footer-totals {
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.daily-financials-page .footer-totals > div {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}

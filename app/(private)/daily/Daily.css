@@ -1,0 +1,350 @@
+:root {
+  --primary-color: #2c3e50;
+  --secondary-color: #3498db;
+  --accent-color: #e74c3c;
+  --success-color: #27ae60;
+  --warning-color: #ffc107;
+  --light-bg: #f8f9fa;
+  --card-bg: #ffffff;
+  --text-dark: #2c3e50;
+  --text-light: #7f8c8d;
+  --border-radius: 12px;
+  --box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.dashboard-page {
+  font-family: 'Inter', sans-serif;
+  background-color: var(--light-bg);
+  color: var(--text-dark);
+  padding: 12px;
+  padding-bottom: 70px;
+  min-height: 100vh;
+}
+
+.dashboard-container {
+  max-width: 100%;
+}
+
+.dashboard-header {
+  margin-bottom: 8px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  min-height: 58px;
+}
+
+.user-profile {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.user-info {
+  text-align: right;
+  line-height: 1.3;
+}
+
+.company-name {
+  font-weight: 700;
+  font-size: 1rem;
+  color: var(--text-dark);
+}
+
+.user-name {
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--text-light);
+}
+
+.user-logo {
+  width: 50px;
+  height: 50px;
+  border-radius: 10px;
+  object-fit: cover;
+}
+
+.month-selector-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+
+.month-selector {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 600;
+  color: var(--text-dark);
+  font-size: 0.9rem;
+}
+
+.month-selector .month-name {
+  min-width: 110px;
+  text-align: center;
+}
+
+.nav-arrow {
+  font-size: 1.2rem;
+  color: var(--secondary-color);
+  cursor: pointer;
+  padding: 5px;
+}
+
+.days-carousel-container {
+  margin-bottom: 20px;
+}
+
+.days-carousel {
+  display: flex;
+  overflow-x: scroll;
+  gap: 8px;
+  padding: 8px 0 12px 0;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+}
+
+.days-carousel::-webkit-scrollbar {
+  display: none;
+}
+
+.day-card {
+  min-width: 50px;
+  height: 60px;
+  border-radius: 10px;
+  background-color: var(--card-bg);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--box-shadow);
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+  scroll-snap-align: center;
+  cursor: pointer;
+}
+
+.day-card.active {
+  background-color: var(--secondary-color);
+  color: #fff;
+  transform: scale(1.05);
+  box-shadow: 0 4px 12px rgba(52, 152, 219, 0.5);
+}
+
+.day-number {
+  font-size: 1.2rem;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.day-name {
+  font-size: 0.7rem;
+  opacity: 0.8;
+  margin-top: 4px;
+  font-weight: 500;
+}
+
+.carousel-indicator {
+  display: flex;
+  justify-content: center;
+  gap: 5px;
+  margin-top: 5px;
+}
+
+.indicator-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: #ddd;
+  transition: all 0.3s ease;
+}
+
+.indicator-dot.active {
+  background-color: var(--primary-color);
+  width: 18px;
+  border-radius: 3px;
+}
+
+.verified-card {
+  background-color: var(--secondary-color);
+  color: #fff;
+  padding: 12px;
+  border-radius: var(--border-radius);
+  text-align: center;
+  font-size: 1.6rem;
+  font-weight: 700;
+  margin-bottom: 12px;
+  box-shadow: var(--box-shadow);
+}
+
+.data-card {
+  background-color: var(--card-bg);
+  border-radius: var(--border-radius);
+  padding: 16px;
+  box-shadow: var(--box-shadow);
+  margin-bottom: 12px;
+}
+
+.new-metrics-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  padding-bottom: 16px;
+  margin-bottom: 16px;
+  border-bottom: 1px solid #eee;
+}
+
+.new-metric-item {
+  text-align: center;
+}
+
+.new-metric-item .label {
+  font-size: 0.8rem;
+  color: var(--text-light);
+  font-weight: 500;
+  margin-bottom: 4px;
+  display: block;
+}
+
+.new-metric-item .value {
+  font-size: 2rem;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--text-dark);
+}
+
+.new-metric-item .value.danger {
+  font-size: 1.6rem;
+  font-weight: 600;
+  color: var(--accent-color);
+}
+
+.new-metric-item .value.success {
+  color: var(--success-color);
+}
+
+.new-metric-item .value.warning {
+  color: var(--warning-color);
+}
+
+.timeline {
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+  padding: 10px;
+}
+
+.timeline::before {
+  content: "";
+  position: absolute;
+  top: 16px;
+  left: 15%;
+  right: 15%;
+  height: 2px;
+  background-color: #e0e0e0;
+  z-index: 1;
+}
+
+.timeline-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 2;
+  position: relative;
+  background-color: var(--card-bg);
+  padding: 0 5px;
+}
+
+.timeline-dot {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background-color: var(--secondary-color);
+  margin-bottom: 8px;
+  border: 3px solid #fff;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+}
+
+.timeline-time {
+  font-size: 0.8rem;
+  color: var(--text-dark);
+  text-align: center;
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+.timeline-time.danger {
+  color: var(--accent-color);
+  font-weight: 700;
+}
+
+.failed-deliveries-card {
+  background-color: var(--card-bg);
+  border-radius: var(--border-radius);
+  padding: 10px;
+  box-shadow: var(--box-shadow);
+  margin-bottom: 12px;
+}
+
+.failed-deliveries-card .section-title {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--text-light);
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 16px;
+}
+
+.failed-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  row-gap: 12px;
+}
+
+.failed-item {
+  text-align: center;
+}
+
+.failed-item .label {
+  font-size: 0.7rem;
+  color: var(--text-light);
+  font-weight: 500;
+  margin-bottom: 2px;
+  display: block;
+}
+
+.failed-item .value {
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.hidden {
+  display: none;
+}
+
+.notes-section {
+  background-color: #fffef0;
+  border-left: 4px solid #f5e6a3;
+  padding: 12px;
+  border-radius: 8px;
+  margin-bottom: 12px;
+}
+
+.notes-title {
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: #8b6914;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+  letter-spacing: 0.5px;
+}
+
+.notes-text {
+  font-size: 0.8rem;
+  color: #8b6914;
+  font-weight: 500;
+}
+

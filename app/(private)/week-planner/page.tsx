@@ -10,8 +10,14 @@ import DepotTabs from "./components/DepotTabs";
 import PlannerModalHost, { type ModalKind } from "./components/modals/modalConfigs";
 import TeamLeaderTrack from "./components/TeamLeaderTrack";
 import WeekPickerButton from "./components/WeekPickerButton";
+import ExceptionsPanel from "./components/rail/ExceptionsPanel";
+import ManagementSupportPanel from "./components/rail/ManagementSupportPanel";
+import OffHolidayPanel from "./components/rail/OffHolidayPanel";
+import PlanHorizonPanel from "./components/rail/PlanHorizonPanel";
+import NotesPanel from "./components/rail/NotesPanel";
 import { DEFAULT_DEPOT_ID, HEADER_ACTIONS, WEEK_OPTIONS } from "./constants";
 import { useWeekPlannerBoard } from "./hooks/useWeekPlannerBoard";
+import { useWeekPlannerActions } from "./hooks/useWeekPlannerActions";
 import { useToast } from "./components/Toast";
 import type { RouteCardModel, WeekOption } from "./types";
 
@@ -24,9 +30,11 @@ function WeekPlannerBoard() {
   const [modal, setModal] = useState<ModalKind>(null);
   const [ctxRoute, setCtxRoute] = useState("MD7C");
   const [ctxDate, setCtxDate] = useState("13/07/2024");
+  const [railOpen, setRailOpen] = useState(false);
 
   const { data: board, isLoading, isError } = useWeekPlannerBoard(depot, week.id);
   const { showToast } = useToast();
+  const { runAction } = useWeekPlannerActions();
 
   if (isError) {
     return (
@@ -59,7 +67,7 @@ function WeekPlannerBoard() {
   }
 
   return (
-    <div className="week-planner-page">
+    <div className={`week-planner-page${railOpen ? " rail-open" : ""}`}>
       <div className="wrap">
         <div className="topbar">
           <h1 className="title disp">WEEK PLANNER</h1>
@@ -111,7 +119,7 @@ function WeekPlannerBoard() {
 
         <div className="cols">
           <div className="board">
-            <TeamLeaderTrack selectedIndex={leaderIndex} onSelect={setLeaderIndex} />
+            <TeamLeaderTrack selectedIndex={leaderIndex} onSelect={setLeaderIndex} onOpenRail={() => setRailOpen((prev) => !prev)} />
             <DayGrid
               days={visibleDays}
               variant="main"
@@ -123,6 +131,22 @@ function WeekPlannerBoard() {
             <AdhocSection days={visibleDays} onAddAdhoc={() => setModal("addAdhoc")} onOpenRoute={openRouteModal} />
           </div>
 
+          {railOpen && (
+            <div className="railcol">
+              <ExceptionsPanel
+                exceptions={selectedDay ? (board.exceptionsByDate[selectedDay.date] ?? null) : null}
+                fallbackLabel={selectedDay?.name ?? "Selected day"}
+              />
+              <ManagementSupportPanel days={board.management} />
+              <OffHolidayPanel days={board.absences} />
+              <PlanHorizonPanel weeks={board.horizon} />
+              <NotesPanel
+                notes={board.notes}
+                onAddNote={() => setModal("addNote")}
+                onAcknowledge={() => runAction("Acknowledge Note")}
+              />
+            </div>
+          )}
         </div>
 
         <footer className="pg">© 2026 LOGIX / SPHERE OPERATIONAL SYSTEMS</footer>
