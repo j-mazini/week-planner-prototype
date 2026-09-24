@@ -46,6 +46,11 @@ describe('DgpPageFrame width', () => {
     // Global constraint: nada abaixo de `md` muda de renderização.
     render(<DgpPageFrame><p>content</p></DgpPageFrame>);
     expect(container()).toHaveClass('px-4');
+    const tokens = (container()?.className ?? '').split(/\s+/);
+    const hasUnprefixedArbitraryPadding = tokens.some((t) =>
+      /^(px|py|p)-\[/.test(t)
+    );
+    expect(hasUnprefixedArbitraryPadding).toBe(false);
   });
 
   it('lets a page opt out of the default container entirely', () => {
