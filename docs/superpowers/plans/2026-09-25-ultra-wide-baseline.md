@@ -31,11 +31,17 @@ from the start and are unchanged below:
 `cardGrid` has been **removed from `GRIDS` entirely** — see the "`/vehicles` removed" note below.
 
 Re-running `/vendor`, `/home`, and `/current-performance` with the corrected harness reproduced
-byte-identical `contentWidth`/`centreOffset`/`cols` values to the first capture (`home`'s
-`homeKpis`/`homePageGrid`/`homeWorkspace` are still `4`/`4`/`2` — the corrected counting method changes
-nothing for elements that were already laid out and already produced a resolved track list). This is
-recorded as a real finding, not assumed: both bugs only manifested on unrendered elements, and none of
-these three routes' `GRIDS` selectors ever matched an unrendered element.
+byte-identical `contentWidth`/`centreOffset`/`cols` values to the first capture, but the three routes
+are not equally good evidence about the fix. Only **`/home`** exercises the corrected code path: its
+`GRIDS` selectors (`homeKpis`, `homePageGrid`, `homeWorkspace`) match real, laid-out elements with
+resolved px track lists, so both `firstLaidOut` and `countCols` actually run there, and the re-check
+came back unchanged (`4`/`4`/`2` at every width) — a genuine confirmation that the fix didn't disturb
+a case that was already correct. **`/vendor` and `/current-performance` have `cols: {}` in every
+capture** — neither route's `GRIDS` selectors match anything at all, so neither `countCols` nor
+`firstLaidOut`'s grid branch ever ran for them, before or after the fix. Their identical output is
+expected because the fixed code paths were mechanically never exercised on these two routes; it is
+not evidence that the fix is correct or incorrect, only that these two routes were never in scope for
+either bug.
 
 ## Sanity check
 
