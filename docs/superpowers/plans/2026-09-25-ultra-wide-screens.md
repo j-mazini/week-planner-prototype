@@ -408,7 +408,22 @@ O `centreOffset` continua +29 — a centragem é a Task 4. Tolerância de ±2px.
 números que o vendor: tem padding próprio de 28px em vez do gutter de 48px, mas a caixa é limitada
 pela mesma largura disponível e pelo mesmo teto.
 
-E `?route=/current-performance` tem de bater a baseline da Task 1 **linha a linha**. Se mudou, um call site do portal do motorista foi migrado por engano.
+E `?route=/current-performance`: **esta rota muda nesta task, e é suposto mudar.** A centragem
+desconta a rail dos dois lados dentro do `.app-imported-page`, que é o pai de todas as pages —
+portanto custa 58px de largura a todas, portal do motorista incluído. O esperado passa a ser:
+
+| width | contentWidth | centreOffset |
+|---|---|---|
+| 1920 | 1748 *(era 1806)* | 0 *(era 29)* |
+| 2560 | 1840 | 0 |
+| 3440 | 1840 | 0 |
+| 3840 | 1840 | 0 |
+| 5120 | 1840 | 0 |
+
+A 2560 e acima não mexe, porque lá o teto de 1840 é que manda e não a largura disponível. O que
+esta rota continua a provar é o que interessa: o teto dela **continua em 1840** e não subiu para
+3520 — ou seja, nenhuma page do portal do motorista foi migrada para `ultra`. Se aparecer 3520
+ali, houve migração a mais.
 
 - [ ] **Step 6: Commit**
 
@@ -480,7 +495,39 @@ quer dizer com absorver a camada de override.
 `@media (max-width: 1100px)` também fica: abaixo de 1100px o container já é mais estreito que
 qualquer teto, portanto não muda nada.
 
-- [ ] **Step 3: Verificar com o harness**
+- [ ] **Step 3: Dar `mx-auto` às oito pages que não o têm**
+
+Uma caixa simétrica só centra o que estiver centrado dentro dela. Oito dos 16 call sites passam
+um `containerClassName` próprio e nenhum deles inclui `mx-auto`, por isso o container fica
+encostado à esquerda sempre que o teto morde. Com o teto em 1600px isso valia ~100px e lia-se
+como gutter; com o teto em 3520px num 5120 vale −714px.
+
+Acrescentar `mx-auto` ao início de cada um destes `containerClassName`, sem mexer em mais nada
+da string:
+
+| ficheiro | linha |
+|---|---|
+| `app/(private)/financial-invoices/page.tsx` | 304 |
+| `app/(private)/requests-inbox/page.tsx` | 514 |
+| `app/(private)/week-planner-operations/page.tsx` | 2234 |
+| `app/(private)/requests/page.tsx` | 297 |
+| `app/(private)/daily-operations-reports/page.tsx` | 438 |
+| `app/(private)/daily-financial-insights/page.tsx` | 400 |
+| `app/(private)/adhoc-works-invoice-management/page.tsx` | 359 |
+| `app/(private)/week-planner-operations/DailyOperationsManagementPage.tsx` | 1937 |
+
+Exemplo, em `requests/page.tsx:297`:
+
+```tsx
+containerClassName="mx-auto w-full px-[3%] md:px-6 lg:px-8 py-[2%] md:py-6 space-y-[2%] md:space-y-6"
+```
+
+O `px-0` de quatro destas pages é deliberado — elas gerem o próprio padding — e **mantém-se**.
+`mx-auto` não mexe em padding: só reparte a folga quando o `max-width` morde.
+
+Os outros oito call sites usam o `containerClassName` por omissão, que já tem `mx-auto`.
+
+- [ ] **Step 4: Verificar com o harness**
 
 Run: `http://localhost:3000/ultrawide-harness.html?route=/vendor`, `?route=/home`, `?route=/requests`
 
@@ -501,7 +548,7 @@ Expected: `centreOffset` igual a **0** (±2px) em todos os viewports e nas três
 
 O 1920 não desce, porque lá o teto de 1600 já manda — é o que torna esta task invisível em largura nos monitores normais, mesmo sendo visível em posição.
 
-- [ ] **Step 4: Verificar os dois estados da rail e o telemóvel**
+- [ ] **Step 5: Verificar os dois estados da rail e o telemóvel**
 
 No browser, em `/vendor` a 1920: alternar a sidebar com o `.sidebar-toggle`.
 
@@ -511,10 +558,10 @@ Depois, estreitar a janela para 375px de largura.
 
 Expected: renderização idêntica à de hoje. Abaixo de 640px `--sidebar-offset` é `0px` (linha 39), portanto o padding é zero.
 
-- [ ] **Step 5: Commit**
+- [ ] **Step 6: Commit**
 
 ```bash
-git add "app/(private)/components/NavbarWrapper.css"
+git add "app/(private)/components/NavbarWrapper.css" "app/(private)/financial-invoices/page.tsx" "app/(private)/requests-inbox/page.tsx" "app/(private)/week-planner-operations/page.tsx" "app/(private)/requests/page.tsx" "app/(private)/daily-operations-reports/page.tsx" "app/(private)/daily-financial-insights/page.tsx" "app/(private)/adhoc-works-invoice-management/page.tsx" "app/(private)/week-planner-operations/DailyOperationsManagementPage.tsx"
 git commit -m "feat: centre page content on the screen instead of on the leftover area"
 ```
 
@@ -646,7 +693,7 @@ Correr o harness nas quatro rotas e comparar com `docs/superpowers/plans/2026-09
 | `/vendor` | contentWidth 1600/2388/3268/3520/3520; centreOffset 0 em todos |
 | `/home` | as mesmas larguras; homePageGrid 4/6/8/8; homeKpis 4 em todos |
 | `/vehicles` | as mesmas larguras; cardGrid 5/7/9/9 |
-| `/current-performance` | **idêntico à baseline, linha a linha** |
+| `/current-performance` | 1748/1840/1840/1840/1840, centreOffset 0 — teto ainda em 1840, não 3520 |
 
 A última linha é a que importa mais. `/current-performance` é o portal do motorista: se mudou alguma coisa, é regressão, não progresso.
 

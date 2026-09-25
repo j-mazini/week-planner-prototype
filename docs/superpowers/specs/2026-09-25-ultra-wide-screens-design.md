@@ -248,6 +248,12 @@ A caixa passa a ter a rail à esquerda e a mesma folga à direita, logo o seu ce
 simétrica, todos os `mx-auto` e `margin: 0 auto` que já existem lá dentro acertam no centro do
 monitor sem que nenhum deles mude.
 
+**Uma caixa simétrica não chega — o conteúdo tem de estar centrado dentro dela.** Oito dos 16
+call sites passam um `containerClassName` próprio, e nenhum inclui `mx-auto`: ficam encostados
+à esquerda sempre que o teto morde. Com o teto em 1600px isso valia cerca de 100px e lia-se
+como gutter; com o teto em 3520px num 5120 vale 714px. Os oito ganham `mx-auto`. Foi a subida
+do teto que tornou visível um desalinhamento que já lá estava.
+
 **Assenta em `.app-imported-page`, não em `.app-main`,** porque a `.app-topbar` é irmã dentro
 do `.app-main` e tem fundo e `border-bottom` próprios: padding no pai faria a barra e a sua
 borda pararem 58px antes da direita. O `.app-imported-page` é o wrapper do conteúdo e hoje não
@@ -285,8 +291,17 @@ Isto é o que contém o risco: fora da centragem, o trabalho inteiro só é obse
 2200px, e uma regressão não pode aparecer em telas pequenas sem que algo muito diferente do
 descrito aqui tenha sido feito.
 
-Também não muda: o portal do motorista, os degraus `narrow`, `standard`, `wide` e `full`, os
-defaults dos dois componentes, e o bloco de reflow dos 1680px.
+**O portal do motorista muda em duas coisas, e as duas vêm da secção 7, não da migração.** A
+centragem vive no `.app-imported-page`, que é pai de todas as pages, portanto custa 58px de
+largura a todas — medido em `/current-performance`: 1806 → 1748 a 1920px. Acima de 2560 não
+mexe, porque lá o teto de 1840 é que manda. E o conteúdo passa a estar centrado no ecrã, que
+era o objetivo.
+
+O que continua verdade, e é o que importa: o teto dessas sete pages **continua em 1840** e não
+subiu para 3520. Elas não foram migradas.
+
+Também não muda: os degraus `narrow`, `standard`, `wide` e `full`, os defaults dos dois
+componentes, e o bloco de reflow dos 1680px.
 
 ## 9. Verificação
 
