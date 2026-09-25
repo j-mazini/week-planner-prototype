@@ -691,11 +691,18 @@ Correr o harness nas quatro rotas e comparar com `docs/superpowers/plans/2026-09
 | rota | o que tem de ser verdade |
 |---|---|
 | `/vendor` | contentWidth 1600/2388/3268/3520/3520; centreOffset 0 em todos |
-| `/home` | as mesmas larguras; homePageGrid 4/6/8/8; homeKpis 4 em todos |
-| `/vehicles` | as mesmas larguras; cardGrid 5/7/9/9 |
+| `/home` | as mesmas larguras; homePageGrid 4/6/8/8/8; homeKpis 4 em todos |
 | `/current-performance` | 1748/1840/1840/1840/1840, centreOffset 0 — teto ainda em 1840, não 3520 |
 
-A última linha é a que importa mais. `/current-performance` é o portal do motorista: se mudou alguma coisa, é regressão, não progresso.
+`/vehicles` saiu desta tabela: o `cardGrid` foi removido do harness quando se mediu que as duas
+grelhas de card são componentes só-mobile, e a page não tem mais nada de próprio para verificar
+além das larguras que as outras rotas já cobrem.
+
+A última linha é a que importa mais, e importa pela razão certa. `/current-performance` **muda**
+nesta branch: perde 58px a 1920px e passa a estar centrada, porque a centragem custa isso a
+todas as pages. O que ela prova é outra coisa — que o teto dela continua em **1840 e não 3520**.
+Se lá aparecer 3520, uma page do portal do motorista foi migrada por engano, e isso sim é
+regressão.
 
 - [ ] **Step 4: Registar o resultado**
 
