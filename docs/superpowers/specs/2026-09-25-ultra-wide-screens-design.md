@@ -271,7 +271,7 @@ centragem foi pedida como comportamento geral, não como comportamento de ultra-
 promessa de "nada abaixo de 2200 muda" tiver de ficar intacta, a mesma regra dentro de
 `@media (min-width: 2200px)` limita-a aos monitores largos.
 
-Em largura o custo é 58px: 3286 → 3228 num 3440. Num 1920 é zero, porque lá o teto de 1600 já
+Em largura o custo é 58px: 3326 → 3268 num 3440. Num 1920 é zero, porque lá o teto de 1600 já
 manda.
 
 ## 8. O que não muda
@@ -294,17 +294,18 @@ Larguras finais, com a centragem aplicada e a rail recolhida. A medida é a **ca
 container — sob `box-sizing: border-box`, que o preflight do Tailwind aplica a tudo, o
 `max-width` inclui o padding do próprio elemento:
 
-| Monitor | Caixa | Interior | Centro |
-|---|---|---|---|
-| 1920×1080 | 1600px *(igual a hoje)* | 1504px | no ecrã |
-| 2560×1080 e 2560×1440 | 2444px | 2348px | no ecrã |
-| 3440×1440 | 3324px | 3228px | no ecrã |
-| 3840×2160 | 3520px | 3424px | no ecrã |
-| 5120×1440 | 3520px | 3424px | no ecrã |
+| Monitor | Caixa | Centro |
+|---|---|---|
+| 1920×1080 | 1600px *(igual a hoje)* | no ecrã |
+| 2560×1080 e 2560×1440 | 2388px | no ecrã |
+| 3440×1440 | 3268px | no ecrã |
+| 3840×2160 | 3520px | no ecrã |
+| 5120×1440 | 3520px | no ecrã |
 
-O interior é a caixa menos os 96px de gutter (`clamp(1.5rem,3vw,3rem)` satura em 48px de cada
-lado acima de 1600px de viewport). A home não tem esse gutter — tem 28px de padding próprio — mas
-a caixa é a mesma, porque é a mesma largura disponível e o mesmo teto que a limitam.
+A fórmula é `min(viewport − 172, 3520)`, e os 172 foram medidos e não deduzidos: 58px de rail
+mais 28px de padding do `.app-imported-page`, de cada lado. A primeira versão desta tabela
+esquecia os 28px e errava por 56px em todas as larguras abaixo do teto. Foi apanhada pela
+medição da Task 3 — que é precisamente para isto que o harness existe.
 
 `tsc --noEmit` limpo, e `DgpPageFrame.test.tsx` e `StandardPageLayout.test.tsx` estendidos com
 o caso `ultra`.

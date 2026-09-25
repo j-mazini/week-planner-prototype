@@ -395,10 +395,14 @@ com a rail descontada de um lado só, que é o estado antes da Task 4:
 | width | contentWidth |
 |---|---|
 | 1920 | 1600 |
-| 2560 | 2502 |
-| 3440 | 3382 |
+| 2560 | 2446 |
+| 3440 | 3326 |
 | 3840 | 3520 |
 | 5120 | 3520 |
+
+São `min(viewport − 114, 3520)`. Os 114 são a rail de 58px **mais os 28px de padding de cada
+lado que o `.app-imported-page` já tem** — medido no browser, não deduzido. E note-se que 1920,
+3840 e 5120 estão todos no teto, logo não testam a fórmula: só 2560 e 3440 a exercitam.
 
 O `centreOffset` continua +29 — a centragem é a Task 4. Tolerância de ±2px. A home dá os mesmos
 números que o vendor: tem padding próprio de 28px em vez do gutter de 48px, mas a caixa é limitada
@@ -429,11 +433,18 @@ Em `app/(private)/components/NavbarWrapper.css`, logo a seguir a `.app-imported-
 
 ```css
 /* Centra o conteúdo no ecrã, não na área que sobra da rail fixa.
-   A rail ocupa --sidebar-offset à esquerda; a mesma folga à direita torna a
-   caixa simétrica, e todos os mx-auto lá dentro passam a acertar em 50vw.
+   Recuo à esquerda = 58px de rail + 28px de padding próprio = 86px.
+   O recuo à direita tem de igualar isso, senão a caixa não fica simétrica.
    Ver docs/superpowers/specs/2026-09-25-ultra-wide-screens-design.md §7 */
-.app-imported-page { padding-right: var(--sidebar-offset, 0px); }
+.app-imported-page { padding-right: calc(28px + var(--sidebar-offset, 0px)); }
 ```
+
+**Os 28px não são decorativos e não podem ser omitidos.** O `.app-imported-page` já tem 28px de
+padding de cada lado — medido no browser: `28px / 28px`. Um `padding-right:
+var(--sidebar-offset)` simples **substituiria** esse valor, deixando 86px de recuo à esquerda
+contra 58px à direita: o conteúdo ficaria 14px ao lado do centro. Menos errado do que hoje, e
+errado na mesma, sem dar sinal. Em telemóvel continua a dar 28px, porque abaixo de 640px
+`--sidebar-offset` é `0px`.
 
 **Tem de ser `.app-imported-page`, não `.app-main`.** A `.app-topbar` é irmã dentro do `.app-main` e tem fundo e `border-bottom` próprios — padding no pai faria a barra e a sua borda pararem 58px antes da direita.
 
@@ -452,15 +463,17 @@ O resto do bloco (`width: min(calc(100% - 48px), 1840px)` e `max-width: var(--co
 
 Run: `http://localhost:3000/ultrawide-harness.html?route=/vendor`, `?route=/home`, `?route=/requests`
 
-Expected: `centreOffset` igual a **0** (±2px) em todos os viewports e nas três rotas. E `contentWidth` desce exatamente 58px face à Task 3, porque a caixa passa a descontar a rail dos dois lados:
+Expected: `centreOffset` igual a **0** (±2px) em todos os viewports e nas três rotas. E `contentWidth` desce exatamente 58px face à Task 3 (2446→2388 e 3326→3268), porque a caixa passa a descontar a rail dos dois lados:
 
 | width | contentWidth |
 |---|---|
 | 1920 | 1600 |
-| 2560 | 2444 |
-| 3440 | 3324 |
+| 2560 | 2388 |
+| 3440 | 3268 |
 | 3840 | 3520 |
 | 5120 | 3520 |
+
+`min(viewport − 172, 3520)`: rail e padding descontados dos dois lados, 58+28 de cada.
 
 O 1920 não desce, porque lá o teto de 1600 já manda — é o que torna esta task invisível em largura nos monitores normais, mesmo sendo visível em posição.
 
@@ -606,7 +619,7 @@ Correr o harness nas quatro rotas e comparar com `docs/superpowers/plans/2026-09
 
 | rota | o que tem de ser verdade |
 |---|---|
-| `/vendor` | contentWidth 1600/2444/3324/3520/3520; centreOffset 0 em todos |
+| `/vendor` | contentWidth 1600/2388/3268/3520/3520; centreOffset 0 em todos |
 | `/home` | as mesmas larguras; homePageGrid 4/6/8/8; homeKpis 4 em todos |
 | `/vehicles` | as mesmas larguras; cardGrid 5/7/9/9 |
 | `/current-performance` | **idêntico à baseline, linha a linha** |
