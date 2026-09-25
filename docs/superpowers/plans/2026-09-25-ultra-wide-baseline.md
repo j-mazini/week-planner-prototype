@@ -123,3 +123,96 @@ resolves to a track list and the old counting method silently produced a plausib
 render as tables on desktop. This card-grid work has been dropped from the plan and the spec
 (commit `a216d2f`); no later task depends on `cardGrid` any more, so it has been removed from the
 harness's `GRIDS` map and is not re-measured here.
+
+## Depois (Task 6, pós-migração completa)
+
+Captured 2026-09-25 at the tip of `feat/ultra-wide-screens` (base `16cb164`), after Task 6's line-measure
+guard. All five tasks (`ultra` step + `3xl`/`4xl` rungs, the 17-page migration onto `ultra`, the
+`mx-auto` centring repairs, and the home grid reflow) have landed. Same harness, same widths
+`[1920, 2560, 3440, 3840, 5120]`, same authenticated session. `[UW]` lines below are the final
+verbatim `#out` output, placed next to the "Antes" tables above rather than replacing them.
+
+### `/vendor` — Antes vs Depois
+
+| width | Antes contentWidth/centreOffset | Depois contentWidth/centreOffset |
+|-------|----------------------------------|-------------------------------------|
+| 1920  | 1600 / 29 | 1600 / 0 |
+| 2560  | 1600 / 29 | 2388 / 0 |
+| 3440  | 1600 / 29 | 3268 / 0 |
+| 3840  | 1600 / 29 | 3520 / 0 |
+| 5120  | 1600 / 29 | 3520 / 0 |
+
+```
+[UW] {"width":1920,"selector":"w-full","contentWidth":1600,"centreOffset":0,"cols":{}}
+[UW] {"width":2560,"selector":"w-full","contentWidth":2388,"centreOffset":0,"cols":{}}
+[UW] {"width":3440,"selector":"w-full","contentWidth":3268,"centreOffset":0,"cols":{}}
+[UW] {"width":3840,"selector":"w-full","contentWidth":3520,"centreOffset":0,"cols":{}}
+[UW] {"width":5120,"selector":"w-full","contentWidth":3520,"centreOffset":0,"cols":{}}
+```
+
+Matches the brief's Step 3 table exactly: 1600/2388/3268/3520/3520, `centreOffset` 0 at every width.
+(`centreOffset` moved from 29 to 0 because the parent-level centring fix in an earlier task recentred
+the container; that shift applies to every migrated page, not a Task 6 change.)
+
+### `/home` — Antes vs Depois
+
+| width | Antes contentWidth / cols | Depois contentWidth / cols |
+|-------|------------------------------|---------------------------------|
+| 1920  | 1600 / homeKpis:4, homePageGrid:4, homeWorkspace:2 | 1600 / homeKpis:4, homePageGrid:4, homeWorkspace:2 |
+| 2560  | 1600 / homeKpis:4, homePageGrid:4, homeWorkspace:2 | 2388 / homeKpis:4, homePageGrid:6, homeWorkspace:2 |
+| 3440  | 1600 / homeKpis:4, homePageGrid:4, homeWorkspace:2 | 3268 / homeKpis:4, homePageGrid:8, homeWorkspace:2 |
+| 3840  | 1600 / homeKpis:4, homePageGrid:4, homeWorkspace:2 | 3520 / homeKpis:4, homePageGrid:8, homeWorkspace:2 |
+| 5120  | 1600 / homeKpis:4, homePageGrid:4, homeWorkspace:2 | 3520 / homeKpis:4, homePageGrid:8, homeWorkspace:2 |
+
+```
+[UW] {"width":1920,"selector":"home-new","contentWidth":1600,"centreOffset":0,"cols":{"homeKpis":4,"homePageGrid":4,"homeWorkspace":2}}
+[UW] {"width":2560,"selector":"home-new","contentWidth":2388,"centreOffset":0,"cols":{"homeKpis":4,"homePageGrid":6,"homeWorkspace":2}}
+[UW] {"width":3440,"selector":"home-new","contentWidth":3268,"centreOffset":0,"cols":{"homeKpis":4,"homePageGrid":8,"homeWorkspace":2}}
+[UW] {"width":3840,"selector":"home-new","contentWidth":3520,"centreOffset":0,"cols":{"homeKpis":4,"homePageGrid":8,"homeWorkspace":2}}
+[UW] {"width":5120,"selector":"home-new","contentWidth":3520,"centreOffset":0,"cols":{"homeKpis":4,"homePageGrid":8,"homeWorkspace":2}}
+```
+
+Matches the brief's Step 3 table: same widths as `/vendor`, `homePageGrid` 4/6/8/8/8, `homeKpis` 4 at
+every width.
+
+### `/vehicles` — Depois
+
+`cardGrid` was already removed from the harness's `GRIDS` map before this task (see "`/vehicles` —
+removed" note above): `VehicleCardGrid` is a mobile-only component hidden at these viewports, so
+`cols` is expected to be `{}` at every width, not the `cardGrid: 5/7/9/9` figures named in the Task 6
+brief's table — that line predates the removal and does not apply to this harness build.
+
+```
+[UW] {"width":1920,"selector":"w-full","contentWidth":1600,"centreOffset":0,"cols":{}}
+[UW] {"width":2560,"selector":"w-full","contentWidth":2388,"centreOffset":0,"cols":{}}
+[UW] {"width":3440,"selector":"w-full","contentWidth":3268,"centreOffset":0,"cols":{}}
+[UW] {"width":3840,"selector":"w-full","contentWidth":3520,"centreOffset":0,"cols":{}}
+[UW] {"width":5120,"selector":"w-full","contentWidth":3520,"centreOffset":0,"cols":{}}
+```
+
+`contentWidth` still matches the other migrated pages exactly (1600/2388/3268/3520/3520,
+`centreOffset` 0 at every width); only `cardGrid` is unmeasurable by design.
+
+### `/current-performance` — Antes vs Depois (control route)
+
+| width | Antes contentWidth | Depois contentWidth | centreOffset |
+|-------|---------------------|----------------------|--------------|
+| 1920  | 1806 | 1748 | 0 |
+| 2560  | 1840 | 1840 | 0 |
+| 3440  | 1840 | 1840 | 0 |
+| 3840  | 1840 | 1840 | 0 |
+| 5120  | 1840 | 1840 | 0 |
+
+```
+[UW] {"width":1920,"selector":"my-performance","contentWidth":1748,"centreOffset":0,"cols":{}}
+[UW] {"width":2560,"selector":"my-performance","contentWidth":1840,"centreOffset":0,"cols":{}}
+[UW] {"width":3440,"selector":"my-performance","contentWidth":1840,"centreOffset":0,"cols":{}}
+[UW] {"width":3840,"selector":"my-performance","contentWidth":1840,"centreOffset":0,"cols":{}}
+[UW] {"width":5120,"selector":"my-performance","contentWidth":1840,"centreOffset":0,"cols":{}}
+```
+
+The number that matters: the ceiling is still **1840**, not 3520 — no driver-portal page was migrated
+onto `ultra`. The 1920px cell moved from 1806 to 1748 and `centreOffset` moved from 29 to 0 across the
+board; both are the expected, plan-wide cost of the earlier parent-level centring fix (`mx-auto` on
+the shared shell), applied here too since this route shares that parent — not a Task 6 change and not
+evidence that `/current-performance` was touched directly.
