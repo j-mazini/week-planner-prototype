@@ -1,0 +1,96 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Ultra-wide harness</title>
+<style>
+  body { margin: 0; background: #111; color: #eee; font: 12px ui-monospace, SFMono-Regular, Menlo, monospace; }
+  #out { padding: 12px; white-space: pre; line-height: 1.6; }
+  .rig { overflow: hidden; border-top: 1px solid #333; }
+  .rig > iframe { display: block; border: 0; transform-origin: 0 0; }
+</style>
+<div id="out">a medir…</div>
+<div id="rigs"></div>
+<script>
+const WIDTHS = [1920, 2560, 3440, 3840, 5120];
+const HEIGHT = 1440;
+const SCALE = 0.16;
+
+// O primeiro selector que existir na page é o container de conteúdo.
+const CONTAINER = [
+  '.dgp-page-frame-container',
+  '.home-new',
+  '.my-performance',
+  'main[class*="max-w-content"]',
+].join(', ');
+
+// Grids nomeados. Ausentes numa dada rota: simplesmente não aparecem no resultado.
+const GRIDS = {
+  homeKpis:     '.home-new__kpis',
+  homePageGrid: '.home-new__page-grid',
+  homeWorkspace:'.home-new__workspace',
+  // Especifico o bastante para nao colidir com a faixa de stats do
+  // service-partner-invoices, que partilha o prefixo `grid-cols-2 sm:grid-cols-3`.
+  cardGrid:     '.grid.grid-cols-2.sm\\:grid-cols-3.xl\\:grid-cols-5',
+};
+
+const route = new URLSearchParams(location.search).get('route') || '/vendor';
+const out = document.getElementById('out');
+const rigs = document.getElementById('rigs');
+
+function measure(win, width) {
+  const doc = win.document;
+  const el = doc.querySelector(CONTAINER);
+  if (!el) return { width, error: 'container nao encontrado' };
+  const r = el.getBoundingClientRect();
+  const cols = {};
+  for (const [name, sel] of Object.entries(GRIDS)) {
+    const g = doc.querySelector(sel);
+    if (g) {
+      cols[name] = win.getComputedStyle(g)
+        .gridTemplateColumns.split(' ').filter(Boolean).length;
+    }
+  }
+  return {
+    width,
+    selector: (el.className || '').toString().split(/\s+/)[0] || el.tagName.toLowerCase(),
+    contentWidth: Math.round(r.width),
+    // >0 significa deslocado para a direita do centro do ecra.
+    centreOffset: Math.round((r.left + r.width / 2) - width / 2),
+    cols,
+  };
+}
+
+function load(width) {
+  return new Promise((resolve) => {
+    const rig = document.createElement('div');
+    rig.className = 'rig';
+    rig.style.height = Math.round(HEIGHT * SCALE) + 'px';
+    const f = document.createElement('iframe');
+    f.width = String(width);
+    f.height = String(HEIGHT);
+    f.style.transform = 'scale(' + SCALE + ')';
+    f.src = route;
+    f.addEventListener('load', () => {
+      // Deixa o layout do cliente assentar antes de medir.
+      setTimeout(() => {
+        let result;
+        try { result = measure(f.contentWindow, width); }
+        catch (e) { result = { width, error: String(e && e.message || e) }; }
+        resolve(result);
+      }, 1200);
+    });
+    rig.appendChild(f);
+    rigs.appendChild(rig);
+  });
+}
+
+(async () => {
+  const rows = [];
+  for (const w of WIDTHS) {
+    const r = await load(w);
+    rows.push(r);
+    console.log('[UW] ' + JSON.stringify(r));
+    out.textContent = 'rota: ' + route + '\n\n' + rows.map(x => JSON.stringify(x)).join('\n');
+  }
+  console.log('[UW] done ' + route);
+})();
+</script>
