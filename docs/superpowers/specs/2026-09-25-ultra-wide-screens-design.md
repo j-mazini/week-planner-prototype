@@ -23,7 +23,7 @@ não tem nenhum utilizador e o `narrow` tem um. O degrau mais largo é sempre o 
 seguro escolher.
 
 **Nenhuma escada de grid passa de `xl`.** Existe exatamente um `2xl:grid-cols-5` em cerca de
-190 declarações de grid. Acima de 1400px nenhum grid ganha coluna, então subir o teto sozinho
+190 declarações de grid. Acima de 1536px nenhum grid ganha coluna, então subir o teto sozinho
 produz cards maiores, não mais informação: um `lg:grid-cols-4` num container de 3228px dá
 quatro cards de 790px.
 
@@ -64,12 +64,17 @@ primeira coluna à última.
 
 ### Os dois breakpoints
 
-Em `theme.screens`, junto do `2xl: 1400px` que já lá está:
+Em `theme.extend.screens` do `tailwind.config.js`, que hoje não existe:
 
 ```js
 '3xl': '2200px',
 '4xl': '3000px',
 ```
+
+Não confundir com `theme.container.screens`, que o projeto já declara com `"2xl": "1400px"`:
+aquilo configura as larguras da classe `.container` e não define variante nenhuma. Como o
+projeto nunca declara `theme.screens`, as variantes são as do Tailwind por omissão — e por isso
+o `2xl:` deste código dispara aos 1536px, e não aos 1400 que o `container` sugere.
 
 O `3xl` partilha os 2200 com o token de propósito: um número, não dois. O `4xl` a 3000 apanha
 3440, 3840 e 5120 e deixa o 2560 de fora — os 2560 ganham um passo de reflow, os 3440-e-acima

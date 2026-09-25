@@ -72,7 +72,9 @@ const GRIDS = {
   homeKpis:     '.home-new__kpis',
   homePageGrid: '.home-new__page-grid',
   homeWorkspace:'.home-new__workspace',
-  cardGrid:     '.grid.grid-cols-2.sm\\:grid-cols-3',
+  // Especifico o bastante para nao colidir com a faixa de stats do
+  // service-partner-invoices, que partilha o prefixo `grid-cols-2 sm:grid-cols-3`.
+  cardGrid:     '.grid.grid-cols-2.sm\\:grid-cols-3.xl\\:grid-cols-5',
 };
 
 const route = new URLSearchParams(location.search).get('route') || '/vendor';
@@ -242,17 +244,7 @@ Atenção ao `}` — o `--content-ultra` fica **dentro** do `:root` existente, e
 
 - [ ] **Step 4: Expor a var e as rungs ao Tailwind**
 
-Em `tailwind.config.js`, no `theme.container.screens` (linhas 13-15):
-
-```js
-      screens: {
-        "2xl": "1400px",
-        "3xl": "2200px",
-        "4xl": "3000px",
-      },
-```
-
-E em `theme.extend.maxWidth` (linhas 18-22):
+Em `tailwind.config.js`, dentro de `theme.extend`, a seguir ao bloco `maxWidth` das linhas 18-22 — que ganha ele próprio uma entrada:
 
 ```js
       maxWidth: {
@@ -261,9 +253,21 @@ E em `theme.extend.maxWidth` (linhas 18-22):
         'content-wide': 'var(--content-wide)',
         'content-ultra': 'var(--content-ultra)',
       },
+      screens: {
+        '3xl': '2200px',
+        '4xl': '3000px',
+      },
 ```
 
-`theme.container.screens` define os breakpoints usados pelos prefixos utilitários (`3xl:`), que é o que a Task 5 precisa.
+**Tem de ser `theme.extend.screens`, não `theme.container.screens`.** O `"2xl": "1400px"` das linhas 13-15 vive dentro de `theme.container` e configura só as larguras da classe `.container` — não gera variante nenhuma. Os prefixos utilitários vêm de `theme.screens`, que este projeto nunca declara, portanto as variantes são as do Tailwind por omissão (e o `2xl:` deste código dispara aos 1536px, não aos 1400). Pôr as rungs em `container.screens` não geraria `3xl:grid-cols-7`, e a Task 5 falharia sem erro nenhum.
+
+Confirmar que as variantes passaram mesmo a existir:
+
+```bash
+node -e "const r=require('tailwindcss/resolveConfig')(require('./tailwind.config.js')); console.log(JSON.stringify(r.theme.screens))"
+```
+
+Expected: a saída inclui `"3xl":"2200px"` e `"4xl":"3000px"`, a par dos cinco defaults.
 
 - [ ] **Step 5: Acrescentar o membro ao union e aos dois mapas**
 
@@ -564,7 +568,7 @@ Expected em `/vehicles` (`cardGrid`): 5 a 1920, 7 a 2560, 9 a 3440 e 9 a 5120.
 
 Run: `npm run build`
 
-Expected: build limpa. Depois, no browser a 3440, inspecionar a grelha de `/vehicles` e confirmar que `grid-template-columns` tem nove tracks. Se tiver cinco, o `3xl`/`4xl` não chegou ao `theme.container.screens` na Task 2.
+Expected: build limpa. Depois, no browser a 3440, inspecionar a grelha de `/vehicles` e confirmar que `grid-template-columns` tem nove tracks. Se tiver cinco, as rungs não chegaram a `theme.extend.screens` na Task 2 — correr lá o `resolveConfig` antes de procurar noutro sítio.
 
 - [ ] **Step 6: Commit**
 
