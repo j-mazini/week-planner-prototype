@@ -69,51 +69,6 @@
 .vendor-theme [class~="max-w-6xl"] .form-label { color: var(--vendor-muted) !important; }
 .vendor-theme .stepsContainer { border-color: var(--vendor-line); background: #f1f2e9; }
 
-/* Status, training, and document indicators use quiet, readable state chips. */
-.vendor-theme .status-badge {
-  display: inline-flex;
-  align-items: center;
-  border: 1px solid var(--vendor-line) !important;
-  border-radius: 2px !important;
-  padding: 3px 8px;
-  color: var(--vendor-ink) !important;
-  box-shadow: none !important;
-  font: 600 10px/1.35 "IBM Plex Mono", ui-monospace, monospace;
-  animation: none;
-  transition: background-color .15s ease, border-color .15s ease, color .15s ease;
-}
-.vendor-theme .status-badge::before { display: none !important; }
-.vendor-theme .status-badge:hover { transform: none !important; box-shadow: none !important; }
-.vendor-theme .status-badge-active,
-.vendor-theme .status-badge-completed,
-.vendor-theme .status-badge-delivered,
-.vendor-theme .status-badge-verified,
-.vendor-theme .status-badge-green,
-.vendor-theme .status-badge-paid {
-  border-color: #c8d5a7 !important;
-  background: #eef1df !important;
-  color: #446900 !important;
-}
-.vendor-theme .status-badge-pending,
-.vendor-theme .status-badge-incomplete,
-.vendor-theme .status-badge-in-progress,
-.vendor-theme .status-badge-maintenance,
-.vendor-theme .status-badge-working {
-  border-color: #e4d9af !important;
-  background: #f6f1df !important;
-  color: #6a5725 !important;
-}
-.vendor-theme .status-badge-inactive,
-.vendor-theme .status-badge-off,
-.vendor-theme .status-badge-expiring,
-.vendor-theme .status-badge-expired,
-.vendor-theme .status-badge-disputed {
-  border-color: #e6c7c7 !important;
-  background: #f8eaea !important;
-  color: #8e3e3e !important;
-}
-.vendor-theme .status-badge-default { background: #f1f2e9 !important; color: var(--vendor-muted) !important; }
-
 @media (max-width: 640px) {
   .vendor-theme input,
   .vendor-theme select,

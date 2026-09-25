@@ -17,7 +17,6 @@ const importedGroups = [
     label: "MY PERFORMANCE",
     items: [
       ["/daily-performance-insight", "Performance (Today)", BarChart3],
-      ["/current-performance", "Performance (Month)", Gauge],
     ],
   },
   {
@@ -68,7 +67,6 @@ const sidebarGroups = [
     label: "My Performance",
     items: [
       ["/daily-performance-insight", "Today", Gauge],
-      ["/current-performance", "Month", BarChart3],
       ["/subcontractor", "Subcontractor", Users],
       ["/deductions", "Deductions", Wallet],
       ["/current-month", "Current month", CalendarDays],

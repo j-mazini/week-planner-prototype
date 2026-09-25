@@ -1,7 +1,8 @@
 /* Shared app shell: a narrow LogixSphere rail and a quiet utility header.
    Owned by NavbarWrapper so any page that renders it gets consistent
    chrome without depending on another feature's stylesheet. */
-.app-shell { --mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace; --display: "Space Grotesk", "Helvetica Neue", Arial, sans-serif; --lime: #b2f746; --olive: #446900; min-height: 100vh; background: #fafaef; color: #1a1c16; }
+.app-shell { --mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace; --display: "Space Grotesk", "Helvetica Neue", Arial, sans-serif; --lime: #b2f746; --olive: #446900; --sidebar-offset: 58px; min-height: 100vh; background: #fafaef; color: #1a1c16; }
+.app-shell.sidebar-expanded { --sidebar-offset: 175px; }
 .app-sidebar { position: fixed; inset: 0 auto 0 0; z-index: 20; width: 58px; display: flex; flex-direction: column; align-items: stretch; background: #e9e9de; border-right: 1px solid #bfc8c9; transition: width .15s ease; }
 .app-mobile-menu { display: none; }
 .app-sidebar-backdrop { display: none; }
@@ -35,6 +36,7 @@
 .app-navbottom .nav-icon { width: 12px; height: 15px; font-size: 14px; }
 .app-main { min-height: 100vh; margin-left: 58px; }
 @media (max-width: 640px) {
+  .app-shell, .app-shell.sidebar-expanded { --sidebar-offset: 0px; }
   .app-sidebar { width: min(280px, 84vw); transform: translateX(-100%); transition: transform .2s ease; }
   .sidebar-expanded .app-sidebar { width: min(280px, 84vw); transform: translateX(0); box-shadow: 8px 0 24px #1a1c1633; }
   .app-main, .sidebar-expanded .app-main { margin-left: 0; }
@@ -184,6 +186,64 @@
 .app-shell { width: 100%; min-width: 0; }
 .app-main { min-width: 0; }
 .app-imported-page { min-width: 0; }
+.app-imported-page[data-page="current-performance"] .my-performance,
+.app-imported-page[data-page="daily-performance-insight"] .my-performance { max-width: min(100%, 1840px); }
+.app-imported-page[data-page="subcontractor"] main.max-w-content-wide,
+.app-imported-page[data-page="deductions"] main.max-w-content-wide,
+.app-imported-page[data-page="current-month"] main.max-w-content-wide,
+.app-imported-page[data-page="mobile-invoice"] main.max-w-content-wide {
+  max-width: min(100%, 1840px) !important;
+  padding-left: clamp(20px, 2.2vw, 42px);
+  padding-right: clamp(20px, 2.2vw, 42px);
+}
+.app-imported-page[data-page="requests"] .dgp-page-frame-container {
+  position: relative;
+  left: calc(var(--sidebar-offset, 0px) / -2);
+  width: min(calc(100% - 48px), 1840px);
+  max-width: 1840px;
+}
+.app-imported-page[data-page="requests"] main[class*="max-w-"] { max-width: none !important; }
+.app-imported-page[data-page="current-month"] main > div[class*="space-y-5"] {
+  display: grid;
+  grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr);
+  align-items: start;
+  gap: 20px;
+}
+.app-imported-page[data-page="current-month"] main > div[class*="space-y-5"] > section:last-child { grid-column: 1 / -1; }
+.app-imported-page[data-page="current-month"] main > div[class*="space-y-5"] > section { min-width: 0; margin-bottom: 0; }
+.app-imported-page[data-page="deductions"] main > div[class*="space-y-[clamp"] {
+  display: grid;
+  grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr);
+  align-items: start;
+  gap: 20px;
+}
+.app-imported-page[data-page="deductions"] main > div[class*="space-y-[clamp"] > * { min-width: 0; margin-bottom: 0; }
+.app-imported-page[data-page="deductions"] main > div[class*="space-y-[clamp"] > section:first-child { grid-column: 1 / -1; }
+.app-imported-page[data-page="subcontractor"] .operationsListInner {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-items: start;
+  gap: 18px;
+}
+.app-imported-page[data-page="subcontractor"] .operationsListInner > .overflow-visible { min-width: 0; }
+.app-imported-page[data-page="subcontractor"] .operationsListInner .operationsDividerWrapper { display: none; }
+.app-imported-page[data-page="mobile-invoice"] #invoiceList > div:first-child {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px 24px;
+}
+.app-imported-page[data-page="mobile-invoice"] #invoiceList > div:first-child > div { min-width: 0; }
+@media (min-width: 1680px) {
+  .app-imported-page[data-page="subcontractor"] .operationsListInner { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .app-imported-page[data-page="mobile-invoice"] #invoiceList > div:first-child { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+@media (max-width: 1100px) {
+  .app-imported-page[data-page="current-month"] main > div[class*="space-y-5"],
+  .app-imported-page[data-page="deductions"] main > div[class*="space-y-[clamp"],
+  .app-imported-page[data-page="subcontractor"] .operationsListInner,
+  .app-imported-page[data-page="mobile-invoice"] #invoiceList > div:first-child { display: block; }
+  .app-imported-page[data-page="requests"] .dgp-page-frame-container { width: 100%; max-width: none; }
+}
 .app-imported-page .gradient-dots-background::before,
 .app-imported-page .gradient-dots-background::after { display: none; }
 .app-imported-page .overflow-x-auto { min-width: 0; max-width: 100%; }
