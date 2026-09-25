@@ -1,18 +1,48 @@
 # Ultra-wide baseline
 
-Captured 2026-09-25, at commit `3ab9333` (branch `feat/ultra-wide-screens`), which includes Task 2's
-commit `1a143fc` (the `--content-ultra` var and the `3xl`/`4xl` breakpoint rungs). No page consumes
-`ultra` yet, so Task 2 landing does not change any rendered width — the `/vendor` numbers below match
-the brief's stated sanity check exactly, confirming the baseline is still valid at this commit.
+Captured 2026-09-25, at commit `a216d2f` (branch `feat/ultra-wide-screens`), which includes Task 2's
+commit `1a143fc` (the `--content-ultra` var and the `3xl`/`4xl` breakpoint rungs) and the fix-round-1
+correction to the harness's column-counting and layout-detection logic. No page consumes `ultra` yet,
+so none of this changes any rendered width — the `/vendor` numbers below still match the brief's
+stated sanity check exactly.
 
 Measured with `public/ultrawide-harness.html` via `http://localhost:3000/ultrawide-harness.html?route=<rota>`,
 authenticated session in Chrome, widths `[1920, 2560, 3440, 3840, 5120]`. Lines below are the `[UW]`
 console/`#out` output verbatim — not rounded or edited.
 
+## Fix round 1 (superseding the first capture)
+
+The first capture of this baseline used a harness with two bugs, both in `cols` computation only —
+`contentWidth`/`centreOffset`/`selector` for `/vendor`, `/home`, `/current-performance` were correct
+from the start and are unchanged below:
+
+1. `gridTemplateColumns` was counted by `split(' ').length`, which is only valid once the browser has
+   resolved the property to a track list (`"300px 300px 300px"`). On an element with no layout, the
+   browser can return the specified form instead (`"repeat(5, minmax(0px, 1fr))"`), and splitting that
+   on spaces counts syntax fragments, not columns — 3 instead of 5. The harness now only emits a
+   column count when the computed value matches a resolved all-`px` track list; otherwise it emits
+   `{raw, note}` instead of a plausible-looking wrong integer.
+2. `querySelector` returns the first match in document order regardless of whether it's rendered. A
+   hidden mobile-only variant of a grid (or of the container) could be selected over a visible desktop
+   one, and a zero-width hidden element is exactly when bug 1's wrong count fires. The harness now
+   picks the first match with `getClientRects().length > 0`, for both the container and every entry in
+   `GRIDS`, and reports how many matches existed if none were rendered.
+
+`cardGrid` has been **removed from `GRIDS` entirely** — see the "`/vehicles` removed" note below.
+
+Re-running `/vendor`, `/home`, and `/current-performance` with the corrected harness reproduced
+byte-identical `contentWidth`/`centreOffset`/`cols` values to the first capture (`home`'s
+`homeKpis`/`homePageGrid`/`homeWorkspace` are still `4`/`4`/`2` — the corrected counting method changes
+nothing for elements that were already laid out and already produced a resolved track list). This is
+recorded as a real finding, not assumed: both bugs only manifested on unrendered elements, and none of
+these three routes' `GRIDS` selectors ever matched an unrendered element.
+
 ## Sanity check
 
 The brief's expected result for `/vendor`: `contentWidth` saturates at 1600 from 1920 up, `centreOffset`
-+29 (rail recolhida). Measured value matches exactly (see table below). The instrument reads correctly.
++29 (rail recolhida). Measured value matches exactly (see table below). `/home`'s `homeKpis: 4`,
+`homePageGrid: 4`, `homeWorkspace: 2` also hold at every width, confirmed under the corrected counting
+method as well as the original one. The instrument reads correctly.
 
 ## `/vendor` (tabela densa)
 
@@ -75,29 +105,15 @@ existing pre-plan characteristic of `/current-performance`, not something the ha
 later task that verifies this route as "unchanged" must compare against this two-value baseline
 (1806 @ 1920, 1840 @ 2560+), not against a single flat number.
 
-## `/vehicles` (extra route, run to validate `cardGrid` for Task 5)
+## `/vehicles` — removed from this baseline
 
-Not one of the three routes named in the brief's Step 3, but run because Task 5 verifies column counts
-on `/vehicles` and the brief's `cardGrid` selector needed to be checked against a real page before
-being trusted as an instrument for that task.
-
-| width | selector | contentWidth | centreOffset | cols |
-|-------|----------|-------------|--------------|------|
-| 1920  | w-full | 1600 | 29 | cardGrid:3 |
-| 2560  | w-full | 1600 | 29 | cardGrid:3 |
-| 3440  | w-full | 1600 | 29 | cardGrid:3 |
-| 3840  | w-full | 1600 | 29 | cardGrid:3 |
-| 5120  | w-full | 1600 | 29 | cardGrid:3 |
-
-```
-{"width":1920,"selector":"w-full","contentWidth":1600,"centreOffset":29,"cols":{"cardGrid":3}}
-{"width":2560,"selector":"w-full","contentWidth":1600,"centreOffset":29,"cols":{"cardGrid":3}}
-{"width":3440,"selector":"w-full","contentWidth":1600,"centreOffset":29,"cols":{"cardGrid":3}}
-{"width":3840,"selector":"w-full","contentWidth":1600,"centreOffset":29,"cols":{"cardGrid":3}}
-{"width":5120,"selector":"w-full","contentWidth":1600,"centreOffset":29,"cols":{"cardGrid":3}}
-```
-
-`cardGrid` reports `3` at every width measured here — the selector resolves and the grid instrument
-works for `/vehicles`. It stays flat at 3 across all five widths in this baseline (expected: the page's
-content is capped at 1600px `w-full` at every one of these viewports, so the grid never receives more
-horizontal room to add columns — Task 5's work is exactly what's expected to change this).
+The first capture of this baseline included a `/vehicles` run to validate the `cardGrid` selector for
+Task 5. That run reported `cardGrid: 3`, which fix round 1 established was wrong: `/vehicles` renders
+`VehicleCardGrid` as a mobile-only component behind `<main class="block md:hidden">`; at the 2998px
+viewport used inside the harness's iframe it is `display: none`, so its `gridTemplateColumns` never
+resolves to a track list and the old counting method silently produced a plausible but false `3`
+(the true value, from `repeat(5, minmax(0px, 1fr))`, is 5). On `/vendor` the equivalent mobile-only
+`VendorCardGrid` selector matches nothing at all — zero elements, not merely a hidden one. Both pages
+render as tables on desktop. This card-grid work has been dropped from the plan and the spec
+(commit `a216d2f`); no later task depends on `cardGrid` any more, so it has been removed from the
+harness's `GRIDS` map and is not re-measured here.

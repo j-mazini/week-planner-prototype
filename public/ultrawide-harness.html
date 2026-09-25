@@ -27,26 +27,56 @@ const GRIDS = {
   homeKpis:     '.home-new__kpis',
   homePageGrid: '.home-new__page-grid',
   homeWorkspace:'.home-new__workspace',
-  // Especifico o bastante para nao colidir com a faixa de stats do
-  // service-partner-invoices, que partilha o prefixo `grid-cols-2 sm:grid-cols-3`.
-  cardGrid:     '.grid.grid-cols-2.sm\\:grid-cols-3.xl\\:grid-cols-5',
 };
 
 const route = new URLSearchParams(location.search).get('route') || '/vendor';
 const out = document.getElementById('out');
 const rigs = document.getElementById('rigs');
 
+// querySelector devolve o primeiro match por ordem no documento, esteja ou
+// nao desenhado. Uma variante mobile escondida (`display:none`) conta como
+// match mas nao tem layout: getClientRects() esta vazio nesse caso, e e
+// exatamente quando o browser deixa de resolver propriedades computadas
+// (ver countCols). Por isso escolhemos o primeiro match com layout real.
+function firstLaidOut(doc, selector) {
+  const all = Array.from(doc.querySelectorAll(selector));
+  if (all.length === 0) return { el: null, matched: 0 };
+  const rendered = all.find((el) => el.getClientRects().length > 0);
+  return { el: rendered || null, matched: all.length };
+}
+
+// gridTemplateColumns computado so e uma lista de tracks resolvida
+// ("300px 300px 300px") quando o elemento tem layout. Em elementos sem
+// layout (largura 0) o browser pode devolver a forma especificada
+// ("repeat(5, minmax(0px, 1fr))"), cujo split(' ').length conta fragmentos
+// de sintaxe, nao colunas — 3 em vez de 5. Nunca inventamos um inteiro a
+// partir dessa forma: contamos so quando e uma lista de comprimentos, e
+// caso contrario devolvemos o valor em bruto com uma nota.
+function countCols(computed) {
+  const trimmed = computed.trim();
+  const isResolvedTrackList = /^-?[\d.]+px(\s+-?[\d.]+px)*$/.test(trimmed);
+  if (isResolvedTrackList) {
+    return trimmed.split(/\s+/).filter(Boolean).length;
+  }
+  return { raw: trimmed, note: 'valor nao resolvido (sem layout?) — nao contado' };
+}
+
 function measure(win, width) {
   const doc = win.document;
-  const el = doc.querySelector(CONTAINER);
-  if (!el) return { width, error: 'container nao encontrado' };
+  const { el, matched } = firstLaidOut(doc, CONTAINER);
+  if (!el) {
+    return matched > 0
+      ? { width, error: matched + ' match(es) do container, nenhum com layout (escondido/mobile)' }
+      : { width, error: 'container nao encontrado' };
+  }
   const r = el.getBoundingClientRect();
   const cols = {};
   for (const [name, sel] of Object.entries(GRIDS)) {
-    const g = doc.querySelector(sel);
+    const { el: g, matched: gMatched } = firstLaidOut(doc, sel);
     if (g) {
-      cols[name] = win.getComputedStyle(g)
-        .gridTemplateColumns.split(' ').filter(Boolean).length;
+      cols[name] = countCols(win.getComputedStyle(g).gridTemplateColumns);
+    } else if (gMatched > 0) {
+      cols[name] = { note: gMatched + ' match(es), nenhum com layout (escondido/mobile)' };
     }
   }
   return {
