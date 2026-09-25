@@ -435,7 +435,7 @@ export default function Page() {
             <div className="w-full min-w-0">
                 <DgpPageFrame
                     width="ultra"
-                    containerClassName="w-full px-2 sm:px-3 md:px-0"
+                    containerClassName="mx-auto w-full px-2 sm:px-3 md:px-0"
                     className={dailyOperationsReportsStyles.pageContainer}
                 >
                     <div id="main-content" className={dailyOperationsReportsStyles.mainContent}>

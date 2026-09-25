@@ -2231,7 +2231,7 @@ export default function OperationsManagement() {
         <div className="w-full min-w-0">
           <DgpPageFrame
                 width="ultra"
-                containerClassName="w-full px-0"
+                containerClassName="mx-auto w-full px-0"
                 className="font-['Inter',sans-serif] text-slate-800 text-[0.9rem] [&_*]:font-['Inter',sans-serif]"
             >
                 <motion.div

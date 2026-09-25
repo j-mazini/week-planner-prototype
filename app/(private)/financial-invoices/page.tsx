@@ -301,7 +301,7 @@ export default function FinancialInvoicesPage() {
       <div className="w-full min-w-0">
         <DgpPageFrame
           width="ultra"
-          containerClassName="w-full px-0"
+          containerClassName="mx-auto w-full px-0"
           className="font-sans text-slate-800 text-sm"
         >
           <div id="main-content" className="flex-grow flex flex-col min-w-0 relative">

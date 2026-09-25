@@ -294,7 +294,7 @@ export default function RequestsPage() {
         <div className="w-full min-w-0">
           <DgpPageFrame
             width="ultra"
-            containerClassName="w-full px-[3%] md:px-6 lg:px-8 py-[2%] md:py-6 space-y-[2%] md:space-y-6"
+            containerClassName="mx-auto w-full px-[3%] md:px-6 lg:px-8 py-[2%] md:py-6 space-y-[2%] md:space-y-6"
             className="font-sans text-slate-800 text-sm"
           >
             <div id="main-content" className="flex-grow flex flex-col min-w-0 relative">
