@@ -611,8 +611,15 @@ Esta regra pode não corresponder a nada hoje. É uma guarda, tem uma linha e n�
 Run: `npm test`
 Expected: PASS, sem testes saltados.
 
-Run: `npm run typecheck:all`
-Expected: sem erros.
+Run: `npx tsc --noEmit 2>&1 | grep -E "globals.css|tailwind.config|DgpPageFrame|StandardPageLayout|home-new|VehicleCardGrid|VendorCardGrid"`
+Expected: saída vazia.
+
+**Não usar `typecheck:all` limpo como critério — nunca foi atingível.** O projeto tem 266 erros
+de tipo pré-existentes: 126 no `Logix-new-front/`, um clone de repo vizinho que o `.gitignore`
+declara fora do projeto mas que o `tsconfig.json` continua a incluir, e 140 antigos na app
+(`pdfGenerator.ts`, `dashboard-grid`, um conflito de casing em `week-planner/components/Modals`).
+É por isso que existe o `npm run typecheck` com baseline. O critério desta tarefa é zero erros
+**nos ficheiros que este trabalho tocou**, que é o que o grep acima verifica.
 
 Run: `npm run lint`
 Expected: sem erros novos face ao estado antes da Task 1.
