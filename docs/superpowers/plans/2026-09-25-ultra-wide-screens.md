@@ -487,8 +487,7 @@ git commit -m "feat: centre page content on the screen instead of on the leftove
 
 **Files:**
 - Modify: `app/(private)/home/home-new.css:10` (`.home-new__page-grid`) e `:11` (`.home-new__workspace`)
-- Modify: `app/(private)/vehicles/components/VehicleCardGrid.tsx:45`
-- Modify: `app/(private)/vendor/components/VendorCardGrid.tsx:63`
+
 
 **Interfaces:**
 - Consumes: as rungs `3xl`/`4xl` da Task 2, e a largura de container da Task 4.
@@ -500,6 +499,7 @@ git commit -m "feat: centre page content on the screen instead of on the leftove
 - `InvoiceSummaryStats.tsx:24` (`lg:grid-cols-5`) — a faixa é semanticamente fixa em cinco (Generated, Period, Service Partners, Total Items, Total Amount), como o próprio comentário do componente diz. Mesmo motivo.
 - `PerformanceBentoGrid.tsx:19` e `GeneralDashboardBento.tsx:50` (`lg:grid-cols-3`) — são bentos, e os filhos usam `BentoCard span={2}`. A aritmética dos spans está presa a três colunas; mudar a contagem parte o layout em vez de o melhorar.
 - `VendorDetailsModal.tsx:190` — é um modal. Não é um container de page e não herda a largura de `ultra`.
+- `VehicleCardGrid.tsx:45` e `VendorCardGrid.tsx:63` — **removidos desta task depois de medidos.** Parecem o caso óbvio, mas os dois vivem dentro de `block md:hidden`. Medido no browser a 2998px: em `/vehicles` o único match tem `width: 0` e pai em `display: none`; em `/vendor` o selector não devolve match nenhum. Em desktop as duas pages são tabelas. As rungs nunca disparariam.
 
 - [ ] **Step 1: Dar colunas ao hub de pages da home**
 
@@ -529,27 +529,9 @@ Acrescentar, também no fim do ficheiro:
 
 A coluna principal leva o resto, que é o que a tabela de schedule quer — ela está em `overflow-x:auto` com `white-space:nowrap` e a 3228px deixa de pedir scroll.
 
-- [ ] **Step 3: Dar colunas às duas grelhas de card compactas**
+- [ ] **Step 3: Verificar com o harness**
 
-`VehicleCardGrid.tsx:45` e `VendorCardGrid.tsx:63` têm hoje exatamente a mesma string de classes. Nas duas, substituir
-
-```tsx
-    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-2 sm:gap-3">
-```
-
-por
-
-```tsx
-    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 3xl:grid-cols-7 4xl:grid-cols-9 gap-2 sm:gap-3">
-```
-
-Sete e nove, não seis e oito. São cards compactos, com largura-alvo de ~310px — a que têm com `xl:grid-cols-5` num container de 1600. Seis colunas passariam dos 450px no topo da rung `3xl`; sete mantêm-se entre 274 e 388 ao longo dela, e nove entre 299 e 370.
-
-As classes têm de estar escritas por extenso no ficheiro. O Tailwind faz scan estático do texto: uma classe montada em runtime não é gerada.
-
-- [ ] **Step 4: Verificar com o harness**
-
-Run: `http://localhost:3000/ultrawide-harness.html?route=/home` e `?route=/vehicles`
+Run: `http://localhost:3000/ultrawide-harness.html?route=/home`
 
 Expected em `/home` (`cols` na saída `[UW]`):
 
@@ -562,19 +544,13 @@ Expected em `/home` (`cols` na saída `[UW]`):
 
 `homeKpis` em 4 nos cinco viewports é a asserção que protege a regra dos grids de contagem fixa. Se aparecer 5 ou 6 ali, o Step 1 foi aplicado à regra errada.
 
-Expected em `/vehicles` (`cardGrid`): 5 a 1920, 7 a 2560, 9 a 3440 e 9 a 5120.
+Estes dois grids são CSS puro em media queries, não classes do Tailwind, portanto não dependem das rungs. Não há nada a confirmar no `build` nesta task.
 
-- [ ] **Step 5: Confirmar que o Tailwind gerou as classes novas**
-
-Run: `npm run build`
-
-Expected: build limpa. Depois, no browser a 3440, inspecionar a grelha de `/vehicles` e confirmar que `grid-template-columns` tem nove tracks. Se tiver cinco, as rungs não chegaram a `theme.extend.screens` na Task 2 — correr lá o `resolveConfig` antes de procurar noutro sítio.
-
-- [ ] **Step 6: Commit**
+- [ ] **Step 4: Commit**
 
 ```bash
-git add "app/(private)/home/home-new.css" "app/(private)/vehicles/components/VehicleCardGrid.tsx" "app/(private)/vendor/components/VendorCardGrid.tsx"
-git commit -m "feat: give the variable-count grids columns at 3xl and 4xl"
+git add "app/(private)/home/home-new.css"
+git commit -m "feat: give the home's variable-count grids columns at 3xl and 4xl"
 ```
 
 ---

@@ -185,17 +185,22 @@ deixa o card mais perto do seu alvo.
 | Grid | Alvo | Hoje | `3xl` | `4xl` |
 |---|---|---|---|---|
 | Hub de pages (`home-new__page-grid`) | ~380px | 4 | 6 *(391px)* | 8 *(401px)* |
-| Grelhas de card compactas (`xl:grid-cols-5`) | ~310px | 5 | 7 *(325px)* | 9 *(348px)* |
 | KPIs (`home-new__kpis`) | — | 4 | 4 | 4 |
 | Rail da home (`minmax(0,1fr) 330px`) | — | 330px | 400px | 460px |
 
 As larguras em itálico são a largura do card resultante num 2560 e num 3440, com a rail
 recolhida.
 
-As grelhas de card compactas são `VehicleCardGrid.tsx:45` e `VendorCardGrid.tsx:63`, que
-partilham a mesma string de classes. Sete e nove, e não seis e oito, porque seis colunas
-passariam dos 450px no topo da rung `3xl`; sete ficam entre 274 e 388 ao longo dela, e nove
-entre 299 e 370.
+**As grelhas de card de `/vehicles` e `/vendor` saíram desta tabela depois de medidas.**
+`VehicleCardGrid.tsx:45` e `VendorCardGrid.tsx:63` parecem o caso óbvio — cards compactos com
+uma escada que acaba em `xl:grid-cols-5` — mas ambas vivem dentro de um bloco `block md:hidden`.
+Medido no browser a 2998px: em `/vehicles` o único match está com `width: 0` e um pai em
+`display: none`; em `/vendor` o selector não devolve match nenhum, porque a variante mobile nem
+chega a ser montada. Em desktop as duas pages são tabelas — duas por page. Acrescentar
+`3xl:grid-cols-7` a um componente que está escondido acima de `md` seria código morto.
+
+O ganho ultra-wide dessas pages continua a existir e não custa nada: são as tabelas, que deixam
+de precisar de scroll horizontal assim que o container passa dos 1600px.
 
 **Três grids que parecem candidatos e não são.** `InvoiceSummaryStats.tsx:24` é uma faixa
 semanticamente fixa em cinco entradas, pelo mesmo motivo dos KPIs. `PerformanceBentoGrid.tsx:19`
