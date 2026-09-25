@@ -448,20 +448,44 @@ errado na mesma, sem dar sinal. Em telemóvel continua a dar 28px, porque abaixo
 
 **Tem de ser `.app-imported-page`, não `.app-main`.** A `.app-topbar` é irmã dentro do `.app-main` e tem fundo e `border-bottom` próprios — padding no pai faria a barra e a sua borda pararem 58px antes da direita.
 
-- [ ] **Step 2: Remover a compensação que passa a estar duplicada**
+- [ ] **Step 2: Apagar o bloco da `requests` por inteiro**
 
-`NavbarWrapper.css:200-201` faz, só para a `requests`, exatamente o que a regra nova agora faz para todas. Mantê-las às duas desloca a page 29px a mais para a esquerda. Apagar as duas linhas:
+O bloco é hoje este:
 
 ```css
+.app-imported-page[data-page="requests"] .dgp-page-frame-container {
   position: relative;
   left: calc(var(--sidebar-offset, 0px) / -2);
+  width: min(calc(100% - 48px), 1840px);
+  max-width: var(--content-ultra);
+}
 ```
 
-O resto do bloco (`width: min(calc(100% - 48px), 1840px)` e `max-width: var(--content-ultra)`) fica.
+Apagar as quatro declarações e o bloco. Cada linha tem a sua razão:
+
+- `position` e `left` faziam, só para a `requests`, exatamente o que a regra do Step 1 agora faz
+  para todas. Mantê-las às duas desloca a page 29px a mais para a esquerda.
+- **`width` é a linha que importa, e a Task 3 não lhe podia tocar.** Um `width` com `min(...,
+  1840px)` fixa a largura usada em 1840; um `max-width` maior não a levanta — `max-width` só
+  reduz. Ou seja: a Task 3 migrou a `requests` para `var(--content-ultra)` e o efeito era zero,
+  porque esta linha continuava a travá-la em 1840px. Sem este Step, a `requests` é a única das
+  17 pages que não ganha nada com a migração, e falha em silêncio.
+- `max-width` fica redundante: o elemento já tem `max-w-content-ultra` pela sua própria classe.
+
+Com o bloco fora, a `requests` passa a comportar-se como as outras 16 — que é o que o spec
+quer dizer com absorver a camada de override.
+
+**Não tocar em mais nada nesse ficheiro.** A regra `[data-page="requests"] main[class*="max-w-"]
+{ max-width: none !important }` é outra coisa e fica. A regra homónima dentro do
+`@media (max-width: 1100px)` também fica: abaixo de 1100px o container já é mais estreito que
+qualquer teto, portanto não muda nada.
 
 - [ ] **Step 3: Verificar com o harness**
 
 Run: `http://localhost:3000/ultrawide-harness.html?route=/vendor`, `?route=/home`, `?route=/requests`
+
+A `/requests` é a asserção que prova o Step 2: se ela ficar em 1840 em vez de acompanhar as
+outras, o bloco não foi removido — ou foi removido só em parte.
 
 Expected: `centreOffset` igual a **0** (±2px) em todos os viewports e nas três rotas. E `contentWidth` desce exatamente 58px face à Task 3 (2446→2388 e 3326→3268), porque a caixa passa a descontar a rail dos dois lados:
 
