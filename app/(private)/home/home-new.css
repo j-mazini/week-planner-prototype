@@ -1,4 +1,4 @@
-.home-new { --home-paper:#fffef8; --home-surface:#fafaef; --home-ink:#1a1c16; --home-muted:#6c7464; --home-line:#c7cdbb; --home-soft:#e9eee0; --home-teal:#27676c; --home-deep:#003b3e; --home-lime:#b2f746; --home-olive:#446900; max-width:var(--content-wide); margin:0 auto; padding:26px 28px 56px; color:var(--home-ink); font-family:var(--mono); }
+.home-new { --home-paper:#fffef8; --home-surface:#fafaef; --home-ink:#1a1c16; --home-muted:#6c7464; --home-line:#c7cdbb; --home-soft:#e9eee0; --home-teal:#27676c; --home-deep:#003b3e; --home-lime:#b2f746; --home-olive:#446900; max-width:var(--content-ultra); margin:0 auto; padding:26px 28px 56px; color:var(--home-ink); font-family:var(--mono); }
 .home-new button,.home-new a { font:inherit; }
 .home-new__hero { display:flex; align-items:flex-end; justify-content:space-between; gap:24px; padding:6px 0 24px; border-bottom:1px solid var(--home-line); }
 .home-new__eyebrow,.home-new__label { color:var(--home-olive); font-size:10px; font-weight:700; letter-spacing:.12em; text-transform:uppercase; }

@@ -414,7 +414,7 @@ const VehiclesDashboard: React.FC = () => {
   return (
     <NavbarWrapper>
       <>
-        <DgpPageFrame className={vehiclesStyles.pageContainer} width="wide">
+        <DgpPageFrame className={vehiclesStyles.pageContainer} width="ultra">
           <div id="main-content" className={vehiclesStyles.mainContent}>
             {/* Desktop Version */}
             <main className={vehiclesStyles.desktopMain}>

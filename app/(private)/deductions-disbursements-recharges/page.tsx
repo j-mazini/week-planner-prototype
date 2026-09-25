@@ -821,7 +821,7 @@ const DeductionsDashboardContent = () => {
     <>
       <div className="w-full min-w-0">
         <DgpPageFrame
-          width="wide"
+          width="ultra"
           containerClassName="w-full px-0"
           className="font-['Inter',sans-serif] text-slate-800 text-sm [&_*]:font-['Inter',sans-serif]"
         >

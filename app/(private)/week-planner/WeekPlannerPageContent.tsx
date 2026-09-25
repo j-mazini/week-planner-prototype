@@ -7561,7 +7561,7 @@ const WeekPlannerPageContent = () => {
   return (
     <NavbarWrapper>
       <DgpPageFrame
-        width="wide"
+        width="ultra"
         containerClassName="mx-auto w-full px-2 md:px-4 pt-2 md:pt-3 pb-20 md:pb-5 space-y-1.5 md:space-y-2"
         className="font-['Inter',sans-serif] text-slate-800 text-[0.9rem] overflow-visible [&_*]:font-['Inter',sans-serif]"
       >
