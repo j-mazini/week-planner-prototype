@@ -39,7 +39,7 @@ export const subcontractorStyles = {
 
   // Route header
   routeHeader:
-    "relative bg-gradient-to-br from-blue-500 via-blue-600 to-blue-700 text-white p-[clamp(0.75rem,2.6vw,0.95rem)] rounded-2xl flex justify-between items-center text-[clamp(1.1rem,4.2vw,1.5rem)] font-bold mb-3 shadow-lg hover:shadow-xl transition-all duration-300 w-full box-border overflow-hidden min-w-0",
+    "relative bg-[#003b3e] text-white p-[clamp(0.75rem,2.6vw,0.95rem)] rounded-2xl flex justify-between items-center text-[clamp(1.1rem,4.2vw,1.5rem)] font-bold mb-3 shadow-lg hover:shadow-xl transition-all duration-300 w-full box-border overflow-hidden min-w-0",
   routeHeaderPattern: "absolute inset-0 opacity-10",
   routeHeaderShimmer:
     "absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent",
@@ -116,5 +116,4 @@ export const subcontractorStyles = {
     "flex justify-center items-center flex-1 min-h-[200px]",
   errorText: "text-slate-700 text-lg",
 } as const;
-
 

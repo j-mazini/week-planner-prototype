@@ -1,23 +1,17 @@
 "use client";
 
-import React, { useEffect, useRef } from "react";
-import dynamic from "next/dynamic";
+import React, { useEffect, useRef, useState } from "react";
 import "./Login.css";
+import "./login-redesign.css";
 import { PasswordResetFlow } from "@/components/PasswordResetFlow";
 import { RegisterFlow } from "@/components/RegisterFlow";
 import { LoginMainView } from "@/components/LoginMainView";
 import { LoginLoadingOverlay } from "@/components/LoginLoadingOverlay";
 import { useLoginForm } from "@/hooks/useLoginForm";
 import { useLoginAnimations } from "@/hooks/useLoginAnimations";
+import { MOCK_MODE } from "@/lib/mock-api";
 
-// Carregamento diferido: o fundo de partículas (tsparticles) é puramente visual e
-// pesado. Importá-lo dinamicamente o remove do JS inicial da tela de login sem
-// alterar o comportamento — apenas é montado no cliente após o paint inicial.
-const ParticleBackground = dynamic(
-  () =>
-    import("@/components/ParticleBackground").then((m) => m.ParticleBackground),
-  { ssr: false }
-);
+type DemoProfile = "admin" | "supervisor" | "driver";
 
 type LoginViewId = "login" | "forgot" | "first";
 
@@ -29,6 +23,7 @@ type LoginViewId = "login" | "forgot" | "first";
 export function LoginForm({ className, ...props }: React.ComponentProps<"div">) {
   const passwordInputRef = useRef<HTMLInputElement>(null);
   const emailInputRef = useRef<HTMLInputElement>(null);
+  const [demoProfile, setDemoProfile] = useState<DemoProfile>("admin");
 
   const {
     loginCardRef,
@@ -64,7 +59,7 @@ export function LoginForm({ className, ...props }: React.ComponentProps<"div">) 
     handleLoginSubmit,
     handleForgotPassword,
     handleFirstLogin,
-  } = useLoginForm({ passwordInputRef, onLoginFailed: resetAfterLoginError });
+  } = useLoginForm({ passwordInputRef, onLoginFailed: resetAfterLoginError, demoProfile });
 
   useEffect(() => {
     const t = setTimeout(() => {
@@ -101,12 +96,10 @@ export function LoginForm({ className, ...props }: React.ComponentProps<"div">) 
 
   return (
     <div
-      className={`modern-login-wrapper ${className || ""}`}
+      className={`modern-login-wrapper logix-login ${className || ""}`}
       {...props}
       suppressHydrationWarning
     >
-      <ParticleBackground />
-
       <LoginLoadingOverlay
         loadingOverlayRef={loadingOverlayRef}
         loadingSpinnerRef={loadingSpinnerRef}
@@ -114,49 +107,72 @@ export function LoginForm({ className, ...props }: React.ComponentProps<"div">) 
         welcomeTextRef={welcomeTextRef}
       />
 
-      <div className="login-container">
-        <div className="login-card" ref={loginCardRef}>
-          <LoginMainView
-            loginViewRef={loginViewRef}
-            email={email}
-            setEmail={setEmail}
-            password={password}
-            setPassword={setPassword}
-            passwordInputRef={passwordInputRef}
-            showPassword={showPassword}
-            setShowPassword={setShowPassword}
-            rememberMe={rememberMe}
-            setRememberMe={setRememberMe}
-            isLoading={isLoading}
-            error={error}
-            success={success}
-            onSubmit={handleLoginSubmit}
-            onSwitchView={handleSwitchView}
-          />
+      <main className="login-layout">
+        <section className="login-story" aria-label="LogixSphere operations platform">
+          <div className="login-wordmark"><span>LOGIX</span><i aria-hidden="true">/</i><span>SPHERE</span></div>
+          <div className="login-story-copy">
+            <p className="login-kicker">OPERATIONS, IN VIEW</p>
+            <h1>Keep every<br />route moving.</h1>
+            <p className="login-story-description">A clear view of people, plans and performance across your network.</p>
+          </div>
+          <div className="login-route-board" aria-hidden="true">
+            <div className="route-board-heading"><span>NETWORK STATUS</span><span><b /> LIVE</span></div>
+            <div className="route-board-line"><span className="route-node" /><span className="route-track" /><span className="route-node" /><span className="route-track route-track-short" /><span className="route-node route-node-active" /></div>
+            <div className="route-board-line route-board-line-alt"><span className="route-node" /><span className="route-track route-track-short" /><span className="route-node" /><span className="route-track" /><span className="route-node" /></div>
+            <div className="route-board-line"><span className="route-node" /><span className="route-track" /><span className="route-node route-node-active" /><span className="route-track route-track-short" /><span className="route-node" /></div>
+            <div className="route-board-footer"><span>DEPOTS CONNECTED</span><strong>08 / 08</strong><span className="route-board-divider" /><span>ROUTES TODAY</span><strong>124</strong></div>
+          </div>
+          <p className="login-story-foot">LOGIXSPHERE <span>·</span> ONE OPERATIONS VIEW</p>
+        </section>
 
-          <PasswordResetFlow
-            viewRef={forgotViewRef}
-            forgotEmail={forgotEmail}
-            setForgotEmail={setForgotEmail}
-            isLoading={isLoading}
-            error={error}
-            success={success}
-            onSubmit={handleForgotPassword}
-            switchView={handleSwitchView}
-          />
+        <div className="login-container">
+          <div className="login-card" ref={loginCardRef}>
+            <LoginMainView
+              loginViewRef={loginViewRef}
+              email={email}
+              setEmail={setEmail}
+              password={password}
+              setPassword={setPassword}
+              passwordInputRef={passwordInputRef}
+              showPassword={showPassword}
+              setShowPassword={setShowPassword}
+              rememberMe={rememberMe}
+              setRememberMe={setRememberMe}
+              isLoading={isLoading}
+              error={error}
+              success={success}
+              onSubmit={handleLoginSubmit}
+              onSwitchView={handleSwitchView}
+              showDemoProfile={MOCK_MODE}
+              demoProfile={demoProfile}
+              onDemoProfileChange={setDemoProfile}
+            />
 
-          <RegisterFlow
-            viewRef={firstLoginViewRef}
-            firstLoginData={firstLoginData}
-            setFirstLoginData={setFirstLoginData}
-            isLoading={isLoading}
-            error={error}
-            success={success}
-            onSubmit={handleFirstLogin}
-            switchView={handleSwitchView}
-          />
+            <PasswordResetFlow
+              viewRef={forgotViewRef}
+              forgotEmail={forgotEmail}
+              setForgotEmail={setForgotEmail}
+              isLoading={isLoading}
+              error={error}
+              success={success}
+              onSubmit={handleForgotPassword}
+              switchView={handleSwitchView}
+            />
+
+            <RegisterFlow
+              viewRef={firstLoginViewRef}
+              firstLoginData={firstLoginData}
+              setFirstLoginData={setFirstLoginData}
+              isLoading={isLoading}
+              error={error}
+              success={success}
+              onSubmit={handleFirstLogin}
+              switchView={handleSwitchView}
+            />
+            <p className="login-security-note"><span aria-hidden="true">◆</span> Your account is protected by secure sign-in.</p>
+          </div>
         </div>
-      </div>
+      </main>
     </div>
   );
 }

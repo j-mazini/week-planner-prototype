@@ -20,6 +20,9 @@ export interface LoginMainViewProps {
   isLoading: boolean;
   error: string;
   success: string;
+  showDemoProfile: boolean;
+  demoProfile: "admin" | "supervisor" | "driver";
+  onDemoProfileChange: (profile: "admin" | "supervisor" | "driver") => void;
   onSubmit: (e: React.FormEvent) => void;
   onSwitchView: (target: LoginViewId) => void;
 }
@@ -38,25 +41,49 @@ export function LoginMainView({
   isLoading,
   error,
   success,
+  showDemoProfile,
+  demoProfile,
+  onDemoProfileChange,
   onSubmit,
   onSwitchView,
 }: LoginMainViewProps) {
   return (
     <div id="loginView" ref={loginViewRef} className="form-view active">
       <div className="login-header">
-        <p className="login-subtitle">Access your account</p>
+        <p className="login-kicker">SECURE WORKSPACE</p>
+        <h2>Welcome back</h2>
+        <p className="login-subtitle">Sign in to continue to your operations workspace.</p>
       </div>
       <form onSubmit={onSubmit}>
         {error && <div className="error-message">{error}</div>}
         {success && <div className="success-message">{success}</div>}
 
+        {showDemoProfile && (
+          <div className="form-group demo-profile-group">
+            <label className="form-label" htmlFor="demoProfile">Demo profile</label>
+            <div className="demo-profile-select-wrap">
+              <select
+                id="demoProfile"
+                className="form-input demo-profile-select"
+                value={demoProfile}
+                onChange={(event) => onDemoProfileChange(event.target.value as "admin" | "supervisor" | "driver")}
+                disabled={isLoading}
+              >
+                <option value="admin">Admin</option>
+                <option value="supervisor">Supervisor</option>
+                <option value="driver">Driver</option>
+              </select>
+              <span className="demo-select-chevron" aria-hidden="true">⌄</span>
+            </div>
+            <span className="demo-profile-hint">Preview a workspace by role. No real access is changed.</span>
+          </div>
+        )}
+
         <div className="form-group">
-          <label className="form-label">
-            <i className="bi bi-envelope"></i> Email
-          </label>
+          <label className="form-label" htmlFor="loginEmail">Email address</label>
           <div className="form-input-icon">
-            <i className="bi bi-envelope"></i>
             <input
+              id="loginEmail"
               type="email"
               className="form-input"
               placeholder="your@email.com"
@@ -70,12 +97,10 @@ export function LoginMainView({
         </div>
 
         <div className="form-group">
-          <label className="form-label">
-            <i className="bi bi-lock"></i> Password
-          </label>
+          <label className="form-label" htmlFor="loginPassword">Password</label>
           <div className="form-input-icon">
-            <i className="bi bi-lock"></i>
             <input
+              id="loginPassword"
               ref={passwordInputRef}
               type={showPassword ? "text" : "password"}
               className="form-input"
@@ -115,11 +140,11 @@ export function LoginMainView({
             disabled={isLoading}
             suppressHydrationWarning
           />
-          <label htmlFor="rememberMe">Remember me</label>
+          <label htmlFor="rememberMe">Keep me signed in</label>
         </div>
 
         <button type="submit" className="login-button" disabled={isLoading}>
-          {isLoading ? "Signing in..." : "Sign In"}
+          {isLoading ? "Signing in..." : "Sign in"}
         </button>
 
         <div className="login-footer">
@@ -131,7 +156,7 @@ export function LoginMainView({
               onSwitchView("forgot");
             }}
           >
-            Forgot your password?
+            Forgot password?
           </a>
           <a
             href="#!"

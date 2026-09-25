@@ -510,8 +510,8 @@ export default function RequestsInboxPage() {
     <NavbarWrapper>
       <div className="w-full min-w-0">
         <DgpPageFrame
-          width="ultra"
-          containerClassName="mx-auto w-full px-[3%] md:px-6 lg:px-8 py-[2%] md:py-6 space-y-[2%] md:space-y-6"
+          width="wide"
+          containerClassName="mx-auto w-full min-w-0 px-4 sm:px-6 xl:px-8 py-4 md:py-6 space-y-4 md:space-y-6"
           className="font-sans text-slate-800 text-sm"
         >
           <div id="main-content" className="flex-grow flex flex-col min-w-0 relative">
@@ -1294,7 +1294,6 @@ function RequestCard({
     </div>
   );
 }
-
 
 
 

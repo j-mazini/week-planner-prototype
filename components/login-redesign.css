@@ -1,0 +1,106 @@
+/* LogixSphere sign-in refresh: paper, ink, deep teal and a single lime signal. */
+.modern-login-wrapper.logix-login {
+  --login-paper: #fffef8; --login-canvas: #fafaef; --login-ink: #1a1c16;
+  --login-muted: #68705f; --login-line: #c7cdbb; --login-teal: #003b3e; --login-lime: #b2f746;
+  min-height: 100vh; min-height: 100svh; display: grid; place-items: center;
+  overflow-x: hidden; overflow-y: auto; padding: clamp(16px, 3vw, 44px);
+  color: var(--login-ink); background: var(--login-canvas);
+  font-family: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+.modern-login-wrapper.logix-login::before, .modern-login-wrapper.logix-login::after { content: none; display: none; }
+.modern-login-wrapper.logix-login > * { z-index: 1; }
+.logix-login .login-layout {
+  width: min(100%, 1320px); min-height: min(760px, calc(100svh - 48px)); display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(400px, .95fr); overflow: hidden;
+  border: 1px solid var(--login-line); background: var(--login-paper); box-shadow: 0 22px 70px #003b3e17;
+}
+.logix-login .login-story {
+  min-width: 0; display: flex; flex-direction: column; justify-content: space-between; position: relative;
+  isolation: isolate; padding: clamp(28px, 5.4vw, 76px); color: #fafaef; background: var(--login-teal);
+}
+.logix-login .login-story::after {
+  content: ""; position: absolute; z-index: -1; inset: auto -110px -170px auto; width: 400px; height: 400px;
+  border: 1px solid #b2f7463b; border-radius: 50%; box-shadow: 0 0 0 42px #b2f74609, 0 0 0 86px #b2f74606; pointer-events: none;
+}
+.logix-login .login-wordmark { display: flex; align-items: center; gap: 8px; font: 700 15px/1 "Space Grotesk", Arial, sans-serif; letter-spacing: .04em; }
+.logix-login .login-wordmark i { color: var(--login-lime); font-style: normal; font-weight: 400; }
+.logix-login .login-story-copy { max-width: 510px; margin: auto 0 56px; padding-top: 72px; }
+.logix-login .login-kicker { margin: 0 0 13px; color: #77877c; font: 600 10px/1.4 "IBM Plex Mono", monospace; letter-spacing: .16em; text-transform: uppercase; }
+.logix-login .login-story .login-kicker { color: var(--login-lime); }
+.logix-login .login-story h1 { margin: 0; color: #fafaef; font: 600 clamp(42px, 5vw, 68px)/.99 "Space Grotesk", Arial, sans-serif; letter-spacing: -.065em; }
+.logix-login .login-story-description { max-width: 380px; margin: 24px 0 0; color: #c1d0ca; font: 13px/1.8 "IBM Plex Mono", monospace; }
+.logix-login .login-route-board { padding: 18px 20px 16px; border: 1px solid #fafaef33; background: #001b1d57; }
+.logix-login .route-board-heading, .logix-login .route-board-footer { display: flex; align-items: center; gap: 10px; color: #b9c8bf; font: 9px/1.4 "IBM Plex Mono", monospace; letter-spacing: .08em; }
+.logix-login .route-board-heading { justify-content: space-between; padding-bottom: 17px; border-bottom: 1px solid #fafaef26; }
+.logix-login .route-board-heading > span:last-child { display: flex; align-items: center; gap: 6px; color: var(--login-lime); }
+.logix-login .route-board-heading b { width: 6px; height: 6px; border-radius: 50%; background: var(--login-lime); box-shadow: 0 0 10px #b2f7468c; }
+.logix-login .route-board-line { display: flex; align-items: center; padding: 17px 4px 0; }
+.logix-login .route-node { width: 7px; height: 7px; flex: none; border: 1px solid #a9bab0; border-radius: 50%; background: var(--login-teal); }
+.logix-login .route-node-active { border-color: var(--login-lime); background: var(--login-lime); box-shadow: 0 0 8px #b2f74673; }
+.logix-login .route-track { height: 1px; flex: 1; background: #59746d; }
+.logix-login .route-track-short { flex: .65; }
+.logix-login .route-board-line-alt { padding-left: 24%; }
+.logix-login .route-board-footer { gap: 8px; margin-top: 19px; padding-top: 14px; border-top: 1px solid #fafaef26; font-size: 8px; }
+.logix-login .route-board-footer strong { color: #fafaef; font-size: 10px; letter-spacing: 0; }
+.logix-login .route-board-divider { width: 1px; height: 16px; margin: 0 5px; background: #fafaef38; }
+.logix-login .login-story-foot { margin: 22px 0 0; color: #91a59a; font: 9px/1.4 "IBM Plex Mono", monospace; letter-spacing: .13em; }
+.logix-login .login-story-foot span { padding: 0 6px; color: var(--login-lime); }
+.logix-login .login-container { position: static; inset: auto; transform: none; width: 100%; max-width: none; min-height: 100%; padding: clamp(28px, 5vw, 74px); }
+.logix-login .login-card { align-self: center; width: 100%; max-width: 440px; padding: 0; overflow: visible; color: var(--login-ink); background: transparent; border: 0; border-radius: 0; box-shadow: none; backdrop-filter: none; -webkit-backdrop-filter: none; transform: none; }
+.logix-login .login-card:hover { box-shadow: none; }
+.logix-login .login-card-animation { display: none !important; }
+.logix-login .login-header { margin: 0 0 30px; text-align: left; }
+.logix-login .login-header h2, .logix-login .login-title { margin: 0 0 10px; color: var(--login-ink); font: 600 34px/1.08 "Space Grotesk", Arial, sans-serif; letter-spacing: -.045em; }
+.logix-login .login-header .login-subtitle { margin: 0; color: var(--login-muted); font: 11px/1.7 "IBM Plex Mono", monospace; }
+.logix-login .form-group { margin-bottom: 21px; }
+.logix-login .form-label { display: block; margin: 0 0 8px; color: #424936; font: 600 10px/1.4 "IBM Plex Mono", monospace; letter-spacing: .04em; text-transform: uppercase; }
+.logix-login .form-input { width: 100%; height: 48px; padding: 0 14px; border: 1px solid var(--login-line); border-radius: 0; color: var(--login-ink); background: var(--login-paper); font: 12px "IBM Plex Mono", monospace; box-shadow: none; backdrop-filter: none; -webkit-backdrop-filter: none; transition: border-color .15s ease, box-shadow .15s ease; }
+.logix-login .form-input::placeholder { color: #92988b; }
+.logix-login .form-input:focus { outline: 2px solid var(--login-lime); outline-offset: 1px; border-color: var(--login-teal); background: #fff; box-shadow: none; }
+.logix-login .demo-profile-select-wrap { position: relative; }
+.logix-login .demo-profile-select { appearance: none; padding-right: 42px; cursor: pointer; }
+.logix-login .demo-profile-select option { color: var(--login-ink); background: var(--login-paper); }
+.logix-login .demo-select-chevron { position: absolute; top: 50%; right: 14px; transform: translateY(-58%); color: var(--login-teal); font: 20px/1 Arial, sans-serif; pointer-events: none; }
+.logix-login .demo-profile-hint { display: block; margin-top: 7px; color: var(--login-muted); font: 9px/1.5 "IBM Plex Mono", monospace; }
+.logix-login .form-checkbox { gap: 9px; margin: 0 0 22px; }
+.logix-login .form-checkbox input[type="checkbox"] { width: 15px; height: 15px; margin: 0; accent-color: var(--login-teal); }
+.logix-login .form-checkbox label { color: var(--login-muted); font: 10px/1.4 "IBM Plex Mono", monospace; }
+.logix-login .login-button { min-height: 49px; padding: 12px 18px; border: 1px solid var(--login-teal); border-radius: 0; color: #fffef8; background: var(--login-teal); font: 600 11px/1.2 "IBM Plex Mono", monospace; letter-spacing: .08em; text-transform: uppercase; box-shadow: none; transition: color .15s ease, background-color .15s ease, border-color .15s ease; }
+.logix-login .login-button::before, .logix-login .login-button::after { display: none; }
+.logix-login .login-button:hover:not(:disabled) { transform: none; color: var(--login-teal); background: var(--login-lime); border-color: var(--login-lime); box-shadow: none; filter: none; }
+.logix-login .login-button:focus-visible { outline: 2px solid var(--login-lime); outline-offset: 3px; }
+.logix-login .login-footer { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 18px; margin-top: 18px; text-align: left; }
+.logix-login .forgot-password { display: inline-block; margin: 0; color: var(--login-teal); font: 10px/1.5 "IBM Plex Mono", monospace; text-decoration: underline; text-decoration-color: #a5b39a; text-underline-offset: 3px; }
+.logix-login .forgot-password:hover { color: #446900; text-shadow: none; }
+.logix-login .login-security-note { display: flex; align-items: center; gap: 8px; margin: 34px 0 0; padding-top: 15px; border-top: 1px solid #e3e5d9; color: var(--login-muted); font: 9px/1.5 "IBM Plex Mono", monospace; }
+.logix-login .login-security-note span { color: #739b21; font-size: 9px; }
+.logix-login .error-message { border-radius: 0; border-left: 3px solid #a4433c; color: #7d2926; background: #f8eaea; font: 10px/1.5 "IBM Plex Mono", monospace; }
+.logix-login .success-message { border-radius: 0; border-left: 3px solid #668b20; color: #416400; background: #eef1df; font: 10px/1.5 "IBM Plex Mono", monospace; }
+.logix-login .back-link { color: var(--login-teal); font: 10px "IBM Plex Mono", monospace; }
+.logix-login .back-link:hover { color: #446900; }
+.logix-login .loading-overlay.show-white { background: #fafaefed; }
+.logix-login .spinner-dot { background: var(--login-lime); box-shadow: 0 0 12px #b2f7468c; }
+.logix-login .welcome-text { color: var(--login-teal); font-family: "Space Grotesk", Arial, sans-serif; }
+.logix-login-fallback { min-height: 100vh; display: grid; place-items: center; color: #68705f; background: #fafaef; font: 11px "IBM Plex Mono", monospace; }
+@media (max-width: 800px) {
+  .logix-login .login-layout { min-height: 0; grid-template-columns: 1fr; }
+  .logix-login .login-story { min-height: 360px; padding: 28px; }
+  .logix-login .login-story-copy { padding-top: 50px; margin: 0 0 30px; }
+  .logix-login .login-story h1 { font-size: clamp(38px, 9vw, 58px); }
+  .logix-login .login-story-description { margin-top: 14px; }
+  .logix-login .login-route-board { max-width: 520px; }
+  .logix-login .login-container { min-height: 0; padding: 42px clamp(24px, 8vw, 64px); }
+}
+@media (max-width: 480px) {
+  .modern-login-wrapper.logix-login { display: block; padding: 0; }
+  .logix-login .login-layout { min-height: 100svh; border: 0; }
+  .logix-login .login-story { min-height: 285px; padding: 24px; }
+  .logix-login .login-story-copy { padding-top: 38px; margin-bottom: 0; }
+  .logix-login .login-story h1 { font-size: 42px; }
+  .logix-login .login-story-description, .logix-login .login-route-board, .logix-login .login-story-foot { display: none; }
+  .logix-login .login-container { padding: 34px 24px 42px; }
+  .logix-login .login-header h2, .logix-login .login-title { font-size: 30px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .logix-login *, .logix-login *::before, .logix-login *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+}

@@ -130,9 +130,9 @@
 .app-imported-page [class*="min-h-screen"],
 .app-imported-page [class*="h-screen"],
 .app-imported-page [class*="bg-background"],
-.app-imported-page [class*="bg-gradient"],
-.app-imported-page [class*="bg-[radial-gradient"],
-.app-imported-page [class*="bg-[linear-gradient"] {
+.app-imported-page :not(button):not(a)[class*="bg-gradient"],
+.app-imported-page :not(button):not(a)[class*="bg-[radial-gradient"],
+.app-imported-page :not(button):not(a)[class*="bg-[linear-gradient"] {
   background: var(--surface) !important;
   background-image: none !important;
 }

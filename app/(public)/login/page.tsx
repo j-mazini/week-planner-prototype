@@ -4,7 +4,7 @@ import { Suspense } from "react";
 
 export default function Page() {
   return (
-    <Suspense fallback={<div>Loading...</div>}>
+    <Suspense fallback={<div className="logix-login-fallback">Loading workspace…</div>}>
       <LoginForm />
     </Suspense>
   );

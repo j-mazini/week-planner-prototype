@@ -9,6 +9,10 @@ import {
 } from "@/lib/auth";
 import type { FirstLoginData } from "@/types/firstLogin";
 import { useAuth } from "@/hooks/useAuth";
+import { MOCK_MODE } from "@/lib/mock-api";
+import { BUSINESS_RULES } from "@/src/constants/businessRules";
+
+type DemoProfile = "admin" | "supervisor" | "driver";
 
 export type { FirstLoginData };
 
@@ -17,6 +21,8 @@ export interface UseLoginFormOptions {
   passwordInputRef: RefObject<HTMLInputElement | null>;
   /** Resets GSAP overlay/card visuals after a failed login attempt. */
   onLoginFailed?: () => void;
+  /** Role selector used only by the offline prototype. */
+  demoProfile?: DemoProfile;
 }
 
 /**
@@ -28,7 +34,7 @@ export interface UseLoginFormOptions {
  * @returns State and handlers for composing the login UI.
  */
 export const useLoginForm = (options: UseLoginFormOptions) => {
-  const { passwordInputRef, onLoginFailed } = options;
+  const { passwordInputRef, onLoginFailed, demoProfile = "admin" } = options;
   const searchParams = useSearchParams();
   const auth = useAuth();
 
@@ -72,7 +78,15 @@ export const useLoginForm = (options: UseLoginFormOptions) => {
           // ignore read errors
         }
 
-        const response = await login({ email: loginEmail, password: loginPassword, rememberMe });
+        const baseResponse = await login({ email: loginEmail, password: loginPassword, rememberMe });
+        const demoRole = {
+          admin: { userTypeId: BUSINESS_RULES.USER_TYPE.ADMIN, roles: ["admin"], permissions: ["all_access"] },
+          supervisor: { userTypeId: BUSINESS_RULES.USER_TYPE.SUPERVISOR, roles: ["supervisor"], permissions: [] },
+          driver: { userTypeId: BUSINESS_RULES.USER_TYPE.DRIVER, roles: ["driver"], permissions: [] },
+        }[demoProfile];
+        const response = MOCK_MODE
+          ? { ...baseResponse, user: { ...baseResponse.user, ...demoRole } }
+          : baseResponse;
         if (!response || !response.token) {
           throw new Error("Token não recebido do servidor");
         }
@@ -122,7 +136,7 @@ export const useLoginForm = (options: UseLoginFormOptions) => {
         setIsLoading(false);
       }
     },
-    [email, password, rememberMe, passwordInputRef, onLoginFailed, searchParams]
+    [email, password, rememberMe, passwordInputRef, onLoginFailed, searchParams, demoProfile]
   );
 
   const handleForgotPassword = useCallback(

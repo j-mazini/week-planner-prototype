@@ -52,10 +52,22 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     const checkAuth = async () => {
       if (MOCK_MODE) {
-        const mockUser = {
+        const defaultMockUser = {
           id: 101, name: 'João Silva', email: 'joao@logixsphere.local', userTypeId: 1,
           roles: ['admin'], permissions: ['all_access'], companyId: 1, servicePartnerId: null,
         };
+        let mockUser: User = defaultMockUser;
+        try {
+          const storedUser = sessionStorage.getItem('auth_user');
+          if (storedUser) {
+            const parsed = JSON.parse(storedUser) as User;
+            if ([1, 2, 3].includes(parsed.userTypeId) && Array.isArray(parsed.roles)) {
+              mockUser = { ...defaultMockUser, ...parsed };
+            }
+          }
+        } catch {
+          sessionStorage.removeItem('auth_user');
+        }
         sessionStorage.setItem('auth_user', JSON.stringify(mockUser));
         sessionStorage.setItem('auth-token', mockToken);
         setUser(mockUser);
