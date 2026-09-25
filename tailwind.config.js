@@ -22,6 +22,9 @@ module.exports = {
         'content-ultra': 'var(--content-ultra)',
       },
       screens: {
+        // 2200px is the canonical `3xl` threshold — repeated in globals.css (x2)
+        // and home-new.css (x2) because CSS @media can't read a custom property.
+        // Never diverge; if it changes here, change it everywhere.
         '3xl': '2200px',
         '4xl': '3000px',
       },

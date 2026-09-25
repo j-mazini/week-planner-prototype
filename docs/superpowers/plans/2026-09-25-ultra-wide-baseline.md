@@ -151,8 +151,9 @@ verbatim `#out` output, placed next to the "Antes" tables above rather than repl
 ```
 
 Matches the brief's Step 3 table exactly: 1600/2388/3268/3520/3520, `centreOffset` 0 at every width.
-(`centreOffset` moved from 29 to 0 because the parent-level centring fix in an earlier task recentred
-the container; that shift applies to every migrated page, not a Task 6 change.)
+(`centreOffset` moved from 29 to 0 because of the `padding-right` rule on `.app-imported-page`
+added in an earlier task — not `mx-auto` on the shared shell, which only centres content within
+an already-symmetric box; that padding rule applies to every migrated page, not a Task 6 change.)
 
 ### `/home` — Antes vs Depois
 
@@ -212,7 +213,9 @@ brief's table — that line predates the removal and does not apply to this harn
 ```
 
 The number that matters: the ceiling is still **1840**, not 3520 — no driver-portal page was migrated
-onto `ultra`. The 1920px cell moved from 1806 to 1748 and `centreOffset` moved from 29 to 0 across the
-board; both are the expected, plan-wide cost of the earlier parent-level centring fix (`mx-auto` on
-the shared shell), applied here too since this route shares that parent — not a Task 6 change and not
-evidence that `/current-performance` was touched directly.
+onto `ultra`. The 1920px cell moved from 1806 to 1748 because it shares the `.app-imported-page`
+parent whose `padding-right` rule (added in an earlier task) discounts the rail on both sides —
+not a Task 6 change and not evidence that `/current-performance` was touched directly.
+`centreOffset` itself is 0 here because of `margin: 0 auto` in `performance.css`, which this
+branch never touched — not `mx-auto` on the shared shell, which centres only within an
+already-symmetric box and plays no part in this route's centring.

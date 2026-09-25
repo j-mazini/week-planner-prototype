@@ -27,19 +27,22 @@ body { -webkit-font-smoothing: antialiased; }
   --content-wide: 100rem;
 
   /* Degrau ultra-wide: igual a `wide` até ao limiar, solta acima dele.
+     Derivado de --content-wide para nunca divergir se ele mudar.
      Ver docs/superpowers/specs/2026-09-25-ultra-wide-screens-design.md */
-  --content-ultra: 100rem;
+  --content-ultra: var(--content-wide);
 }
 
+/* 2200px é o limiar canónico do degrau `3xl` (ver tailwind.config.js e
+   home-new.css ×2). CSS @media não lê custom properties, por isso o número
+   repete-se aqui — nunca deve divergir entre os cinco sítios. */
 @media (min-width: 2200px) {
   :root { --content-ultra: 220rem; }
-}
 
-/* Num container de 3228px um parágrafo solto vira uma linha de 3200px.
-   Escopo deliberadamente estreito: só filhos directos do container de page,
-   que é o único sítio onde um <p> ocupa a largura toda. Cards, células de
-   tabela e filhos de flex não são apanhados.
-   Ver docs/superpowers/specs/2026-09-25-ultra-wide-screens-design.md §6 */
-@media (min-width: 2200px) {
-  .dgp-page-frame-container > p { max-width: 68ch; }
+  /* Num container de 3228px um parágrafo solto vira uma linha de 3200px.
+     Escopo deliberadamente estreito: só filhos directos do container de page,
+     que é o único sítio onde um <p> ocupa a largura toda. Cards, células de
+     tabela e filhos de flex não são apanhados. :where() zera a especificidade
+     para que um <p className="max-w-full"> deliberado continue a ganhar.
+     Ver docs/superpowers/specs/2026-09-25-ultra-wide-screens-design.md §6 */
+  :where(.dgp-page-frame-container) > p { max-width: 68ch; }
 }

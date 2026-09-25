@@ -84,6 +84,15 @@ Não há terceira rung. Acima de 3000 o container satura nos 3520px, então um 5
 apresentam ao grid exatamente a mesma largura: uma rung extra não teria nada de diferente para
 dizer.
 
+**Estas duas rungs são declaradas como API para trabalho futuro, não como o mecanismo de reflow
+usado aqui.** O único reflow implementado (secção 6, a home) é escrito como media queries à mão
+em `home-new.css`, nos mesmos dois limiares — não como utilitários `3xl:`/`4xl:` do Tailwind.
+Uma media query em CSS não lê uma custom property, por isso o número 2200 tem de se repetir
+literalmente onde quer que uma regra precise dele; a regra que isto não quebra é mais estreita
+do que "nunca duplicar o número" — é "nunca escrever um número *diferente*". Os cinco sítios onde
+2200 aparece (`globals.css` ×2, `home-new.css` ×2, `tailwind.config.js` ×1) trazem um comentário
+a apontar uns para os outros.
+
 ### Por que não as alternativas
 
 **Container queries com grids intrínsecos** (`.app-main` como container, larguras em `cqi`,
@@ -171,11 +180,19 @@ outro trabalho; o sítio para mudar de ideias é a mesma camada de 1840, e é um
 
 **Correção obrigatória.** `NavbarWrapper.css:199-205` impõe `max-width: 1840px !important` ao
 `main` da `requests`. Sem mexer nele, a page migra para `ultra` e o CSS anula-a sem erro
-nenhum. O `1840px` passa a `var(--content-ultra)`.
+nenhum. O bloco `requests` foi removido da regra em vez de ter o `1840px` trocado por
+`var(--content-ultra)` — remover era a opção melhor, porque a regra `data-page="requests"` não
+tinha mais nenhuma outra finalidade e mantê-la viva só para reapontar o valor teria sido uma
+indireção sem utilidade.
 
 `narrow` (um call site) e `full` (route-balance) não mudam.
 
 ## 6. O reflow
+
+O único reflow implementado por este trabalho é o da home, escrito à mão em `home-new.css` com
+`@media (min-width: 2200px)` e `@media (min-width: 3000px)` — não com os utilitários `3xl:`/
+`4xl:` do Tailwind, que ficam declarados como API para uma migração futura mas não são
+consumidos por nenhuma regra hoje (`grep -rn "3xl:\|4xl:" app components` não devolve nada).
 
 A regra que governa cada rung: **cada família de card tem uma largura-alvo, que é a que ela já
 tem a 1600px.** A rung existe para manter essa largura quando o container cresce, não para a
@@ -240,7 +257,9 @@ acontecer.
 ## 7. Centragem no ecrã
 
 ```css
-.app-imported-page { padding-right: var(--sidebar-offset, 0px); }
+@media (min-width: 1024px) {
+  .app-imported-page { padding-right: calc(var(--page-gutter) + var(--sidebar-offset, 0px)); }
+}
 ```
 
 A caixa passa a ter a rail à esquerda e a mesma folga à direita, logo o seu centro é
@@ -248,16 +267,23 @@ A caixa passa a ter a rail à esquerda e a mesma folga à direita, logo o seu ce
 simétrica, todos os `mx-auto` e `margin: 0 auto` que já existem lá dentro acertam no centro do
 monitor sem que nenhum deles mude.
 
-**Uma caixa simétrica não chega — o conteúdo tem de estar centrado dentro dela.** Oito dos 16
-call sites passam um `containerClassName` próprio, e nenhum inclui `mx-auto`: ficam encostados
+A regra só se aplica a partir de 1024px. Abaixo disso a sidebar, quando aberta, já consome uma
+fração grande de um ecrã apertado — a 768px com a sidebar expandida o custo da centragem chegava
+a um terço da caixa de conteúdo — e centrar o ecrã nunca foi o objetivo abaixo desse ponto:
+centragem no ecrã é coisa de monitor largo, não de tablet.
+
+**Uma caixa simétrica não chega — o conteúdo tem de estar centrado dentro dela.** Nove dos 17
+call sites passam um `containerClassName` próprio, e nenhum incluía `mx-auto`: ficam encostados
 à esquerda sempre que o teto morde. Com o teto em 1600px isso valia cerca de 100px e lia-se
-como gutter; com o teto em 3520px num 5120 vale 714px. Os oito ganham `mx-auto`. Foi a subida
+como gutter; com o teto em 3520px num 5120 vale 714px. Os nove ganham `mx-auto`. Foi a subida
 do teto que tornou visível um desalinhamento que já lá estava.
 
 **Assenta em `.app-imported-page`, não em `.app-main`,** porque a `.app-topbar` é irmã dentro
 do `.app-main` e tem fundo e `border-bottom` próprios: padding no pai faria a barra e a sua
-borda pararem 58px antes da direita. O `.app-imported-page` é o wrapper do conteúdo e hoje não
-tem padding nenhum, só tokens de cor.
+borda pararem 58px antes da direita. O `.app-imported-page` é o wrapper do conteúdo, e já tinha
+`padding: 24px 28px 48px` antes deste trabalho — o `28px` do padding lateral está agora no token
+`--page-gutter`, para que este cálculo, a declaração base e a variante de mobile não possam
+divergir.
 
 **E é padding simétrico, não deslocamento negativo.** O truque que a `requests` já usa
 (`NavbarWrapper.css:201`, `position: relative; left: calc(var(--sidebar-offset) / -2)`) move
@@ -269,13 +295,14 @@ Duas consequências que vêm de borda:
 
 - **A rail deixa de empurrar o conteúdo de lado.** Hoje abrir a sidebar desloca tudo 117px para
   a direita. Com a caixa simétrica o conteúdo fica parado e só estreita.
-- **Telemóvel não muda.** Abaixo de 640px `--sidebar-offset` já é `0px`, logo o padding é zero.
+- **Telemóvel não muda.** Abaixo de 680px o `--page-gutter` já cai para 14px e a regra da rail
+  só existe a partir de 1024px, logo o padding lateral em telemóvel é o mesmo de sempre — não
+  zero, mas inalterado pelo trabalho aqui descrito.
 
-**O custo, dito por inteiro:** esta é a única parte do trabalho visível abaixo de 2200px. Num
-1920 o conteúdo anda 29px para a esquerda, 87px com a rail aberta. Isso é deliberado — a
-centragem foi pedida como comportamento geral, não como comportamento de ultra-wide. Se a
-promessa de "nada abaixo de 2200 muda" tiver de ficar intacta, a mesma regra dentro de
-`@media (min-width: 2200px)` limita-a aos monitores largos.
+**O custo, dito por inteiro:** esta é a única parte do trabalho visível abaixo de 2200px, e só
+a partir de 1024px. Num 1920 o conteúdo anda 29px para a esquerda, 87px com a rail aberta. Isso
+é deliberado — a centragem foi pedida como comportamento geral acima de tablet, não como
+comportamento exclusivo de ultra-wide.
 
 Em largura o custo é 58px: 3326 → 3268 num 3440. Num 1920 é zero, porque lá o teto de 1600 já
 manda.
@@ -322,7 +349,9 @@ mais 28px de padding do `.app-imported-page`, de cada lado. A primeira versão d
 esquecia os 28px e errava por 56px em todas as larguras abaixo do teto. Foi apanhada pela
 medição da Task 3 — que é precisamente para isto que o harness existe.
 
-`tsc --noEmit` limpo, e `DgpPageFrame.test.tsx` e `StandardPageLayout.test.tsx` estendidos com
+`tsc --noEmit` tem 266 erros pré-existentes no repo, nenhum deles deste trabalho; a verificação
+é o gate com escopo do plano — `tsc --noEmit` filtrado aos ficheiros tocados aqui não pode
+introduzir nenhum novo. `DgpPageFrame.test.tsx` e `StandardPageLayout.test.tsx` estendidos com
 o caso `ultra`.
 
 No browser: 1920 e 2560 nativamente. 3440 e 5120 não cabem no painel físico desta máquina, e um

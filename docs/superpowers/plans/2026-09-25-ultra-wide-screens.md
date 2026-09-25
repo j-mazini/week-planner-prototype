@@ -12,10 +12,10 @@
 
 ## Global Constraints
 
-- **O limiar é 2200px, em todo o lado.** O token e o breakpoint `3xl` partilham o número. Nunca escrever 2200 num sítio e outro valor noutro.
+- **O limiar é 2200px, repetido onde o CSS obriga, nunca divergente.** O token e o breakpoint `3xl` partilham o número. CSS `@media` não lê custom properties, por isso o número 2200 aparece literal em cinco sítios (`globals.css` ×2, `home-new.css` ×2, `tailwind.config.js` ×1); a regra não é "nunca duplicar" — é "nunca escrever um número diferente nesses sítios". Cada um dos cinco leva um comentário a apontar para os outros.
 - **Teto de `ultra`: 220rem (3520px).** `wide` continua em 100rem (1600px), `standard` em 80rem, `narrow` em 48rem.
-- **Rungs:** `3xl: 2200px`, `4xl: 3000px`. Não existe terceira rung — acima de 3000 o container satura e não há nada de novo a dizer.
-- **Abaixo de 2200px nada muda, com uma exceção declarada:** a centragem da Task 4, que desloca o conteúdo 29px para a esquerda (87px com a rail expandida) em todas as larguras acima de 640px.
+- **Rungs:** `3xl: 2200px`, `4xl: 3000px`. Não existe terceira rung — acima de 3000 o container satura e não há nada de novo a dizer. São declaradas como API para trabalho futuro; o único reflow implementado (a home) usa media queries escritas à mão nos mesmos dois limiares, não os utilitários `3xl:`/`4xl:`.
+- **Abaixo de 2200px nada muda, com uma exceção declarada:** a centragem da Task 4, que desloca o conteúdo 29px para a esquerda (87px com a rail expandida) — mas só a partir de 1024px. Abaixo de 1024px a centragem não se aplica: a sidebar já consome demasiado de um ecrã apertado para gastar metade em padding simétrico.
 - **Grids de contagem fixa não ganham colunas.** Nunca. Mais colunas que itens encolhe os cards em vez de os multiplicar.
 - **Bentos com `span` não ganham colunas.** A aritmética dos spans está presa à contagem atual.
 - **Tokens vivem em dois sítios, sempre a partir da mesma var:** `app/globals.css` (`:root`) e `tailwind.config.js` (`theme.extend.maxWidth`), porque três telas são CSS puro e precisam do `var()` direto.
@@ -495,9 +495,9 @@ quer dizer com absorver a camada de override.
 `@media (max-width: 1100px)` também fica: abaixo de 1100px o container já é mais estreito que
 qualquer teto, portanto não muda nada.
 
-- [ ] **Step 3: Dar `mx-auto` às oito pages que não o têm**
+- [ ] **Step 3: Dar `mx-auto` às nove pages que não o têm**
 
-Uma caixa simétrica só centra o que estiver centrado dentro dela. Oito dos 16 call sites passam
+Uma caixa simétrica só centra o que estiver centrado dentro dela. Nove dos 17 call sites passam
 um `containerClassName` próprio e nenhum deles inclui `mx-auto`, por isso o container fica
 encostado à esquerda sempre que o teto morde. Com o teto em 1600px isso valia ~100px e lia-se
 como gutter; com o teto em 3520px num 5120 vale −714px.
@@ -515,6 +515,7 @@ da string:
 | `app/(private)/daily-financial-insights/page.tsx` | 400 |
 | `app/(private)/adhoc-works-invoice-management/page.tsx` | 359 |
 | `app/(private)/week-planner-operations/DailyOperationsManagementPage.tsx` | 1937 |
+| `app/(private)/deductions-disbursements-recharges/page.tsx` | 825 |
 
 Exemplo, em `requests/page.tsx:297`:
 
@@ -522,7 +523,7 @@ Exemplo, em `requests/page.tsx:297`:
 containerClassName="mx-auto w-full px-[3%] md:px-6 lg:px-8 py-[2%] md:py-6 space-y-[2%] md:space-y-6"
 ```
 
-O `px-0` de quatro destas pages é deliberado — elas gerem o próprio padding — e **mantém-se**.
+O `px-0` de cinco destas pages é deliberado — elas gerem o próprio padding — e **mantém-se**.
 `mx-auto` não mexe em padding: só reparte a folga quando o `max-width` morde.
 
 Os outros oito call sites usam o `containerClassName` por omissão, que já tem `mx-auto`.
