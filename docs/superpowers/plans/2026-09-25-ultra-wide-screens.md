@@ -12,7 +12,7 @@
 
 ## Global Constraints
 
-- **O limiar é 2200px, repetido onde o CSS obriga, nunca divergente.** O token e o breakpoint `3xl` partilham o número. CSS `@media` não lê custom properties, por isso o número 2200 aparece literal em cinco sítios (`globals.css` ×2, `home-new.css` ×2, `tailwind.config.js` ×1); a regra não é "nunca duplicar" — é "nunca escrever um número diferente nesses sítios". Cada um dos cinco leva um comentário a apontar para os outros.
+- **O limiar é 2200px, repetido onde o CSS obriga, nunca divergente.** O token e o breakpoint `3xl` partilham o número. CSS `@media` não lê custom properties, por isso o número 2200 aparece literal em quatro sítios (`globals.css` ×1, `home-new.css` ×2, `tailwind.config.js` ×1); a regra não é "nunca duplicar" — é "nunca escrever um número diferente nesses sítios". Cada um dos quatro leva um comentário a apontar para os outros.
 - **Teto de `ultra`: 220rem (3520px).** `wide` continua em 100rem (1600px), `standard` em 80rem, `narrow` em 48rem.
 - **Rungs:** `3xl: 2200px`, `4xl: 3000px`. Não existe terceira rung — acima de 3000 o container satura e não há nada de novo a dizer. São declaradas como API para trabalho futuro; o único reflow implementado (a home) usa media queries escritas à mão nos mesmos dois limiares, não os utilitários `3xl:`/`4xl:`.
 - **Abaixo de 2200px nada muda, com uma exceção declarada:** a centragem da Task 4, que desloca o conteúdo 29px para a esquerda (87px com a rail expandida) — mas só a partir de 1024px. Abaixo de 1024px a centragem não se aplica: a sidebar já consome demasiado de um ecrã apertado para gastar metade em padding simétrico.

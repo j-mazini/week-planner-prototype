@@ -34,7 +34,7 @@ body { -webkit-font-smoothing: antialiased; }
 
 /* 2200px é o limiar canónico do degrau `3xl` (ver tailwind.config.js e
    home-new.css ×2). CSS @media não lê custom properties, por isso o número
-   repete-se aqui — nunca deve divergir entre os cinco sítios. */
+   repete-se aqui — nunca deve divergir entre os quatro sítios. */
 @media (min-width: 2200px) {
   :root { --content-ultra: 220rem; }
 

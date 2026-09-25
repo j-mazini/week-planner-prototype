@@ -89,8 +89,8 @@ usado aqui.** O único reflow implementado (secção 6, a home) é escrito como 
 em `home-new.css`, nos mesmos dois limiares — não como utilitários `3xl:`/`4xl:` do Tailwind.
 Uma media query em CSS não lê uma custom property, por isso o número 2200 tem de se repetir
 literalmente onde quer que uma regra precise dele; a regra que isto não quebra é mais estreita
-do que "nunca duplicar o número" — é "nunca escrever um número *diferente*". Os cinco sítios onde
-2200 aparece (`globals.css` ×2, `home-new.css` ×2, `tailwind.config.js` ×1) trazem um comentário
+do que "nunca duplicar o número" — é "nunca escrever um número *diferente*". Os quatro sítios onde
+2200 aparece (`globals.css` ×1, `home-new.css` ×2, `tailwind.config.js` ×1) trazem um comentário
 a apontar uns para os outros.
 
 ### Por que não as alternativas
@@ -263,7 +263,8 @@ acontecer.
 ```
 
 A caixa passa a ter a rail à esquerda e a mesma folga à direita, logo o seu centro é
-`58 + (100vw − 116) / 2 = 50vw`: o centro do ecrã, exatamente. E como é a *caixa* que fica
+`86 + (100vw − 172) / 2 = 50vw`: o centro do ecrã, exatamente. Os 86 são a rail de 58px mais os
+28px de padding próprio, e são exatamente o que o recuo da direita passa a igualar. E como é a *caixa* que fica
 simétrica, todos os `mx-auto` e `margin: 0 auto` que já existem lá dentro acertam no centro do
 monitor sem que nenhum deles mude.
 
