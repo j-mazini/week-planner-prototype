@@ -4,12 +4,13 @@ import React, { ReactNode, useState, useEffect } from "react";
 
 export type DgpPageFrameBackgroundVariant = 'default' | 'admin' | 'supervisor';
 
-export type DgpPageFrameWidth = 'narrow' | 'standard' | 'wide' | 'full';
+export type DgpPageFrameWidth = 'narrow' | 'standard' | 'wide' | 'ultra' | 'full';
 
 const widthClass: Record<DgpPageFrameWidth, string> = {
   narrow: 'w-full max-w-content-narrow',
   standard: 'w-full max-w-content-standard',
   wide: 'w-full max-w-content-wide',
+  ultra: 'w-full max-w-content-ultra',
   full: 'w-full max-w-none',
 };
 

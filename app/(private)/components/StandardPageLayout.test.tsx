@@ -34,4 +34,10 @@ describe('StandardPageLayout width', () => {
     render(<StandardPageLayout><p>content</p></StandardPageLayout>);
     expect(main()).toHaveClass('mx-auto');
   });
+
+  it('accepts the ultra token through the shared union', () => {
+    render(<StandardPageLayout width="ultra"><p>content</p></StandardPageLayout>);
+    expect(main()).toHaveClass('max-w-content-ultra');
+    expect(main()).not.toHaveClass('max-w-content-narrow');
+  });
 });

@@ -19,6 +19,11 @@ module.exports = {
         'content-narrow': 'var(--content-narrow)',
         'content-standard': 'var(--content-standard)',
         'content-wide': 'var(--content-wide)',
+        'content-ultra': 'var(--content-ultra)',
+      },
+      screens: {
+        '3xl': '2200px',
+        '4xl': '3000px',
       },
       fontFamily: {
         sans: ["var(--font-sans)"],

@@ -25,4 +25,12 @@ body { -webkit-font-smoothing: antialiased; }
   --content-narrow: 48rem;
   --content-standard: 80rem;
   --content-wide: 100rem;
+
+  /* Degrau ultra-wide: igual a `wide` até ao limiar, solta acima dele.
+     Ver docs/superpowers/specs/2026-09-25-ultra-wide-screens-design.md */
+  --content-ultra: 100rem;
+}
+
+@media (min-width: 2200px) {
+  :root { --content-ultra: 220rem; }
 }

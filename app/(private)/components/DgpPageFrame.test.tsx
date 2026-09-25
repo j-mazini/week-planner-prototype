@@ -58,4 +58,15 @@ describe('DgpPageFrame width', () => {
     expect(container()).toHaveClass('px-0');
     expect(container()).not.toHaveClass('px-[clamp(1rem,3vw,3rem)]');
   });
+
+  it('applies the ultra token', () => {
+    render(<DgpPageFrame width="ultra"><p>content</p></DgpPageFrame>);
+    expect(container()).toHaveClass('max-w-content-ultra');
+    expect(container()).not.toHaveClass('max-w-content-wide');
+  });
+
+  it('keeps ultra capped — it is a step on the scale, not an escape from it', () => {
+    render(<DgpPageFrame width="ultra"><p>content</p></DgpPageFrame>);
+    expect(container()).not.toHaveClass('max-w-none');
+  });
 });

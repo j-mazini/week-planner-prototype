@@ -11,6 +11,7 @@ const widthClass: Record<DgpPageFrameWidth, string> = {
   narrow: 'max-w-content-narrow',
   standard: 'max-w-content-standard',
   wide: 'max-w-content-wide',
+  ultra: 'max-w-content-ultra',
   full: 'max-w-none',
 };
 
