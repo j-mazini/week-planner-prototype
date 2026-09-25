@@ -4,3 +4,9 @@ node_modules/
 .next-dev/
 tsconfig.tsbuildinfo
 .vercel
+
+# Repositório separado, clonado aqui por conveniência — não faz parte deste projeto.
+/Logix-new-front/
+
+# Workspace do subagent-driven-development (ledger, briefs, reports).
+/.superpowers/
