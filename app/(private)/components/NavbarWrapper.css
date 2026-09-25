@@ -186,6 +186,11 @@
 .app-shell { width: 100%; min-width: 0; }
 .app-main { min-width: 0; }
 .app-imported-page { min-width: 0; }
+/* Centra o conteúdo no ecrã, não na área que sobra da rail fixa.
+   Recuo à esquerda = 58px de rail + 28px de padding próprio = 86px.
+   O recuo à direita tem de igualar isso, senão a caixa não fica simétrica.
+   Ver docs/superpowers/specs/2026-09-25-ultra-wide-screens-design.md §7 */
+.app-imported-page { padding-right: calc(28px + var(--sidebar-offset, 0px)); }
 .app-imported-page[data-page="current-performance"] .my-performance,
 .app-imported-page[data-page="daily-performance-insight"] .my-performance { max-width: min(100%, 1840px); }
 .app-imported-page[data-page="subcontractor"] main.max-w-content-wide,
@@ -195,12 +200,6 @@
   max-width: min(100%, 1840px) !important;
   padding-left: clamp(20px, 2.2vw, 42px);
   padding-right: clamp(20px, 2.2vw, 42px);
-}
-.app-imported-page[data-page="requests"] .dgp-page-frame-container {
-  position: relative;
-  left: calc(var(--sidebar-offset, 0px) / -2);
-  width: min(calc(100% - 48px), 1840px);
-  max-width: var(--content-ultra);
 }
 .app-imported-page[data-page="requests"] main[class*="max-w-"] { max-width: none !important; }
 .app-imported-page[data-page="current-month"] main > div[class*="space-y-5"] {
