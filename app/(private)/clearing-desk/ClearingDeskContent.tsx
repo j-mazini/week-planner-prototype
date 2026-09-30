@@ -10,6 +10,7 @@ import PayableEstimate from './components/PayableEstimate';
 import ManagementNotes from './components/ManagementNotes';
 import ClearedSession from './components/ClearedSession';
 import CompletionPanel from './components/CompletionPanel';
+import ProgressNotice from './components/ProgressNotice';
 import './styles.css';
 
 export default function ClearingDeskContent() {
@@ -17,6 +18,7 @@ export default function ClearingDeskContent() {
   const [query, setQuery] = useState('');
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [editing, setEditing] = useState(false);
+  const [goalDismissed, setGoalDismissed] = useState(false);
   const pending = board ? board.payees.filter(p => !board.cleared.includes(p.id)) : [];
   const active = pending.find(p => p.id === selectedId) ?? pending[0];
   const clearedTotal = board
@@ -52,7 +54,15 @@ export default function ClearingDeskContent() {
               query={query}
               onQueryChange={setQuery}
               onSelect={id => { setSelectedId(id); setEditing(false); }}
-            />
+            >
+              {board.cleared.length === 3 && !goalDismissed && (
+                <ProgressNotice
+                  remaining={board.payees.length - board.cleared.length}
+                  percent={Math.round((board.cleared.length / board.payees.length) * 100)}
+                  onDismiss={() => setGoalDismissed(true)}
+                />
+              )}
+            </PendingQueue>
             <section className="bench" aria-label="Selected transaction">
               {active ? (
                 <>

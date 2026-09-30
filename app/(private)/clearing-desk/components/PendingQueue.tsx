@@ -1,11 +1,13 @@
+import type { ReactNode } from 'react';
 import type { Payee } from '../types';
 import PayeeCard from './PayeeCard';
 
 export default function PendingQueue({
-  payees, depot, selectedId, query, onQueryChange, onSelect,
+  payees, depot, selectedId, query, onQueryChange, onSelect, children,
 }: {
   payees: Payee[]; depot: string; selectedId: string | null;
   query: string; onQueryChange: (value: string) => void; onSelect: (id: string) => void;
+  children?: ReactNode;
 }) {
   const matches = payees.filter(p =>
     `${p.id} ${p.name} ${p.vehicle ?? ''}`.toLowerCase().includes(query.trim().toLowerCase()));
@@ -25,6 +27,7 @@ export default function PendingQueue({
         placeholder="SEARCH..."
       />
       <div className="depot-heading">{depot}</div>
+      {children}
       {matches.map(payee => (
         <PayeeCard
           key={payee.id}
