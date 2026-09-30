@@ -11,6 +11,7 @@ import ManagementNotes from './components/ManagementNotes';
 import ClearedSession from './components/ClearedSession';
 import CompletionPanel from './components/CompletionPanel';
 import ProgressNotice from './components/ProgressNotice';
+import { computeClearedTotal } from './utils/clearedTotal';
 import './styles.css';
 
 export default function ClearingDeskContent() {
@@ -22,10 +23,7 @@ export default function ClearingDeskContent() {
   const pending = board ? board.payees.filter(p => !board.cleared.includes(p.id)) : [];
   const active = pending.find(p => p.id === selectedId) ?? pending[0];
   const clearedTotal = board
-    ? board.cleared.reduce((sum, id) => {
-        const payee = board.payees.find(p => p.id === id);
-        return payee ? sum + payee.perStop * board.routeSummary.stops : sum;
-      }, 0)
+    ? computeClearedTotal(board.payees, board.cleared, board.routeSummary.stops)
     : 0;
 
   if (isError) {

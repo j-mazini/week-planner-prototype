@@ -186,12 +186,10 @@ describe('the cleared session', () => {
     expect(screen.getByText('100% EXCELLENCE')).toBeInTheDocument();
   });
 
-  it('totals only the cleared subset, not the whole board', () => {
+  it('hides the total until every payee is cleared', () => {
     hook.value = { ...hook.value, board: { ...hook.value.board!, cleared: ['DY1B', 'DY1A'] } };
     render(<ClearingDeskContent />);
-    // 2·15 (DY1B) + 1.75·15 (DY1A) = 56.25 — diverges from the all-cleared total of 176.25,
-    // so this distinguishes "sum over board.cleared" from "sum over board.payees".
-    expect(screen.getByTestId('cleared-total')).toHaveTextContent('£56.25');
+    expect(screen.queryByTestId('cleared-total')).toBeNull();
   });
 
   it('totals the cleared payees instead of the design constant', () => {
