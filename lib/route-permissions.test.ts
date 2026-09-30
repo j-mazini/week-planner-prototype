@@ -50,6 +50,17 @@ describe("route permissions", () => {
     expect(canAccessPath(BUSINESS_RULES.USER_TYPE.SUPERVISOR, "/vendor-performance")).toBe(false);
   });
 
+  it("lets admins and supervisors reach the operations route balance", () => {
+    expect(canAccessPath(BUSINESS_RULES.USER_TYPE.ADMIN, "/route-balance")).toBe(true);
+    expect(canAccessPath(BUSINESS_RULES.USER_TYPE.SUPERVISOR, "/route-balance")).toBe(true);
+    expect(canAccessPath(BUSINESS_RULES.USER_TYPE.DRIVER, "/route-balance")).toBe(false);
+  });
+
+  it("keeps the personal route balance distinct from the operations one", () => {
+    expect(canAccessPath(BUSINESS_RULES.USER_TYPE.DRIVER, "/driver-route-balance")).toBe(true);
+    expect(canAccessPath(BUSINESS_RULES.USER_TYPE.SUPERVISOR, "/driver-route-balance")).toBe(true);
+  });
+
   it("grants admins unrestricted private-route access", () => {
     expect(
       canAccessPath(BUSINESS_RULES.USER_TYPE.ADMIN, "/contract-management")

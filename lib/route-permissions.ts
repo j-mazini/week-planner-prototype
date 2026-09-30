@@ -25,6 +25,7 @@ export const USER_TYPE_2_ALLOWED = ["/home", ...MY_PERFORMANCE_ROUTES] as const;
 /** URLs permitidas para `SUPERVISOR` — corresponde a `user_type_id` 3 */
 export const USER_TYPE_3_ALLOWED = [
   ...MY_PERFORMANCE_ROUTES,
+  "/route-balance",
   "/week-planner",
   "/daily-game-plan",
   "/vendor",

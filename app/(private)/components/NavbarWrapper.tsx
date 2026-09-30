@@ -6,7 +6,7 @@ import { usePathname, useRouter } from "next/navigation";
 import {
   ArrowRightLeft, Building2, Handshake, Inbox, TrendingUp, Wallet, Activity, BarChart3, CalendarDays, CarFront, ClipboardList, FileBarChart,
   FileSpreadsheet, FileText, Gauge, Home, Landmark, LayoutDashboard, ListChecks,
-  Menu, Package, Receipt, Route as RouteIcon, Settings2, ShieldCheck, Truck, Users, ChevronDown, LogOut, UserRound, type LucideIcon,
+  Menu, Package, Receipt, Route as RouteIcon, Scale, Settings2, ShieldCheck, Truck, Users, ChevronDown, LogOut, UserRound, type LucideIcon,
 } from "lucide-react";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { useAuth } from "@/hooks/useAuth";
@@ -99,6 +99,7 @@ const sidebarGroups = [
       ["/contract-management", "Contracts", RouteIcon],
       ["/assets", "Assets", Package],
       ["/week-planner", "Week Planner", CalendarDays],
+      ["/route-balance", "Route Balance", Scale],
       ["/daily-game-plan", "Daily Game Plan", ListChecks],
       ["/daily-operations-management", "Daily Operations", ClipboardList],
       ["/daily-operations-reports", "Daily Insights", ArrowRightLeft],
