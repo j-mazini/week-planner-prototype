@@ -4,13 +4,14 @@ import { useState } from 'react';
 import { useClearingDesk } from '@/hooks/useClearingDesk';
 import PendingQueue from './components/PendingQueue';
 import ClearingPanel from './components/ClearingPanel';
+import PayeeEditor from './components/PayeeEditor';
 import RouteBalanceResume from './components/RouteBalanceResume';
 import PayableEstimate from './components/PayableEstimate';
 import ManagementNotes from './components/ManagementNotes';
 import './styles.css';
 
 export default function ClearingDeskContent() {
-  const { board, isLoading, isError, refetch, approve, saveNote } = useClearingDesk({});
+  const { board, isLoading, isError, refetch, approve, savePayee, saveNote } = useClearingDesk({});
   const [query, setQuery] = useState('');
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [editing, setEditing] = useState(false);
@@ -47,11 +48,23 @@ export default function ClearingDeskContent() {
             <section className="bench" aria-label="Selected transaction">
               {active && (
                 <>
-                  <ClearingPanel
-                    payee={active}
-                    onEdit={() => setEditing(true)}
-                    onApprove={() => approve(active.id)}
-                  />
+                  {editing ? (
+                    <article className="payee-card is-editing">
+                      <div className="route-seam">ROUTE: {active.id}</div>
+                      <PayeeEditor
+                        key={active.id}
+                        payee={active}
+                        onCancel={() => setEditing(false)}
+                        onSave={update => { savePayee(active.id, update); setEditing(false); }}
+                      />
+                    </article>
+                  ) : (
+                    <ClearingPanel
+                      payee={active}
+                      onEdit={() => setEditing(true)}
+                      onApprove={() => approve(active.id)}
+                    />
+                  )}
                   <RouteBalanceResume summary={board.routeSummary} />
                   <PayableEstimate perStop={active.perStop} stops={board.routeSummary.stops} />
                   <ManagementNotes payeeId={active.id} onSave={note => saveNote(active.id, note)} />

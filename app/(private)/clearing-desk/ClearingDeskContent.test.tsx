@@ -111,4 +111,45 @@ describe('the clearing panel', () => {
     fireEvent.click(screen.getByRole('button', { name: 'SAVE NOTE' }));
     expect(hook.value.saveNote).toHaveBeenCalledWith('DY1B', 'checked with depot');
   });
+
+  it('clears the notes draft when a different payee is selected', () => {
+    render(<ClearingDeskContent />);
+    fireEvent.change(screen.getByLabelText('MANANGEMENT NOTES'), {
+      target: { value: 'checked with depot' },
+    });
+    fireEvent.click(queue().getByRole('button', { name: /Terry Roberts/ }));
+    expect(screen.getByLabelText('MANANGEMENT NOTES')).toHaveValue('');
+  });
+});
+
+describe('the payee editor', () => {
+  it('opens on EDITAR with the payee already filled in', () => {
+    render(<ClearingDeskContent />);
+    fireEvent.click(screen.getByRole('button', { name: 'EDITAR' }));
+    expect(screen.getByLabelText('Name')).toHaveValue('Diego Ferreira');
+    expect(screen.getByLabelText('Vehicle')).toHaveValue('YF25 OZL');
+    expect(screen.getByLabelText('Sort value')).toHaveValue(0);
+  });
+
+  it('saves the edited payee as typed values, not strings', () => {
+    render(<ClearingDeskContent />);
+    fireEvent.click(screen.getByRole('button', { name: 'EDITAR' }));
+    fireEvent.change(screen.getByLabelText('Name'), { target: { value: 'D. Ferreira' } });
+    fireEvent.change(screen.getByLabelText('Sort value'), { target: { value: '12.50' } });
+    fireEvent.change(screen.getByLabelText('Payment mode'), { target: { value: 'VSR' } });
+    fireEvent.click(screen.getByRole('button', { name: 'SAVE' }));
+
+    expect(hook.value.savePayee).toHaveBeenCalledWith('DY1B', {
+      name: 'D. Ferreira', vehicle: 'YF25 OZL', mode: 'VSR',
+      sort: true, sortValue: 12.5, adhoc: null,
+    });
+  });
+
+  it('closes without saving on cancel', () => {
+    render(<ClearingDeskContent />);
+    fireEvent.click(screen.getByRole('button', { name: 'EDITAR' }));
+    fireEvent.click(screen.getByRole('button', { name: 'CANCEL' }));
+    expect(hook.value.savePayee).not.toHaveBeenCalled();
+    expect(screen.getByRole('heading', { name: 'Diego Ferreira' })).toBeInTheDocument();
+  });
 });
