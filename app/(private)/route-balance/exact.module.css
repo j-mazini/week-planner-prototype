@@ -1,0 +1,17 @@
+.page {
+  min-height: 100vh;
+  overflow: auto;
+  background: #eef0e8;
+  color: #1a1c16;
+  font-family: "Space Grotesk", sans-serif;
+  -webkit-font-smoothing: auto;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+/* Preserve native Figma geometry and scale the complete composition as one
+   unit when the viewport is narrower than the exported canvas. */
+.canvas { position: relative; flex: 0 0 auto; }
+.canvasInner { position: absolute; left: 0; top: 0; transform-origin: top left; }
+.canvas :global(.figma-layer) { box-sizing: border-box; }

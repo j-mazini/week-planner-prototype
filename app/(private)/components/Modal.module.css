@@ -1,0 +1,13 @@
+.overlay.overlay { padding: 16px; overflow: auto; }
+.panel.panel { display: flex; flex-direction: column; min-width: 0; max-height: calc(100dvh - 32px); margin-block: auto; }
+.header.header, .footer.footer { flex-shrink: 0; }
+.header h2 { overflow-wrap: anywhere; min-width: 0; }
+.body.body { min-height: 0; min-width: 0; overflow: auto; overscroll-behavior: contain; }
+.close.close { min-width: 44px; min-height: 44px; flex: none; display: grid; place-items: center; }
+@media (max-width: 680px) {
+  .overlay.overlay { padding: 10px; }
+  .panel.panel { max-height: calc(100dvh - 20px); }
+  .header.header, .body.body, .footer.footer { padding: 12px; }
+  .footer.footer { flex-wrap: wrap; }
+  .footer button { flex: 1; min-height: 44px; }
+}

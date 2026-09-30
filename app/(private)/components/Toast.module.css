@@ -1,0 +1,5 @@
+.toast { position: fixed; left: 50%; bottom: 24px; transform: translateX(-50%); z-index: 60; max-width: calc(100vw - 32px); width: max-content; overflow-wrap: anywhere; background: #17171a; color: #fff; padding: 10px 16px; font: 11px/1.5 "IBM Plex Mono", monospace; box-shadow: 0 8px 24px #0003; }
+.toast[hidden] { display: none; }
+.importToast { display: flex; align-items: center; gap: 4px; padding: 12px; min-height: 47px; width: 443px; background: #696969; font-size: 12px; }
+.successIcon { display: grid; place-items: center; flex: none; width: 23px; height: 23px; background: #446900; color: #a3e635; }
+.importToast button { margin-left: auto; padding: 0; border: 0; background: transparent; color: #fff; width: 20px; height: 20px; cursor: pointer; }

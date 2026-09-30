@@ -11,7 +11,7 @@ export default function PrivateRouteLoading() {
         color: "#6b7280",
       }}
     >
-      Carregando…
+      Loading…
     </div>
   );
 }

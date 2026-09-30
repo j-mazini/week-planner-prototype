@@ -1,0 +1,50 @@
+/* ===========================================================================
+   Route Balance — screen viewer
+   Ported from the standalone "route-balance-react" Figma export. Renamed
+   the top-level wrapper class from "app-shell" (which collides with this
+   app's own NavbarWrapper) to "rb-shell", and scoped the former `body`
+   background/color rule to that wrapper instead of the real page body.
+   =========================================================================== */
+.rb-shell { --rb-ink: #1a1c16; font-family: "Space Grotesk", sans-serif; background: #eef0e8; color: var(--rb-ink); min-height: calc(100vh - 64px); }
+.rb-shell * { box-sizing: border-box; }
+.rb-shell button, .rb-shell input { font: inherit; }
+.rb-shell button, .rb-shell a { -webkit-tap-highlight-color: transparent; }
+.rb-shell button { cursor: pointer; }
+.rb-shell button:focus-visible, .rb-shell a:focus-visible, .rb-shell input:focus-visible { outline: 3px solid #237078; outline-offset: 3px; }
+
+.rb-shell .figma-layer { box-sizing: border-box; }
+
+.rb-shell .viewer-header { height: 76px; position: sticky; top: 0; display: flex; align-items: center; gap: 14px; padding: 0 24px; background: #172422; color: #f6f7eb; z-index: 30; }
+.rb-shell .viewer-header strong { display: block; letter-spacing: 1px; font-size: 18px; }
+.rb-shell .viewer-header small { display: block; margin-top: 4px; color: #b3c4ba; font: 10px "IBM Plex Mono", monospace; letter-spacing: 1px; }
+.rb-shell .viewer-header button { background: transparent; border: 1px solid #4f655d; color: inherit; width: 36px; height: 36px; font-size: 19px; }
+.rb-shell .header-count { margin-left: auto; font: 12px "IBM Plex Mono", monospace; color: #c3ec86; }
+
+.rb-shell .rb-body { display: flex; align-items: flex-start; }
+.rb-shell .screen-index { position: sticky; top: 76px; align-self: flex-start; width: 288px; flex: none; max-height: calc(100vh - 76px); overflow: auto; background: #fafaf0; border-right: 1px solid #ccd1c5; padding: 22px 14px; }
+.rb-shell .screen-index input { width: 100%; padding: 11px 10px; border: 1px solid #bac4b7; background: white; font-size: 12px; }
+.rb-shell .screen-index h2 { font: 10px "IBM Plex Mono", monospace; letter-spacing: 1.4px; text-transform: uppercase; color: #66715f; margin: 25px 10px 10px; }
+.rb-shell .screen-index a { display: block; padding: 11px 10px; margin: 3px 0; text-decoration: none; color: #263126; border-left: 3px solid transparent; }
+.rb-shell .screen-index a:hover { background: #eaf0dd; }
+.rb-shell .screen-index a.active { background: #e1efc6; border-left-color: #4c701a; }
+.rb-shell .screen-index a span { display: block; font-size: 13px; font-weight: 500; }
+.rb-shell .screen-index a small { display: block; font: 9px "IBM Plex Mono", monospace; color: #68775c; margin-top: 5px; }
+
+.rb-shell .viewer-main { flex: 1; min-width: 0; padding: 24px; }
+.rb-shell .screen-toolbar { display: flex; justify-content: space-between; gap: 20px; align-items: center; margin-bottom: 24px; flex-wrap: wrap; }
+.rb-shell .screen-toolbar h1 { font-size: 22px; margin: 0 0 6px; }
+.rb-shell .screen-toolbar p { font: 10px "IBM Plex Mono", monospace; margin: 0; color: #687166; }
+.rb-shell .toolbar-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+.rb-shell .toolbar-actions button, .rb-shell .toolbar-actions a { padding: 9px 12px; background: #fafaf0; color: #233c32; border: 1px solid #bbc6b7; font: 11px "IBM Plex Mono", monospace; text-decoration: none; }
+.rb-shell .canvas-scroller { overflow: auto; padding: 1px 1px 24px; }
+.rb-shell .canvas-size { background: #fafaf0; box-shadow: 0 5px 25px #223b2312; }
+.rb-shell .loading { padding: 24px; font-size: 14px; }
+
+@media (max-width: 900px) {
+  .rb-shell .screen-index { position: fixed; top: 76px; bottom: 0; left: 0; width: 248px; box-shadow: 8px 0 20px #0002; z-index: 90; }
+  .rb-shell .viewer-header { padding: 0 14px; gap: 10px; }
+  .rb-shell .viewer-header strong { font-size: 15px; }
+  .rb-shell .viewer-header small { font-size: 8px; }
+  .rb-shell .header-count { font-size: 10px; }
+  .rb-shell .screen-toolbar { align-items: flex-start; flex-direction: column; }
+}

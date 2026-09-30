@@ -1,0 +1,77 @@
+/* A short board-assembly sequence; no layout shifts or continuous motion.
+   Keep transforms off the page wrapper: it contains fixed-position dialogs. */
+.route-balance-page {
+  --rb-motion-ease: cubic-bezier(.22, 1, .36, 1);
+}
+
+@keyframes rb-enter {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes rb-fade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes rb-meter {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .route-balance-page :is(.rbf-header, .rbf-actions, .rbf-toprow, .rbf-empty, .rbm-import-intro, .rbf-mode-summary, .rbf-validation) {
+    animation: rb-enter 320ms var(--rb-motion-ease) backwards;
+  }
+  .route-balance-page .rbf-actions { animation-delay: 30ms; }
+  .route-balance-page .rbf-toprow { animation-delay: 90ms; }
+  .route-balance-page :is(.rbf-kpi, .rbf-card) {
+    --rb-entry-delay: 100ms;
+    animation: rb-enter 380ms var(--rb-motion-ease) var(--rb-entry-delay) backwards;
+    transition: border-color 180ms ease, box-shadow 180ms ease;
+  }
+  .route-balance-page .rbf-kpi { --rb-entry-delay: 50ms; }
+  .route-balance-page :is(.rbf-kpi, .rbf-card):nth-child(2) { --rb-entry-delay: 80ms; }
+  .route-balance-page :is(.rbf-kpi, .rbf-card):nth-child(3) { --rb-entry-delay: 110ms; }
+  .route-balance-page :is(.rbf-kpi, .rbf-card):nth-child(4) { --rb-entry-delay: 140ms; }
+  .route-balance-page .rbf-card:nth-child(n+5) { --rb-entry-delay: 170ms; }
+  .route-balance-page .rbf-progress-bar > i {
+    transform-origin: left;
+    animation: rb-meter 580ms var(--rb-motion-ease) var(--rb-entry-delay, 100ms) backwards;
+    transition: width 380ms var(--rb-motion-ease);
+  }
+  .route-balance-page .rbf-sd-table:not([hidden]) {
+    animation: rb-enter 240ms var(--rb-motion-ease);
+  }
+  .route-balance-page .rbm-scrim { animation: rb-fade 180ms ease-out; }
+  .route-balance-page .rbm-panel { animation: rb-enter 280ms var(--rb-motion-ease); }
+  .route-balance-page .rbm-postcode-options { animation: rb-enter 180ms var(--rb-motion-ease); }
+  .route-balance-page :is(.rbm-upload-module, .rbm-import-preview) {
+    animation: rb-enter 340ms var(--rb-motion-ease) backwards;
+  }
+  .route-balance-page .rbm-import-preview { animation-delay: 60ms; }
+  .route-balance-page :is(.rbf-btn, .rbf-toggle, .rbf-linkbtn, .rbf-validate, .rbf-ampm button, .rbm-close, .rbm-tag, .rbm-dropzone) {
+    transition: background-color 180ms ease, border-color 180ms ease, color 180ms ease, opacity 160ms ease, transform 160ms var(--rb-motion-ease);
+  }
+  .route-balance-page :is(.rbf-btn, .rbf-toggle, .rbm-close):active:not(:disabled) {
+    transform: translateY(1px);
+  }
+  .route-balance-page :is(.rbf-search, .rbm-control, .rbm-check, .rbm-table tbody tr) {
+    transition: background-color 160ms ease, border-color 160ms ease;
+  }
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .route-balance-page .rbf-card:hover {
+    border-color: var(--rbf-teal);
+    box-shadow: 0 3px 10px #003b3e0d;
+  }
+  .route-balance-page .rbm-dropzone:not(:disabled):hover { border-color: var(--rbf-teal); }
+}
+
+/* All content stays visible and controls remain immediate without motion. */
+@media (prefers-reduced-motion: reduce) {
+  .route-balance-page *, .route-balance-page *::before, .route-balance-page *::after {
+    animation: none !important;
+    transition: none !important;
+    scroll-behavior: auto !important;
+  }
+}

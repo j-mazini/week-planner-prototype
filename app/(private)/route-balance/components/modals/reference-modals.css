@@ -1,0 +1,106 @@
+/* Geometry and tokens transcribed from the supplied route-balance-react export:
+   flex 132:8583, postcode 211:15807, shipment 132:8781,
+   all stops 139:3546, special deliveries 253:8777. */
+.route-balance-page .rbm-scrim { background: rgba(47,49,42,.6); backdrop-filter: blur(4px); }
+.route-balance-page .rbm-panel { width: 100%; max-width: 512px; border: 1px solid #d1d1c4; border-radius: 0; background: #fafaef; box-shadow: 0 25px 50px -12px #0004; }
+.route-balance-page .rbm-panel.rbm-wide { max-width: 1220px; border: 0; outline: 1px solid #d1d1c4; }
+.route-balance-page .rbm-header { height: 61px; min-height: 61px; padding: 16px; border-bottom: 1px solid #d1d1c4; background: #f4f4e9; position: relative; }
+.route-balance-page .rbm-header h2 { font: 700 18px/28px "Space Grotesk", sans-serif; margin: 0; padding-right: 22px; color: #1c1c1c; text-transform: uppercase; }
+.route-balance-page .rbm-close { position: absolute; right: 1px; top: 8px; padding: 0; background: transparent; color: #424936; border: 0; }
+.route-balance-page .rbm-body { padding: 24px; gap: 24px; max-height: none; }
+.route-balance-page .rbm-form .rbm-body { padding: 20px 24px 0; }
+.route-balance-page .rbm-postcode .rbm-body { padding: 24px 24px 0; }
+.route-balance-page .rbm-footer { padding: 16px 24px 24px; gap: 10px; border: 0; }
+.route-balance-page .rbm-footer .rbf-btn { min-height: 30px; height: 30px; padding: 0 16px; font: 600 12px/12px "IBM Plex Mono", monospace; letter-spacing: 0; border: 1px solid #446900; background: #a3e635; color: #416400; }
+.route-balance-page .rbm-footer .rbf-btn.ghost { font: 700 12px/12px "Space Grotesk", sans-serif; background: transparent; border-color: #111827; color: #416400; }
+.route-balance-page .rbm-footer .rbf-btn:disabled { opacity: .5; cursor: not-allowed; }
+.route-balance-page .rbm-field { display: flex; flex-direction: column; gap: 8px; min-width: 0; }
+.route-balance-page .rbm-label { font: 700 10px/15px "IBM Plex Mono", monospace; letter-spacing: 1px; color: #6b7280; }
+.route-balance-page .rbm-control { width: 100%; min-width: 0; height: 42px; padding: 0 13px; border: 1px solid #111827; border-radius: 2px; background-color: transparent; color: #000; font: 400 14px/20px "IBM Plex Mono", monospace; box-shadow: 0 1px 2px #0000000d; }
+.route-balance-page select.rbm-control { appearance: none; padding-right: 32px; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'%3E%3Cpath d='m4 6 4 4 4-4' fill='none' stroke='black' stroke-width='1.6'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 8px center; }
+.route-balance-page .rbm-postcode .rbm-header { height: 57px; min-height: 57px; }
+.route-balance-page .rbm-postcode .rbm-header h2 { font: 700 20px/24px "IBM Plex Mono", monospace; }
+.route-balance-page .rbm-postcode-selection { display: flex; align-items: center; min-height: 42px; border: 1px solid #111827; border-radius: 2px; }
+.route-balance-page .rbm-postcode-trigger { display: flex; align-items: center; justify-content: space-between; flex: 1; min-height: 40px; padding: 0 13px; border: 0; background: transparent; font: 400 14px/20px "IBM Plex Mono", monospace; text-align: left; }
+.route-balance-page .rbm-postcode-tags { display: flex; flex-wrap: wrap; gap: 6px 8px; padding: 10px 13px; flex: 1; min-width: 0; }
+.route-balance-page .rbm-postcode-tags + .rbm-postcode-trigger { flex: none; padding: 0 8px; }
+.route-balance-page .rbm-tag { display: inline-flex; align-items: center; gap: 4px; padding: 2px 6px; background: #dadbd0; border: 0; border-radius: 0; font: 400 14px/16px "IBM Plex Mono", monospace; }
+.route-balance-page .rbm-tag > span { font-size: 10px; line-height: 6px; }
+.route-balance-page .rbm-postcode-options { background: #fff; box-shadow: 0 2px 20px 2px #00000026; max-height: 344px; overflow-y: auto; }
+.route-balance-page .rbm-check { display: flex; align-items: center; gap: 10px; min-height: 37.4px; padding: 6px 8px; cursor: pointer; font: 400 14px/20px "IBM Plex Mono", monospace; }
+.route-balance-page .rbm-check:first-child { min-height: 44px; }
+.route-balance-page .rbm-check input { appearance: none; position: relative; flex: none; width: 18px; height: 18px; margin: 0; border: 0; background: transparent; }
+.route-balance-page .rbm-check input:checked::after { content: ""; position: absolute; left: 2px; top: 2px; width: 14px; height: 8px; border-left: 2px solid #323232; border-bottom: 2px solid #323232; transform: rotate(-45deg); }
+.route-balance-page .rbm-check:hover { background: #f4f4e9; }
+.route-balance-page .rbm-shipment { border: 0; outline: 1px solid #d1d1c4; }
+.route-balance-page .rbm-overview { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); margin: 0; border-bottom: 1px solid #1c1c1c; }
+.route-balance-page .rbm-shipment .rbm-body { gap: 0; }
+.route-balance-page .rbm-shipment .rbm-overview { grid-template-rows: minmax(63px,auto) minmax(66px,auto); }
+.route-balance-page .rbm-shipment .rbm-overview:nth-child(2) { grid-template-rows: minmax(64px,auto) minmax(70px,auto); }
+.route-balance-page .rbm-shipment .rbm-overview:nth-child(3) { grid-template-rows: minmax(64px,auto) minmax(66px,auto); }
+.route-balance-page .rbm-overview + .rbm-overview { margin-top: 0; }
+.route-balance-page .rbm-overview > div { min-height: 64px; padding: 12px; border-top: 1px solid #1c1c1c; }
+.route-balance-page .rbm-overview > div:nth-child(even) { border-left: 1px solid #1c1c1c; }
+.route-balance-page .rbm-overview dt, .route-balance-page .rbm-indicators dt { font: 700 10px/15px "Space Grotesk", sans-serif; color: #737373; }
+.route-balance-page .rbm-overview dd { font: 600 14px/20px "IBM Plex Mono", monospace; margin: 4px 0 0; overflow-wrap: anywhere; }
+.route-balance-page .rbm-completion { display: inline-block; border-radius: 4px; background: #dcfce7; color: #15803d; padding: 0 4px; }
+.route-balance-page .rbm-indicators { margin: 0; padding: 12px; width: fit-content; max-width: 100%; background: #ffffff33; border-bottom: 1px solid #d1d1c4; }
+.route-balance-page .rbm-indicators dd { display: flex; flex-wrap: wrap; gap: 12px; margin: 4px 0 0; font: 600 14px/20px "IBM Plex Mono", monospace; }
+.route-balance-page .rbm-breakdown-title { font: 600 16px/24px "IBM Plex Mono", monospace; margin: 0; padding: 6px 0; }
+.route-balance-page .rbm-table-scroll { overflow: auto; width: 100%; }
+.route-balance-page .rbm-table { width: 100%; border-collapse: collapse; text-align: left; color: #1c1c1c; }
+.route-balance-page .rbm-table th { height: 43px; font: 700 12px/18px "Space Grotesk", sans-serif; background: #f4f4e9; padding: 12px 16px; border-bottom: 1px solid #d1d1c4; white-space: nowrap; }
+.route-balance-page .rbm-table td { height: 44px; padding: 10px 16px; border-bottom: 1px solid #d1d1c4; font: 400 14px/20px "IBM Plex Mono", monospace; white-space: nowrap; }
+.route-balance-page .rbm-table tbody tr:nth-child(even) { background: #f4f4e980; }
+.route-balance-page .rbm-breakdown th { font-size: 10px; padding: 8px; white-space: normal; }
+.route-balance-page .rbm-breakdown td { font-size: 12px; padding: 10px 8px; }
+.route-balance-page .rbm-breakdown :is(th,td):not(:first-child) { text-align: right; }
+.route-balance-page .rbm-breakdown tfoot { font-weight: 700; background: #f4f4e9; }
+.route-balance-page .rbm-type { padding: 2px 6px; border: 1px solid #bfdbfe; border-radius: 4px; background: #eff6ff; color: #1e40af; font-weight: 600; }
+.route-balance-page .rbm-stops-tools { display: flex; align-items: stretch; flex-wrap: wrap; gap: 12px; }
+.route-balance-page .rbm-stops-tools > div, .route-balance-page .rbm-stops-tools > label { min-width: 80px; min-height: 67px; padding: 12px 16px; border: 1px solid #bfc8c9; background: #f4f4e9; font: 600 12px/18px "IBM Plex Mono", monospace; }
+.route-balance-page .rbm-stops-tools b { display: block; }
+.route-balance-page .rbm-stops-tools select { display: block; border: 0; background: transparent; color: inherit; font: inherit; padding: 0; }
+.route-balance-page .rbm-flags { display: flex; align-items: center; gap: 4px; }
+.route-balance-page .rbm-flag { display: inline-flex; align-items: center; min-height: 26px; border: 1px solid #bfc8c9; background: #f4f4e9; padding: 2px 6px; font: 700 10px/15px "IBM Plex Mono", monospace; color: #424936; }
+.route-balance-page .rbm-flag.PRE12 { background: #ffedd5; color: #9a3412; border-color: #fed7aa; }
+.route-balance-page .rbm-flag.ASR { background: #afedf3; color: #003b3e; border-color: #446900; }
+.route-balance-page .rbm-flag.DSR { background: #e3e3d8; color: #1a1c16; border-color: #1a1c16; }
+.route-balance-page .rbm-special .rbm-flag.DSR { background: #afedf3; color: #003b3e; border-color: #27676c; }
+.route-balance-page .rbm-special .rbm-flag.ASR { background: #e0f2fe; color: #1e40af; border-color: #bfdbfe; }
+.route-balance-page .rbm-import { width: 100%; padding: 24px; }
+.route-balance-page .rbm-import-intro { font: 400 14px/21px "IBM Plex Mono", monospace; color: #424936; margin: 0 0 24px; }
+.route-balance-page .rbm-import-grid { display: grid; grid-template-columns: minmax(0,1fr) minmax(0,2.047fr); gap: 16px; align-items: start; }
+.route-balance-page .rbm-upload-module { min-width: 0; padding: 24px; border: 1px solid #d1d1c4; background: #fff; }
+.route-balance-page .rbm-dropzone { display: flex; width: 100%; min-height: 215px; flex-direction: column; align-items: center; justify-content: center; gap: 12px; border: 1px dashed #727a64; background: #eeefe4; padding: 16px; text-align: center; }
+.route-balance-page .rbm-dropzone strong { font: 600 16px/24px "IBM Plex Mono", monospace; overflow-wrap: anywhere; max-width: 100%; }
+.route-balance-page .rbm-file-explorer { font: 400 14px/21px "IBM Plex Mono", monospace; text-decoration: underline; }
+.route-balance-page .rbm-dropzone small { font: 400 11px/16px "IBM Plex Mono", monospace; color: #727a64; }
+.route-balance-page .rbm-file-metadata { display: flex; justify-content: space-between; gap: 8px; font-size: 11px; margin-top: 12px; overflow-wrap: anywhere; }
+.route-balance-page .rbm-import-preview { min-width: 0; padding: 16px; border: 1px solid #d1d1c4; background: #ffffff80; }
+.route-balance-page .rbm-import-preview.is-empty { min-height: 437px; display: grid; place-items: center; }
+.route-balance-page .rbm-import-preview p { font: 400 14px/21px "IBM Plex Mono", monospace; color: #424936; text-align: center; }
+.route-balance-page .rbm-import-preview h2 { margin: 0; font: 600 16px/24px "IBM Plex Mono", monospace; }
+.route-balance-page .rbm-import-preview section + section { margin-top: 24px; }
+.route-balance-page .rbm-import-preview .rbm-table td { font-size: 11px; }
+.route-balance-page .rbm-import-actions { display: flex; justify-content: space-between; gap: 16px; margin-top: 26px; }
+.route-balance-page .rbm-import-actions .rbf-btn { min-height: 38px; padding: 0 24px; }
+.route-balance-page .rbm-import-actions .rbf-btn.primary { background: #a3e635; color: #416400; border-color: #446900; }
+.route-balance-page .rbm-import-actions .rbf-btn:disabled { opacity: .5; cursor: not-allowed; }
+.route-balance-page .rbm-import footer { border-top: 1px solid #d1d1c4; padding-top: 16px; margin-top: 32px; font: 400 10px/15px "IBM Plex Mono", monospace; color: #707979; text-align: right; }
+@media (max-width: 1000px) {
+  .route-balance-page .rbm-import-grid { grid-template-columns: 1fr; }
+  .route-balance-page .rbm-import-preview.is-empty { min-height: 200px; }
+}
+@media (max-width: 680px) {
+  .route-balance-page .rbm-header { height: auto; }
+  .route-balance-page .rbm-header h2 { font-size: 16px; }
+  .route-balance-page .rbm-body { padding: 16px; }
+  .route-balance-page .rbm-form .rbm-body, .route-balance-page .rbm-postcode .rbm-body { padding: 20px 16px 0; }
+  .route-balance-page .rbm-footer { padding: 16px; }
+  .route-balance-page .rbm-footer .rbf-btn { height: 44px; }
+  .route-balance-page .rbm-control { font-size: 16px; height: 44px; }
+  .route-balance-page .rbm-check { min-height: 44px; }
+  .route-balance-page .rbm-import { padding: 16px 12px; }
+  .route-balance-page .rbm-import-actions .rbf-btn { min-height: 44px; }
+}

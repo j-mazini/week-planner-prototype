@@ -1,0 +1,177 @@
+/* PDF reference: shell pp. 1–10 / 364–373; route geometry pp. 11–22.
+   The compact board follows the 1440px reference; wide screens expose the
+   operational panels from the 2560px composition without extending its height. */
+
+.week-planner-page { min-height: calc(100vh - 64px); animation: none; }
+.week-planner-page .wrap { padding: 16px 32px 16px; }
+.week-planner-page .header { padding: 0 0 16px; min-height: 49px; gap: 16px; }
+.week-planner-page .actions { gap: 8px; }
+.week-planner-page button { font-family: var(--mono); }
+.week-planner-page .tbtn { font-size: 12px; font-weight: 600; line-height: 12px; padding: 8px 16px; color: white; border: 0; }
+.week-planner-page .addbtn { color: white; padding: 8px 16px; min-height: 30px; }
+.week-planner-page .tab { font-size: 11px; line-height: 14px; padding: 9px 16px; }
+.week-planner-page .cols { padding-top: 16px; }
+.week-planner-page .board { gap: 24px; }
+.week-planner-page .tltrack { gap: 0; }
+.week-planner-page .tlscroll { flex: none; width: 180px; height: 40px; padding: 0; overflow: hidden; background: var(--rail); }
+.week-planner-page .tlchip { height: 40px; width: 180px; padding: 0 16px; background: var(--rail); color: var(--ink-muted); text-align: left; font-size: 12px; }
+.week-planner-page .chip-nav { margin-left: auto; }
+.week-planner-page .day { gap: 12px; padding: 8px 0 0; border: 0; background: rgba(250,249,245,.5); }
+.week-planner-page .dayhead { min-height: 18px; }
+.week-planner-page .dayname { font-family: var(--display); font-size: 12px; line-height: 16px; }
+.week-planner-page .dayadd { font-family: var(--display); font-size: 17px; }
+.week-planner-page .plate { width: 86px; padding-left: 11px; background: #efefea; }
+.week-planner-page .notchel { left: 77px; width: 17.93px; height: 51.5px; }
+.week-planner-page .disc { width: 19px; height: 19px; margin-left: -9px; }
+.week-planner-page .rc { background-image: var(--sheen), var(--wash), var(--card); }
+.week-planner-page .rc.open { background-image: var(--sheen), var(--wash), var(--card-open); }
+.week-planner-page .driver { font-size: 10px; font-weight: 600; line-height: 13px; letter-spacing: 0; }
+.week-planner-page .flexlbl { font-size: 6px; letter-spacing: 2px; line-height: 9px; }
+.week-planner-page .drop { justify-content: center; }
+.week-planner-page .assign { display: inline-flex; align-items: center; justify-content: center; height: 19px; font-size: 8px; }
+.week-planner-page .use,
+.week-planner-page .assign,
+.week-planner-page .place { background: var(--teal); color: #fff; transition: background-color .22s ease, transform .22s var(--motion-ease), box-shadow .22s ease; }
+.week-planner-page .use:hover,
+.week-planner-page .use:focus-visible,
+.week-planner-page .place:hover,
+.week-planner-page .place:focus-visible,
+.week-planner-page .rc:hover .assign,
+.week-planner-page .rc:focus-visible .assign { background: var(--teal-deep); }
+.week-planner-page .sechead { padding-top: 8px; }
+.week-planner-page footer.pg { margin-top: 24px; }
+
+/* Fixed overlays must not be contained by a transformed page or header. */
+.week-planner-page .header { animation: reference-fade .28s ease-out; }
+@keyframes reference-fade { from { opacity: 0; } to { opacity: 1; } }
+.week-planner-page .scrim { background: rgba(26,28,22,.55); backdrop-filter: blur(3px); animation: reference-fade .18s ease-out; }
+.week-planner-page .dlg { margin-block: auto; flex: none; }
+.week-planner-page .dlghd h2 { font-size: 24px; line-height: 32px; }
+.week-planner-page .ctl { background: var(--surface); }
+.week-planner-page .ctl[disabled] { background: var(--disabled); }
+.week-planner-page .depotchip { min-width: 0; }
+.week-planner-page .ghost, .week-planner-page .primary { font-size: 12px; font-weight: 600; color: var(--olive-deep); }
+.week-planner-page .daycard, .week-planner-page .fullwk { border: 0; text-align: left; }
+.week-planner-page .daycard { width: 100%; }
+.week-planner-page .wkend { display: none; }
+
+@media (min-width: 1800px) {
+  .week-planner-page .wrap { padding-inline: 48px; }
+  .week-planner-page .cols { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 0fr); align-items: stretch; gap: 0; transition: grid-template-columns var(--motion-panel) var(--motion-ease), gap var(--motion-panel) var(--motion-ease); }
+  .week-planner-page .cols.details-open { grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); gap: 24px; }
+  .week-planner-page .cols.details-open .grid { grid-template-columns: repeat(var(--day-count, 5), minmax(160px, 1fr)); }
+  .week-planner-page .railcol { display: flex; width: auto; height: auto; min-height: 0; contain: size; overflow: hidden; padding: 0; opacity: 0; visibility: hidden; pointer-events: none; transition: opacity .24s ease, padding var(--motion-panel) var(--motion-ease), visibility 0s var(--motion-panel); }
+  .week-planner-page .railcol.is-open { opacity: 1; visibility: visible; pointer-events: auto; overflow-y: auto; padding: 2px 10px 12px 2px; transition-delay: 0s; }
+  .week-planner-page .railcol > * { flex-shrink: 0; min-width: 380px; }
+  .week-planner-page .wkend { display: flex; }
+  .week-planner-page .rhead span { display: block; margin-top: 4px; }
+  .week-planner-page .mgrid, .week-planner-page .offgrid { padding: 12px; background: rgba(255,255,255,.82); box-shadow: var(--sh-card); }
+}
+@media (max-width: 1100px) {
+  .week-planner-page .wrap { padding-inline: 20px; }
+}
+@media (max-width: 680px) {
+  .week-planner-page .wrap { padding-inline: 12px; }
+  .week-planner-page .tbtn { font-size: 10px; padding-inline: 10px; }
+  .week-planner-page .tltrack .cat { width: 105px; }
+  .week-planner-page .tlscroll, .week-planner-page .tlchip { width: 150px; }
+  .week-planner-page .scrim { padding: 16px 10px; }
+  .week-planner-page .dlghd { height: auto; min-height: 61px; }
+  .week-planner-page .dlghd h2 { font-size: 20px; }
+  .week-planner-page .dlgbody { padding: 16px 16px 8px; }
+}
+/* Responsive layout: keep horizontal overflow inside each day grid. */
+.day-grid-region { min-width: 0; }
+.day-grid-region { max-width: 100%; }
+.week-planner-page .grid { min-width: 0; grid-template-columns: repeat(var(--day-count, 5), minmax(220px, 1fr)); }
+.week-planner-page .gridscroll { padding-bottom: 12px; scrollbar-width: thin; scrollbar-color: var(--line-panel) transparent; }
+.grid-hint { display: none; }
+.week-planner-page .details-toggle { display: none; }
+
+@media (max-width: 1799px) {
+  .week-planner-page .details-toggle { display: flex; align-items: center; justify-content: space-between; width: 100%; margin-top: 24px; min-height: 44px; padding: 12px; border: 1px solid var(--line); background: var(--rail); font-size: 12px; font-weight: 600; text-align: left; }
+  .week-planner-page .railcol.is-open { display: flex; width: 100%; height: auto; max-height: 70vh; max-height: 70svh; min-height: 0; overflow-y: auto; padding: 16px 8px 16px 0; margin-top: 12px; }
+  .week-planner-page .railcol > * { flex-shrink: 0; }
+  .week-planner-page .rhead span { display: block; margin-top: 4px; }
+}
+@media (max-width: 1100px) {
+  .week-planner-page .header { align-items: stretch; }
+  .week-planner-page .actions { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); width: 100%; }
+  .week-planner-page .tbtn { min-height: 44px; line-height: 16px; overflow-wrap: anywhere; }
+  .week-planner-page .tab, .week-planner-page .addbtn { min-height: 44px; }
+  .week-planner-page .wkend { display: flex; min-height: 44px; }
+  .week-planner-page .wkend input { width: 18px; height: 18px; accent-color: var(--teal); }
+  .week-planner-page .grid { grid-template-columns: repeat(var(--day-count, 5), minmax(250px, 1fr)); gap: 12px; }
+  .week-planner-page .gridscroll { scroll-snap-type: x proximity; overscroll-behavior-x: contain; }
+  .week-planner-page .day { scroll-snap-align: start; }
+  .week-planner-page .grid-hint { display: block; margin: 0 0 8px; font-size: 10px; line-height: 16px; color: var(--ink-muted); }
+  .week-planner-page .rc { height: 48px; }
+  .week-planner-page .notchel { height: auto; }
+  .week-planner-page .driver { font-size: 12px; line-height: 16px; }
+  .week-planner-page .veh { font-size: 9px; height: 18px; }
+  .week-planner-page .daybtn, .week-planner-page .dayadd { min-height: 44px; }
+  .week-planner-page .dayadd { min-width: 44px; }
+  .week-planner-page .chip-nav { min-width: 44px; min-height: 44px; }
+  .week-planner-page .use, .week-planner-page .place, .week-planner-page .mini, .week-planner-page .hzbtn { min-height: 44px; font-size: 11px; }
+  .week-planner-page .assign { font-size: 10px; height: 26px; }
+  .week-planner-page .noteshd { height: auto; min-height: 44px; flex-wrap: wrap; }
+  .week-planner-page .note { flex-wrap: wrap; }
+  .week-planner-page .scrim { padding: 16px; }
+  .week-planner-page .dlg { min-height: 0; max-height: calc(100dvh - 32px); }
+  .week-planner-page .dlgbody { min-height: 0; overflow-y: auto; overscroll-behavior-y: contain; }
+  .week-planner-page .dlgft { flex-shrink: 0; padding: 16px; }
+  .week-planner-page .ghost, .week-planner-page .primary, .week-planner-page .xbtn { min-height: 44px; min-width: 44px; }
+  .week-planner-page .ctl { font-size: 16px; min-height: 44px; }
+  .week-planner-page .pkhd { height: auto; flex-wrap: wrap; }
+  .week-planner-page .gotonow { min-height: 44px; }
+}
+@media (max-width: 680px) {
+  .week-planner-page { min-height: calc(100dvh - 108px); }
+  .week-planner-page .wrap { padding: 16px 12px; }
+  .week-planner-page .weekbtn { min-height: 44px; gap: 8px; flex-wrap: wrap; }
+  .week-planner-page .weekbtn .rg { font-size: 11px; }
+  .week-planner-page .actions { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+  .week-planner-page .tbtn { padding: 10px 8px; font-size: 11px; }
+  .week-planner-page .controls { gap: 8px; }
+  .week-planner-page .tabs { width: 100%; gap: 6px; }
+  .week-planner-page .tab { flex: 1; min-width: 0; padding-inline: 8px; }
+  .week-planner-page .addrow { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+  .week-planner-page .addbtn { padding: 8px; justify-content: center; gap: 6px; }
+  .week-planner-page .addbtn .lbl { font-size: 10px; line-height: 15px; }
+  .week-planner-page .board { gap: 16px; }
+  .week-planner-page .tltrack { height: 44px; }
+  .week-planner-page .tltrack .cat { width: 94px; padding: 0 8px; font-size: 11px; }
+  .week-planner-page .tlscroll { flex: 1; width: auto; min-width: 0; height: 44px; }
+  .week-planner-page .tlchip { width: 100%; height: 44px; padding-inline: 8px; font-size: 10px; line-height: 14px; overflow-wrap: anywhere; }
+  .week-planner-page .tltrack .chip-nav { margin-left: 8px; }
+  .week-planner-page .grid { grid-template-columns: repeat(var(--day-count, 5), minmax(min(82vw, 290px), 1fr)); }
+  .week-planner-page .picker { width: min(320px, calc(100vw - 24px)); }
+  .week-planner-page .pklist { max-height: min(300px, 45dvh); }
+  .week-planner-page .scrim { padding: 8px; }
+  .week-planner-page .dlg { max-height: calc(100dvh - 16px); }
+  .week-planner-page .dlghd { padding: 12px; gap: 8px; }
+  .week-planner-page .dlghd h2 { font-size: 18px; line-height: 24px; overflow-wrap: anywhere; }
+  .week-planner-page .two { grid-template-columns: minmax(0, 1fr); gap: 12px; }
+  .week-planner-page .two > span:empty { display: none; }
+  .week-planner-page .dlgbody { padding: 16px 12px 8px; }
+  .week-planner-page .dlgdesc { white-space: normal; }
+  .week-planner-page .dlgft { padding: 12px; padding-bottom: max(12px, env(safe-area-inset-bottom)); }
+  .week-planner-page .dlgft button { flex: 1; height: auto; padding: 8px; }
+  .week-planner-page .daycards { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+  .week-planner-page .daycard { min-width: 0; height: auto; min-height: 96px; padding: 10px; gap: 8px; }
+  .week-planner-page .dccount { font-size: 10px; }
+  .week-planner-page .fullwk span { font-size: 12px; line-height: 18px; }
+  .week-planner-page .depotrow { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+  .week-planner-page .depotchip { min-height: 44px; }
+  .week-planner-page .mgrid, .week-planner-page .offgrid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+  .week-planner-page .exc { grid-template-columns: minmax(0, 1fr); }
+  .week-planner-page .exlbl, .week-planner-page .plate-chip { font-size: 10px; }
+  .week-planner-page footer.pg { font-size: 9px; text-align: center; overflow-wrap: anywhere; }
+}
+.week-planner-page .chip-nav svg { transition: transform var(--motion-panel) var(--motion-ease); }
+.week-planner-page .chip-nav[aria-expanded="true"] svg { transform: rotate(180deg); }
+.week-planner-page .railcol > * { animation: none; }
+.week-planner-page .xbtn:hover { transform: none; }
+@media (prefers-reduced-motion: reduce) {
+  .week-planner-page, .week-planner-page * { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+}

@@ -5,12 +5,7 @@ import type { WeekPlannerBoardModel } from "@/app/(private)/week-planner/types";
 const MOCK_DELAY_MS = 400;
 const wait = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
-/**
- * Hoje: resolve a fixture local. Amanhã: trocar o corpo por uma chamada real
- * via lib/api-client.ts contra GET /bff/week-planners?depot=&week=
- * (ver CONTRATO-DE-API-PARA-PAGES.md). Assinatura e formato de retorno não
- * mudam — hooks e componentes não precisam ser tocados.
- */
+/** Resolve a fixture local — este protótipo não tem backend nem banco de dados. */
 export async function fetchWeekPlannerBoard(params: {
   depotId: string;
   weekId: string;
@@ -20,11 +15,7 @@ export async function fetchWeekPlannerBoard(params: {
   return mapWeekPlannerBoardDtoToModel(dto);
 }
 
-/**
- * Cobre todas as ações de escrita "genéricas" do protótipo (botões do
- * cabeçalho e submits de modal) — amanhã, cada uma vira uma chamada real
- * (POST/PATCH) para o endpoint específico documentado no contrato de API.
- */
+/** Cobre todas as ações de escrita "genéricas" do protótipo (botões do cabeçalho e submits de modal). */
 export async function submitPlannerAction(actionLabel: string): Promise<{ message: string }> {
   await wait(250);
   return { message: `${actionLabel.toUpperCase()} — enviado (protótipo, nada foi gravado).` };
@@ -39,10 +30,7 @@ export interface GenerateScheduleResult {
   dayCount: number;
 }
 
-/**
- * Amanhã: POST /bff/week-planners/bulk-approve (ou endpoint equivalente de
- * geração de escala padrão — a confirmar com o backend).
- */
+/** Gera uma fixture de resultado — sem chamada real, sem backend. */
 export async function generateDefaultSchedule(): Promise<GenerateScheduleResult> {
   await wait(600);
   return {

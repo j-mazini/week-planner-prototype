@@ -1,0 +1,392 @@
+[
+  {
+    "id": "198:6865",
+    "slug": "198-6865",
+    "name": "Route Balance — visão geral",
+    "figmaName": "LogixSphere [Route Balance]",
+    "width": 1281,
+    "height": 1006,
+    "group": "Desktop",
+    "component": "Screen198_6865"
+  },
+  {
+    "id": "200:9214",
+    "slug": "200-9214",
+    "name": "Rotas — cards expandidos",
+    "figmaName": "LogixSphere [Route Balance]",
+    "width": 1281,
+    "height": 1443,
+    "group": "Desktop",
+    "component": "Screen200_9214"
+  },
+  {
+    "id": "132:8083",
+    "slug": "132-8083",
+    "name": "Adicionar rota flexível",
+    "figmaName": "Group 4",
+    "width": 1282,
+    "height": 1213,
+    "group": "Desktop",
+    "component": "Screen132_8083"
+  },
+  {
+    "id": "132:8635",
+    "slug": "132-8635",
+    "name": "Detalhes da remessa",
+    "figmaName": "Frame 6",
+    "width": 1282,
+    "height": 1223,
+    "group": "Desktop",
+    "component": "Screen132_8635"
+  },
+  {
+    "id": "132:9631",
+    "slug": "132-9631",
+    "name": "Todas as paradas",
+    "figmaName": "Group 8",
+    "width": 1282,
+    "height": 1213,
+    "group": "Desktop",
+    "component": "Screen132_9631"
+  },
+  {
+    "id": "199:8100",
+    "slug": "199-8100",
+    "name": "Importação — enviar arquivo",
+    "figmaName": "LogixSphere [Route Balance]",
+    "width": 1280,
+    "height": 816,
+    "group": "Desktop",
+    "component": "Screen199_8100"
+  },
+  {
+    "id": "199:8224",
+    "slug": "199-8224",
+    "name": "Importação — dados processados",
+    "figmaName": "LogixSphere [Route Balance]",
+    "width": 1280,
+    "height": 1406,
+    "group": "Desktop",
+    "component": "Screen199_8224"
+  },
+  {
+    "id": "211:15663",
+    "slug": "211-15663",
+    "name": "Adicionar código postal",
+    "figmaName": "Group 3",
+    "width": 1284,
+    "height": 1213,
+    "group": "Desktop",
+    "component": "Screen211_15663"
+  },
+  {
+    "id": "211:16495",
+    "slug": "211-16495",
+    "name": "Códigos postais — lista aberta",
+    "figmaName": "Group 9",
+    "width": 1284,
+    "height": 1213,
+    "group": "Desktop",
+    "component": "Screen211_16495"
+  },
+  {
+    "id": "211:17023",
+    "slug": "211-17023",
+    "name": "Códigos postais — seleção",
+    "figmaName": "Group 11",
+    "width": 1284,
+    "height": 1213,
+    "group": "Desktop",
+    "component": "Screen211_17023"
+  },
+  {
+    "id": "212:6812",
+    "slug": "212-6812",
+    "name": "Códigos postais — múltiplos selecionados",
+    "figmaName": "Group 14",
+    "width": 1284,
+    "height": 1213,
+    "group": "Desktop",
+    "component": "Screen212_6812"
+  },
+  {
+    "id": "211:17589",
+    "slug": "211-17589",
+    "name": "Códigos postais — seleção extensa",
+    "figmaName": "Group 13",
+    "width": 1284,
+    "height": 1213,
+    "group": "Desktop",
+    "component": "Screen211_17589"
+  },
+  {
+    "id": "257:10450",
+    "slug": "257-10450",
+    "name": "Rotas — entregas especiais",
+    "figmaName": "LogixSphere [Route Balance]",
+    "width": 1281,
+    "height": 1085,
+    "group": "Desktop",
+    "component": "Screen257_10450"
+  },
+  {
+    "id": "320:14396",
+    "slug": "320-14396",
+    "name": "Entregas especiais — detalhes",
+    "figmaName": "Group 17",
+    "width": 1282,
+    "height": 1072,
+    "group": "Desktop",
+    "component": "Screen320_14396"
+  },
+  {
+    "id": "301:6379",
+    "slug": "301-6379",
+    "name": "Importação — confirmação de sucesso",
+    "figmaName": "LogixSphere [Route Balance]",
+    "width": 1281,
+    "height": 1445,
+    "group": "Desktop",
+    "component": "Screen301_6379"
+  },
+  {
+    "id": "301:7061",
+    "slug": "301-7061",
+    "name": "Rotas — após importação",
+    "figmaName": "LogixSphere [Route Balance]",
+    "width": 1281,
+    "height": 1445,
+    "group": "Desktop",
+    "component": "Screen301_7061"
+  },
+  {
+    "id": "322:14616",
+    "slug": "322-14616",
+    "name": "Mobile — rota ativa",
+    "figmaName": "LogixSphere [Route Balance - mobile]",
+    "width": 390,
+    "height": 844,
+    "group": "Mobile",
+    "component": "Screen322_14616"
+  },
+  {
+    "id": "322:14709",
+    "slug": "322-14709",
+    "name": "Mobile — entregas especiais",
+    "figmaName": "LogixSphere [Route Balance - mobile]",
+    "width": 390,
+    "height": 844,
+    "group": "Mobile",
+    "component": "Screen322_14709"
+  },
+  {
+    "id": "322:14843",
+    "slug": "322-14843",
+    "name": "Mobile — todas as paradas",
+    "figmaName": "LogixSphere [Route Balance - mobile]",
+    "width": 390,
+    "height": 844,
+    "group": "Mobile",
+    "component": "Screen322_14843"
+  },
+  {
+    "id": "322:14978",
+    "slug": "322-14978",
+    "name": "Mobile — detalhes da remessa",
+    "figmaName": "LogixSphere [Route Balance - mobile]",
+    "width": 390,
+    "height": 844,
+    "group": "Mobile",
+    "component": "Screen322_14978"
+  },
+  {
+    "id": "397:8215",
+    "slug": "397-8215",
+    "name": "Mobile — relatar acidente",
+    "figmaName": "LogixSphere [Route Balance - mobile]",
+    "width": 390,
+    "height": 844,
+    "group": "Mobile",
+    "component": "Screen397_8215"
+  },
+  {
+    "id": "397:8351",
+    "slug": "397-8351",
+    "name": "Mobile — relatar problema",
+    "figmaName": "LogixSphere [Route Balance - mobile]",
+    "width": 390,
+    "height": 844,
+    "group": "Mobile",
+    "component": "Screen397_8351"
+  },
+  {
+    "id": "397:8488",
+    "slug": "397-8488",
+    "name": "Mobile — finalizar rota",
+    "figmaName": "LogixSphere [Route Balance - mobile]",
+    "width": 390,
+    "height": 844,
+    "group": "Mobile",
+    "component": "Screen397_8488"
+  },
+  {
+    "id": "217:45665",
+    "slug": "217-45665",
+    "name": "Componente — card recolhido",
+    "figmaName": "Route Card",
+    "width": 253,
+    "height": 281.333,
+    "group": "Referências",
+    "component": "Screen217_45665"
+  },
+  {
+    "id": "217:45384",
+    "slug": "217-45384",
+    "name": "Componente — card expandido",
+    "figmaName": "Route Card",
+    "width": 253,
+    "height": 490.8,
+    "group": "Referências",
+    "component": "Screen217_45384"
+  },
+  {
+    "id": "301:7053",
+    "slug": "301-7053",
+    "name": "Componente — mensagem de sucesso",
+    "figmaName": "Frame 10",
+    "width": 443,
+    "height": 47,
+    "group": "Referências",
+    "component": "Screen301_7053"
+  },
+  {
+    "id": "141:6722",
+    "slug": "141-6722",
+    "name": "Token Documentation — Color",
+    "figmaName": "Token Documentation — Color",
+    "width": 1280,
+    "height": 3177,
+    "group": "Referências",
+    "component": "Screen141_6722"
+  },
+  {
+    "id": "141:6907",
+    "slug": "141-6907",
+    "name": "Token Documentation — Typography",
+    "figmaName": "Token Documentation — Typography",
+    "width": 1280,
+    "height": 1145,
+    "group": "Referências",
+    "component": "Screen141_6907"
+  },
+  {
+    "id": "141:6974",
+    "slug": "141-6974",
+    "name": "Token Documentation — Paint Styles",
+    "figmaName": "Token Documentation — Paint Styles",
+    "width": 1280,
+    "height": 745,
+    "group": "Referências",
+    "component": "Screen141_6974"
+  },
+  {
+    "id": "320:9690",
+    "slug": "320-9690",
+    "name": "Handoff — Component Layout Specs",
+    "figmaName": "Handoff — Component Layout Specs",
+    "width": 1440,
+    "height": 2192,
+    "group": "Referências",
+    "component": "Screen320_9690"
+  },
+  {
+    "id": "320:10067",
+    "slug": "320-10067",
+    "name": "Handoff — Style Guide",
+    "figmaName": "Handoff — Style Guide",
+    "width": 1440,
+    "height": 1436,
+    "group": "Referências",
+    "component": "Screen320_10067"
+  },
+  {
+    "id": "320:10127",
+    "slug": "320-10127",
+    "name": "Handoff — Paleta de Cores",
+    "figmaName": "Handoff — Paleta de Cores",
+    "width": 1440,
+    "height": 2690,
+    "group": "Referências",
+    "component": "Screen320_10127"
+  },
+  {
+    "id": "320:10339",
+    "slug": "320-10339",
+    "name": "Handoff — Tipografia",
+    "figmaName": "Handoff — Tipografia",
+    "width": 1440,
+    "height": 1604,
+    "group": "Referências",
+    "component": "Screen320_10339"
+  },
+  {
+    "id": "320:10465",
+    "slug": "320-10465",
+    "name": "Handoff — Espaçamento & Layout",
+    "figmaName": "Handoff — Espaçamento & Layout",
+    "width": 1440,
+    "height": 3517,
+    "group": "Referências",
+    "component": "Screen320_10465"
+  },
+  {
+    "id": "320:10682",
+    "slug": "320-10682",
+    "name": "Handoff — Especificações de Componentes",
+    "figmaName": "Handoff — Especificações de Componentes",
+    "width": 1440,
+    "height": 3620,
+    "group": "Referências",
+    "component": "Screen320_10682"
+  },
+  {
+    "id": "320:10900",
+    "slug": "320-10900",
+    "name": "Handoff — Funcionalidades",
+    "figmaName": "Handoff — Funcionalidades",
+    "width": 1440,
+    "height": 2849,
+    "group": "Referências",
+    "component": "Screen320_10900"
+  },
+  {
+    "id": "320:11087",
+    "slug": "320-11087",
+    "name": "Componentes",
+    "figmaName": "Componentes",
+    "width": 1208,
+    "height": 7188,
+    "group": "Referências",
+    "component": "Screen320_11087"
+  },
+  {
+    "id": "320:11093",
+    "slug": "320-11093",
+    "name": "Handoff",
+    "figmaName": "Handoff",
+    "width": 1280,
+    "height": 3213.133,
+    "group": "Referências",
+    "component": "Screen320_11093"
+  },
+  {
+    "id": "141:6400",
+    "slug": "141-6400",
+    "name": "Capa",
+    "figmaName": "cover",
+    "width": 1280,
+    "height": 720,
+    "group": "Referências",
+    "component": "Screen141_6400"
+  }
+]
