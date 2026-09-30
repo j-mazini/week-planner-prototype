@@ -152,3 +152,74 @@ describe('the payee editor', () => {
     expect(bench().getByRole('heading', { name: 'Diego Ferreira' })).toBeInTheDocument();
   });
 });
+
+describe('the cleared session', () => {
+  it('counts nothing cleared at the start', () => {
+    render(<ClearingDeskContent />);
+    expect(screen.getByRole('heading', { name: '0 / 6 CLEARED' })).toBeInTheDocument();
+  });
+
+  it('lists a cleared payee and counts it', () => {
+    hook.value = { ...hook.value, board: { ...hook.value.board!, cleared: ['DY1B', 'MD7E'] } };
+    render(<ClearingDeskContent />);
+    expect(screen.getByRole('heading', { name: '2 / 6 CLEARED' })).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'Return Diego Ferreira to queue' }))
+      .toBeInTheDocument();
+  });
+
+  it('returns a cleared payee to the queue', () => {
+    hook.value = { ...hook.value, board: { ...hook.value.board!, cleared: ['DY1B'] } };
+    render(<ClearingDeskContent />);
+    fireEvent.click(screen.getByRole('button', { name: 'Return Diego Ferreira to queue' }));
+    expect(hook.value.restore).toHaveBeenCalledWith('DY1B');
+  });
+
+  it('shows the completion panel, not a generic empty state, once the queue drains', () => {
+    const board = hook.value.board!;
+    hook.value = {
+      ...hook.value,
+      board: { ...board, cleared: board.payees.map(p => p.id) },
+    };
+    render(<ClearingDeskContent />);
+    expect(screen.getByRole('heading', { name: /ZERO QUEUE/ })).toBeInTheDocument();
+    expect(screen.getByText('100% EXCELLENCE')).toBeInTheDocument();
+  });
+
+  it('totals the cleared payees instead of the design constant', () => {
+    const board = hook.value.board!;
+    hook.value = {
+      ...hook.value,
+      board: { ...board, cleared: board.payees.map(p => p.id) },
+    };
+    render(<ClearingDeskContent />);
+    // 2·15 + 2·15 + 2·15 + 1.75·15 + 2·15 + 2·15 = 176.25
+    expect(screen.getByTestId('cleared-total')).toHaveTextContent('£176.25');
+    expect(screen.queryByText('£21,420.00')).toBeNull();
+  });
+});
+
+describe('the progress notice', () => {
+  const withCleared = (ids: string[]) => {
+    hook.value = { ...hook.value, board: { ...hook.value.board!, cleared: ids } };
+  };
+
+  it('stays hidden below three cleared', () => {
+    withCleared(['DY1B', 'MD7E']);
+    render(<ClearingDeskContent />);
+    expect(screen.queryByText('GOAL IN SIGHT!')).toBeNull();
+  });
+
+  it('appears at three cleared, with the remaining count', () => {
+    withCleared(['DY1B', 'MD7E', 'DHOC']);
+    render(<ClearingDeskContent />);
+    expect(screen.getByText('GOAL IN SIGHT!')).toBeInTheDocument();
+    expect(screen.getByText('ONLY 3 APPROVALS LEFT!')).toBeInTheDocument();
+  });
+
+  it('can be dismissed and stays dismissed', () => {
+    withCleared(['DY1B', 'MD7E', 'DHOC']);
+    render(<ClearingDeskContent />);
+    fireEvent.click(screen.getByRole('button', { name: 'Dismiss goal' }));
+    expect(screen.queryByText('GOAL IN SIGHT!')).toBeNull();
+  });
+});

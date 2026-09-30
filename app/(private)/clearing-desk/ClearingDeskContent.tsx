@@ -8,15 +8,23 @@ import PayeeEditor from './components/PayeeEditor';
 import RouteBalanceResume from './components/RouteBalanceResume';
 import PayableEstimate from './components/PayableEstimate';
 import ManagementNotes from './components/ManagementNotes';
+import ClearedSession from './components/ClearedSession';
+import CompletionPanel from './components/CompletionPanel';
 import './styles.css';
 
 export default function ClearingDeskContent() {
-  const { board, isLoading, isError, refetch, approve, savePayee, saveNote } = useClearingDesk({});
+  const { board, isLoading, isError, refetch, approve, restore, savePayee, saveNote } = useClearingDesk({});
   const [query, setQuery] = useState('');
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [editing, setEditing] = useState(false);
   const pending = board ? board.payees.filter(p => !board.cleared.includes(p.id)) : [];
   const active = pending.find(p => p.id === selectedId) ?? pending[0];
+  const clearedTotal = board
+    ? board.cleared.reduce((sum, id) => {
+        const payee = board.payees.find(p => p.id === id);
+        return payee ? sum + payee.perStop * board.routeSummary.stops : sum;
+      }, 0)
+    : 0;
 
   if (isError) {
     return (
@@ -46,7 +54,7 @@ export default function ClearingDeskContent() {
               onSelect={id => { setSelectedId(id); setEditing(false); }}
             />
             <section className="bench" aria-label="Selected transaction">
-              {active && (
+              {active ? (
                 <>
                   {editing ? (
                     <article className="payee-card is-editing">
@@ -69,8 +77,16 @@ export default function ClearingDeskContent() {
                   <PayableEstimate perStop={active.perStop} stops={board.routeSummary.stops} />
                   <ManagementNotes payeeId={active.id} onSave={note => saveNote(active.id, note)} />
                 </>
+              ) : (
+                <CompletionPanel />
               )}
             </section>
+            <ClearedSession
+              payees={board.payees}
+              clearedIds={board.cleared}
+              total={clearedTotal}
+              onReturn={restore}
+            />
           </div>
         )}
     </div>
