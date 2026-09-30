@@ -3,10 +3,14 @@
 import { useState } from 'react';
 import { useClearingDesk } from '@/hooks/useClearingDesk';
 import PendingQueue from './components/PendingQueue';
+import ClearingPanel from './components/ClearingPanel';
+import RouteBalanceResume from './components/RouteBalanceResume';
+import PayableEstimate from './components/PayableEstimate';
+import ManagementNotes from './components/ManagementNotes';
 import './styles.css';
 
 export default function ClearingDeskContent() {
-  const { board, isLoading, isError, refetch } = useClearingDesk({});
+  const { board, isLoading, isError, refetch, approve, saveNote } = useClearingDesk({});
   const [query, setQuery] = useState('');
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [editing, setEditing] = useState(false);
@@ -40,6 +44,20 @@ export default function ClearingDeskContent() {
               onQueryChange={setQuery}
               onSelect={id => { setSelectedId(id); setEditing(false); }}
             />
+            <section className="bench" aria-label="Selected transaction">
+              {active && (
+                <>
+                  <ClearingPanel
+                    payee={active}
+                    onEdit={() => setEditing(true)}
+                    onApprove={() => approve(active.id)}
+                  />
+                  <RouteBalanceResume summary={board.routeSummary} />
+                  <PayableEstimate perStop={active.perStop} stops={board.routeSummary.stops} />
+                  <ManagementNotes payeeId={active.id} onSave={note => saveNote(active.id, note)} />
+                </>
+              )}
+            </section>
           </div>
         )}
     </div>

@@ -63,3 +63,52 @@ describe('the pending queue', () => {
     expect(screen.getByText('5 TOTAL')).toBeInTheDocument();
   });
 });
+
+describe('the clearing panel', () => {
+  const bench = () => within(screen.getByLabelText('Selected transaction'));
+
+  it('shows the first pending payee by default', () => {
+    render(<ClearingDeskContent />);
+    expect(bench().getByRole('heading', { name: 'Diego Ferreira' })).toBeInTheDocument();
+    expect(bench().getByText('YF25 OZL')).toBeInTheDocument();
+    expect(bench().getByText('£160.00')).toBeInTheDocument();
+  });
+
+  it('renders an unknown amount as an em dash', () => {
+    render(<ClearingDeskContent />);
+    fireEvent.click(screen.getByRole('button', { name: /Terry Roberts/ }));
+    expect(bench().getByRole('heading', { name: 'Terry Roberts' })).toBeInTheDocument();
+    expect(bench().getByTestId('payment-amount')).toHaveTextContent('—');
+  });
+
+  it('computes the estimate from per-stop and stops, not a fixed figure', () => {
+    render(<ClearingDeskContent />);
+    expect(bench().getByTestId('estimate-per-stop')).toHaveTextContent('£ 2.00');
+    expect(bench().getByTestId('estimate-total')).toHaveTextContent('£ 30.00');
+    fireEvent.click(screen.getByRole('button', { name: /Aliu Balde/ }));
+    expect(bench().getByTestId('estimate-per-stop')).toHaveTextContent('£ 1.75');
+    expect(bench().getByTestId('estimate-total')).toHaveTextContent('£ 26.25');
+  });
+
+  it('carries the route summary from the board', () => {
+    render(<ClearingDeskContent />);
+    expect(bench().getByText('ME1, ME2')).toBeInTheDocument();
+    expect(bench().getByTestId('summary-stops')).toHaveTextContent('15');
+    expect(bench().getByTestId('summary-pre12')).toHaveTextContent('2');
+  });
+
+  it('approves the selected payee', () => {
+    render(<ClearingDeskContent />);
+    fireEvent.click(screen.getByRole('button', { name: 'Approve Diego Ferreira' }));
+    expect(hook.value.approve).toHaveBeenCalledWith('DY1B');
+  });
+
+  it('saves a note against the selected payee', () => {
+    render(<ClearingDeskContent />);
+    fireEvent.change(screen.getByLabelText('MANANGEMENT NOTES'), {
+      target: { value: 'checked with depot' },
+    });
+    fireEvent.click(screen.getByRole('button', { name: 'SAVE NOTE' }));
+    expect(hook.value.saveNote).toHaveBeenCalledWith('DY1B', 'checked with depot');
+  });
+});
