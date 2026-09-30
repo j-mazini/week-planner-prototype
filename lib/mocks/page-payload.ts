@@ -1,4 +1,5 @@
 import { createPageFixtures } from './page-fixtures';
+import { clearingDeskFixture } from './clearing-desk-fixtures';
 
 type Row = Record<string, unknown>;
 
@@ -152,5 +153,6 @@ export function pagePayload(url: URL): unknown {
   if (path.includes('deductions') || path.includes('installments')) return [];
   if (path.includes('pre-payment-requests') || path.includes('prepayment-requests')) return list(d.requests.filter(r => r.requestType === 'PrePayment').map(r => ({ ...r, id: r.vendorRequestId, amount: Number(r.prePaymentValue) })));
   if (path.includes('messages') || path.includes('notifications') || path.includes('/chat/')) return [];
+  if (path.includes('/clearing-desk')) return clearingDeskFixture();
   return undefined;
 }
