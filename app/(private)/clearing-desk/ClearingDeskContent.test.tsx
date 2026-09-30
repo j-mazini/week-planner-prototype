@@ -15,6 +15,7 @@ import ClearingDeskContent from './ClearingDeskContent';
 
 const queue = () => within(screen.getByLabelText('Pending authorizations'));
 const bench = () => within(screen.getByLabelText('Selected transaction'));
+const history = () => within(screen.getByLabelText('Cleared history'));
 
 beforeEach(() => {
   cleanup();
@@ -163,14 +164,14 @@ describe('the cleared session', () => {
     hook.value = { ...hook.value, board: { ...hook.value.board!, cleared: ['DY1B', 'MD7E'] } };
     render(<ClearingDeskContent />);
     expect(screen.getByRole('heading', { name: '2 / 6 CLEARED' })).toBeInTheDocument();
-    expect(screen.getByRole('button', { name: 'Return Diego Ferreira to queue' }))
+    expect(history().getByRole('button', { name: 'Return Diego Ferreira to queue' }))
       .toBeInTheDocument();
   });
 
   it('returns a cleared payee to the queue', () => {
     hook.value = { ...hook.value, board: { ...hook.value.board!, cleared: ['DY1B'] } };
     render(<ClearingDeskContent />);
-    fireEvent.click(screen.getByRole('button', { name: 'Return Diego Ferreira to queue' }));
+    fireEvent.click(history().getByRole('button', { name: 'Return Diego Ferreira to queue' }));
     expect(hook.value.restore).toHaveBeenCalledWith('DY1B');
   });
 
@@ -183,6 +184,14 @@ describe('the cleared session', () => {
     render(<ClearingDeskContent />);
     expect(screen.getByRole('heading', { name: /ZERO QUEUE/ })).toBeInTheDocument();
     expect(screen.getByText('100% EXCELLENCE')).toBeInTheDocument();
+  });
+
+  it('totals only the cleared subset, not the whole board', () => {
+    hook.value = { ...hook.value, board: { ...hook.value.board!, cleared: ['DY1B', 'DY1A'] } };
+    render(<ClearingDeskContent />);
+    // 2·15 (DY1B) + 1.75·15 (DY1A) = 56.25 — diverges from the all-cleared total of 176.25,
+    // so this distinguishes "sum over board.cleared" from "sum over board.payees".
+    expect(screen.getByTestId('cleared-total')).toHaveTextContent('£56.25');
   });
 
   it('totals the cleared payees instead of the design constant', () => {

@@ -4,7 +4,6 @@ export default function ClearedSession({ payees, clearedIds, total, onReturn }: 
   payees: Payee[]; clearedIds: string[]; total: number; onReturn: (id: string) => void;
 }) {
   const byId = new Map(payees.map(payee => [payee.id, payee]));
-  const done = clearedIds.length === payees.length && payees.length > 0;
 
   return (
     <aside className="history" aria-label="Cleared history">
@@ -16,7 +15,9 @@ export default function ClearedSession({ payees, clearedIds, total, onReturn }: 
       </div>
       <div className="history-heading">
         CLEARED SESSION
-        {done && <span data-testid="cleared-total">TOTAL: £{total.toFixed(2)}</span>}
+        {clearedIds.length > 0 && (
+          <span data-testid="cleared-total">TOTAL: £{total.toFixed(2)}</span>
+        )}
       </div>
       <div className="history-list">
         {clearedIds.map(id => {
