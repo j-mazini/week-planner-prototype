@@ -17,6 +17,9 @@ import { useCurrentMonthData } from "./hooks/useCurrentMonthData";
 import { useDayDetails } from "./hooks/useDayDetails";
 import { DailyEarning, Operation } from "./types";
 import "bootstrap-icons/font/bootstrap-icons.css";
+import { ModernPageHeader } from "@/components/modern-page-header";
+import { CalendarDays, CirclePoundSterling, BriefcaseBusiness } from "lucide-react";
+import NavbarWrapper from "@/components/navbar-wrapper";
 
 export default function CurrentMonthPage() {
   const [selectedYear, setSelectedYear] = useState<number>(new Date().getFullYear());
@@ -150,13 +153,37 @@ export default function CurrentMonthPage() {
   // Tela de Detalhes do Dia
   if (showDayDetails && selectedDateName) {
     return (
-      <DayDetails selectedDays={selectedDays} selectedDateName={selectedDateName} onBack={handleBack} />
+      <NavbarWrapper>
+        <div className="mx-auto w-full max-w-content-wide px-4 py-5 sm:px-6 sm:py-8 lg:px-10">
+          <ModernPageHeader
+            title={selectedDateName}
+            subtitle="Daily earnings and route details."
+            gradientFrom="slate-900"
+            gradientTo="teal-600"
+            metrics={[{ label: "Operations", value: selectedDays.length, icon: <CalendarDays size={14} /> }]}
+          />
+          <DayDetails selectedDays={selectedDays} selectedDateName={selectedDateName} onBack={handleBack} />
+        </div>
+      </NavbarWrapper>
     );
   }
 
   return (
     <StandardPageLayout width="wide" bottomPadding="pb-[clamp(3.5rem,8vh,4.375rem)]">
-      <PageHeader />
+      <PageHeader alignHeader="left">
+        <ModernPageHeader
+          title="Current Month"
+          subtitle="Your earnings and completed work for the selected month."
+          gradientFrom="slate-900"
+          gradientTo="teal-600"
+          metrics={[
+            { label: "Earnings", value: currencyFormatter.format(summaryData.totalEarnings), icon: <CirclePoundSterling size={14} /> },
+            { label: "Days worked", value: summaryData.daysWorked, icon: <CalendarDays size={14} /> },
+            { label: "Daily average", value: currencyFormatter.format(summaryData.avgDaily), icon: <BriefcaseBusiness size={14} /> },
+          ]}
+          metricsLayout="grid4compact"
+        />
+      </PageHeader>
 
       <PageSection>
         <MonthCarousel months={monthsCarousel} onMonthClick={handleMonthClick} />

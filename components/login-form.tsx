@@ -1,12 +1,14 @@
 "use client";
 
 import React, { useEffect, useRef, useState } from "react";
+import { useRouter } from "next/navigation";
 import "./Login.css";
 import "./login-redesign.css";
 import { PasswordResetFlow } from "@/components/PasswordResetFlow";
 import { RegisterFlow } from "@/components/RegisterFlow";
 import { LoginMainView } from "@/components/LoginMainView";
-import { LoginLoadingOverlay } from "@/components/LoginLoadingOverlay";
+import { DeliveryNetwork } from "@/components/DeliveryNetwork";
+import { LoginHandoff } from "@/components/LoginHandoff";
 import { useLoginForm } from "@/hooks/useLoginForm";
 import { useLoginAnimations } from "@/hooks/useLoginAnimations";
 import { MOCK_MODE } from "@/lib/mock-api";
@@ -21,6 +23,7 @@ type LoginViewId = "login" | "forgot" | "first";
  * and motion in {@link useLoginAnimations}.
  */
 export function LoginForm({ className, ...props }: React.ComponentProps<"div">) {
+  const router = useRouter();
   const passwordInputRef = useRef<HTMLInputElement>(null);
   const emailInputRef = useRef<HTMLInputElement>(null);
   const [demoProfile, setDemoProfile] = useState<DemoProfile>("admin");
@@ -30,10 +33,6 @@ export function LoginForm({ className, ...props }: React.ComponentProps<"div">) 
     loginViewRef,
     forgotViewRef,
     firstLoginViewRef,
-    loadingOverlayRef,
-    loadingSpinnerRef,
-    welcomeMessageRef,
-    welcomeTextRef,
     animateSwitchView,
     resetAfterLoginError,
   } = useLoginAnimations();
@@ -75,7 +74,7 @@ export function LoginForm({ className, ...props }: React.ComponentProps<"div">) 
       }
     }, 150);
     return () => clearTimeout(t);
-  }, []);
+  }, [email, password, setEmail, setPassword]);
 
   // Sincroniza a visibilidade (GSAP) sempre que a view ativa muda — seja por
   // clique do usuário ou por troca automática (ex.: após "set initial password"
@@ -100,27 +99,16 @@ export function LoginForm({ className, ...props }: React.ComponentProps<"div">) 
       {...props}
       suppressHydrationWarning
     >
-      <LoginLoadingOverlay
-        loadingOverlayRef={loadingOverlayRef}
-        loadingSpinnerRef={loadingSpinnerRef}
-        welcomeMessageRef={welcomeMessageRef}
-        welcomeTextRef={welcomeTextRef}
-      />
+      <LoginHandoff />
 
       <main className="login-layout">
         <section className="login-story" aria-label="LogixSphere operations platform">
+          <DeliveryNetwork />
           <div className="login-wordmark"><span>LOGIX</span><i aria-hidden="true">/</i><span>SPHERE</span></div>
           <div className="login-story-copy">
             <p className="login-kicker">OPERATIONS, IN VIEW</p>
             <h1>Keep every<br />route moving.</h1>
             <p className="login-story-description">A clear view of people, plans and performance across your network.</p>
-          </div>
-          <div className="login-route-board" aria-hidden="true">
-            <div className="route-board-heading"><span>NETWORK STATUS</span><span><b /> LIVE</span></div>
-            <div className="route-board-line"><span className="route-node" /><span className="route-track" /><span className="route-node" /><span className="route-track route-track-short" /><span className="route-node route-node-active" /></div>
-            <div className="route-board-line route-board-line-alt"><span className="route-node" /><span className="route-track route-track-short" /><span className="route-node" /><span className="route-track" /><span className="route-node" /></div>
-            <div className="route-board-line"><span className="route-node" /><span className="route-track" /><span className="route-node route-node-active" /><span className="route-track route-track-short" /><span className="route-node" /></div>
-            <div className="route-board-footer"><span>DEPOTS CONNECTED</span><strong>08 / 08</strong><span className="route-board-divider" /><span>ROUTES TODAY</span><strong>124</strong></div>
           </div>
           <p className="login-story-foot">LOGIXSPHERE <span>·</span> ONE OPERATIONS VIEW</p>
         </section>
@@ -146,6 +134,7 @@ export function LoginForm({ className, ...props }: React.ComponentProps<"div">) 
               showDemoProfile={MOCK_MODE}
               demoProfile={demoProfile}
               onDemoProfileChange={setDemoProfile}
+              onOpenNewLogin={() => router.push("/admin-login")}
             />
 
             <PasswordResetFlow

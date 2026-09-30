@@ -18,7 +18,7 @@ export function isVendorOffOnDate(
   if (!vendor) return false;
   
   // Verificar status do vendor
-  if (vendor.status === 'on_leave' || vendor.status === 'inactive') {
+  if (vendor.status === 'off') {
     return true;
   }
   
@@ -78,7 +78,7 @@ export function hasAssignmentOnRouteDate(
  */
 export function areAllCoreRoutesComplete(
   assignments: Assignment[],
-  routes: { variant?: string; type?: string }[],
+  routes: { id: number | string; variant?: string; type?: string }[],
   displayDate: Date
 ): boolean {
   const weekDates = getWeekDates(displayDate);

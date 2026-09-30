@@ -18,7 +18,6 @@ import { DeleteDeductionModal } from "./components/DeleteDeductionModal";
 import { monthYearLabel } from "./utils/format";
 import type { ServicePartnerDeductionDTO } from "@/lib/service-partner-deductions-api";
 import { BUSINESS_RULES } from "@/src/constants/businessRules";
-import { UserCard } from "@/components/user-card";
 import { Plus } from "lucide-react";
 
 export default function ServicePartnerInvoicesPage() {
@@ -110,7 +109,6 @@ export default function ServicePartnerInvoicesPage() {
                   <h1 className="text-2xl font-bold text-slate-900">Service Partner Invoices</h1>
                   <p className="text-sm text-gray-600 mt-1">Monthly invoice summary by service partner.</p>
                 </div>
-                <UserCard />
               </div>
             </div>
 

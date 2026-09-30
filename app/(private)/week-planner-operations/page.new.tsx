@@ -6,7 +6,6 @@ import { getApiBaseUrl } from "@/lib/apiBaseUrl";
 import { useCallback, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import NavbarWrapper from "@/components/navbar-wrapper";
-import { MobileHeader } from "../components/MobileHeader";
 import { useSidebar } from "@/components/ui/sidebar";
 import { fetchVendors, type Vendor } from "@/lib/vendors";
 import { fetchVehicles, type Vehicle } from "@/lib/vehicles";
@@ -262,7 +261,6 @@ function WeekPlannerResponsiveLayout({
       data-sidebar-mobile={isMobile ? "true" : "false"}
     >
       <div className="px-4 pt-6 md:hidden">
-        <MobileHeader />
       </div>
       <div className="planner-page-container">
         <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
@@ -292,4 +290,3 @@ function WeekPlannerResponsiveLayout({
     </div>
   );
 }
-

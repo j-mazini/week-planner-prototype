@@ -21,7 +21,7 @@ export default function RegisterSuccessful() {
     };
 
     return (
-        <div className="flex h-screen w-full items-center justify-center p-4">
+        <div className="auth-page flex min-h-dvh w-full items-center justify-center p-4">
             <ScaleIn className="w-full max-w-[500px]">
                 <Card>
                     <CardHeader>

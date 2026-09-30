@@ -4,7 +4,6 @@ import 'bootstrap-icons/font/bootstrap-icons.css';
 import NavbarWrapper from "@/components/navbar-wrapper";
 import { StatusBadge } from "@/components/status-badge";
 import './InvoiceProcessingWorkflow.css';
-import { UserCard } from "@/components/user-card";
 import type { Modal } from 'bootstrap';
 import { ArrowUpDown, ArrowUp, ArrowDown } from "lucide-react";
 import { TodayDateLine } from '@/app/(private)/components';
@@ -524,7 +523,7 @@ const InvoiceProcessingWorkflow: React.FC = () => {
 
   return (
     <NavbarWrapper>
-      <div className="pt-16 invoice-workflow-container">
+      <div className="pt-4 invoice-workflow-container">
         <div className="w-full max-w-content-wide mx-auto">
 
         <main className="page-content">
@@ -534,7 +533,6 @@ const InvoiceProcessingWorkflow: React.FC = () => {
               <TodayDateLine className="mt-1 text-xs font-medium text-slate-500" />
               <div style={{ color: 'var(--text-secondary)' }} className="mt-2">Process and manage vendor invoices.</div>
             </div>
-            <UserCard />
           </header>
 
             <div className="content-actions-bar reveal">
@@ -549,7 +547,7 @@ const InvoiceProcessingWorkflow: React.FC = () => {
                   onChange={(event) => setSearchTerm(event.target.value)}
                 />
 
-                <div className="ms-auto d-flex gap-2">
+                <div className="ms-auto d-flex flex-wrap gap-2">
                   <button
                     type="button"
                     className="btn btn-primary"
@@ -1188,4 +1186,3 @@ const InvoiceProcessingWorkflow: React.FC = () => {
 };
 
 export default InvoiceProcessingWorkflow;
-

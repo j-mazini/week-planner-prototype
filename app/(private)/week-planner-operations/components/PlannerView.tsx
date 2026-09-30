@@ -14,7 +14,7 @@ import VendorList from './VendorList';
 
 import DayOffModal, { type DayOffEntry } from './DayOffModal';
 
-import type { WeekPlannerRecord } from '../page';
+import type { WeekPlannerRecord } from '../contexts/PlannerContext';
 
 import type { Route } from '@/lib/api/routes';
 

@@ -48,7 +48,7 @@ export default function ResetPasswordPage() {
   return (
     <Suspense
       fallback={
-        <div className="flex h-screen w-full items-center justify-center p-4">
+        <div className="auth-page flex min-h-dvh w-full items-center justify-center p-4">
           Loading...
         </div>
       }
@@ -130,7 +130,7 @@ function ResetPasswordContent() {
   // If missing parameters, show error card
   if (isMissingParams) {
     return (
-      <div className="flex h-screen w-full items-center justify-center p-4">
+      <div className="auth-page flex min-h-dvh w-full items-center justify-center p-4">
         <ScaleIn className="w-full max-w-[400px]">
           <Card>
             <CardHeader>
@@ -162,7 +162,7 @@ function ResetPasswordContent() {
   }
 
   return (
-    <div className="flex h-screen w-full items-center justify-center p-4">
+    <div className="auth-page flex min-h-dvh w-full items-center justify-center p-4">
       <ScaleIn className="w-full max-w-[400px]">
         <Card>
           <CardHeader>

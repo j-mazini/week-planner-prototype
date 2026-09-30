@@ -1,0 +1,4 @@
+
+> ba-express@1.0.7 typecheck:all
+> tsc --noEmit --pretty false
+

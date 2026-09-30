@@ -35,7 +35,7 @@ export function getHoldVendors(
   return vendors.filter(vendor => 
     !isVendorOffOnDate(vendor.id, dateStr, vendors, dayOffEntries) &&
     !assignedVendorIds.includes(vendor.id) &&
-    vendor.status === 'active'
+    (vendor.status === 'available' || vendor.status === 'hold')
   );
 }
 

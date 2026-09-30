@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useMemo } from 'react';
-import { UserCard } from "@/components/user-card";
 import './page-header.css';
 
 interface PageHeaderProps {
@@ -35,8 +34,6 @@ export const PageHeader: React.FC<PageHeaderProps> = ({
           </div>
         )}
       </div>
-      <UserCard />
     </header>
   );
 };
-

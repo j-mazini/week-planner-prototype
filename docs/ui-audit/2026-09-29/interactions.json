@@ -1,0 +1,164 @@
+[
+  {
+    "label": "assets-dialog-390",
+    "width": 390,
+    "bodyWidth": 390,
+    "dialogs": [
+      {
+        "text": "Create Vendor Type\nType Name *\n\nFields marked with * are required.\n\nCancel\nCreate Vendor Type",
+        "rect": {
+          "x": 0,
+          "y": 0,
+          "width": 390,
+          "height": 1000,
+          "top": 0,
+          "right": 390,
+          "bottom": 1000,
+          "left": 0
+        },
+        "scroll": 998,
+        "client": 998
+      }
+    ],
+    "shells": 1
+  },
+  {
+    "label": "financial-invoices-dialog-390",
+    "width": 390,
+    "bodyWidth": 390,
+    "dialogs": [
+      {
+        "text": "New Invoice\nMonth & Year\nYear\n2026\nMonth\nSeptember (Current)\nCourier\nSelect a Courier\nSee Invoice\nClose",
+        "rect": {
+          "x": 12.686636924743652,
+          "y": 277.5128479003906,
+          "width": 364.626708984375,
+          "height": 446.3190612792969,
+          "top": 277.5128479003906,
+          "right": 377.31334590911865,
+          "bottom": 723.8319091796875,
+          "left": 12.686636924743652
+        },
+        "scroll": 446,
+        "client": 446
+      }
+    ],
+    "shells": 1
+  },
+  {
+    "label": "requests-holiday-390",
+    "width": 390,
+    "bodyWidth": 390,
+    "dialogs": [],
+    "shells": 1
+  },
+  {
+    "label": "requests-pre-payment-390",
+    "width": 390,
+    "bodyWidth": 390,
+    "dialogs": [],
+    "shells": 1
+  },
+  {
+    "label": "requests-history-390",
+    "width": 390,
+    "bodyWidth": 390,
+    "dialogs": [],
+    "shells": 1
+  },
+  {
+    "label": "navigation-open-390",
+    "width": 390,
+    "bodyWidth": 390,
+    "dialogs": [],
+    "shells": 1
+  },
+  {
+    "label": "navigation-finance-390",
+    "width": 390,
+    "bodyWidth": 390,
+    "dialogs": [],
+    "shells": 1
+  },
+  {
+    "label": "assets-dialog-1440",
+    "width": 1440,
+    "bodyWidth": 1440,
+    "dialogs": [
+      {
+        "text": "Create Vendor Type\nType Name *\n\nFields marked with * are required.\n\nCancel\nCreate Vendor Type",
+        "rect": {
+          "x": 0,
+          "y": 0,
+          "width": 1440,
+          "height": 1000,
+          "top": 0,
+          "right": 1440,
+          "bottom": 1000,
+          "left": 0
+        },
+        "scroll": 998,
+        "client": 998
+      }
+    ],
+    "shells": 1
+  },
+  {
+    "label": "financial-invoices-dialog-1440",
+    "width": 1440,
+    "bodyWidth": 1440,
+    "dialogs": [
+      {
+        "text": "New Invoice\nMonth & Year\nYear\n2026\nMonth\nSeptember (Current)\nCourier\nSelect a Courier\nSee Invoice\nClose",
+        "rect": {
+          "x": 496,
+          "y": 310,
+          "width": 448,
+          "height": 380,
+          "top": 310,
+          "right": 944,
+          "bottom": 690,
+          "left": 496
+        },
+        "scroll": 378,
+        "client": 378
+      }
+    ],
+    "shells": 1
+  },
+  {
+    "label": "requests-holiday-1440",
+    "width": 1440,
+    "bodyWidth": 1440,
+    "dialogs": [],
+    "shells": 1
+  },
+  {
+    "label": "requests-pre-payment-1440",
+    "width": 1440,
+    "bodyWidth": 1440,
+    "dialogs": [],
+    "shells": 1
+  },
+  {
+    "label": "requests-history-1440",
+    "width": 1440,
+    "bodyWidth": 1440,
+    "dialogs": [],
+    "shells": 1
+  },
+  {
+    "label": "navigation-open-1440",
+    "width": 1440,
+    "bodyWidth": 1440,
+    "dialogs": [],
+    "shells": 1
+  },
+  {
+    "label": "navigation-finance-1440",
+    "width": 1440,
+    "bodyWidth": 1440,
+    "dialogs": [],
+    "shells": 1
+  }
+]

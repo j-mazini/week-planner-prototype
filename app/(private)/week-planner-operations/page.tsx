@@ -1029,7 +1029,7 @@ export default function OperationsManagement() {
                     const raw = wp.raw as Record<string, unknown> | undefined;
                     const reason = raw?.reason ? String(raw.reason) : "-";
                     const name = (wp.name || "Vendor").trim();
-                    const userIdNum = wp.userId != null && Number.isFinite(Number(wp.userId)) ? Number(wp.userId) : null;
+                    const userIdNum = raw?.userId != null && Number.isFinite(Number(raw.userId)) ? Number(raw.userId) : null;
                     const existing = byName.get(name);
                     const notes = (wp.notes || "-").trim();
                     if (!existing) {
@@ -2420,6 +2420,7 @@ export default function OperationsManagement() {
                     formData={formData}
                     vendors={vendors}
                     sortedRoutes={sortedRoutes}
+                    servicePartners={servicePartners}
                     vehicles={vehicles}
                     costModels={costModels}
                     vendorTypes={vendorTypes}

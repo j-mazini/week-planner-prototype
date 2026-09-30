@@ -14,7 +14,7 @@ export const deductionsStyles = {
     "space-y-[clamp(1.25rem,3.2vw,1.5rem)] pb-4 relative",
   loadingBarWrapper:
     "absolute top-0 left-0 right-0 h-1 bg-slate-200 rounded-full overflow-hidden z-10",
-  loadingBarInner: "h-full bg-blue-500 animate-pulse",
+  loadingBarInner: "h-full bg-emerald-500 animate-pulse",
 
   // Month carousel
   monthCarouselSection:
@@ -25,7 +25,7 @@ export const deductionsStyles = {
   monthCarouselButtonBase:
     "flex-shrink-0 min-h-[44px] px-3 sm:px-4 py-2.5 rounded-[20px] font-semibold text-xs sm:text-sm text-center cursor-pointer border-2 uppercase transition-all duration-300 touch-manipulation",
   monthCarouselButtonActive:
-    "bg-gradient-to-br from-red-500 to-red-600 text-white border-red-400/50 shadow-lg shadow-red-500/30",
+    "bg-gradient-to-br from-emerald-600 to-teal-700 text-white border-emerald-400/50 shadow-lg shadow-emerald-900/15",
   monthCarouselButtonInactive:
     "bg-slate-50 text-slate-600 border-transparent hover:bg-slate-100 hover:border-slate-200",
   monthCarouselButtonLabel: "relative z-10 flex flex-col items-center",
@@ -37,34 +37,35 @@ export const deductionsStyles = {
   summaryCardBgPattern: "absolute inset-0 opacity-5",
   summaryCardLabel:
     "text-xs sm:text-sm font-medium text-slate-600 mb-2 relative z-10 flex items-center justify-center gap-2",
-  summaryCardLabelIcon: "bi bi-calculator text-red-600",
+  summaryCardLabelIcon: "bi bi-calculator text-red-700",
   summaryCardValue:
-    "text-[clamp(1.75rem,8vw,2.25rem)] font-bold leading-tight text-red-600 relative z-10",
+    "text-[clamp(1.75rem,8vw,2.25rem)] font-bold leading-tight text-red-700 relative z-10",
   summaryCardAccentBar:
-    "absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-red-500 via-red-400 to-red-500 rounded-b-2xl",
+    "absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-red-600 via-rose-500 to-red-600 rounded-b-2xl",
 
   // Deduction item row
   deductionRow:
-    "block py-3.5 px-3 sm:px-4 rounded-xl odd:bg-slate-50 hover:bg-red-50/50 transition-colors duration-300 min-h-[44px]",
+    "block py-3.5 px-3 sm:px-4 rounded-xl odd:bg-slate-50 hover:bg-red-50/70 transition-colors duration-300 min-h-[44px]",
   deductionRef:
     "text-[0.7rem] sm:text-xs text-slate-500 font-medium mb-1 flex items-center gap-1",
-  deductionRefIcon: "bi bi-hash text-red-400",
+  deductionRefIcon: "bi bi-hash text-red-500",
   deductionDescription: "text-[0.875rem] sm:text-sm text-slate-800 font-semibold break-words",
-  deductionAmount: "text-[clamp(1.125rem,5vw,1.25rem)] font-bold text-red-600 leading-none",
+  deductionAmount: "text-[clamp(1.125rem,5vw,1.25rem)] font-bold text-red-700 leading-none",
   deductionDate: "text-[0.65rem] sm:text-[0.7rem] text-slate-500 mt-0.5",
 
   // Progress list
   progressList: "space-y-0.5",
   progressRow:
-    "py-3.5 px-3 sm:px-4 rounded-xl odd:bg-slate-50 hover:bg-blue-50/50 transition-colors duration-300 min-h-[44px]",
+    "py-3.5 px-3 sm:px-4 rounded-xl odd:bg-slate-50 hover:bg-teal-50/70 transition-colors duration-300 min-h-[44px]",
   progressHeader:
     "text-[0.7rem] sm:text-xs text-slate-700 font-semibold flex items-center gap-1 break-words",
-  progressHeaderIcon: "bi bi-arrow-repeat text-blue-500 flex-shrink-0",
-  progressAmount: "text-[clamp(1rem,4vw,1.125rem)] font-bold text-slate-800",
+  progressHeaderIcon: "bi bi-arrow-repeat text-red-600 flex-shrink-0",
+  progressCount: "text-red-700 font-bold",
+  progressAmount: "text-[clamp(1rem,4vw,1.125rem)] font-bold text-red-700",
   progressTrack:
     "h-2 rounded-full bg-slate-200 overflow-hidden relative",
   progressFill:
-    "h-full bg-gradient-to-r from-blue-500 to-blue-600 rounded-full",
+    "h-full bg-gradient-to-r from-red-500 to-rose-600 rounded-full",
 
   // Loading / error
   loadingContainer:
@@ -75,5 +76,3 @@ export const deductionsStyles = {
     "flex justify-center items-center min-h-[200px]",
   errorText: "text-sm font-medium text-red-600",
 } as const;
-
-

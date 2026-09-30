@@ -60,6 +60,7 @@ export function GlobalNavigationButton() {
   const router = useRouter();
   const pathname = usePathname();
   const { user } = useAuth();
+  const isDriver = user?.userTypeId === 2 || (user?.roles ?? []).includes("driver");
   const [isOpen, setIsOpen] = useState(false);
   const [isMounted, setIsMounted] = useState(false);
 
@@ -74,6 +75,7 @@ export function GlobalNavigationButton() {
     if (roles.includes("supervisor")) {
       return list.filter((item) => isPathAllowed(item.url, USER_TYPE_3_ALLOWED));
     }
+    if (roles.includes("driver")) return [];
     return list;
   }, [user]);
 
@@ -82,11 +84,12 @@ export function GlobalNavigationButton() {
     const list = NAVIGATION_DATA.financial;
     const roles = user?.roles ?? [];
     if (roles.includes("supervisor")) return [];
+    if (roles.includes("driver")) return [];
     if (roles.includes("admin")) return list;
     return list.filter((item) => item.name !== "Adhoc Works Invoice Management");
   }, [user]);
 
-  const showVendorRequests = !(user?.roles ?? []).includes("supervisor");
+  const showVendorRequests = !(user?.roles ?? []).includes("supervisor") && !isDriver;
 
   const getIsActive = React.useCallback((url: string) => {
     return pathname === url || pathname?.startsWith(url + '/');
@@ -149,7 +152,16 @@ export function GlobalNavigationButton() {
             <SheetTitle>Navigation Menu</SheetTitle>
           </SheetHeader>
           <div className="p-4 space-y-2 min-h-full">
+            {isDriver && <button
+              onClick={() => handleLinkClick("/daily-performance-insight")}
+              className="w-full flex items-center gap-3 px-4 py-3 rounded-lg text-left bg-white hover:bg-gray-50 text-gray-800"
+            >
+              <BarChart3 className="w-5 h-5 flex-shrink-0" />
+              <span>My Performance</span>
+            </button>}
+
             {/* Home */}
+            {!isDriver && <>
             <button
               onClick={() => handleLinkClick("/home")}
               className={`
@@ -167,6 +179,7 @@ export function GlobalNavigationButton() {
               <Home className={`w-5 h-5 flex-shrink-0 ${getIsActive("/home") ? "text-white" : "text-gray-700"}`} />
               <span>Home</span>
             </button>
+            </>}
 
             {/* Requests Inbox */}
             {showVendorRequests && (
@@ -262,4 +275,3 @@ export function GlobalNavigationButton() {
     </>
   );
 }
-

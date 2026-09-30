@@ -15,6 +15,8 @@ import { normalizeVendorsToVendors } from "../utils/vendorUtils";
 import { formatDate, getWeekStart, getWeekEnd } from "../utils/dateUtils";
 import { filterAllowedDeposits } from "@/lib/allowedDeposits";
 import { fetchDailyTeamSupport } from "../services/apiService";
+import { resolveSupervisorDepots } from "@/lib/daily-supervisor-check";
+import { getUserTypeFromToken } from "@/lib/auth";
 
 const API_BASE_URL = getApiBaseUrl();
 
@@ -194,7 +196,12 @@ export const useWeekPlannerData = (selectedDate: string) => {
   // Fetch routes data
   const fetchRoutesData = useCallback(async () => {
     try {
-      const depositsData = filterAllowedDeposits(await fetchDepositsWithRoutesFull());
+      let depositsData = filterAllowedDeposits(await fetchDepositsWithRoutesFull());
+      if (getUserTypeFromToken() === BUSINESS_RULES.USER_TYPE.SUPERVISOR) {
+        const assigned = await resolveSupervisorDepots(selectedDate);
+        const assignedIds = new Set(assigned.map((row) => Number(row.depositId)));
+        depositsData = assignedIds.size ? depositsData.filter((deposit) => assignedIds.has(Number(deposit.depositId))) : [];
+      }
 
       setDepositsWithRoutes(depositsData);
 
@@ -225,7 +232,7 @@ export const useWeekPlannerData = (selectedDate: string) => {
       setRoutes([]);
     } finally {
     }
-  }, [handleAuthError]);
+  }, [handleAuthError, selectedDate]);
 
   // Fetch operations
   const fetchOperations = useCallback(async (): Promise<void> => {
@@ -797,7 +804,5 @@ export const useWeekPlannerData = (selectedDate: string) => {
     plannerData,
   };
 };
-
-
 
 

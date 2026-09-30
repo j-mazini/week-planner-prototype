@@ -74,7 +74,7 @@ const VendorsDrawer: React.FC<VendorsDrawerProps> = ({
 
       {/* Horizontal drawer panel - fixed at top when open */}
       <div
-        className={`fixed top-0 left-[calc(10%+1px)] right-[10%] w-[calc(80%-1px)] z-[1020] bg-gradient-to-br from-white/98 via-[rgba(239,244,255,0.96)] to-[rgba(230,245,255,0.95)] border-b border-transparent shadow-[0_4px_20px_rgba(0,0,0,0.1),0_0_0_1px_rgba(0,0,0,0.05)] flex flex-col transition-all duration-[400ms] backdrop-blur-[12px] overflow-hidden ${
+        className={`fixed top-0 left-[calc(10%+1px)] right-[10%] w-[calc(80%-1px)] z-[1020] bg-gradient-to-br from-white/98 via-[rgba(239,244,255,0.96)] to-[rgba(230,245,255,0.95)] border-b border-transparent shadow-[0_4px_20px_rgba(0,0,0,0.1),0_0_0_1px_rgba(0,0,0,0.05)] flex flex-col transition-all [transition-duration:400ms] backdrop-blur-[12px] overflow-hidden ${
           isOpen 
             ? 'max-h-[50vh] opacity-100 border-b-[#e3e8ef] translate-y-0 max-md:max-h-[45vh]' 
             : 'max-h-0 opacity-0 border-b-transparent -translate-y-full'

@@ -4,6 +4,14 @@ import { createPageFixtures } from './page-fixtures';
 import type { DailyOverviewListResponse, OverviewDTO } from '../vendor-performance-api';
 
 describe('demo page data', () => {
+  it('keeps personal overviews scoped to the requested account', () => {
+    const rows = mockPayload('/bff/daily-overview/201/2026/9/24') as { userId: number }[];
+    expect(rows.length).toBeGreaterThan(0);
+    expect(rows.every(row => row.userId === 201)).toBe(true);
+    expect(mockPayload('/bff/day-overview/999999/2026-09-24')).toEqual([]);
+    expect(mockPayload('/bff/daily-overview/999999/2026/9/24')).toEqual([]);
+    expect(mockPayload('/bff/daily-overview/list/999999/9/2026')).toEqual({ currentMonth: null, dailyEarnings: [] });
+  });
   it('links all operations to existing drivers, vehicles, routes and depots', () => {
     const d = createPageFixtures('2026-09-24');
     for (const operation of d.operations) {

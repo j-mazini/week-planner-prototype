@@ -134,16 +134,14 @@ export function DeductionFormModal({
     } else {
       setSelectedSpId(defaultServicePartnerId ? String(defaultServicePartnerId) : "");
       setAmountType("deduction");
-      setReferenceNumber(generatedReferenceNumber);
+      setReferenceNumber("");
       setDescription("");
       setDeductionAmount("");
       setReimbursementsAmount("");
       setIncidentDate("");
       setEntryDate(new Date().toISOString().slice(0, 10));
     }
-    // generatedReferenceNumber is intentionally excluded: it's kept in sync by the
-    // effect below, and including it here would re-run this initializer (and wipe
-    // user-entered fields) on every amount/type keystroke.
+    // The following effect updates the generated reference without resetting form fields.
   }, [show, deduction, defaultServicePartnerId]);
 
   useEffect(() => {

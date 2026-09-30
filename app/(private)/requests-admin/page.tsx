@@ -268,14 +268,14 @@ export default function RequestsAdminPage() {
           <TabsContent value="requests" className="mt-4">
             <PageSection className="space-y-3">
               <div className="rounded-xl border bg-white/70 p-4 backdrop-blur">
-                <div className="flex items-center justify-between gap-2 mb-4">
+                <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-3 mb-4">
                   <div>
                     <div className="text-sm font-semibold text-slate-900">Pending Requests</div>
                     <div className="text-xs text-slate-600">
                       Review and approve or reject pending requests.
                     </div>
                   </div>
-                  <div className="flex items-center gap-2">
+                  <div className="flex min-w-0 max-w-full flex-wrap items-center gap-2">
                     {servicePartners.length > 0 && (
                       <select
                         className="px-3 py-2 border border-gray-200 rounded-lg bg-white text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 w-44"
@@ -395,7 +395,7 @@ export default function RequestsAdminPage() {
           <TabsContent value="history" className="mt-4">
             <PageSection className="space-y-3">
               <div className="rounded-xl border bg-white/70 p-4 backdrop-blur">
-                <div className="flex items-center justify-between gap-2 mb-4">
+                <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-3 mb-4">
                   <div>
                     <div className="text-sm font-semibold text-slate-900">Request History</div>
                     <div className="text-xs text-slate-600">

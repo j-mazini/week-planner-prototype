@@ -26,7 +26,7 @@ export function assignmentsToCSV(assignments: Assignment[]): string {
 
   const rows = assignments.map(a => [
     a.date,
-    a.vendorName || '',
+    a.userName || '',
     a.routeName || '',
     a.vehicleRegistration || '',
     a.costModel || '',
@@ -106,7 +106,7 @@ export function assignmentsToTSV(assignments: Assignment[]): string {
 
   const rows = assignments.map(a => [
     a.date,
-    a.vendorName || '',
+    a.userName || '',
     a.routeName || '',
     a.vehicleRegistration || '',
     a.costModel || '',
@@ -186,15 +186,15 @@ export function exportWeekSchedule(
   csvRows.push(['Date', 'Day', 'Route', 'Vendor', 'VRN', 'Sort Status', 'Notes'].map(cell => `"${cell}"`).join(','));
   
   weekAssignments.forEach(assignment => {
-    const vendor = vendors.find(d => d.id === assignment.userId);
-    const route = routes.find(r => String(r.id) === String(assignment.routeId));
+    const vendor = vendors.find(d => d.userId === assignment.userId);
+    const route = routes.find(r => String(r.routeId) === String(assignment.routeId));
     const date = new Date(assignment.date);
     
     const row = [
       formatDate(date, 'dd/mm/yyyy'),
       date.toLocaleDateString('en-GB', { weekday: 'short' }),
-      route?.name || String(assignment.routeId),
-      vendor?.name || assignment.vendorName || 'Unknown',
+      route?.routeName || String(assignment.routeId),
+      vendor?.fullName || assignment.userName || 'Unknown',
       assignment.vehicleRegistration || 'N/A',
       assignment.routeSort?.toString() || 'no',
       assignment.notes || ''

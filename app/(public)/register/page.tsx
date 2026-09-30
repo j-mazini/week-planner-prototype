@@ -114,7 +114,7 @@ export default function RegisterPage() {
   };
 
   return (
-    <div className="flex h-screen w-full items-center justify-center p-4">
+    <div className="auth-page flex min-h-dvh w-full items-center justify-center p-4">
       <ScaleIn className="w-full max-w-[500px]">
         <Card>
           <CardHeader>
@@ -137,7 +137,7 @@ export default function RegisterPage() {
                   </div>
                 )}
 
-                <div className="grid grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <FormField
                     control={form.control}
                     name="name"

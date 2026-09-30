@@ -137,7 +137,7 @@
 @keyframes spin { to { transform: rotate(360deg); } }
 
 /* --- Reveal animations --- */
-:where(.app-imported-page[data-page="op-management"]) .reveal { opacity: 0; transform: translateY(10px); }
+:where(.app-imported-page[data-page="op-management"]) .reveal { opacity: 1; transform: none; }
 
 :where(.app-imported-page[data-page="op-management"]) .reveal.visible { opacity: 1; transform: translateY(0); transition: opacity .45s cubic-bezier(0.22, 0.61, 0.36, 1), transform .45s cubic-bezier(0.22, 0.61, 0.36, 1); }
 

@@ -18,7 +18,7 @@ interface VendorModalProps {
   deposits: Deposit[];
   vendorTypes: VendorType[];
   userTypes: UserType[];
-  servicePartners: ServicePartner[];
+  servicePartners: Pick<ServicePartner, 'servicePartnerId' | 'partnerName'>[];
   routes: Route[];
   vehicles: Vehicle[];
   costModels: CostModel[];

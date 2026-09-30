@@ -28,6 +28,28 @@ interface LightTableProps<T> {
   footer?: React.ReactNode;
 }
 
+  const SortableHeader = ({ column, label }: { column: SortableColumn; label: string }) => {
+    const isSorted = column.getIsSorted();
+    return (
+      <button
+        className="flex items-center justify-center cursor-pointer select-none w-full hover:bg-gray-100 rounded px-2 py-1"
+        onClick={() => column.toggleSorting(isSorted !== "asc")}
+        type="button"
+      >
+        <span className="mr-2">{label}</span>
+        <span className="shrink-0">
+          {isSorted === "asc" ? (
+            <ArrowUp className="h-4 w-4" />
+          ) : isSorted === "desc" ? (
+            <ArrowDown className="h-4 w-4" />
+          ) : (
+            <ArrowUpDown className="h-4 w-4 opacity-50" />
+          )}
+        </span>
+      </button>
+    );
+  };
+
 export function LightTable<T extends Record<string, unknown>>({
   data,
   columns,
@@ -70,26 +92,7 @@ export function LightTable<T extends Record<string, unknown>>({
     return sorting.direction === "desc" ? sorted.reverse() : sorted;
   }, [data, sorting, columns]);
 
-  const SortableHeader = ({ column }: { column: SortableColumn }) => {
-    const isSorted = column.getIsSorted();
-    return (
-      <button
-        className="flex items-center justify-center cursor-pointer select-none w-full hover:bg-gray-100 rounded px-2 py-1"
-        onClick={() => column.toggleSorting(isSorted === "asc")}
-        type="button"
-      >
-        <span className="mr-2">
-          {isSorted === "asc" ? (
-            <ArrowUp className="h-4 w-4" />
-          ) : isSorted === "desc" ? (
-            <ArrowDown className="h-4 w-4" />
-          ) : (
-            <ArrowUpDown className="h-4 w-4 opacity-50" />
-          )}
-        </span>
-      </button>
-    );
-  };
+
 
   return (
     <div className={cn("rounded-md border overflow-hidden", className)}>
@@ -112,12 +115,13 @@ export function LightTable<T extends Record<string, unknown>>({
                 return (
                   <th
                     key={column.id}
+                    aria-sort={column.sortable ? (sortableColumn.getIsSorted() === "asc" ? "ascending" : sortableColumn.getIsSorted() === "desc" ? "descending" : "none") : undefined}
                     className="px-4 py-3 text-left text-sm font-medium text-gray-700"
                   >
                     {typeof column.header === "function" ? (
                       column.header({ column: sortableColumn })
                     ) : column.sortable ? (
-                      <SortableHeader column={sortableColumn} />
+                      <SortableHeader column={sortableColumn} label={column.header} />
                     ) : (
                       column.header
                     )}

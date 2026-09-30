@@ -1,0 +1,177 @@
+/* Layout only: colors, typography, borders and icons remain in design.css. */
+.driver-route-balance-page {
+  width: 100%; min-width: 0;
+  padding: clamp(8px, 2vw, 24px);
+  background: #e9e9de;
+  container: driver-route / inline-size;
+}
+.driver-route-balance-page .driver-route-balance { min-width: 0; width: 100%; }
+.driver-route-balance-page .mobile-app {
+  width: 100%; max-width: none; min-height: 0;
+}
+.driver-route-balance-page .mobile-app > .design-4 {
+  height: auto; min-height: calc(100dvh - 120px);
+}
+.driver-route-balance-page .mobile-app [data-name='main-scroll'] {
+  height: auto; min-height: 0; flex: 1 0 auto; overflow: visible;
+}
+.driver-route-balance-page .driver-route-balance [data-name='Footer'] {
+  height: auto; min-height: 45px; padding: 14px 16px;
+}
+.driver-route-balance-page :is(.design-111, .design-10, .design-30, .design-146, .design-117) {
+  white-space: normal; overflow-wrap: anywhere; min-width: 0;
+}
+.driver-route-balance-page .design-9 { min-width: 0; max-width: 50%; }
+.driver-route-balance-page .design-10 { flex-shrink: 1; }
+.driver-route-balance-page .design-16 { flex-wrap: wrap; gap: 8px 16px; }
+.driver-route-balance-page :is(.design-29, .design-32, .design-33, .design-36) {
+  width: 100%; height: auto; min-width: 0;
+}
+.driver-route-balance-page .route-overview-card {
+  display: grid; grid-template-columns: minmax(0, 1fr); gap: 16px;
+}
+.driver-route-balance-page .route-overview-card > * { min-width: 0; }
+.driver-route-balance-page .design-46 { height: auto; }
+.driver-route-balance-page :is(.design-59, .design-69) {
+  display: grid; grid-template-columns: minmax(90px, 2fr) repeat(3, minmax(0, 1fr));
+  align-items: center; gap: 6px;
+}
+.driver-route-balance-page :is(.design-59, .design-69) > * { width: auto; min-width: 0; }
+.driver-route-balance-page :is(.design-59, .design-69) > :not(:first-child) > div {
+  align-items: flex-end; justify-content: flex-end;
+}
+.driver-route-balance-page .driver-route-balance :is(.design-57, .design-58, .design-68) {
+  height: auto; min-height: 25px;
+}
+.driver-route-balance-page .design-80 {
+  display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px;
+}
+.driver-route-balance-page .driver-route-balance :is(.design-81, .design-83) { height: auto; min-height: 40px; }
+.driver-route-balance-page .design-84 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.driver-route-balance-page .design-85 { width: 100%; }
+.driver-route-balance-page .design-98 { height: auto; }
+.driver-route-balance-page .design-99 {
+  display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); overflow: visible;
+}
+.driver-route-balance-page :is(.design-100, .design-104, .design-106) { height: auto; min-height: 64px; }
+.driver-route-balance-page :is(.design-103, .design-107) { white-space: normal; text-align: center; }
+/* Shared column tracks keep headings and rows aligned at every width. */
+.driver-route-balance-page .driver-route-balance :is(.design-131, .design-136) {
+  display: grid; grid-template-columns: minmax(0, 1.8fr) minmax(0, 1fr) minmax(0, 1.2fr) minmax(38px, .55fr);
+  gap: 8px; height: auto; min-height: 40px; padding: 12px 16px;
+}
+.driver-route-balance-page :is(.design-131, .design-136) > * { width: auto; min-width: 0; }
+.driver-route-balance-page .driver-route-balance :is(.design-119, .design-121) {
+  display: grid; grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px; height: auto; min-height: 40px; padding: 12px 16px;
+}
+.driver-route-balance-page :is(.design-122, .design-123) {
+  white-space: normal; overflow-wrap: anywhere; max-width: 100%; overflow: visible;
+}
+.driver-route-balance-page .driver-route-balance [data-name='table-header-label'] p {
+  white-space: normal; overflow-wrap: anywhere;
+}
+.driver-route-balance-page .driver-route-balance :is(.design-148, .design-171, .design-192) { height: auto; }
+.driver-route-balance-page [data-name='grid-cell'] { min-width: 0; height: auto; flex: 1 1 0; }
+.driver-route-balance-page [data-name='grid-cell'] p { white-space: normal; overflow-wrap: anywhere; }
+.driver-route-balance-page .design-187 { flex-wrap: wrap; }
+.driver-route-balance-page .design-193 { flex-wrap: wrap; gap: 12px; }
+.driver-route-balance-page .report-form { max-width: 760px; align-self: center; }
+
+/* Let data and labels determine row height, including longer driver names. */
+.driver-route-balance-page .driver-route-balance :is(.design-62, .design-65, .design-73, .design-76, .design-78, .design-86, .design-89, .design-91, .design-94) {
+  width: auto; min-width: 0; height: auto; line-height: 1.4;
+}
+.driver-route-balance-page .driver-route-balance :is(.design-74, .design-77, .design-87, .design-93) {
+  width: auto; height: auto;
+}
+.driver-route-balance-page .driver-route-balance :is(.design-85, .design-92) {
+  height: auto; min-height: 42px; gap: 6px; align-self: stretch;
+}
+.driver-route-balance-page .driver-route-balance .design-92 { min-height: 32px; align-items: center; }
+.driver-route-balance-page .driver-route-balance .design-90 { line-height: 1.4; }
+.driver-route-balance-page .driver-route-balance :is(.design-59, .design-69) {
+  height: auto; min-height: 28px; padding: 7px 8px;
+}
+.driver-route-balance-page .driver-route-balance .design-59 > :not(:first-child),
+.driver-route-balance-page .driver-route-balance .design-69 > :not(:first-child) { text-align: right; }
+.driver-route-balance-page .driver-route-balance .design-47 { min-width: 32px; min-height: 32px; }
+.driver-route-balance-page .driver-route-balance [data-name='app-header'] { height: auto; min-height: 67px; gap: 16px; }
+.driver-route-balance-page .driver-route-balance [data-name='back-header'] { height: auto; min-height: 52px; padding-block: 12px; }
+.driver-route-balance-page .driver-route-balance :is(.attach, .submit, .design-209, .design-211) { min-height: 44px; height: auto; }
+.driver-route-balance-page .driver-route-balance :is(.design-208, .design-200) { flex-wrap: wrap; gap: 12px; }
+.driver-route-balance-page .driver-route-balance .design-210 { white-space: normal; }
+.driver-route-balance-page .driver-route-balance [data-name='table-row'],
+.driver-route-balance-page .driver-route-balance [data-name='table-totals'] { height: auto; min-height: 32px; padding-block: 8px; }
+.driver-route-balance-page .driver-route-balance [data-name='table-header'] { height: auto; min-height: 32px; padding-block: 8px; }
+.driver-route-balance-page .driver-route-balance .asset { max-width: 100%; }
+.driver-route-balance-page .driver-route-balance button:focus-visible { outline: 2px solid #1a1c16; outline-offset: 3px; }
+
+@container driver-route (min-width: 800px) {
+  .driver-route-balance-page .driver-route-balance .route-overview-card {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.35fr); gap: 24px; padding: 24px;
+  }
+  .driver-route-balance-page .route-overview-summary { grid-column: 1; }
+  .driver-route-balance-page .route-overview-details { grid-column: 2; grid-row: 1; }
+  .driver-route-balance-page .route-overview-card > :is(.design-95, .design-98) { grid-column: 1 / -1; }
+  .driver-route-balance-page .design-147 {
+    display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); align-items: start;
+  }
+  .driver-route-balance-page .design-147 > :not(.design-148) { grid-column: 2; }
+  .driver-route-balance-page .design-147 > .design-148 { grid-column: 1; grid-row: 1 / span 3; }
+  .driver-route-balance-page .design-191 {
+    display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); align-items: start;
+  }
+}
+@container driver-route (max-width: 420px) {
+  .driver-route-balance-page .design-14 { padding: 16px 10px; }
+  .driver-route-balance-page .driver-route-balance .route-overview-card { padding: 12px; }
+  .driver-route-balance-page .driver-route-balance :is(.design-131, .design-136, .design-119, .design-121) {
+    padding: 10px 8px; gap: 6px;
+  }
+  .driver-route-balance-page .design-147 { padding: 16px 10px; }
+  .driver-route-balance-page .design-7 { font-size: 18px; }
+}
+
+.driver-route-balance .stop-order { width: 100%; padding: 16px; }
+.driver-route-balance .stop-order__toolbar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px; }
+.driver-route-balance .stop-order h2 { margin: 0 0 6px; font: 700 16px/1.3 'Space Grotesk', sans-serif; }
+.driver-route-balance .stop-order__toolbar p, .driver-route-balance .stop-order__status { font: 11px/1.5 'IBM Plex Mono', monospace; color: #424936; }
+.driver-route-balance .stop-order__save { background: #446900; color: white; padding: 12px 16px; min-height: 44px; font: 700 11px/1.4 'IBM Plex Mono', monospace; }
+.driver-route-balance .stop-order__status { min-height: 24px; margin-block: 10px; }
+.driver-route-balance .stop-order__list { padding: 0; margin: 0; list-style: none; border: 1px solid #c2cab0; }
+.driver-route-balance .stop-order__row { display: grid; grid-template-columns: 32px minmax(0, 2fr) minmax(0, 1fr) minmax(48px, .6fr) auto; align-items: center; gap: 12px; padding: 12px; border-bottom: 1px solid #c2cab0; }
+.driver-route-balance .stop-order__row:last-child { border-bottom: 0; }
+.driver-route-balance .stop-order__number { font: 700 12px/1.4 'IBM Plex Mono', monospace; color: #446900; }
+.driver-route-balance .stop-order__address p { font: 500 13px/1.5 'Space Grotesk', sans-serif; overflow-wrap: anywhere; }
+.driver-route-balance .stop-order__address span { font: 11px/1.5 'IBM Plex Mono', monospace; }
+.driver-route-balance .stop-order__customer { font-size: 13px; overflow-wrap: anywhere; }
+.driver-route-balance .stop-order__flag { justify-self: start; font: 600 9px/1.5 'IBM Plex Mono', monospace; background: #e3e3d8; border: 1px solid #727a64; padding: 3px 6px; overflow-wrap: anywhere; }
+.driver-route-balance .stop-order__controls { display: flex; align-items: end; gap: 6px; }
+.driver-route-balance .stop-order__label { display: block; font: 10px/1.4 'IBM Plex Mono', monospace; }
+.driver-route-balance .stop-order__controls :is(button, select) { height: 44px; min-width: 44px; border: 1px solid #727a64; background: #f4f4e9; color: #1a1c16; padding: 6px; }
+.driver-route-balance .stop-order button:disabled { cursor: default; opacity: .4; }
+.driver-route-balance .stop-order select:focus-visible { outline: 2px solid #446900; outline-offset: 2px; }
+.driver-route-balance .stop-order__empty { padding: 24px 0; font: 12px/1.6 'IBM Plex Mono', monospace; }
+@container driver-route (max-width: 640px) {
+  .driver-route-balance .stop-order__row { grid-template-columns: 24px minmax(0, 1fr) auto; gap: 8px; }
+  .driver-route-balance .stop-order__number { grid-column: 1; grid-row: 1 / span 2; }
+  .driver-route-balance .stop-order__address { grid-column: 2 / -1; }
+  .driver-route-balance .stop-order__customer { grid-column: 2; }
+  .driver-route-balance .stop-order__flag { grid-column: 3; }
+  .driver-route-balance .stop-order__controls { grid-column: 2 / -1; justify-content: flex-end; }
+}
+
+.driver-route-balance .stop-order__row { position: relative; background: #fafaef; grid-template-columns: 44px minmax(0, 2fr) minmax(0, 1fr) minmax(48px, .6fr); }
+.driver-route-balance .stop-order__handle { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; min-height: 48px; width: 44px; cursor: grab; touch-action: none; user-select: none; color: #727a64; font-size: 24px; }
+.driver-route-balance .stop-order__handle:active { cursor: grabbing; }
+.driver-route-balance-page .driver-route-balance .special-deliveries__row { grid-template-columns: minmax(0, 2fr) minmax(0, 1fr) minmax(64px, .75fr); align-items: center; }
+.driver-route-balance .special-deliveries__postcode { font: 11px/1.5 'IBM Plex Mono', monospace; color: #727a64; margin-top: 4px; }
+.driver-route-balance .special-deliveries__note { padding: 12px 16px; font: 11px/1.5 'IBM Plex Mono', monospace; }
+.driver-route-balance .special-deliveries [data-name='category-badge'] { max-width: 100%; }
+.driver-route-balance .special-deliveries [data-name='category-badge'] p { white-space: normal; overflow-wrap: anywhere; }
+@container driver-route (max-width: 640px) {
+  .driver-route-balance .stop-order__row { grid-template-columns: 44px minmax(0, 1fr) auto; }
+  .driver-route-balance .stop-order__handle { grid-column: 1; grid-row: 1 / span 2; align-self: stretch; }
+  .driver-route-balance .stop-order__handle .stop-order__number { grid-area: auto; }
+}

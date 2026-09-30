@@ -1,0 +1,152 @@
+/* The driver's invoice ledger. Same tokens as the other driver surfaces, kept local. */
+
+.invoice-page {
+  --inv-surface: #fafaef;
+  --inv-paper: #fffef8;
+  --inv-line: #c7cdbb;
+  --inv-line-soft: #e3e5d9;
+  --inv-ink: #1a1c16;
+  --inv-muted: #68705f;
+  --inv-deep: #003b3e;
+  --inv-lime: #b2f746;
+  display: grid;
+  gap: 18px;
+  color: var(--inv-ink);
+  font-family: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+
+/* ---- the headline figure ---- */
+
+.invoice-hero {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 14px 28px;
+  padding: 22px 24px;
+  border: 1px solid var(--inv-line);
+  background: var(--inv-paper);
+}
+.invoice-hero__label {
+  display: block;
+  margin: 0 0 6px;
+  color: var(--inv-muted);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+}
+.invoice-hero__amount {
+  margin: 0;
+  font-family: "Space Grotesk", Arial, sans-serif;
+  font-size: clamp(30px, 6vw, 40px);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -.03em;
+}
+.invoice-hero__period { margin: 6px 0 0; color: var(--inv-muted); font-size: 11px; }
+.invoice-hero__count {
+  padding: 6px 12px;
+  border: 1px solid var(--inv-line);
+  background: var(--inv-surface);
+  font-size: 11px;
+  letter-spacing: .06em;
+}
+
+/* ---- the ledger ---- */
+
+.invoice-ledger { display: grid; gap: 22px; }
+
+.invoice-month__rule {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 6px 16px;
+  padding-bottom: 9px;
+  border-bottom: 2px solid var(--inv-deep);
+}
+.invoice-month__name {
+  margin: 0;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+}
+.invoice-month__total {
+  font-family: "Space Grotesk", Arial, sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: -.01em;
+}
+
+.invoice-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto auto;
+  align-items: center;
+  gap: 4px 14px;
+  width: 100%;
+  min-height: 60px;
+  padding: 11px 4px;
+  border: 0;
+  border-bottom: 1px solid var(--inv-line-soft);
+  background: none;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+.invoice-row:last-of-type { border-bottom: 0; }
+.invoice-row:hover { background: #f3f4e8; }
+.invoice-row:focus-visible { outline: 2px solid var(--inv-deep); outline-offset: -2px; }
+.invoice-row__number { min-width: 0; overflow-wrap: break-word; font-size: 13px; font-weight: 500; }
+.invoice-row__issued { grid-column: 1; color: var(--inv-muted); font-size: 10px; letter-spacing: .04em; }
+.invoice-row__amount {
+  grid-row: 1 / span 2;
+  grid-column: 2;
+  font-family: "Space Grotesk", Arial, sans-serif;
+  font-size: 17px;
+  font-weight: 700;
+  letter-spacing: -.01em;
+}
+.invoice-row__download {
+  grid-row: 1 / span 2;
+  grid-column: 3;
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border: 1px solid var(--inv-line);
+  background: var(--inv-paper);
+  color: var(--inv-deep);
+  cursor: pointer;
+}
+.invoice-row__download:hover { border-color: var(--inv-deep); background: var(--inv-lime); }
+.invoice-row__download:focus-visible { outline: 2px solid var(--inv-deep); outline-offset: 2px; }
+
+/* ---- empty and loading ---- */
+
+.invoice-empty {
+  padding: 34px 24px;
+  border: 1px dashed var(--inv-line);
+  background: var(--inv-paper);
+  color: var(--inv-muted);
+  font-size: 12px;
+  line-height: 1.7;
+  text-align: center;
+}
+.invoice-empty strong { display: block; margin-bottom: 5px; color: var(--inv-ink); font-size: 14px; }
+
+.invoice-skeleton { display: grid; gap: 10px; }
+.invoice-skeleton span { height: 56px; border: 1px solid var(--inv-line-soft); background: var(--inv-paper); }
+
+@media (max-width: 520px) {
+  .invoice-hero { padding: 18px 16px; }
+  .invoice-row { grid-template-columns: minmax(0, 1fr) auto; gap: 3px 10px; }
+  .invoice-row__download { grid-row: 1 / span 2; grid-column: 2; }
+  .invoice-row__amount { grid-row: auto; grid-column: 1; font-size: 16px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .invoice-page *, .invoice-page *::before { transition-duration: .01ms !important; }
+}

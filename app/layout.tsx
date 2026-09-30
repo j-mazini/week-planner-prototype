@@ -5,7 +5,7 @@ import "./globals.css";
 import Providers from "./providers";
 
 export const metadata = {
-  title: "LogixSphere Week Planner — Prototype",
+  title: "LogixSphere",
 };
 
 export default function RootLayout({ children }: { children: ReactNode }) {

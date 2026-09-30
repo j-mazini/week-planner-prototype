@@ -1,7 +1,6 @@
 'use client';
 
 import { memo } from 'react';
-import { UserCard } from '@/components/user-card';
 
 interface AssetsHeaderProps {
   userFullName: string;
@@ -27,10 +26,6 @@ function AssetsHeaderContent({ currentDate }: AssetsHeaderProps) {
           {currentDate && (
             <p className="mt-1 text-sm text-slate-500">{currentDate}</p>
           )}
-        </div>
-        {/* Right side: User Card */}
-        <div className="flex items-start justify-end gap-3">
-          <UserCard />
         </div>
       </div>
     </header>

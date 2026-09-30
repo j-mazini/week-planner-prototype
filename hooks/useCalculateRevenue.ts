@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import { fetchCalculateRevenue } from '@/lib/api/calculations';
-import { CalculateRevenueParams } from '@/lib/utils';
+import { CalculateRevenueParams } from '@/lib/api/calculations';
 
 /**
  * Hook to calculate revenue using the backend service.

@@ -156,6 +156,7 @@ export function BeamSidebar() {
     if (userTypeId === BUSINESS_RULES.USER_TYPE.SERVICE_PARTNER) {
       return list.filter((item) => isPathAllowed(item.url, USER_TYPE_5_ALLOWED));
     }
+    if (userTypeId === BUSINESS_RULES.USER_TYPE.DRIVER) return [];
     return list;
   }, [userTypeId]);
 
@@ -1039,4 +1040,3 @@ export function BeamSidebar() {
     </>
   );
 }
-

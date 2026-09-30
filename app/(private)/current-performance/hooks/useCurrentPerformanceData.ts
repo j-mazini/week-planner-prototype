@@ -1,5 +1,6 @@
+import { useAuth } from "@/hooks/useAuth";
 import { useState, useEffect, useCallback } from "react";
-import { getUserIdFromToken, getBearerAuthHeader } from "@/lib/auth"
+import { getBearerAuthHeader } from "@/lib/auth"
 import { getApiBaseUrl } from "@/lib/apiBaseUrl";
 import { processMonthData, DayData, MonthOverview } from "../dataProcessor";
 import { getTimeWindowClass, getSporHClass } from "../utils";
@@ -13,15 +14,9 @@ export function useCurrentPerformanceData(year: number, month: number) {
   });
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
-  const [userId, setUserId] = useState<string | null>(null);
+  const { user } = useAuth();
+  const userId = user?.id ?? null;
 
-  // Get user ID on mount
-  useEffect(() => {
-    const id = getUserIdFromToken();
-    if (id !== null) {
-      setUserId(id.toString());
-    }
-  }, []);
 
   const fetchMonthData = useCallback(
     async (year: number, month: number) => {

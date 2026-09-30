@@ -1,26 +1,18 @@
+import { useAuth } from "@/hooks/useAuth";
 import { getApiBaseUrl } from "@/lib/apiBaseUrl";
 import { useState, useEffect, useCallback, useRef } from "react";
 import { format } from "date-fns";
-import { getUserIdFromToken, getBearerAuthHeader } from "@/lib/auth"
+import { getBearerAuthHeader } from "@/lib/auth"
 import { DayOverviewResponse } from "../types";
 
 export function useSubcontractorData(date: Date) {
   const [data, setData] = useState<DayOverviewResponse[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [userId, setUserId] = useState<number | null>(null);
+  const { user } = useAuth();
+  const userId = user?.id ?? null;
   const fetchingRef = useRef(false);
 
-  // Get user ID on mount
-  useEffect(() => {
-    const id = getUserIdFromToken();
-    if (id !== null) {
-      const numericId = Number(id);
-      setUserId(numericId);
-    } else {
-      setUserId(null);
-    }
-  }, []);
 
   const fetchDayOverview = useCallback(async () => {
     if (fetchingRef.current) {

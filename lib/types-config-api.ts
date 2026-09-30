@@ -54,12 +54,10 @@ const apiCall = async <T = unknown>(
   const url = `${API_BASE_URL}/bff${endpoint}${queryString}`;
 
   try {
-    // eslint-disable-next-line no-console
     console.log(`[apiCall] Fetching: ${url}`, { method, hasBody: !!body });
 
     const response = await fetch(url, config);
 
-    // eslint-disable-next-line no-console
     console.log(`[apiCall] Response status: ${response.status} ${response.statusText}`);
 
     if (!response.ok) {

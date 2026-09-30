@@ -14,7 +14,7 @@
     "test:watch": "vitest",
     "clean": "node scripts/clean.mjs",
     "dev:clean": "npm run clean && next dev",
-    "typecheck": "node scripts/typecheck-baseline.mjs",
+    "typecheck": "tsc --noEmit",
     "typecheck:all": "tsc --noEmit",
     "typecheck:update-baseline": "node scripts/typecheck-baseline.mjs --update"
   },

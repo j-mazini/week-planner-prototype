@@ -1,0 +1,119 @@
+/* Delivery map that grounds the login panel. Tokens stay local to the component so
+   the panel's palette cannot leak into the rest of the login surface. */
+
+.delivery-net {
+  --dn-line: #2f6b47;
+  --dn-line-near: #7fd39b;
+  --dn-node: #8fb9a0;
+  --dn-live: #b2f746;
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+}
+
+.dn-links {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+.dn-links line {
+  stroke: var(--dn-line);
+  stroke-width: 1;
+  vector-effect: non-scaling-stroke;
+  transition: stroke .25s ease, stroke-opacity .25s ease;
+  stroke-opacity: .55;
+}
+
+.dn-flight {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 7px;
+  height: 7px;
+  margin: -3.5px 0 0 -3.5px;
+  border-radius: 50%;
+  background: var(--dn-live);
+  box-shadow: 0 0 10px #b2f74699;
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* The depot is the button: the hit area is deliberately larger than the dot. */
+.dn-depot {
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  margin: -15px 0 0 -15px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: none;
+  cursor: pointer;
+  -webkit-appearance: none;
+  appearance: none;
+}
+.dn-depot:focus { outline: none; }
+.dn-depot:focus-visible { outline: 2px solid var(--dn-live); outline-offset: 2px; }
+
+.dn-node {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 9px;
+  height: 9px;
+  margin: -4.5px 0 0 -4.5px;
+  border: 1px solid var(--dn-node);
+  border-radius: 50%;
+  background: #08301c;
+  transition: transform .2s ease, border-color .2s ease, background-color .2s ease;
+}
+.dn-depot:hover .dn-node,
+.dn-depot:focus-visible .dn-node {
+  transform: scale(1.5);
+  border-color: var(--dn-live);
+  background: var(--dn-live);
+}
+
+/* Expanding ring, fired once when a delivery lands. */
+.dn-halo {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 9px;
+  height: 9px;
+  margin: -4.5px 0 0 -4.5px;
+  border: 1px solid var(--dn-live);
+  border-radius: 50%;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.dn-label {
+  position: absolute;
+  transform: translate(14px, -50%);
+  padding: 7px 10px;
+  border: 1px solid #b2f74642;
+  background: #04220fe0;
+  color: #eaf3ec;
+  font: 9px/1.5 "IBM Plex Mono", monospace;
+  letter-spacing: .07em;
+  white-space: nowrap;
+  pointer-events: none;
+}
+.dn-label strong { display: block; font-weight: 600; letter-spacing: .1em; }
+.dn-label span { color: var(--dn-live); }
+
+@media (prefers-reduced-motion: reduce) {
+  .dn-links line { transition: none; }
+  .dn-node { transition: none; }
+  .dn-flight, .dn-halo { display: none; }
+}
+
+/* Below 800px the panel stacks into a short band and the copy fills it edge to edge —
+   there is no clear area left, so nodes would land on the headline. The map steps out
+   rather than sit on top of the words. */
+@media (max-width: 800px) {
+  .delivery-net { display: none; }
+}

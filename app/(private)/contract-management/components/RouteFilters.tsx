@@ -76,7 +76,7 @@ const RouteFilters = memo(({ filter, onFilterChange, onNewClick, availableLoops,
                 key={loop}
                 className={`px-3.5 py-2 text-[0.8rem] font-semibold transition-all duration-200 ${
                   filter.loop === loop 
-                    ? 'bg-gradient-to-r from-[#0d6efd] to-[#0b5ed7] text-white shadow-sm' 
+                    ? 'bg-[#b2f746] text-[#003b3e] shadow-sm'
                     : 'bg-white text-[#2c3e50] border-r border-[#e9ecef] last:border-r-0 hover:bg-[#f7f8fa] hover:-translate-y-[1px] hover:shadow-[0_2px_8px_rgba(0,0,0,0.06)]'
                 }`}
                 onClick={() => handleLoopChange(loop)}
@@ -94,7 +94,7 @@ const RouteFilters = memo(({ filter, onFilterChange, onNewClick, availableLoops,
                 key={type}
                 className={`px-3.5 py-2 text-[0.8rem] font-semibold transition-all duration-200 ${
                   filter.routeType === type 
-                    ? 'bg-gradient-to-r from-[#0d6efd] to-[#0b5ed7] text-white shadow-sm' 
+                    ? 'bg-[#b2f746] text-[#003b3e] shadow-sm'
                     : 'bg-white text-[#2c3e50] border-r border-[#e9ecef] last:border-r-0 hover:bg-[#f7f8fa] hover:-translate-y-[1px] hover:shadow-[0_2px_8px_rgba(0,0,0,0.06)]'
                 }`}
                 onClick={() => handleRouteTypeChange(type)}
@@ -119,4 +119,3 @@ const RouteFilters = memo(({ filter, onFilterChange, onNewClick, availableLoops,
 RouteFilters.displayName = 'RouteFilters';
 
 export default RouteFilters;
-

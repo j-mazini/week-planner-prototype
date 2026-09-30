@@ -167,9 +167,12 @@ const EditManagementSupportModal: React.FC<EditManagementSupportModalProps> = ({
     return Number.isFinite(parsed) && parsed > 0 ? parsed : null;
   }, [assignment]);
 
+  const hasAssignment = assignment !== null;
+  const assignmentRaw = assignment?.raw;
+
   // Initialize form when modal opens
   useEffect(() => {
-    if (open && assignment) {
+    if (open && hasAssignment) {
       // Always initialize form values when modal opens
       setDescription(assignmentDescription);
       setError('');
@@ -182,7 +185,7 @@ const EditManagementSupportModal: React.FC<EditManagementSupportModalProps> = ({
       }
 
       // Extract depositId from assignment if available
-      const raw = assignment.raw as Record<string, unknown> | undefined;
+      const raw = assignmentRaw;
       const depositIdValue = raw?.depositId;
       // Handle depositId - can be number, string, or null
       const depositId = depositIdValue !== null && depositIdValue !== undefined && depositIdValue !== ''
@@ -211,7 +214,7 @@ const EditManagementSupportModal: React.FC<EditManagementSupportModalProps> = ({
       setManagementFunctions([]);
       setSelectedFunctionId('');
     }
-  }, [open, assignmentUserId, assignmentDescription, assignmentFunctionId]);
+  }, [open, hasAssignment, assignmentRaw, assignmentUserId, assignmentDescription, assignmentFunctionId]);
 
   // Fetch employees (`ADMIN` e `SUPERVISOR`) and deposits used by daily-team-support.
   useEffect(() => {

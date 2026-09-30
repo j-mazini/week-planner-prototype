@@ -50,8 +50,12 @@ export function pagePayload(url: URL): unknown {
     const id = path.match(/\/(?:vehicles|routes|service-partners|vendor|vendors|users|operations|deposits)\/(\d+)$/)?.[1];
     return id ? rows.find(row => String(row[idKey]) === id) ?? null : list(rows);
   };
-  const overviewUser = Number(path.match(/\/(?:day-overview|daily-overview\/list)\/(\d+)/)?.[1] ?? 101);
-  const overview = d.overviews.find(o => o.userId === overviewUser) ?? d.overviews[0];
+  const overviewUser = Number(path.match(/\/(?:day-overview|daily-overview(?:\/list)?)\/(\d+)/)?.[1] ?? 101);
+  const personalOverview = d.overviews.find(o => o.userId === overviewUser);
+  if (!personalOverview && /\/(?:day-overview|daily-overview(?:\/list)?)\/\d+\//.test(path)) {
+    return path.includes('/list/') ? { currentMonth: null, dailyEarnings: [] } : [];
+  }
+  const overview = personalOverview ?? d.overviews[0];
   if (path.includes('/day-overview/')) return [{ ...overview, userId: overviewUser }];
   if (path.includes('/daily-overview/summary/')) return {
     vendors: d.vendors.map((v, i) => ({ id: v.userId, firstName: v.firstName, lastName: v.lastName, email: v.email, avgTw: String(d.reports[i].percentageOtTwDl), avgSpr: d.reports[i].avgPerStops.toFixed(2), avgSporH: d.reports[i].sporh.toFixed(1), avgAfd: '2.9' })),

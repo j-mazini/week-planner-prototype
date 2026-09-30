@@ -167,16 +167,16 @@ export const ExportButton: React.FC<ExportButtonProps> = ({
 
     pdf.setTextColor(white[0], white[1], white[2]);
     pdf.setFontSize(12);
-    pdf.setFont(undefined, 'bold');
+    pdf.setFont(pdf.getFont().fontName, 'bold');
     pdf.text('BA', margin + logoSize / 2, margin + logoSize / 2 + 3, { align: 'center' });
 
     pdf.setTextColor(darkBlue[0], darkBlue[1], darkBlue[2]);
     pdf.setFontSize(16);
-    pdf.setFont(undefined, 'bold');
+    pdf.setFont(pdf.getFont().fontName, 'bold');
     pdf.text('BA EXPRESS LIMITED', margin + logoSize + 8, margin + 8);
 
     pdf.setFontSize(9);
-    pdf.setFont(undefined, 'normal');
+    pdf.setFont(pdf.getFont().fontName, 'normal');
     pdf.setTextColor(100, 100, 100);
     pdf.text('20 The Laurels', margin + logoSize + 8, margin + 14);
     pdf.text('info@baexpress.co.uk', margin + logoSize + 8, margin + 19);
@@ -191,7 +191,7 @@ export const ExportButton: React.FC<ExportButtonProps> = ({
 
     pdf.setTextColor(darkBlue[0], darkBlue[1], darkBlue[2]);
     pdf.setFontSize(11);
-    pdf.setFont(undefined, 'bold');
+    pdf.setFont(pdf.getFont().fontName, 'bold');
     pdf.text(title ?? reportTitle, titleBoxX + titleBoxWidth / 2, margin + 10, { align: 'center' });
 
     const currentDateStr = new Date().toLocaleDateString('en-GB');
@@ -210,11 +210,11 @@ export const ExportButton: React.FC<ExportButtonProps> = ({
     pdf.roundedRect(margin, currentY, detailsBoxWidth, 8, 2, 2, 'F');
     pdf.setTextColor(white[0], white[1], white[2]);
     pdf.setFontSize(9);
-    pdf.setFont(undefined, 'bold');
+    pdf.setFont(pdf.getFont().fontName, 'bold');
     pdf.text('Summary', margin + 5, currentY + 5.5);
 
     pdf.setTextColor(50, 50, 50);
-    pdf.setFont(undefined, 'normal');
+    pdf.setFont(pdf.getFont().fontName, 'normal');
     pdf.text(`Generated: ${currentDateStr}`, margin + 5, currentY + 16);
     pdf.text(`Total Records: ${dataToExport.length}`, margin + 5 + 60, currentY + 16);
 
@@ -235,7 +235,7 @@ export const ExportButton: React.FC<ExportButtonProps> = ({
 
       pdf.setTextColor(white[0], white[1], white[2]);
       pdf.setFontSize(9);
-      pdf.setFont(undefined, 'bold');
+      pdf.setFont(pdf.getFont().fontName, 'bold');
       let x = margin;
       columnsToUse.forEach((col, index) => {
         pdf.text(col.label, x + 3, y + 5.5);
@@ -256,7 +256,7 @@ export const ExportButton: React.FC<ExportButtonProps> = ({
     currentY += rowHeight;
 
     // Render data rows
-    pdf.setFont(undefined, 'normal');
+    pdf.setFont(pdf.getFont().fontName, 'normal');
     pdf.setFontSize(8);
     dataToExport.forEach((row) => {
       // Check if we need a new page
@@ -265,7 +265,7 @@ export const ExportButton: React.FC<ExportButtonProps> = ({
         currentY = margin;
         renderTableHeaders(currentY);
         currentY += rowHeight;
-        pdf.setFont(undefined, 'normal');
+        pdf.setFont(pdf.getFont().fontName, 'normal');
         pdf.setFontSize(8);
       }
 

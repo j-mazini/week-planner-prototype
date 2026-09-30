@@ -1,21 +1,16 @@
+import { useAuth } from "@/hooks/useAuth";
 import { getApiBaseUrl } from "@/lib/apiBaseUrl";
 import { useState, useEffect, useCallback } from "react";
-import { getUserIdFromToken, getBearerAuthHeader } from "@/lib/auth"
+import { getBearerAuthHeader } from "@/lib/auth"
 import { MonthOverview } from "../types";
 
 export function useCurrentMonthData(year: number, month: number) {
   const [monthData, setMonthData] = useState<MonthOverview | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
-  const [userId, setUserId] = useState<number | null>(null);
+  const { user } = useAuth();
+  const userId = user?.id ?? null;
 
-  // Get user ID on mount
-  useEffect(() => {
-    const id = getUserIdFromToken();
-    if (id !== null) {
-      setUserId(id);
-    }
-  }, []);
 
   const fetchMonthData = useCallback(
     async (year: number, month: number) => {

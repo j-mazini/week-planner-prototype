@@ -57,10 +57,6 @@ const AdHocServicesSectionDaily: React.FC<AdHocServicesSectionDailyProps> = ({
   draggedFromCell,
   onDragStart,
   onAddAdHocService,
-  onSwitchWeekPlanner,
-  onRemoveVendorFromRoute,
-  onRemoveVendorFromWeek,
-  weekStartDate,
 }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   
@@ -131,10 +127,6 @@ const AdHocServicesSectionDaily: React.FC<AdHocServicesSectionDailyProps> = ({
                 draggedItem={draggedItem}
                 draggedFromCell={draggedFromCell}
                 onDragStart={(e, data, cell) => onDragStart(e, data, cell)}
-                onSwitchWeekPlanner={onSwitchWeekPlanner}
-                onRemoveVendorFromRoute={onRemoveVendorFromRoute}
-                onRemoveVendorFromWeek={onRemoveVendorFromWeek}
-                weekStartDate={weekStartDate}
               />
             </React.Fragment>
           ))}
@@ -169,10 +161,6 @@ const AdHocServicesSectionDaily: React.FC<AdHocServicesSectionDailyProps> = ({
                 draggedItem={draggedItem}
                 draggedFromCell={draggedFromCell}
                 onDragStart={(e, data, cell) => onDragStart(e, data, cell)}
-                onSwitchWeekPlanner={onSwitchWeekPlanner}
-                onRemoveVendorFromRoute={onRemoveVendorFromRoute}
-                onRemoveVendorFromWeek={onRemoveVendorFromWeek}
-                weekStartDate={weekStartDate}
               />
             </React.Fragment>
           ))}

@@ -1,22 +1,17 @@
+import { useAuth } from "@/hooks/useAuth";
 import { getApiBaseUrl } from "@/lib/apiBaseUrl";
-﻿import { useState, useEffect, useCallback, useMemo } from "react";
-import { getUserIdFromToken, hasAuthSession, getBearerAuthHeader } from "@/lib/auth"
+import { useState, useEffect, useCallback, useMemo } from "react";
+import { hasAuthSession, getBearerAuthHeader } from "@/lib/auth"
 import { DeductionItem } from "../types";
 import { processDeductions, calculateTotalDeductions } from "../utils";
 
 export const useDeductions = (selectedDate: Date, servicePartnerId?: number) => {
   const [deductions, setDeductions] = useState<DeductionItem[]>([]);
   const [error, setError] = useState<string | null>(null);
-  const [userId, setUserId] = useState<number | null>(null);
+  const { user } = useAuth();
+  const userId = user?.id ?? null;
   const [isLoading, setIsLoading] = useState(false);
 
-  // Inicializar userId
-  useEffect(() => {
-    const id = getUserIdFromToken();
-    if (id !== null) {
-      setUserId(id);
-    }
-  }, []);
 
   // Função de busca de dados
   const fetchDeductions = useCallback(async () => {

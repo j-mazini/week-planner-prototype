@@ -1,0 +1,301 @@
+/* Sign-in surface: dark control-room counterpart to the standard login.
+   Tokens live on the page root, never on :root — the shell's palettes must not
+   leak in here and this page's must not leak out. */
+
+@font-face { font-family: 'IBM Plex Mono'; src: url('/route-balance/assets/ibm-plex-mono-latin-500-normal-DSY6xOcd.woff2') format('woff2'); font-weight: 500; font-display: swap; }
+@font-face { font-family: 'IBM Plex Mono'; src: url('/route-balance/assets/ibm-plex-mono-latin-600-normal-BgSNZQsw.woff2') format('woff2'); font-weight: 600; font-display: swap; }
+
+.logix-signin {
+  --sgn-void: #02191b;
+  --sgn-panel: #003b3e;
+  --sgn-well: #00302f;
+  --sgn-line: #0d5356;
+  --sgn-lime: #b2f746;
+  --sgn-paper: #fafaef;
+  --sgn-muted: #8fb0a8;
+  --sgn-font: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+  --sgn-row-gap: 20px;
+
+  position: relative;
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: grid;
+  place-items: center;
+  padding: 40px 20px;
+  background: var(--sgn-void);
+  color: var(--sgn-paper);
+  font-family: var(--sgn-font);
+  overflow: hidden;
+}
+
+.signin-column { width: 100%; max-width: 420px; }
+
+/* Entrance starts here so the first paint already matches frame zero. */
+.logix-signin [data-enter] { opacity: 0; }
+
+.signin-wordmark {
+  display: flex;
+  gap: 2px;
+  margin-bottom: 18px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: .18em;
+  color: var(--sgn-paper);
+}
+.signin-wordmark i { font-style: normal; color: var(--sgn-lime); }
+
+.signin-card {
+  padding: 34px 30px 24px 36px;
+  border: 1px solid var(--sgn-line);
+  background: var(--sgn-panel);
+}
+
+.signin-card h1 {
+  margin: 0 0 10px;
+  font-family: var(--sgn-font);
+  font-size: 24px;
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: -.01em;
+  color: var(--sgn-paper);
+}
+
+.signin-note {
+  margin: 0 0 28px;
+  font-size: 12px;
+  line-height: 1.6;
+  color: var(--sgn-muted);
+}
+
+/* ---- form grid: rail column + content column ---- */
+
+.signin-form {
+  position: relative;
+  display: grid;
+  grid-template-columns: 11px 1fr;
+  column-gap: 13px;
+  row-gap: var(--sgn-row-gap);
+  margin-left: -24px;
+}
+
+/* The route rail. One cell per step; the track bridges the row gap so the
+   segments read as one continuous line. */
+.signin-rail {
+  position: relative;
+  grid-column: 1;
+  --node-y: 46px;
+}
+.signin-rail--action { --node-y: 24px; }
+
+.signin-rail::before,
+.signin-rail__fill {
+  content: '';
+  position: absolute;
+  left: 5px;
+  top: 0;
+  bottom: calc(var(--sgn-row-gap) * -1);
+  width: 1px;
+}
+.signin-rail::before { background: var(--sgn-line); }
+.signin-rail--action::before,
+.signin-rail--action .signin-rail__fill { bottom: auto; height: var(--node-y); }
+
+.signin-rail__fill {
+  background: var(--sgn-lime);
+  transform: scaleY(0);
+  transform-origin: top;
+  transition: transform .32s cubic-bezier(.4, 0, .2, 1);
+}
+.signin-rail[data-reached='true'] .signin-rail__fill { transform: scaleY(1); }
+
+.signin-rail__node {
+  position: absolute;
+  left: 0;
+  top: calc(var(--node-y) - 5px);
+  width: 9px;
+  height: 9px;
+  border: 1px solid var(--sgn-line);
+  border-radius: 50%;
+  background: var(--sgn-panel);
+  transition: background-color .2s ease, border-color .2s ease, box-shadow .2s ease;
+}
+.signin-rail[data-reached='true'] .signin-rail__node {
+  background: var(--sgn-lime);
+  border-color: var(--sgn-lime);
+}
+.signin-rail[data-active='true'] .signin-rail__node {
+  border-color: var(--sgn-lime);
+  box-shadow: 0 0 0 3px #b2f74626;
+}
+
+/* Entrance tracer — rides down the rail column and fades out. */
+.signin-draw {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 11px;
+  pointer-events: none;
+}
+.signin-draw__line {
+  position: absolute;
+  left: 5px;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: var(--sgn-lime);
+  transform: scaleY(0);
+  transform-origin: top;
+}
+.signin-draw__head {
+  position: absolute;
+  left: 2px;
+  top: -3px;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--sgn-lime);
+  box-shadow: 0 0 10px #b2f74699;
+  opacity: 0;
+}
+
+/* ---- fields ---- */
+
+.signin-field { grid-column: 2; }
+
+.signin-field label {
+  display: block;
+  margin: 0 0 8px;
+  font-size: 11px;
+  font-weight: 500;
+  line-height: 1.4;
+  color: var(--sgn-muted);
+}
+
+.signin-input-shell { position: relative; display: flex; }
+
+.logix-signin input {
+  width: 100%;
+  height: 46px;
+  padding: 0 14px;
+  border: 1px solid var(--sgn-line);
+  border-radius: 0;
+  background: var(--sgn-well);
+  color: var(--sgn-paper);
+  font-family: var(--sgn-font);
+  font-size: 13px;
+  transition: border-color .18s ease;
+}
+.logix-signin input::placeholder { color: #6f9089; }
+.logix-signin input:focus {
+  outline: 2px solid var(--sgn-lime);
+  outline-offset: 1px;
+  border-color: var(--sgn-lime);
+}
+.logix-signin input:-webkit-autofill {
+  -webkit-text-fill-color: var(--sgn-paper);
+  -webkit-box-shadow: 0 0 0 60px var(--sgn-well) inset;
+  caret-color: var(--sgn-paper);
+}
+
+.signin-reveal {
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 46px;
+  padding: 0 14px;
+  border: 0;
+  background: none;
+  color: var(--sgn-muted);
+  font-family: var(--sgn-font);
+  font-size: 11px;
+  cursor: pointer;
+  transition: color .18s ease;
+}
+.signin-reveal:hover { color: var(--sgn-lime); }
+.signin-reveal:focus-visible { outline: 2px solid var(--sgn-lime); outline-offset: -2px; }
+.logix-signin input[type='password'],
+.signin-input-shell:has(.signin-reveal) input { padding-right: 62px; }
+
+/* ---- action ---- */
+
+.signin-action { grid-column: 2; }
+
+.logix-signin .signin-go {
+  width: 100%;
+  height: 48px;
+  border: 1px solid var(--sgn-lime);
+  border-radius: 0;
+  background: var(--sgn-lime);
+  color: #00302f;
+  font-family: var(--sgn-font);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background-color .18s ease, color .18s ease;
+}
+.logix-signin .signin-go:hover:not(:disabled) { background: transparent; color: var(--sgn-lime); }
+.logix-signin .signin-go:focus-visible { outline: 2px solid var(--sgn-paper); outline-offset: 2px; }
+.logix-signin .signin-go:disabled { cursor: progress; opacity: .7; }
+
+.signin-footer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 20px;
+  margin-top: 24px;
+  padding-top: 18px;
+  border-top: 1px solid var(--sgn-line);
+  font-size: 11px;
+}
+.signin-footer a { color: var(--sgn-muted); text-decoration: none; transition: color .18s ease; }
+.signin-footer a:hover { color: var(--sgn-lime); }
+.signin-footer a:focus-visible { outline: 2px solid var(--sgn-lime); outline-offset: 3px; }
+
+/* ---- exit ---- */
+
+.signin-exit {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  background: var(--sgn-panel);
+  transform: scaleY(0);
+  transform-origin: bottom;
+  visibility: hidden;
+}
+.signin-exit__sweep {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  height: 1px;
+  background: var(--sgn-lime);
+  transform: scaleX(0);
+}
+/* Sits on the sweep line and breaks it, so the rule reads as a route the label
+   marks rather than a strikethrough. */
+.signin-exit__text {
+  position: relative;
+  margin: 0;
+  padding: 0 16px;
+  background: var(--sgn-panel);
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: .06em;
+  color: var(--sgn-paper);
+  opacity: 0;
+}
+
+@media (max-width: 420px) {
+  .signin-card { padding: 28px 22px 20px 32px; }
+  .signin-card h1 { font-size: 21px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .logix-signin *,
+  .logix-signin *::before { transition-duration: .01ms !important; }
+  .logix-signin [data-enter] { opacity: 1; }
+  .signin-draw { display: none; }
+}

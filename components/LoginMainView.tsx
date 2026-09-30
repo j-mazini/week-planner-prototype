@@ -3,6 +3,9 @@ import Image from "next/image";
 
 type LoginViewId = "login" | "forgot" | "first";
 
+/** Not a role — picking it opens the separate sign-in page instead of switching profile. */
+const OPEN_NEW_LOGIN = "open-new-login";
+
 /**
  * Primary sign-in form: email, password (with visibility toggle), remember-me, and links to other flows.
  */
@@ -23,6 +26,8 @@ export interface LoginMainViewProps {
   showDemoProfile: boolean;
   demoProfile: "admin" | "supervisor" | "driver";
   onDemoProfileChange: (profile: "admin" | "supervisor" | "driver") => void;
+  /** Optional: the duplicated app tree under `Logix-new-front/` reuses this view without a router. */
+  onOpenNewLogin?: () => void;
   onSubmit: (e: React.FormEvent) => void;
   onSwitchView: (target: LoginViewId) => void;
 }
@@ -44,6 +49,7 @@ export function LoginMainView({
   showDemoProfile,
   demoProfile,
   onDemoProfileChange,
+  onOpenNewLogin,
   onSubmit,
   onSwitchView,
 }: LoginMainViewProps) {
@@ -66,12 +72,28 @@ export function LoginMainView({
                 id="demoProfile"
                 className="form-input demo-profile-select"
                 value={demoProfile}
-                onChange={(event) => onDemoProfileChange(event.target.value as "admin" | "supervisor" | "driver")}
+                onChange={(event) => {
+                  const picked = event.target.value;
+                  if (picked === OPEN_NEW_LOGIN) {
+                    // Leaves `demoProfile` untouched, so the select snaps back to the
+                    // current role instead of holding a value that is not one.
+                    onOpenNewLogin?.();
+                    return;
+                  }
+                  onDemoProfileChange(picked as "admin" | "supervisor" | "driver");
+                }}
                 disabled={isLoading}
               >
-                <option value="admin">Admin</option>
-                <option value="supervisor">Supervisor</option>
-                <option value="driver">Driver</option>
+                <optgroup label="Sign in as">
+                  <option value="admin">Admin</option>
+                  <option value="supervisor">Supervisor</option>
+                  <option value="driver">Driver</option>
+                </optgroup>
+                {onOpenNewLogin && (
+                  <optgroup label="Other pages">
+                    <option value={OPEN_NEW_LOGIN}>New sign-in page</option>
+                  </optgroup>
+                )}
               </select>
               <span className="demo-select-chevron" aria-hidden="true">⌄</span>
             </div>
@@ -84,7 +106,11 @@ export function LoginMainView({
           <div className="form-input-icon">
             <input
               id="loginEmail"
-              type="email"
+              type="text"
+              inputMode="email"
+              autoComplete="username"
+              autoCapitalize="none"
+              spellCheck={false}
               className="form-input"
               placeholder="your@email.com"
               value={email}

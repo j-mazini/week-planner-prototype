@@ -46,3 +46,29 @@ body { -webkit-font-smoothing: antialiased; }
      Ver docs/superpowers/specs/2026-09-25-ultra-wide-screens-design.md §6 */
   :where(.dgp-page-frame-container) > p { max-width: 68ch; }
 }
+
+/* Account forms share the application's current paper and teal palette. */
+.auth-page {
+  background: #fafaef;
+  color: #1a1c16;
+  font-family: var(--font-mono);
+  font-size: 13px;
+}
+.auth-page [data-slot="card"] {
+  min-width: 0;
+  border: 1px solid #c7cdbb;
+  border-radius: 3px;
+  background: #fffef8;
+  color: #1a1c16;
+}
+.auth-page [data-slot="card-title"] {
+  font-family: var(--font-sans);
+  font-size: 24px;
+  line-height: 1.2;
+  overflow-wrap: anywhere;
+}
+.auth-page input { min-width: 0; background: #fffef8; border-color: #c7cdbb; border-radius: 2px; }
+.auth-page .bg-primary { background-color: #27676c !important; color: #fff; }
+.auth-page .bg-primary:hover { background-color: #003b3e !important; }
+.auth-page a { color: #27676c; }
+.auth-page :is(button, a, input):focus-visible { outline: 2px solid #446900; outline-offset: 2px; }

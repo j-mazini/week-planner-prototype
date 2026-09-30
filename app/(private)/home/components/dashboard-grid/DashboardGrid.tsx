@@ -93,7 +93,6 @@ export function DashboardGrid({ widgets }: DashboardGridProps) {
           autoSize
           dragConfig={dragConfig}
           resizeConfig={resizeConfig}
-          compactType="vertical"
           className="dashboard-grid"
         >
           {(layout as DashboardLayoutType).map((item) => (

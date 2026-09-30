@@ -4,7 +4,7 @@ export const currentMonthStyles = {
 
   sectionTitle:
     "text-lg font-bold text-slate-800 mb-3 uppercase text-sm flex items-center gap-2",
-  sectionTitleIcon: "bi bi-calendar-check text-blue-600",
+  sectionTitleIcon: "bi bi-calendar-check text-teal-700",
 
   scrollList: "max-h-[clamp(12rem,35vh,16rem)] overflow-y-auto pr-1",
 
@@ -12,20 +12,20 @@ export const currentMonthStyles = {
   emptyStateIcon: "bi bi-inbox text-3xl mb-2 text-slate-300",
 
   rowBase:
-    "flex justify-between items-center px-3 py-3 cursor-pointer transition-all duration-300 rounded-xl hover:bg-blue-50 hover:shadow-sm",
+    "flex justify-between items-center px-3 py-3 cursor-pointer transition-all duration-300 rounded-xl hover:bg-teal-50 hover:shadow-sm",
   rowEven: "bg-slate-50",
   rowOdd: "bg-transparent",
 
   rowLeft: "flex flex-col items-start leading-tight",
   rowTitle: "text-sm font-semibold text-slate-800",
   rowSubtitle: "text-xs font-medium text-slate-500 flex items-center gap-1 mt-0.5",
-  rowAmount: "text-sm font-bold text-green-600",
+  rowAmount: "text-sm font-bold text-emerald-700",
 
   // Day details "modal" view
   dayDetailsRoot:
     "bg-slate-100 text-slate-800 p-3 min-h-screen pb-[clamp(3.5rem,8vh,4.375rem)]",
   dayDetailsBackButton:
-    "mb-4 inline-flex items-center gap-1 text-sm font-medium text-blue-600 hover:text-slate-800 transition-colors",
+    "mb-4 inline-flex items-center gap-1 text-sm font-medium text-teal-700 hover:text-slate-800 transition-colors",
   dayDetailsBackIcon: "bi bi-arrow-left text-xs",
   dayDetailsScroll:
     "max-h-[clamp(22rem,70vh,44rem)] overflow-y-auto pb-5 space-y-4",
@@ -33,7 +33,7 @@ export const currentMonthStyles = {
     "bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden",
 
   routeHeader:
-    "bg-blue-600 px-4 py-3 flex justify-between items-center rounded-t-2xl",
+    "bg-gradient-to-r from-emerald-700 to-teal-700 px-4 py-3 flex justify-between items-center rounded-t-2xl",
   routeHeaderTitle: "text-lg font-semibold text-white",
   routeHeaderBadge:
     "bg-emerald-500 text-white px-3 py-1.5 rounded-full text-xs font-semibold",
@@ -52,7 +52,7 @@ export const currentMonthStyles = {
   workHoursValue:
     "text-lg font-bold text-slate-800 mt-auto min-h-[clamp(1.25rem,4vh,1.5rem)] flex items-center justify-center",
   workHoursTotalLabel: "text-sm font-medium text-slate-500 mb-1",
-  workHoursTotalValue: "text-2xl font-bold text-blue-600",
+  workHoursTotalValue: "text-2xl font-bold text-teal-700",
 
   stopsSectionTitle:
     "text-sm font-bold text-slate-800 mb-3 uppercase tracking-wide",
@@ -88,7 +88,7 @@ export const currentMonthStyles = {
   monthCarouselButtonBase:
     "flex-shrink-0 px-4 py-2.5 rounded-[20px] font-semibold text-sm text-center cursor-pointer border-2 uppercase transition-all duration-300",
   monthCarouselButtonActive:
-    "bg-gradient-to-br from-blue-500 to-blue-600 text-white border-blue-400/50 shadow-lg shadow-blue-500/30",
+    "bg-gradient-to-br from-emerald-600 to-teal-700 text-white border-emerald-400/50 shadow-lg shadow-emerald-900/15",
   monthCarouselButtonInactive:
     "bg-slate-50 text-slate-600 border-transparent hover:bg-slate-100 hover:border-slate-200",
   monthCarouselButtonLabel: "relative z-10 flex flex-col items-center",
@@ -100,10 +100,10 @@ export const currentMonthStyles = {
   summaryCardBgPattern: "absolute inset-0 opacity-5",
   summaryCardLabel:
     "text-sm font-medium text-slate-600 mb-2 relative z-10 flex items-center justify-center gap-2",
-  summaryCardLabelIcon: "bi bi-currency-pound text-green-600",
-  summaryCardValue: "text-4xl font-bold text-green-600 leading-tight relative z-10",
+  summaryCardLabelIcon: "bi bi-currency-pound text-emerald-700",
+  summaryCardValue: "text-4xl font-bold text-emerald-700 leading-tight relative z-10",
   summaryCardAccentBar:
-    "absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-green-500 via-green-400 to-green-500 rounded-b-2xl",
+    "absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-emerald-600 via-teal-500 to-emerald-600 rounded-b-2xl",
 
   // Info grid
   infoGridSection:
@@ -113,15 +113,15 @@ export const currentMonthStyles = {
     "bg-gradient-to-br from-slate-50 to-white rounded-xl p-3 border border-slate-100 hover:shadow-md transition-all duration-300",
   infoGridLabel: "text-xs font-medium text-slate-600 block mb-1",
   infoGridValueBase: "text-lg font-bold",
-  infoValueSuccess: "text-green-600",
+  infoValueSuccess: "text-emerald-700",
   infoValueWarning: "text-orange-600",
-  infoValueAccent: "text-red-600",
+  infoValueAccent: "text-amber-700",
   infoValueNeutral: "text-slate-700",
 
   // Loading / error / empty
   loadingContainer: "text-center py-5",
   loadingSpinner:
-    "inline-block animate-spin rounded-full h-8 w-8 border-4 border-blue-500 border-t-transparent",
+    "inline-block animate-spin rounded-full h-8 w-8 border-4 border-teal-600 border-t-transparent",
   loadingText: "mt-2 text-slate-500",
 
   errorContainer: "text-center py-5 text-red-500",
@@ -132,5 +132,4 @@ export const currentMonthStyles = {
     "bg-slate-50 rounded-xl p-4 shadow-[0_2px_8px_rgba(0,0,0,0.08)] mb-4",
   noDataText: "text-center text-slate-500 py-5",
 } as const;
-
 

@@ -1,19 +1,19 @@
 /* InvoiceDashboard.css */
 
 :where(.app-imported-page[data-page="invoice-history"]) {
-    --sidebar-bg: #ffffff;
-    --main-bg: #f7f8fa;
-    --text-dark: #2c3e50;
-    --text-light: #8491a1;
-    --border-color: #e9ecef;
-    --primary-blue: #0d6efd;
+    --sidebar-bg: #fffef8;
+    --main-bg: #fafaef;
+    --text-dark: #1a1c16;
+    --text-light: #68705f;
+    --border-color: #c7cdbb;
+    --primary-blue: #27676c;
     --card-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
 }
 
 :where(.app-imported-page[data-page="invoice-history"]) {
-    font-family: "Inter", sans-serif;
-    background: linear-gradient(135deg, #e0e7ff 0%, #c7d2fe 30%, #e0e7ff 60%, #f0f4f8 100%) !important;
-    background-image: radial-gradient(#cbd5e1 1px, transparent 1px) !important;
+    font-family: var(--font-mono);
+    background: var(--surface);
+    background-image: none;
     background-size: 24px 24px !important;
     background-attachment: fixed;
     color: var(--text-dark);
@@ -22,9 +22,9 @@
 
 /* Container principal */
 :where(.app-imported-page[data-page="invoice-history"]) .invoice-dashboard-container {
-    font-family: 'Inter', sans-serif;
-    background: linear-gradient(135deg, #e0e7ff 0%, #c7d2fe 30%, #e0e7ff 60%, #f0f4f8 100%) !important;
-    background-image: radial-gradient(#cbd5e1 1px, transparent 1px) !important;
+    font-family: var(--font-mono);
+    background: var(--surface);
+    background-image: none;
     background-size: 24px 24px !important;
     background-attachment: fixed;
     color: var(--text-dark);
@@ -33,24 +33,6 @@
     width: 100%;
     z-index: 1;
     overflow-x: hidden;
-}
-
-:where(.app-imported-page[data-page="invoice-history"]) .invoice-dashboard-container::before {
-    content: "";
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    width: 100vw;
-    height: 100vh;
-    background: radial-gradient(circle at 20% 20%, rgba(99, 102, 241, 0.12), transparent 50%),
-                radial-gradient(circle at 80% 10%, rgba(236, 72, 153, 0.12), transparent 45%),
-                radial-gradient(circle at 75% 80%, rgba(14, 165, 233, 0.12), transparent 50%);
-    pointer-events: none;
-    mix-blend-mode: screen;
-    z-index: 0;
-    animation: neonAura 18s ease-in-out infinite alternate;
 }
 
 @keyframes neonAura {

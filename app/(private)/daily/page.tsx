@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState, useCallback } from "react";
-import Image from "next/image";
 import { formatMonthLabel, DAYS_OF_WEEK, FailedCodes } from "./utils";
 import { calculateMetrics } from "./metricsCalculator";
 import "./Daily.css";
@@ -103,22 +102,6 @@ export default function DailyDashboardPage() {
     <div className="dashboard-page">
 
       <div className="dashboard-container">
-        <div className="dashboard-header">
-          <div className="user-profile">
-            <div className="user-info">
-              <div className="company-name">BA-Express</div>
-              <div className="user-name">Jonathan Santos</div>
-            </div>
-            <Image
-              src="/logo-ba-express.png"
-              alt="BA-Express Logo"
-              width={50}
-              height={50}
-              className="user-logo"
-            />
-          </div>
-        </div>
-
         <div className="month-selector-container">
           <div className="month-selector">
             <i className="bi bi-chevron-left nav-arrow" onClick={goPrevMonth} />

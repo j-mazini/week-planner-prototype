@@ -41,8 +41,8 @@ export const DayCard = memo(function DayCard({
         snap-center cursor-pointer overflow-hidden
         border-2
         ${isSelected 
-          ? 'bg-gradient-to-br from-blue-500 via-blue-600 to-blue-700 text-white border-blue-400/50 shadow-xl scale-105' 
-          : 'bg-white text-slate-700 border-slate-200 hover:border-blue-300 hover:bg-blue-50/50 shadow-sm hover:shadow-lg'
+          ? 'bg-[#b2f746] text-[#003b3e] border-[#446900] shadow-xl scale-105'
+          : 'bg-white text-slate-700 border-slate-200 hover:border-[#446900] hover:bg-[#f2f7d9] shadow-sm hover:shadow-lg'
         }
       `}
     >
@@ -71,4 +71,3 @@ export const DayCard = memo(function DayCard({
     </motion.button>
   );
 });
-

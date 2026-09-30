@@ -1,11 +1,13 @@
 "use client";
 
 import { useState, useCallback, useRef } from "react";
-import { StandardPageLayout, PageHeader, PageSection } from "../components";
+import { StandardPageLayout, PageSection } from "../components";
 import InvoiceDetailsModal, { InvoiceDetailsModalRef } from "@/components/invoice-details-modal";
 import { useMobileInvoices } from "./hooks/useMobileInvoices";
 import { InvoiceListContainer } from "./components/InvoiceListContainer";
 import { mobileInvoiceStyles } from "./styles";
+import "./invoice.css";
+
 
 export default function MobileInvoicePage() {
   const { invoices, isLoading } = useMobileInvoices();
@@ -62,13 +64,10 @@ export default function MobileInvoicePage() {
 
   return (
     <StandardPageLayout width="wide" bottomPadding={mobileInvoiceStyles.bottomPadding}>
-      <PageHeader />
-
+      {/* No page header here: the app shell already names the page, and the ledger's
+          headline figure says more than a repeated title would. */}
       <PageSection className={mobileInvoiceStyles.sectionPadding}>
-        <div
-          className={mobileInvoiceStyles.listCard}
-          id="invoiceList"
-        >
+        <div id="invoiceList">
           <InvoiceListContainer
             invoices={invoices}
             isLoading={isLoading}

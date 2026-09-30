@@ -46,7 +46,7 @@ export function Snackbar({
   return (
     <div
       role="alert"
-      className={`fixed top-6 left-1/2 z-[10000] w-[calc(100%-2rem)] max-w-md -translate-x-1/2 transition-all duration-300 ease-[cubic-bezier(0.34,1.56,0.64,1)] ${
+      className={`fixed top-6 left-1/2 z-[10000] w-[calc(100%-2rem)] max-w-md -translate-x-1/2 transition-all duration-300 [transition-timing-function:cubic-bezier(0.34,1.56,0.64,1)] ${
         isVisible
           ? "opacity-100 translate-y-0"
           : "opacity-0 -translate-y-full pointer-events-none"

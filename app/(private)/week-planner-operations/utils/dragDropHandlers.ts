@@ -2,7 +2,7 @@
  * Drag and Drop handler functions
  */
 
-import type { Assignment, Vendor } from '../types/planner';
+import type { Assignment, Vendor, DayOffEntry } from '../types/planner';
 import { isVendorOffOnDate, hasAssignmentForVendorOnDate } from './validationUtils';
 
 export interface DragItem {
@@ -155,7 +155,7 @@ export async function handleMoveAssignment(
   targetDate: string,
   assignments: Assignment[],
   vendors: Vendor[],
-  dayOffEntries: unknown[],
+  dayOffEntries: DayOffEntry[],
   onUpdateAssignment: (id: string | number, updates: Partial<Assignment>) => Promise<Assignment>,
   onDeleteAssignment: (id: string | number) => Promise<void>,
   refreshView: () => Promise<void>
@@ -179,7 +179,8 @@ export async function handleMoveAssignment(
       targetDate,
       onUpdateAssignment,
       onDeleteAssignment,
-      refreshView
+      refreshView,
+      (userId) => vendors.find(vendor => vendor.id === userId)?.name ?? String(userId)
     );
     return;
   }

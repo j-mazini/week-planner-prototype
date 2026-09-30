@@ -7,6 +7,10 @@ import {
   Clock3, Gauge, LayoutGrid, MapPinned, PackageCheck, Plus, RefreshCw, Route, Search, Truck, Users,
 } from "lucide-react";
 import NavbarWrapper from "@/components/navbar-wrapper";
+import DriverHome from "./DriverHome";
+import { useAuth } from "@/hooks/useAuth";
+import { greet } from "@/lib/greeting";
+import { BUSINESS_RULES } from "@/src/constants/businessRules";
 import "./home-new.css";
 
 const kpis = [
@@ -31,18 +35,23 @@ const quickLinks = [
 ] as const;
 
 const pageGroups = [
-  { label: "MY PERFORMANCE", pages: [["/daily-performance-insight", "Daily Performance", "Inspect daily detail"], ["/subcontractor", "Subcontractor", "Review subcontractor activity"], ["/deductions", "Deductions", "Manage deductions"], ["/current-month", "Current Month", "Review the monthly overview"], ["/current-performance", "Current Performance", "See current results"], ["/mobile-invoice", "Mobile Invoice", "Mobile invoice view"], ["/requests", "Requests", "Create and track requests"]] },
+  { label: "MY PERFORMANCE", pages: [["/driver-route-balance", "My Route Balance", "View your assigned routes"], ["/daily-performance-insight", "Daily Performance", "Inspect daily detail"], ["/subcontractor", "Subcontractor", "Review subcontractor activity"], ["/deductions", "Deductions", "Manage deductions"], ["/current-month", "Current Month", "Review the monthly overview"], ["/current-performance", "Current Performance", "See current results"], ["/mobile-invoice", "My Invoice", "View and download your invoices"], ["/requests", "Requests", "Create and track requests"]] },
   { label: "MONTHLY & ADHOC", pages: [["/adhoc-works-invoice-management", "Adhoc Work Invoices", "Review adhoc work and payments"]] },
-  { label: "OPERATIONS", pages: [["/daily", "Daily", "Daily operations view"], ["/daily-operations-management", "Daily Operations", "Manage today's activity"], ["/daily-operations-reports", "Operations Reports", "Review operating results"], ["/logistics", "Logistics", "Manage logistics flow"], ["/op-dashboard", "Operations Dashboard", "Operational overview"], ["/operations-management", "Operations Management", "Manage the operating model"], ["/schedule", "Schedule", "Manage schedules"], ["/vehicles", "Vehicles", "Manage the fleet"], ["/week-planner-operations", "Planner Operations", "Advanced planner workspace"]] },
-  { label: "FINANCE", pages: [["/daily-financial-insights", "Financial Insights", "Explore daily financial data"], ["/daily-financials", "Daily Financials", "Review daily numbers"], ["/deductions-disbursements-recharges", "Disbursements & Recharges", "Review financial adjustments"], ["/financial-invoices", "Financial Invoices", "Manage invoice processing"], ["/financial-management", "Financial Management", "Finance workspace"], ["/financial-performance", "Financial Performance", "Track financial results"], ["/invoice-history", "Invoice History", "Search invoice history"], ["/invoice-processing-workflow", "Invoice Workflow", "Process invoices"], ["/service-partner-invoices", "Partner Invoices", "Manage partner invoices"]] },
+  { label: "OPERATIONS", pages: [["/daily", "Daily", "Daily operations view"], ["/daily-operations-management", "Daily Operations", "Manage today's activity"], ["/daily-operations-reports", "Operations Reports", "Review operating results"], ["/logistics", "Logistics", "Manage logistics flow"], ["/op-dashboard", "Operations Dashboard", "Operational overview"], ["/operations-management", "Operations Management", "Manage the operating model"], ["/schedule", "Schedule", "Manage schedules"], ["/vehicles", "Vehicles", "Manage the fleet"]] },
+  { label: "FINANCE", pages: [["/daily-financial-insights", "Financial Insights", "Explore daily financial data"], ["/daily-financials", "Daily Financials", "Review daily numbers"], ["/deductions-disbursements-recharges", "Disbursements & Recharges", "Review financial adjustments"], ["/financial-invoices", "Financial Invoices", "Manage invoice processing"], ["/financial-management", "Financial Management", "Finance workspace"], ["/invoice-history", "Invoice History", "Search invoice history"], ["/invoice-processing-workflow", "Invoice Workflow", "Process invoices"], ["/service-partner-invoices", "Partner Invoices", "Manage partner invoices"]] },
   { label: "CONTROL & PARTNERS", pages: [["/assets", "Assets", "Manage system assets"], ["/contract-management", "Contract Management", "Manage contracts"], ["/requests-admin", "Requests Admin", "Administer requests"], ["/requests-inbox", "Requests Inbox", "Review incoming requests"], ["/vendor", "Vendors", "Manage vendors"], ["/vendor-performance", "Vendor Performance", "Review vendor results"]] },
 ] as const;
 
 export default function HomePage() {
+  const { user } = useAuth();
   const [activeDate, setActiveDate] = useState("Today");
   const [refreshed, setRefreshed] = useState(false);
   const [pageSearch, setPageSearch] = useState("");
   const dateLabel = useMemo(() => new Intl.DateTimeFormat("en-GB", { weekday: "long", day: "2-digit", month: "short", year: "numeric" }).format(new Date()), []);
+
+  if (user?.userTypeId === BUSINESS_RULES.USER_TYPE.DRIVER || user?.roles?.includes("driver")) {
+    return <DriverHome />;
+  }
 
   return (
     <NavbarWrapper>
@@ -50,7 +59,7 @@ export default function HomePage() {
         <section className="home-new__hero">
           <div>
             <div className="home-new__eyebrow"><span className="home-new__pulse" /> OPERATIONS CONTROL / LIVE MOCK DATA</div>
-            <h2>Good morning, João.</h2>
+            <h2>{greet(user?.name)}</h2>
             <p>{dateLabel} <span>·</span> One clear view of the day ahead.</p>
           </div>
           <div className="home-new__hero-actions">

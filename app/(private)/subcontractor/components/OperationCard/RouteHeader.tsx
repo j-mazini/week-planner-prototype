@@ -22,11 +22,6 @@ export const RouteHeader = memo(function RouteHeader({ routeName, isSpms }: Rout
         stiffness: 200,
         damping: 20
       }}
-      whileHover={{ 
-        scale: 1.01, 
-        boxShadow: '0 6px 20px rgba(52, 152, 219, 0.3)',
-        y: -2
-      }}
       className={subcontractorStyles.routeHeader}
     >
       {/* Animated background pattern */}
@@ -41,7 +36,6 @@ export const RouteHeader = memo(function RouteHeader({ routeName, isSpms }: Rout
         }}
         transition={{
           duration: 20,
-          repeat: Infinity,
           ease: 'linear'
         }}
       />
@@ -53,7 +47,6 @@ export const RouteHeader = memo(function RouteHeader({ routeName, isSpms }: Rout
         animate={{ x: '200%' }}
         transition={{
           duration: 3,
-          repeat: Infinity,
           ease: 'linear'
         }}
       />
@@ -73,4 +66,3 @@ export const RouteHeader = memo(function RouteHeader({ routeName, isSpms }: Rout
     </motion.div>
   );
 });
-

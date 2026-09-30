@@ -4,7 +4,6 @@ import type { DragEvent } from "react";
 import { useCallback, useEffect, useState, useRef, useMemo } from "react";
 import { useRouter } from "next/navigation";
 import NavbarWrapper from "@/components/navbar-wrapper";
-import { MobileHeader } from "../components/MobileHeader";
 import { removeToken, getUserIdFromToken, getUserTypeFromToken, getBearerAuthHeader } from "@/lib/auth";
 import { getApiBaseUrl } from "@/lib/apiBaseUrl";
 import { resolveDepositIdForRestrictedUser } from "@/lib/daily-supervisor-check";
@@ -7565,11 +7564,6 @@ const WeekPlannerPageContent = () => {
         containerClassName="mx-auto w-full px-2 md:px-4 pt-2 md:pt-3 pb-20 md:pb-5 space-y-1.5 md:space-y-2"
         className="font-['Inter',sans-serif] text-slate-800 text-[0.9rem] overflow-visible [&_*]:font-['Inter',sans-serif]"
       >
-        {/* Mobile Header */}
-        <div className="px-0 pt-1 md:hidden">
-          <MobileHeader />
-        </div>
-
         {/* Single PlannerView (avoid double-mounting hidden variants) */}
         {error && <p className="text-red-600 text-xs md:text-sm">{error}</p>}
 
@@ -7824,4 +7818,3 @@ const WeekPlannerPageContent = () => {
 };
 
 export default WeekPlannerPageContent;
-

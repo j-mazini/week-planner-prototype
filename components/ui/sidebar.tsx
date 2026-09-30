@@ -112,10 +112,10 @@ function SidebarProvider({
     }
     
     // Only update if we have a value and it differs from current state
-    if (shouldOpen !== null && shouldOpen !== _open) {
+    if (shouldOpen !== null) {
       _setOpen(shouldOpen)
     }
-  }, []) // Only run once after mount
+  }, [openProp])
 
   const open = openProp ?? _open
   const setOpen = React.useCallback(
@@ -285,7 +285,7 @@ function Sidebar({
       <div
         data-slot="sidebar-container"
         className={cn(
-          "fixed inset-y-0 z-[1] hidden h-svh w-(--sidebar-width) transition-[left,right,width,opacity,transform] duration-500 ease-[cubic-bezier(0.4,0,0.2,1)] md:flex",
+          "fixed inset-y-0 z-[1] hidden h-svh w-(--sidebar-width) transition-[left,right,width,opacity,transform] duration-500 [transition-timing-function:cubic-bezier(0.4,0,0.2,1)] md:flex",
           side === "left"
             ? "left-0 group-data-[collapsible=offcanvas]:left-[calc(var(--sidebar-width)*-1)] group-data-[collapsible=offcanvas]:opacity-0 group-data-[collapsible=offcanvas]:pointer-events-none"
             : "right-0 group-data-[collapsible=offcanvas]:right-[calc(var(--sidebar-width)*-1)] group-data-[collapsible=offcanvas]:opacity-0 group-data-[collapsible=offcanvas]:pointer-events-none",

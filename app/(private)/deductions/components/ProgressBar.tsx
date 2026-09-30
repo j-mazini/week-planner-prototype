@@ -47,7 +47,7 @@ export const ProgressBar = React.memo<ProgressBarProps>(
         <div className="flex justify-between items-center mb-2.5">
           <div className={deductionsStyles.progressHeader}>
             <i className={deductionsStyles.progressHeaderIcon}></i>
-            {current} of {total} - {deduction.description}
+            <><span className={deductionsStyles.progressCount}>{current} of {total}</span> - {deduction.description}</>
           </div>
           <div className={deductionsStyles.progressAmount}>
             <AnimatedCurrency
@@ -72,5 +72,4 @@ export const ProgressBar = React.memo<ProgressBarProps>(
 );
 
 ProgressBar.displayName = "ProgressBar";
-
 

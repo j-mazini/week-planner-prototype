@@ -30,7 +30,7 @@ export async function exportVendorsToPDF(
   statusFilter: string,
   vendorTypeFilter: string,
   searchTerm: string,
-  servicePartners?: ServicePartner[]
+  servicePartners?: Pick<ServicePartner, 'servicePartnerId' | 'partnerName'>[]
 ): Promise<Blob> {
   try {
     const pdf = await createPDFWithHeader({

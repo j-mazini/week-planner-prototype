@@ -18,7 +18,7 @@ export const Reveal = memo<RevealProps>(({ children, className = "" }) => {
     ? (inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-[10px]')
     : '';
   const transitionClasses = hasRevealClass && inView
-    ? 'transition-[opacity,transform] duration-[450ms] ease-[cubic-bezier(0.22,0.61,0.36,1)]' 
+    ? 'transition-[opacity,transform] [transition-duration:450ms] [transition-timing-function:cubic-bezier(0.22,0.61,0.36,1)]'
     : '';
   
   const combinedClassName = `${className} ${baseClasses} ${transitionClasses}`.trim();

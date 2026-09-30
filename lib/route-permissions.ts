@@ -8,31 +8,27 @@ import { BUSINESS_RULES } from "@/src/constants/businessRules";
  * o middleware só consegue ler `userTypeId` do JWT — as listas abaixo são a whitelist de paths.
  */
 
-/** URLs permitidas para `VENDOR` (subcontratado/motorista) — corresponde a `user_type_id` 2 */
-export const USER_TYPE_2_ALLOWED = [
+/** Personal views shared by drivers, supervisors and admins; queries use the signed-in user. */
+export const MY_PERFORMANCE_ROUTES = [
   "/daily-performance-insight",
   "/subcontractor",
   "/deductions",
   "/current-month",
   "/current-performance",
+  "/driver-route-balance",
   "/mobile-invoice",
   "/requests",
 ] as const;
 
+export const USER_TYPE_2_ALLOWED = ["/home", ...MY_PERFORMANCE_ROUTES] as const;
+
 /** URLs permitidas para `SUPERVISOR` — corresponde a `user_type_id` 3 */
 export const USER_TYPE_3_ALLOWED = [
-  "/home",
+  ...MY_PERFORMANCE_ROUTES,
   "/week-planner",
-  "/daily-operations-reports",
-  "/vendor-performance",
   "/daily-game-plan",
-  "/daily-performance-insight",
-  "/subcontractor",
-  "/deductions",
-  "/current-month",
-  "/current-performance",
-  "/mobile-invoice",
-  "/requests",
+  "/vendor",
+  "/vehicles",
 ] as const;
 
 /** URLs permitidas para `SERVICE_PARTNER` — corresponde a `user_type_id` 5 */
@@ -111,6 +107,14 @@ export function getBeamSidebarAccess(userTypeId: number | null | undefined): {
   }
 
   if (userTypeId === BUSINESS_RULES.USER_TYPE.SUPERVISOR) {
+    return {
+      canSeeSidebar: true,
+      canSeeFinancial: false,
+      canSeeVendorRequests: false,
+    };
+  }
+
+  if (userTypeId === BUSINESS_RULES.USER_TYPE.DRIVER) {
     return {
       canSeeSidebar: true,
       canSeeFinancial: false,

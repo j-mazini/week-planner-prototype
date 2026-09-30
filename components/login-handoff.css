@@ -1,0 +1,81 @@
+/* Post-login takeover. Fully opaque on purpose: the previous overlay was white at 95%
+   with a backdrop blur, which left the login panel showing through as a ghost. */
+
+.login-handoff {
+  --lh-forest: #08301c;
+  --lh-lime: #b2f746;
+  --lh-route: #3d7f57;
+  --lh-node: #8fb9a0;
+  position: fixed;
+  inset: 0;
+  z-index: 1050;
+  overflow: hidden;
+  pointer-events: none;
+}
+.login-handoff[hidden] { display: none !important; }
+
+/* A circle large enough to cover any viewport, scaled from nothing at the centre. */
+.login-handoff__iris {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 200vmax;
+  height: 200vmax;
+  margin: -100vmax 0 0 -100vmax;
+  border-radius: 50%;
+  background: var(--lh-forest);
+  transform: scale(0);
+}
+
+.login-handoff__map { position: absolute; inset: 0; }
+
+.login-handoff__routes {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+.login-handoff__routes line {
+  stroke: var(--lh-route);
+  stroke-width: 1;
+  vector-effect: non-scaling-stroke;
+}
+
+.login-handoff__depot {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  margin: -5px 0 0 -5px;
+  border: 1px solid var(--lh-node);
+  border-radius: 50%;
+  background: var(--lh-forest);
+}
+
+.login-handoff__parcel {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  margin: -4px 0 0 -4px;
+  border-radius: 50%;
+  background: var(--lh-lime);
+  box-shadow: 0 0 10px #b2f74699;
+  opacity: 0;
+}
+
+.login-handoff__core {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 18px;
+  height: 18px;
+  margin: -9px 0 0 -9px;
+  border-radius: 50%;
+  background: var(--lh-lime);
+  box-shadow: 0 0 24px #b2f746a6;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  /* No takeover to watch: the sheet just covers, and the navigation is immediate. */
+  .login-handoff__iris { transform: scale(1); }
+  .login-handoff__map { display: none; }
+}

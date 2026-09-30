@@ -41,16 +41,16 @@ export const exportVehiclesToPDF = async (
     
     doc.setTextColor(white[0], white[1], white[2]);
     doc.setFontSize(12);
-    doc.setFont(undefined, 'bold');
+    doc.setFont(doc.getFont().fontName, 'bold');
     doc.text('BA', margin + logoSize / 2, margin + logoSize / 2 + 3, { align: 'center' });
     
     doc.setTextColor(darkBlue[0], darkBlue[1], darkBlue[2]);
     doc.setFontSize(16);
-    doc.setFont(undefined, 'bold');
+    doc.setFont(doc.getFont().fontName, 'bold');
     doc.text('BA EXPRESS LIMITED', margin + logoSize + 8, margin + 8);
     
     doc.setFontSize(9);
-    doc.setFont(undefined, 'normal');
+    doc.setFont(doc.getFont().fontName, 'normal');
     doc.setTextColor(100, 100, 100);
     doc.text('20 The Laurels', margin + logoSize + 8, margin + 14);
     doc.text('info@baexpress.co.uk', margin + logoSize + 8, margin + 19);
@@ -64,7 +64,7 @@ export const exportVehiclesToPDF = async (
     
     doc.setTextColor(darkBlue[0], darkBlue[1], darkBlue[2]);
     doc.setFontSize(11);
-    doc.setFont(undefined, 'bold');
+    doc.setFont(doc.getFont().fontName, 'bold');
     doc.text('VEHICLES REPORT', titleBoxX + titleBoxWidth / 2, margin + 10, { align: 'center' });
     
     const reportNumber = `#${new Date().toISOString().split('T')[0].replace(/-/g, '')}`;
@@ -82,11 +82,11 @@ export const exportVehiclesToPDF = async (
     doc.roundedRect(margin, currentY, detailsBoxWidth, 8, 2, 2, 'F');
     doc.setTextColor(white[0], white[1], white[2]);
     doc.setFontSize(9);
-    doc.setFont(undefined, 'bold');
+    doc.setFont(doc.getFont().fontName, 'bold');
     doc.text('Summary', margin + 5, currentY + 5.5);
     
     doc.setTextColor(50, 50, 50);
-    doc.setFont(undefined, 'normal');
+    doc.setFont(doc.getFont().fontName, 'normal');
     const currentDateStr = new Date().toLocaleDateString('en-GB');
     doc.text(`Generated: ${currentDateStr}`, margin + 5, currentY + 16);
     doc.text(`Total Vehicles: ${vehicles.length}`, margin + 5, currentY + 22);
@@ -98,11 +98,11 @@ export const exportVehiclesToPDF = async (
     doc.setFillColor(darkBlue[0], darkBlue[1], darkBlue[2]);
     doc.roundedRect(rightBoxX, currentY, detailsBoxWidth, 8, 2, 2, 'F');
     doc.setTextColor(white[0], white[1], white[2]);
-    doc.setFont(undefined, 'bold');
+    doc.setFont(doc.getFont().fontName, 'bold');
     doc.text('Filters', rightBoxX + 5, currentY + 5.5);
     
     doc.setTextColor(50, 50, 50);
-    doc.setFont(undefined, 'normal');
+    doc.setFont(doc.getFont().fontName, 'normal');
     let filterY = currentY + 16;
     let hasFilters = false;
     
@@ -137,7 +137,7 @@ export const exportVehiclesToPDF = async (
     
     doc.setTextColor(white[0], white[1], white[2]);
     doc.setFontSize(9);
-    doc.setFont(undefined, 'bold');
+    doc.setFont(doc.getFont().fontName, 'bold');
     let x = margin;
     headers.forEach((header, index) => {
       doc.text(header, x + 3, y + 5.5);
@@ -149,7 +149,7 @@ export const exportVehiclesToPDF = async (
     });
     
     y += rowHeight;
-    doc.setFont(undefined, 'normal');
+    doc.setFont(doc.getFont().fontName, 'normal');
     doc.setFontSize(8);
     
     vehicles.forEach((vehicle) => {
@@ -160,7 +160,7 @@ export const exportVehiclesToPDF = async (
         doc.setFillColor(darkBlue[0], darkBlue[1], darkBlue[2]);
         doc.rect(margin, y, totalWidth, rowHeight, 'F');
         doc.setTextColor(white[0], white[1], white[2]);
-        doc.setFont(undefined, 'bold');
+        doc.setFont(doc.getFont().fontName, 'bold');
         x = margin;
         headers.forEach((header, headerIndex) => {
           doc.text(header, x + 3, y + 5.5);
@@ -171,7 +171,7 @@ export const exportVehiclesToPDF = async (
           }
         });
         y += rowHeight;
-        doc.setFont(undefined, 'normal');
+        doc.setFont(doc.getFont().fontName, 'normal');
       }
       
       doc.setFillColor(white[0], white[1], white[2]);

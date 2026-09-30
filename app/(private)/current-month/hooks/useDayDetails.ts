@@ -1,9 +1,12 @@
+import { useAuth } from "@/hooks/useAuth";
 import { getApiBaseUrl } from "@/lib/apiBaseUrl";
-﻿import { useState, useCallback } from "react";
-import { getUserIdFromToken, getBearerAuthHeader } from "@/lib/auth"
+import { useState, useCallback } from "react";
+import { getBearerAuthHeader } from "@/lib/auth"
 import { DailyOverview, Vehicle, PaidStops, UnpaidStops } from "../types";
 
 export function useDayDetails() {
+  const { user } = useAuth();
+  const userId = user?.id ?? null;
   const [selectedDays, setSelectedDays] = useState<DailyOverview[]>([]);
   const [showDayDetails, setShowDayDetails] = useState(false);
   const [selectedDateName, setSelectedDateName] = useState<string>("");
@@ -11,7 +14,6 @@ export function useDayDetails() {
   const [error, setError] = useState<string | null>(null);
 
   const fetchDayDetails = useCallback(async (date: string, dateName: string) => {
-    const userId = getUserIdFromToken();
     if (!userId) {
       setError("User ID not found");
       return;
@@ -98,7 +100,7 @@ export function useDayDetails() {
     } finally {
       setLoading(false);
     }
-  }, []);
+  }, [userId]);
 
   const handleBack = useCallback(() => {
     setShowDayDetails(false);

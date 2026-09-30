@@ -1,0 +1,2354 @@
+[
+  {
+    "route": "/adhoc-works-invoice-management",
+    "width": 390,
+    "url": "/adhoc-works-invoice-management",
+    "title": "LogixSphere Week Planner — Prototype",
+    "bodyWidth": 390,
+    "viewport": 390,
+    "overflow": [],
+    "headings": [
+      "ADHOC WORKS INVOICE MANAGEMENT",
+      "Management"
+    ],
+    "shells": 1,
+    "invisibleContent": [],
+    "topbarOverlap": false,
+    "text": "?\n▣\nADHOC WORKS INVOICE MANAGEMENT\nSearch system\nManagement\n\n28/09 - 04/10 2026\n\nAll Service Partners\nNorth Star Logistics\nAtlas Delivery\nDATE\n\t\nVENDOR\n\t\nDEPOT\n\t\nROUTE\n\t\nADHOC\n\t\nRECEIVED\n\t\nVENDOR\n\n28 Sep 2026\tJoão Silva\tLCY\t—\tExpress collec",
+    "errors": []
+  },
+  {
+    "route": "/adhoc-works-invoice-management",
+    "width": 768,
+    "url": "/adhoc-works-invoice-management",
+    "title": "LogixSphere Week Planner — Prototype",
+    "bodyWidth": 768,
+    "viewport": 768,
+    "overflow": [],
+    "headings": [
+      "ADHOC WORKS INVOICE MANAGEMENT",
+      "Management"
+    ],
+    "shells": 1,
+    "invisibleContent": [],
+    "topbarOverlap": false,
+    "text": "›\n?\n▣\nADHOC WORKS INVOICE MANAGEMENT\nSearch system\nJoão Silva\nADMIN\nManagement\n\n28/09 - 04/10 2026\n\nJanuary\nFebruary\nMarch\nApril\nMay\nJune\nJuly\nAugust\nSeptember\nOctober\nNovember\nDecember\n2021\n2022\n2023\n2024\n2025\n2026\n2027\n2028\n2029\n2030\nToda",
+    "errors": []
+  },
+  {
+    "route": "/adhoc-works-invoice-management",
+    "width": 1440,
+    "url": "/adhoc-works-invoice-management",
+    "title": "LogixSphere Week Planner — Prototype",
+    "bodyWidth": 1440,
+    "viewport": 1440,
+    "overflow": [],
+    "headings": [
+      "ADHOC WORKS INVOICE MANAGEMENT",
+      "Management"
+    ],
+    "shells": 1,
+    "invisibleContent": [],
+    "topbarOverlap": false,
+    "text": "›\n?\n▣\nADHOC WORKS INVOICE MANAGEMENT\nSearch system\n29/09/2026\nJoão Silva\nADMIN\nManagement\n\n28/09 - 04/10 2026\n\nJanuary\nFebruary\nMarch\nApril\nMay\nJune\nJuly\nAugust\nSeptember\nOctober\nNovember\nDecember\n2021\n2022\n2023\n2024\n2025\n2026\n2027\n2028\n202",
+    "errors": []
+  },
+  {
+    "route": "/assets",
+    "width": 390,
+    "url": "/assets",
+    "title": "LogixSphere Week Planner — Prototype",
+    "bodyWidth": 390,
+    "viewport": 390,
+    "overflow": [],
+    "headings": [
+      "ASSETS",
+      "Assets Management"
+    ],
+    "shells": 1,
+    "invisibleContent": [],
+    "topbarOverlap": false,
+    "text": "?\n▣\nASSETS\nSearch system\nAssets Management\n\nTuesday, September 29, 2026\n\nVendor\nUser\nCost\nVehicle\nTeam\nCategories\nAdd Vendor Type\n\nSCOPE\n\nSmart Filters\nExport\nClear\nService Partner\nID:\n1",
+    "errors": []
+  },
+  {
+    "route": "/assets",
+    "width": 768,
+    "url": "/assets",
+    "title": "LogixSphere Week Planner — Prototype",
+    "bodyWidth": 768,
+    "viewport": 768,
+    "overflow": [],
+    "headings": [
+      "ASSETS",
+      "Assets Management"
+    ],
+    "shells": 1,
+    "invisibleContent": [],
+    "topbarOverlap": false,
+    "text": "›\n?\n▣\nASSETS\nSearch system\nJoão Silva\nADMIN\nAssets Management\n\nTuesday, September 29, 2026\n\nVendor\nUser\nCost\nVehicle\nTeam\nCategories\nAdd Vendor Type\n\nSCOPE\n\nSmart Filters\nExport\nClear\nService Partner\nID:\n1",
+    "errors": []
+  },
+  {
+    "route": "/assets",
+    "width": 1440,
+    "url": "/assets",
+    "title": "LogixSphere Week Planner — Prototype",
+    "bodyWidth": 1440,
+    "viewport": 1440,
+    "overflow": [],
+    "headings": [
+      "ASSETS",
+      "Assets Management"
+    ],
+    "shells": 1,
+    "invisibleContent": [],
+    "topbarOverlap": false,
+    "text": "›\n?\n▣\nASSETS\nSearch system\n29/09/2026\nJoão Silva\nADMIN\nAssets Management\n\nTuesday, September 29, 2026\n\nVendor Types\nUser Types\nCost Models\nVehicle Types\nManagement & Support Team\nAdhoc Categories\nAdd Vendor Type\n\nSCOPE\n\nSmart Filters\nExport",
+    "errors": []
+  },
+  {
+    "route": "/contract-management",
+    "width": 390,
+    "url": "/contract-management",
+    "title": "LogixSphere",
+    "bodyWidth": 390,
+    "viewport": 390,
+    "overflow": [],
+    "headings": [
+      "CONTRACT MANAGEMENT",
+      "Contract Management"
+    ],
+    "shells": 1,
+    "invisibleContent": [],
+    "topbarOverlap": false,
+    "text": "?\n▣\nCONTRACT MANAGEMENT\nSearch system\nContract Management\n\nTuesday, September 29, 2026\n\nDepot\nBA Costs\nAd-Hoc\nPartner\nExport\n\nSCOPE\n\nSmart Filters\nClear\n\nDeposit\n\nAll\n\nLoop\n\nAll\nLOOP 1\nLOOP 2\nLOOP 3\n\nRoute Type\n\nall\nChild\nFlex\nLCY\nSP\n\nNorth",
+    "errors": []
+  },
+  {
+    "route": "/contract-management",
+    "width": 768,
+    "url": "/contract-management",
+    "title": "LogixSphere",
+    "bodyWidth": 768,
+    "viewport": 768,
+    "overflow": [],
+    "headings": [
+      "CONTRACT MANAGEMENT",
+      "Contract Management"
+    ],
+    "shells": 1,
+    "invisibleContent": [],
+    "topbarOverlap": false,
+    "text": "›\n?\n▣\nCONTRACT MANAGEMENT\nSearch system\nJoão Silva\nADMIN\nContract Management\n\nTuesday, September 29, 2026\n\nDepot Management\nBA Costs Centers\nAd-Hoc Services\nService Partner\nExport\n\nSCOPE\n\nSmart Filters\nClear\n\nDeposit\n\nAll\n\nLoop\n\nAll\nLOOP 1\n",
+    "errors": []
+  },
+  {
+    "route": "/contract-management",
+    "width": 1440,
+    "url": "/contract-management",
+    "title": "LogixSphere",
+    "bodyWidth": 1440,
+    "viewport": 1440,
+    "overflow": [],
+    "headings": [
+      "CONTRACT MANAGEMENT",
+      "Contract Management"
+    ],
+    "shells": 1,
+    "invisibleContent": [],
+    "topbarOverlap": false,
+    "text": "›\n?\n▣\nCONTRACT MANAGEMENT\nSearch system\n29/09/2026\nJoão Silva\nADMIN\nContract Management\n\nTuesday, September 29, 2026\n\nDepot Management\nBA Costs Centers\nAd-Hoc Services\nService Partner\nExport\n\nSCOPE\n\nSmart Filters\nClear\n\nDeposit\n\nAll\n\nLoop\n\n",
+    "errors": []
+  },
+  {
+    "route": "/current-month",
+    "width": 390,
+    "url": "/current-month",
+    "title": "LogixSphere Week Planner — Prototype",
+    "bodyWidth": 390,
+    "viewport": 390,
+    "overflow": [],
+    "headings": [
+      "CURRENT MONTH",
+      "Current Month"
+    ],
+    "shells": 1,
+    "invisibleContent": [],
+    "topbarOverlap": false,
+    "text": "?\n▣\nCURRENT MONTH\nSearch system\nCurrent Month\n\nYour earnings and completed work for the selected month.\n\nEARNINGS\n£0.00\nDAYS WORKED\n20\nDAILY AVERAGE\n£198.00\nMAR\n2026\nAPR\n2026\nMAY\n2026\nJUN\n2026\nJUL\n2026\nAUG\n2026\nSEP\n2026\nOCT\n2026\nNOV\n2026\nDE",
+    "errors": []
+  },
+  {
+    "route": "/current-month",
+    "width": 768,
+    "url": "/current-month",
+    "title": "LogixSphere Week Planner — Prototype",
+    "bodyWidth": 768,
+    "viewport": 768,
+    "overflow": [],
+    "headings": [
+      "CURRENT MONTH",
+      "Current Month"
+    ],
+    "shells": 1,
+    "invisibleContent": [],
+    "topbarOverlap": false,
+    "text": "›\n?\n▣\nCURRENT MONTH\nSearch system\nJoão Silva\nADMIN\nCurrent Month\n\nYour earnings and completed work for the selected month.\n\nEARNINGS\n£0.00\nDAYS WORKED\n20\nDAILY AVERAGE\n£198.00\nMAR\n2026\nAPR\n2026\nMAY\n2026\nJUN\n2026\nJUL\n2026\nAUG\n2026\nSEP\n2026\nO",
+    "errors": []
+  },
+  {
+    "route": "/current-month",
+    "width": 1440,
+    "url": "/current-month",
+    "title": "LogixSphere Week Planner — Prototype",
+    "bodyWidth": 1440,
+    "viewport": 1440,
+    "overflow": [],
+    "headings": [
+      "CURRENT MONTH",
+      "Current Month"
+    ],
+    "shells": 1,
+    "invisibleContent": [],
+    "topbarOverlap": false,
+    "text": "›\n?\n▣\nCURRENT MONTH\nSearch system\n29/09/2026\nJoão Silva\nADMIN\nCurrent Month\n\nYour earnings and completed work for the selected month.\n\nEARNINGS\n£0.00\nDAYS WORKED\n20\nDAILY AVERAGE\n£198.00\nMAR\n2026\nAPR\n2026\nMAY\n2026\nJUN\n2026\nJUL\n2026\nAUG\n2026",
+    "errors": []
+  },
+  {
+    "route": "/current-performance",
+    "width": 390,
+    "url": "/current-performance",
+    "title": "LogixSphere",
+    "bodyWidth": 390,
+    "viewport": 390,
+    "overflow": [],
+    "headings": [
+      "MY PERFORMANCE"
+    ],
+    "shells": 1,
+    "invisibleContent": [],
+    "topbarOverlap": false,
+    "text": "?\n▣\nMY PERFORMANCE\nSearch system\n\nMY PERFORMANCE · João Silva\n\nMonthly overview\n\nReview your monthly averages and daily delivery results.\n\nToday\nMonth\nOct\n2025\nNov\n2025\nDec\n2025\nJan\n2026\nFeb\n2026\nMar\n2026\nApr\n2026\nMay\n2026\nJun\n2026\nJul\n2026",
+    "errors": []
+  },
+  {
+    "route": "/current-performance",
+    "width": 768,
+    "url": "/current-performance",
+    "title": "LogixSphere",
+    "bodyWidth": 768,
+    "viewport": 768,
+    "overflow": [],
+    "headings": [
+      "MY PERFORMANCE"
+    ],
+    "shells": 1,
+    "invisibleContent": [],
+    "topbarOverlap": false,
+    "text": "›\n?\n▣\nMY PERFORMANCE\nSearch system\nJoão Silva\nADMIN\n\nMY PERFORMANCE · João Silva\n\nMonthly overview\n\nReview your monthly averages and daily delivery results.\n\nToday\nMonth\nOct\n2025\nNov\n2025\nDec\n2025\nJan\n2026\nFeb\n2026\nMar\n2026\nApr\n2026\nMay\n202",
+    "errors": []
+  },
+  {
+    "route": "/current-performance",
+    "width": 1440,
+    "url": "/current-performance",
+    "title": "LogixSphere",
+    "bodyWidth": 1440,
+    "viewport": 1440,
+    "overflow": [],
+    "headings": [
+      "MY PERFORMANCE"
+    ],
+    "shells": 1,
+    "invisibleContent": [],
+    "topbarOverlap": false,
+    "text": "›\n?\n▣\nMY PERFORMANCE\nSearch system\n29/09/2026\nJoão Silva\nADMIN\n\nMY PERFORMANCE · João Silva\n\nMonthly overview\n\nReview your monthly averages and daily delivery results.\n\nToday\nMonth\nOct\n2025\nNov\n2025\nDec\n2025\nJan\n2026\nFeb\n2026\nMar\n2026\nApr\n2",
+    "errors": []
+  },
+  {
+    "route": "/daily",
+    "width": 390,
+    "url": "/daily",
+    "title": "LogixSphere",
+    "bodyWidth": 390,
+    "viewport": 390,
+    "overflow": [],
+    "headings": [
+      "DAILY OPERATIONS"
+    ],
+    "shells": 1,
+    "invisibleContent": [],
+    "topbarOverlap": false,
+    "text": "?\n▣\nDAILY OPERATIONS\nSearch system\nSeptember 2026\n1\nTue\n2\nWed\n3\nThu\n4\nFri\n7\nMon\n8\nTue\n9\nWed\n10\nThu\n11\nFri\n14\nMon\n15\nTue\n16\nWed\n17\nThu\n18\nFri\n21\nMon\n22\nTue\n23\nWed\n24\nThu\n25\nFri\n28\nMon\n29\nTue\n30\nWed\nLL3X\nSPR\n59\nSPOR-H\n7.40\nTW\n94%\nAFD\n6%\nDepar",
+    "errors": []
+  },
+  {
+    "route": "/daily",
+    "width": 768,
+    "url": "/daily",
+    "title": "LogixSphere",
+    "bodyWidth": 768,
+    "viewport": 768,
+    "overflow": [],
+    "headings": [
+      "DAILY OPERATIONS"
+    ],
+    "shells": 1,
+    "invisibleContent": [],
+    "topbarOverlap": false,
+    "text": "›\n?\n▣\nDAILY OPERATIONS\nSearch system\nJoão Silva\nADMIN\nSeptember 2026\n1\nTue\n2\nWed\n3\nThu\n4\nFri\n7\nMon\n8\nTue\n9\nWed\n10\nThu\n11\nFri\n14\nMon\n15\nTue\n16\nWed\n17\nThu\n18\nFri\n21\nMon\n22\nTue\n23\nWed\n24\nThu\n25\nFri\n28\nMon\n29\nTue\n30\nWed\nLL3X\nSPR\n59\nSPOR-H\n7.40\n",
+    "errors": []
+  },
+  {
+    "route": "/daily",
+    "width": 1440,
+    "url": "/daily",
+    "title": "LogixSphere",
+    "bodyWidth": 1440,
+    "viewport": 1440,
+    "overflow": [],
+    "headings": [
+      "DAILY OPERATIONS"
+    ],
+    "shells": 1,
+    "invisibleContent": [],
+    "topbarOverlap": false,
+    "text": "›\n?\n▣\nDAILY OPERATIONS\nSearch system\n29/09/2026\nJoão Silva\nADMIN\nSeptember 2026\n1\nTue\n2\nWed\n3\nThu\n4\nFri\n7\nMon\n8\nTue\n9\nWed\n10\nThu\n11\nFri\n14\nMon\n15\nTue\n16\nWed\n17\nThu\n18\nFri\n21\nMon\n22\nTue\n23\nWed\n24\nThu\n25\nFri\n28\nMon\n29\nTue\n30\nWed\nLL3X\nSPR\n59\nS",
+    "errors": []
+  },
+  {
+    "route": "/daily-financial-insights",
+    "width": 390,
+    "url": "/daily-financial-insights",
+    "title": "LogixSphere",
+    "bodyWidth": 390,
+    "viewport": 390,
+    "overflow": [],
+    "headings": [
+      "DAILY FINANCIAL INSIGHTS",
+      "Daily Financial Insights"
+    ],
+    "shells": 1,
+    "invisibleContent": [],
+    "topbarOverlap": false,
+    "text": "?\n▣\nDAILY FINANCIAL INSIGHTS\nSearch system\nDaily Financial Insights\n\nDate: 29 Sep 2026\n\nTOTAL RECORDS\n12\nTOTAL AMOUNT\n£2256.00\nROUTES\n12\nVENDORS\n12\nAll Service Partners\nNorth Star Logistics\nAtlas Delivery\nPERIOD\n29 Sep 2026\nto\nEnd\nNew\nDEPOT",
+    "errors": []
+  },
+  {
+    "route": "/daily-financial-insights",
+    "width": 768,
+    "url": "/daily-financial-insights",
+    "title": "LogixSphere",
+    "bodyWidth": 768,
+    "viewport": 768,
+    "overflow": [],
+    "headings": [
+      "DAILY FINANCIAL INSIGHTS",
+      "Daily Financial Insights"
+    ],
+    "shells": 1,
+    "invisibleContent": [],
+    "topbarOverlap": false,
+    "text": "›\n?\n▣\nDAILY FINANCIAL INSIGHTS\nSearch system\nJoão Silva\nADMIN\nDaily Financial Insights\n\nDate: 29 Sep 2026\n\nTOTAL RECORDS\n12\nTOTAL AMOUNT\n£2256.00\nROUTES\n12\nVENDORS\n12\nAll Service Partners\nNorth Star Logistics\nAtlas Delivery\nPeriod:\n29 Sep 2",
+    "errors": []
+  },
+  {
+    "route": "/daily-financial-insights",
+    "width": 1440,
+    "url": "/daily-financial-insights",
+    "title": "LogixSphere",
+    "bodyWidth": 1440,
+    "viewport": 1440,
+    "overflow": [],
+    "headings": [
+      "DAILY FINANCIAL INSIGHTS",
+      "Daily Financial Insights"
+    ],
+    "shells": 1,
+    "invisibleContent": [],
+    "topbarOverlap": false,
+    "text": "›\n?\n▣\nDAILY FINANCIAL INSIGHTS\nSearch system\n29/09/2026\nJoão Silva\nADMIN\nDaily Financial Insights\n\nDate: 29 Sep 2026\n\nTOTAL RECORDS\n12\nTOTAL AMOUNT\n£2256.00\nROUTES\n12\nVENDORS\n12\nAll Service Partners\nNorth Star Logistics\nAtlas Delivery\nPerio",
+    "errors": []
+  },
+  {
+    "route": "/daily-financials",
+    "width": 390,
+    "url": "/daily-financials",
+    "title": "LogixSphere",
+    "bodyWidth": 390,
+    "viewport": 390,
+    "overflow": [],
+    "headings": [
+      "DAILY FINANCIALS",
+      "Daily Financials"
+    ],
+    "shells": 1,
+    "invisibleContent": [],
+    "topbarOverlap": false,
+    "text": "?\n▣\nDAILY FINANCIALS\nSearch system\nDaily Financials\nTuesday, 29 Sept 2026\nSeptember 28th, 2026\nDownload\nDeposits\nSee All\nLCY\nMSE\nLSE\nDATA\tROUTE\tCOURIER\tSTATUS\tSTOPS\tCOST MODEL\tPAID STOPS (£)\tROUTE SORT\tADHOC SORT\tEXTRA\tTOTAL (£)\tNOTE\n28 Sep",
+    "errors": []
+  },
+  {
+    "route": "/daily-financials",
+    "width": 768,
+    "url": "/daily-financials",
+    "title": "LogixSphere",
+    "bodyWidth": 768,
+    "viewport": 768,
+    "overflow": [],
+    "headings": [
+      "DAILY FINANCIALS",
+      "Daily Financials"
+    ],
+    "shells": 1,
+    "invisibleContent": [],
+    "topbarOverlap": false,
+    "text": "›\n?\n▣\nDAILY FINANCIALS\nSearch system\nJoão Silva\nADMIN\nDaily Financials\nTuesday, 29 Sept 2026\nSeptember 28th, 2026\nDownload\nDeposits\nSee All\nLCY\nMSE\nLSE\nDATA\tROUTE\tCOURIER\tSTATUS\tSTOPS\tCOST MODEL\tPAID STOPS (£)\tROUTE SORT\tADHOC SORT\tEXTRA\tTO",
+    "errors": []
+  },
+  {
+    "route": "/daily-financials",
+    "width": 1440,
+    "url": "/daily-financials",
+    "title": "LogixSphere",
+    "bodyWidth": 1440,
+    "viewport": 1440,
+    "overflow": [],
+    "headings": [
+      "DAILY FINANCIALS",
+      "Daily Financials"
+    ],
+    "shells": 1,
+    "invisibleContent": [],
+    "topbarOverlap": false,
+    "text": "›\n?\n▣\nDAILY FINANCIALS\nSearch system\n29/09/2026\nJoão Silva\nADMIN\nDaily Financials\nTuesday, 29 Sept 2026\nSeptember 28th, 2026\nDownload\nDeposits\nSee All\nLCY\nMSE\nLSE\nDATA\tROUTE\tCOURIER\tSTATUS\tSTOPS\tCOST MODEL\tPAID STOPS (£)\tROUTE SORT\tADHOC SO",
+    "errors": []
+  },
+  {
+    "route": "/daily-game-plan",
+    "width": 390,
+    "url": "/daily-game-plan",
+    "title": "LogixSphere",
+    "bodyWidth": 390,
+    "viewport": 390,
+    "overflow": [],
+    "headings": [
+      "DAILY GAME PLAN",
+      "Daily Game Plan - Tuesday - 29/09 - Week 40"
+    ],
+    "shells": 1,
+    "invisibleContent": [],
+    "topbarOverlap": false,
+    "text": "?\n▣\nDAILY GAME PLAN\nSearch system\nDaily Game Plan - Tuesday - 29/09 - Week 40\nLCY\nTotal 3\nJoão Silva\nStart\nROUTE\tVENDOR\tSORT\tVEHICLE\tNOTES\tACTIONS\n\nL001\n\t\nJoão Silva\nSP\n-\n\t\n\t\nUK\nDE01 LOG\n\t\n\t\n\n\nL004\n\t\nSofia Almeida\nSP\n-\n\t\n\t\nUK\nDE04 LOG\n\t\n\t\n\n",
+    "errors": []
+  },
+  {
+    "route": "/daily-game-plan",
+    "width": 768,
+    "url": "/daily-game-plan",
+    "title": "LogixSphere",
+    "bodyWidth": 768,
+    "viewport": 768,
+    "overflow": [],
+    "headings": [
+      "DAILY GAME PLAN",
+      "Daily Game Plan - Tuesday - 29/09 - Week 40"
+    ],
+    "shells": 1,
+    "invisibleContent": [],
+    "topbarOverlap": false,
+    "text": "›\n?\n▣\nDAILY GAME PLAN\nSearch system\nJoão Silva\nADMIN\nDaily Game Plan - Tuesday - 29/09 - Week 40\nLCY\nTotal 3\nJoão Silva\nStart\nROUTE\tVENDOR\tSORT\tVEHICLE\tNOTES\tACTIONS\n\nL001\n\t\nJoão Silva\nSP\n-\n\t\n\t\nUK\nDE01 LOG\n\t\n\t\n\n\nL004\n\t\nSofia Almeida\nSP\n-\n\t\n",
+    "errors": []
+  },
+  {
+    "route": "/daily-game-plan",
+    "width": 1440,
+    "url": "/daily-game-plan",
+    "title": "LogixSphere",
+    "bodyWidth": 1440,
+    "viewport": 1440,
+    "overflow": [],
+    "headings": [
+      "DAILY GAME PLAN",
+      "Daily Game Plan - Tuesday - 29/09 - Week 40"
+    ],
+    "shells": 1,
+    "invisibleContent": [],
+    "topbarOverlap": false,
+    "text": "›\n?\n▣\nDAILY GAME PLAN\nSearch system\n29/09/2026\nJoão Silva\nADMIN\nDaily Game Plan - Tuesday - 29/09 - Week 40\nLCY\nTotal 3\nJoão Silva\nStart\nROUTE\tVENDOR\tSORT\tVEHICLE\tNOTES\tACTIONS\n\nL001\n\t\nJoão Silva\nSP\n-\n\t\n\t\nUK\nDE01 LOG\n\t\nDemo assignment\n\t\n\n\nL",
+    "errors": []
+  },
+  {
+    "route": "/daily-operations-management",
+    "width": 390,
+    "url": "/daily-operations-management",
+    "title": "LogixSphere",
+    "bodyWidth": 390,
+    "viewport": 390,
+    "overflow": [],
+    "headings": [
+      "DAILY OPERATIONS MANAGEMENT",
+      "Daily Operations Management - Tuesday - 29/09 - Week 40"
+    ],
+    "shells": 1,
+    "invisibleContent": [],
+    "topbarOverlap": false,
+    "text": "?\n▣\nDAILY OPERATIONS MANAGEMENT\nSearch system\nDaily Operations Management - Tuesday - 29/09 - Week 40\nTOTAL OPERATIONS\n12\nWORKING\n12\nPENDING\n0\nDay\nAdd Record\nAdd Adhoc Service\nAdd Day off\nSearch (Vendor, Route, Vehicle)\nService Partner\nAll ",
+    "errors": []
+  },
+  {
+    "route": "/daily-operations-management",
+    "width": 768,
+    "url": "/daily-operations-management",
+    "title": "LogixSphere",
+    "bodyWidth": 768,
+    "viewport": 768,
+    "overflow": [],
+    "headings": [
+      "DAILY OPERATIONS MANAGEMENT",
+      "Daily Operations Management - Tuesday - 29/09 - Week 40"
+    ],
+    "shells": 1,
+    "invisibleContent": [],
+    "topbarOverlap": false,
+    "text": "›\n?\n▣\nDAILY OPERATIONS MANAGEMENT\nSearch system\nJoão Silva\nADMIN\nDaily Operations Management - Tuesday - 29/09 - Week 40\nTOTAL OPERATIONS\n12\nWORKING\n12\nPENDING\n0\nDay\nAdd Record\nAdd Adhoc Service\nAdd Day off\nSearch (Vendor, Route, Vehicle)\nS",
+    "errors": []
+  },
+  {
+    "route": "/daily-operations-management",
+    "width": 1440,
+    "url": "/daily-operations-management",
+    "title": "LogixSphere",
+    "bodyWidth": 1440,
+    "viewport": 1440,
+    "overflow": [],
+    "headings": [
+      "DAILY OPERATIONS MANAGEMENT",
+      "Daily Operations Management - Tuesday - 29/09 - Week 40"
+    ],
+    "shells": 1,
+    "invisibleContent": [],
+    "topbarOverlap": false,
+    "text": "›\n?\n▣\nDAILY OPERATIONS MANAGEMENT\nSearch system\n29/09/2026\nJoão Silva\nADMIN\nDaily Operations Management - Tuesday - 29/09 - Week 40\nTOTAL OPERATIONS\n12\nWORKING\n12\nPENDING\n0\nDay\nAdd Record\nAdd Adhoc Service\nAdd Day off\nSearch (Vendor, Route,",
+    "errors": []
+  },
+  {
+    "route": "/daily-operations-reports",
+    "width": 390,
+    "url": "/daily-operations-reports",
+    "title": "LogixSphere",
+    "bodyWidth": 390,
+    "viewport": 390,
+    "overflow": [],
+    "headings": [
+      "DAILY OPERATIONS REPORTS",
+      "Operations Insights"
+    ],
+    "shells": 1,
+    "invisibleContent": [],
+    "topbarOverlap": false,
+    "text": "?\n▣\nDAILY OPERATIONS REPORTS\nSearch system\nOperations Insights\n\nDate: 29 Sep 2026\n\nTOTAL RECORDS\n12\nTOTAL STOPS\n1266\nROUTES\n12\nTOTAL HOURS (INCL. SORT)\n125\nPERIOD\n29 Sep 2026\nto\nEnd\nExport\nDEPOT\nAll\nOff\nLCY\nLSE\nMSE\nLOOP\nAll\nLoop 1\nLoop 2\nLo",
+    "errors": []
+  },
+  {
+    "route": "/daily-operations-reports",
+    "width": 768,
+    "url": "/daily-operations-reports",
+    "title": "LogixSphere",
+    "bodyWidth": 768,
+    "viewport": 768,
+    "overflow": [],
+    "headings": [
+      "DAILY OPERATIONS REPORTS",
+      "Operations Insights"
+    ],
+    "shells": 1,
+    "invisibleContent": [],
+    "topbarOverlap": false,
+    "text": "›\n?\n▣\nDAILY OPERATIONS REPORTS\nSearch system\nJoão Silva\nADMIN\nOperations Insights\n\nDate: 29 Sep 2026\n\nTOTAL RECORDS\n12\nTOTAL STOPS\n1266\nROUTES\n12\nTOTAL HOURS (INCL. SORT)\n125\nAll Service Partners\nNorth Star Logistics\nAtlas Delivery\nPeriod:\n",
+    "errors": []
+  },
+  {
+    "route": "/daily-operations-reports",
+    "width": 1440,
+    "url": "/daily-operations-reports",
+    "title": "LogixSphere",
+    "bodyWidth": 1440,
+    "viewport": 1440,
+    "overflow": [],
+    "headings": [
+      "DAILY OPERATIONS REPORTS",
+      "Operations Insights"
+    ],
+    "shells": 1,
+    "invisibleContent": [],
+    "topbarOverlap": false,
+    "text": "›\n?\n▣\nDAILY OPERATIONS REPORTS\nSearch system\n29/09/2026\nJoão Silva\nADMIN\nOperations Insights\n\nDate: 29 Sep 2026\n\nTOTAL RECORDS\n12\nTOTAL STOPS\n1266\nROUTES\n12\nTOTAL HOURS (INCL. SORT)\n125\nAll Service Partners\nNorth Star Logistics\nAtlas Delive",
+    "errors": []
+  },
+  {
+    "route": "/daily-performance-insight",
+    "width": 390,
+    "url": "/daily-performance-insight",
+    "title": "LogixSphere",
+    "bodyWidth": 390,
+    "viewport": 390,
+    "overflow": [],
+    "headings": [
+      "MY PERFORMANCE"
+    ],
+    "shells": 1,
+    "invisibleContent": [],
+    "topbarOverlap": false,
+    "text": "?\n▣\nMY PERFORMANCE\nSearch system\n\nMY PERFORMANCE · João Silva\n\nDaily overview\n\nYour route, delivery metrics and activity for the selected day.\n\nToday\nMonth\nSELECTED DAY\nMonday, 28 September 2026\nSeptember 2026\n1\nTUE\n2\nWED\n3\nTHU\n4\nFRI\n5\nSAT\n",
+    "errors": []
+  },
+  {
+    "route": "/daily-performance-insight",
+    "width": 768,
+    "url": "/daily-performance-insight",
+    "title": "LogixSphere",
+    "bodyWidth": 768,
+    "viewport": 768,
+    "overflow": [],
+    "headings": [
+      "MY PERFORMANCE"
+    ],
+    "shells": 1,
+    "invisibleContent": [],
+    "topbarOverlap": false,
+    "text": "›\n?\n▣\nMY PERFORMANCE\nSearch system\nJoão Silva\nADMIN\n\nMY PERFORMANCE · João Silva\n\nDaily overview\n\nYour route, delivery metrics and activity for the selected day.\n\nToday\nMonth\nSELECTED DAY\nMonday, 28 September 2026\nSeptember 2026\n1\nTUE\n2\nWED",
+    "errors": []
+  },
+  {
+    "route": "/daily-performance-insight",
+    "width": 1440,
+    "url": "/daily-performance-insight",
+    "title": "LogixSphere",
+    "bodyWidth": 1440,
+    "viewport": 1440,
+    "overflow": [],
+    "headings": [
+      "MY PERFORMANCE"
+    ],
+    "shells": 1,
+    "invisibleContent": [],
+    "topbarOverlap": false,
+    "text": "›\n?\n▣\nMY PERFORMANCE\nSearch system\n29/09/2026\nJoão Silva\nADMIN\n\nMY PERFORMANCE · João Silva\n\nDaily overview\n\nYour route, delivery metrics and activity for the selected day.\n\nToday\nMonth\nSELECTED DAY\nMonday, 28 September 2026\nSeptember 2026\n",
+    "errors": []
+  },
+  {
+    "route": "/deductions",
+    "width": 390,
+    "url": "/deductions",
+    "title": "LogixSphere",
+    "bodyWidth": 390,
+    "viewport": 390,
+    "overflow": [],
+    "headings": [
+      "DEDUCTIONS",
+      "Deductions"
+    ],
+    "shells": 1,
+    "invisibleContent": [],
+    "topbarOverlap": false,
+    "text": "?\n▣\nDEDUCTIONS\nSearch system\nDeductions\n\nReview deductions and track repayment progress.\n\nTOTAL THIS MONTH\n£25.00\nENTRIES\n1\nMAR\n2026\nAPR\n2026\nMAY\n2026\nJUN\n2026\nJUL\n2026\nAUG\n2026\nSEP\n2026\nOCT\n2026\nNOV\n2026\nDEC\n2026\nJAN\n2027\nFEB\n2027\nMAR\n2027",
+    "errors": []
+  },
+  {
+    "route": "/deductions",
+    "width": 768,
+    "url": "/deductions",
+    "title": "LogixSphere",
+    "bodyWidth": 768,
+    "viewport": 768,
+    "overflow": [],
+    "headings": [
+      "DEDUCTIONS",
+      "Deductions"
+    ],
+    "shells": 1,
+    "invisibleContent": [],
+    "topbarOverlap": false,
+    "text": "›\n?\n▣\nDEDUCTIONS\nSearch system\nJoão Silva\nADMIN\nDeductions\n\nReview deductions and track repayment progress.\n\nTOTAL THIS MONTH\n£25.00\nENTRIES\n1\nMAR\n2026\nAPR\n2026\nMAY\n2026\nJUN\n2026\nJUL\n2026\nAUG\n2026\nSEP\n2026\nOCT\n2026\nNOV\n2026\nDEC\n2026\nJAN\n202",
+    "errors": []
+  },
+  {
+    "route": "/deductions",
+    "width": 1440,
+    "url": "/deductions",
+    "title": "LogixSphere",
+    "bodyWidth": 1440,
+    "viewport": 1440,
+    "overflow": [],
+    "headings": [
+      "DEDUCTIONS",
+      "Deductions"
+    ],
+    "shells": 1,
+    "invisibleContent": [],
+    "topbarOverlap": false,
+    "text": "›\n?\n▣\nDEDUCTIONS\nSearch system\n29/09/2026\nJoão Silva\nADMIN\nDeductions\n\nReview deductions and track repayment progress.\n\nTOTAL THIS MONTH\n£25.00\nENTRIES\n1\nMAR\n2026\nAPR\n2026\nMAY\n2026\nJUN\n2026\nJUL\n2026\nAUG\n2026\nSEP\n2026\nOCT\n2026\nNOV\n2026\nDEC\n2",
+    "errors": []
+  },
+  {
+    "route": "/deductions-disbursements-recharges",
+    "width": 390,
+    "url": "/deductions-disbursements-recharges",
+    "title": "LogixSphere",
+    "bodyWidth": 390,
+    "viewport": 390,
+    "overflow": [],
+    "headings": [
+      "DEDUCTIONS DISBURSEMENTS RECHARGES",
+      "Deductions & Recharges"
+    ],
+    "shells": 1,
+    "invisibleContent": [],
+    "topbarOverlap": false,
+    "text": "?\n▣\nDEDUCTIONS DISBURSEMENTS RECHARGES\nSearch system\nDeductions & Recharges\n\nPeriod: Sep 2026\n\nTOTAL RECORDS\n4\nTOTAL AMOUNT\n£130.00\nTYPES\n1\nCOURIERS\n4\nAll Service Partners\nNorth Star Logistics\nAtlas Delivery\nSeptember 2026\nRepairs & Damages",
+    "errors": []
+  },
+  {
+    "route": "/deductions-disbursements-recharges",
+    "width": 768,
+    "url": "/deductions-disbursements-recharges",
+    "title": "LogixSphere",
+    "bodyWidth": 768,
+    "viewport": 768,
+    "overflow": [],
+    "headings": [
+      "DEDUCTIONS DISBURSEMENTS RECHARGES",
+      "Deductions & Recharges"
+    ],
+    "shells": 1,
+    "invisibleContent": [],
+    "topbarOverlap": false,
+    "text": "›\n?\n▣\nDEDUCTIONS DISBURSEMENTS RECHARGES\nSearch system\nJoão Silva\nADMIN\nDeductions & Recharges\n\nPeriod: Sep 2026\n\nTOTAL RECORDS\n4\nTOTAL AMOUNT\n£130.00\nTYPES\n1\nCOURIERS\n4\nAll Service Partners\nNorth Star Logistics\nAtlas Delivery\nSeptember 202",
+    "errors": []
+  },
+  {
+    "route": "/deductions-disbursements-recharges",
+    "width": 1440,
+    "url": "/deductions-disbursements-recharges",
+    "title": "LogixSphere",
+    "bodyWidth": 1440,
+    "viewport": 1440,
+    "overflow": [],
+    "headings": [
+      "DEDUCTIONS DISBURSEMENTS RECHARGES",
+      "Deductions & Recharges"
+    ],
+    "shells": 1,
+    "invisibleContent": [],
+    "topbarOverlap": false,
+    "text": "›\n?\n▣\nDEDUCTIONS DISBURSEMENTS RECHARGES\nSearch system\n29/09/2026\nJoão Silva\nADMIN\nDeductions & Recharges\n\nPeriod: Sep 2026\n\nTOTAL RECORDS\n4\nTOTAL AMOUNT\n£130.00\nTYPES\n1\nCOURIERS\n4\nAll Service Partners\nNorth Star Logistics\nAtlas Delivery\nSe",
+    "errors": []
+  },
+  {
+    "route": "/driver-route-balance",
+    "width": 390,
+    "url": "/driver-route-balance",
+    "title": "LogixSphere",
+    "bodyWidth": 390,
+    "viewport": 390,
+    "overflow": [],
+    "headings": [
+      "My Route Balance"
+    ],
+    "shells": 1,
+    "invisibleContent": [],
+    "topbarOverlap": false,
+    "text": "?\n▣\nMy Route Balance\nSearch system\n\nACTIVE ROUTE OVERVIEW\n\n2026-09-28\n\nL001 • MANIFEST\n\nJoão Silva\n\nDE01 LOG\n\n—\n\n97 / 100 STOPS\n\nSPECIAL DELIVERIES\n\nSUBPOSTCODE\n\nDEL\n\nPU\n\nTOTAL\n\nME1\n\n2\n\n1\n\n3\n\nME2\n\n1\n\n4\n\n5\n\nSEE DETAILS\n\nSEE ALL STOPS\n\nDELIVE",
+    "errors": []
+  },
+  {
+    "route": "/driver-route-balance",
+    "width": 768,
+    "url": "/driver-route-balance",
+    "title": "LogixSphere",
+    "bodyWidth": 768,
+    "viewport": 768,
+    "overflow": [],
+    "headings": [
+      "My Route Balance"
+    ],
+    "shells": 1,
+    "invisibleContent": [],
+    "topbarOverlap": false,
+    "text": "›\n?\n▣\nMy Route Balance\nSearch system\nJoão Silva\nADMIN\n\nACTIVE ROUTE OVERVIEW\n\n2026-09-28\n\nL001 • MANIFEST\n\nJoão Silva\n\nDE01 LOG\n\n—\n\n97 / 100 STOPS\n\nSPECIAL DELIVERIES\n\nSUBPOSTCODE\n\nDEL\n\nPU\n\nTOTAL\n\nME1\n\n2\n\n1\n\n3\n\nME2\n\n1\n\n4\n\n5\n\nSEE DETAILS\n\nSE",
+    "errors": []
+  },
+  {
+    "route": "/driver-route-balance",
+    "width": 1440,
+    "url": "/driver-route-balance",
+    "title": "LogixSphere",
+    "bodyWidth": 1440,
+    "viewport": 1440,
+    "overflow": [],
+    "headings": [
+      "My Route Balance"
+    ],
+    "shells": 1,
+    "invisibleContent": [],
+    "topbarOverlap": false,
+    "text": "›\n?\n▣\nMy Route Balance\nSearch system\n29/09/2026\nJoão Silva\nADMIN\n\nACTIVE ROUTE OVERVIEW\n\n2026-09-28\n\nL001 • MANIFEST\n\nJoão Silva\n\nDE01 LOG\n\n—\n\n97 / 100 STOPS\n\nSPECIAL DELIVERIES\n\nSUBPOSTCODE\n\nDEL\n\nPU\n\nTOTAL\n\nME1\n\n2\n\n1\n\n3\n\nME2\n\n1\n\n4\n\n5\n\nSEE ",
+    "errors": []
+  },
+  {
+    "route": "/financial-invoices",
+    "width": 390,
+    "url": "/financial-invoices",
+    "title": "LogixSphere",
+    "bodyWidth": 390,
+    "viewport": 390,
+    "overflow": [],
+    "headings": [
+      "FINANCIAL INVOICES",
+      "Financial Invoices"
+    ],
+    "shells": 1,
+    "invisibleContent": [],
+    "topbarOverlap": false,
+    "text": "?\n▣\nFINANCIAL INVOICES\nSearch system\nAll Service Partners\nNorth Star Logistics\nAtlas Delivery\nFinancial Invoices\n\nPeriod: Sep 2026\n\nTOTAL INVOICES\n1\nTOTAL AMOUNT\n3.960,00\nCOURIERS\n1\nPeriod:\nSeptember 2026\nNew Single Invoice\nNew Multiple Inv",
+    "errors": []
+  },
+  {
+    "route": "/financial-invoices",
+    "width": 768,
+    "url": "/financial-invoices",
+    "title": "LogixSphere",
+    "bodyWidth": 768,
+    "viewport": 768,
+    "overflow": [],
+    "headings": [
+      "FINANCIAL INVOICES",
+      "Financial Invoices"
+    ],
+    "shells": 1,
+    "invisibleContent": [],
+    "topbarOverlap": false,
+    "text": "›\n?\n▣\nFINANCIAL INVOICES\nSearch system\nJoão Silva\nADMIN\nAll Service Partners\nNorth Star Logistics\nAtlas Delivery\nFinancial Invoices\n\nPeriod: Sep 2026\n\nTOTAL INVOICES\n1\nTOTAL AMOUNT\n3.960,00\nCOURIERS\n1\nPeriod:\nSeptember 2026\nSPMS validation:",
+    "errors": []
+  },
+  {
+    "route": "/financial-invoices",
+    "width": 1440,
+    "url": "/financial-invoices",
+    "title": "LogixSphere",
+    "bodyWidth": 1440,
+    "viewport": 1440,
+    "overflow": [],
+    "headings": [
+      "FINANCIAL INVOICES",
+      "Financial Invoices"
+    ],
+    "shells": 1,
+    "invisibleContent": [],
+    "topbarOverlap": false,
+    "text": "›\n?\n▣\nFINANCIAL INVOICES\nSearch system\n29/09/2026\nJoão Silva\nADMIN\nAll Service Partners\nNorth Star Logistics\nAtlas Delivery\nFinancial Invoices\n\nPeriod: Sep 2026\n\nTOTAL INVOICES\n1\nTOTAL AMOUNT\n3.960,00\nCOURIERS\n1\nPeriod:\nSeptember 2026\nSPMS ",
+    "errors": []
+  },
+  {
+    "route": "/financial-management",
+    "width": 390,
+    "url": "/financial-management",
+    "title": "LogixSphere",
+    "bodyWidth": 390,
+    "viewport": 390,
+    "overflow": [],
+    "headings": [
+      "FINANCIAL MANAGEMENT"
+    ],
+    "shells": 1,
+    "invisibleContent": [],
+    "topbarOverlap": false,
+    "text": "?\n▣\nFINANCIAL MANAGEMENT\nSearch system\n\nChoose a financial workspace to review performance, manage invoices or track payments.\n\nFinancial insights\n\nReview revenue, costs and daily financial performance.\n\nFinancial invoices\n\nReview invoices ",
+    "errors": []
+  },
+  {
+    "route": "/financial-management",
+    "width": 768,
+    "url": "/financial-management",
+    "title": "LogixSphere",
+    "bodyWidth": 768,
+    "viewport": 768,
+    "overflow": [],
+    "headings": [
+      "FINANCIAL MANAGEMENT"
+    ],
+    "shells": 1,
+    "invisibleContent": [],
+    "topbarOverlap": false,
+    "text": "›\n?\n▣\nFINANCIAL MANAGEMENT\nSearch system\nJoão Silva\nADMIN\n\nChoose a financial workspace to review performance, manage invoices or track payments.\n\nFinancial insights\n\nReview revenue, costs and daily financial performance.\n\nFinancial invoice",
+    "errors": []
+  },
+  {
+    "route": "/financial-management",
+    "width": 1440,
+    "url": "/financial-management",
+    "title": "LogixSphere",
+    "bodyWidth": 1440,
+    "viewport": 1440,
+    "overflow": [],
+    "headings": [
+      "FINANCIAL MANAGEMENT"
+    ],
+    "shells": 1,
+    "invisibleContent": [],
+    "topbarOverlap": false,
+    "text": "›\n?\n▣\nFINANCIAL MANAGEMENT\nSearch system\n29/09/2026\nJoão Silva\nADMIN\n\nChoose a financial workspace to review performance, manage invoices or track payments.\n\nFinancial insights\n\nReview revenue, costs and daily financial performance.\n\nFinanc",
+    "errors": []
+  },
+  {
+    "route": "/financial-performance",
+    "width": 390,
+    "url": "/daily-financial-insights",
+    "title": "LogixSphere",
+    "bodyWidth": 390,
+    "viewport": 390,
+    "overflow": [],
+    "headings": [
+      "DAILY FINANCIAL INSIGHTS",
+      "Daily Financial Insights"
+    ],
+    "shells": 1,
+    "invisibleContent": [],
+    "topbarOverlap": false,
+    "text": "?\n▣\nDAILY FINANCIAL INSIGHTS\nSearch system\nDaily Financial Insights\n\nDate: 29 Sep 2026\n\nTOTAL RECORDS\n12\nTOTAL AMOUNT\n£2256.00\nROUTES\n12\nVENDORS\n12\nAll Service Partners\nNorth Star Logistics\nAtlas Delivery\nPERIOD\n29 Sep 2026\nto\nEnd\nNew\nDEPOT",
+    "errors": []
+  },
+  {
+    "route": "/financial-performance",
+    "width": 768,
+    "url": "/daily-financial-insights",
+    "title": "LogixSphere",
+    "bodyWidth": 768,
+    "viewport": 768,
+    "overflow": [],
+    "headings": [
+      "DAILY FINANCIAL INSIGHTS",
+      "Daily Financial Insights"
+    ],
+    "shells": 1,
+    "invisibleContent": [],
+    "topbarOverlap": false,
+    "text": "›\n?\n▣\nDAILY FINANCIAL INSIGHTS\nSearch system\nJoão Silva\nADMIN\nDaily Financial Insights\n\nDate: 29 Sep 2026\n\nTOTAL RECORDS\n12\nTOTAL AMOUNT\n£2256.00\nROUTES\n12\nVENDORS\n12\nAll Service Partners\nNorth Star Logistics\nAtlas Delivery\nPeriod:\n29 Sep 2",
+    "errors": []
+  },
+  {
+    "route": "/financial-performance",
+    "width": 1440,
+    "url": "/daily-financial-insights",
+    "title": "LogixSphere",
+    "bodyWidth": 1440,
+    "viewport": 1440,
+    "overflow": [],
+    "headings": [
+      "DAILY FINANCIAL INSIGHTS",
+      "Daily Financial Insights"
+    ],
+    "shells": 1,
+    "invisibleContent": [],
+    "topbarOverlap": false,
+    "text": "›\n?\n▣\nDAILY FINANCIAL INSIGHTS\nSearch system\n29/09/2026\nJoão Silva\nADMIN\nDaily Financial Insights\n\nDate: 29 Sep 2026\n\nTOTAL RECORDS\n12\nTOTAL AMOUNT\n£2256.00\nROUTES\n12\nVENDORS\n12\nAll Service Partners\nNorth Star Logistics\nAtlas Delivery\nPerio",
+    "errors": []
+  },
+  {
+    "route": "/home",
+    "width": 390,
+    "url": "/home",
+    "title": "LogixSphere",
+    "bodyWidth": 390,
+    "viewport": 390,
+    "overflow": [],
+    "headings": [
+      "HOME"
+    ],
+    "shells": 1,
+    "invisibleContent": [],
+    "topbarOverlap": false,
+    "text": "?\n▣\nHOME\nSearch system\n OPERATIONS CONTROL / LIVE MOCK DATA\nGood afternoon, João.\n\nTuesday, 29 Sept 2026 · One clear view of the day ahead.\n\nRefresh view\nStart daily plan\nRoutes today\n28\n+4 vs yesterday\nOn the road\n21\n75% dispatched\nOpen ex",
+    "errors": []
+  },
+  {
+    "route": "/home",
+    "width": 768,
+    "url": "/home",
+    "title": "LogixSphere",
+    "bodyWidth": 768,
+    "viewport": 768,
+    "overflow": [],
+    "headings": [
+      "HOME"
+    ],
+    "shells": 1,
+    "invisibleContent": [],
+    "topbarOverlap": false,
+    "text": "›\n?\n▣\nHOME\nSearch system\nJoão Silva\nADMIN\n OPERATIONS CONTROL / LIVE MOCK DATA\nGood afternoon, João.\n\nTuesday, 29 Sept 2026 · One clear view of the day ahead.\n\nRefresh view\nStart daily plan\nRoutes today\n28\n+4 vs yesterday\nOn the road\n21\n75%",
+    "errors": []
+  },
+  {
+    "route": "/home",
+    "width": 1440,
+    "url": "/home",
+    "title": "LogixSphere",
+    "bodyWidth": 1440,
+    "viewport": 1440,
+    "overflow": [],
+    "headings": [
+      "HOME"
+    ],
+    "shells": 1,
+    "invisibleContent": [],
+    "topbarOverlap": false,
+    "text": "›\n?\n▣\nHOME\nSearch system\n29/09/2026\nJoão Silva\nADMIN\n OPERATIONS CONTROL / LIVE MOCK DATA\nGood afternoon, João.\n\nTuesday, 29 Sept 2026 · One clear view of the day ahead.\n\nRefresh view\nStart daily plan\nRoutes today\n28\n+4 vs yesterday\nOn the ",
+    "errors": []
+  },
+  {
+    "route": "/invoice-history",
+    "width": 390,
+    "url": "/invoice-history",
+    "title": "LogixSphere",
+    "bodyWidth": 390,
+    "viewport": 390,
+    "overflow": [],
+    "headings": [
+      "INVOICE HISTORY",
+      "Invoice Processing"
+    ],
+    "shells": 1,
+    "invisibleContent": [],
+    "topbarOverlap": false,
+    "text": "?\n▣\nINVOICE HISTORY\nSearch system\nInvoice Processing\n\nInvoice history and management\n\nTOTAL INVOICES\n49\nPENDING\n6\nREADY\n7\nSENT\n36\n Generate Single\n Create Multiple\nExport\nPeriod:\nAll Periods\n2024-11\n2024-10\n2024-09\n2024-08\n2024-07\n2024-06\n2",
+    "errors": []
+  },
+  {
+    "route": "/invoice-history",
+    "width": 768,
+    "url": "/invoice-history",
+    "title": "LogixSphere",
+    "bodyWidth": 768,
+    "viewport": 768,
+    "overflow": [],
+    "headings": [
+      "INVOICE HISTORY",
+      "Invoice Processing"
+    ],
+    "shells": 1,
+    "invisibleContent": [],
+    "topbarOverlap": false,
+    "text": "›\n?\n▣\nINVOICE HISTORY\nSearch system\nJoão Silva\nADMIN\nInvoice Processing\n\nInvoice history and management\n\nTOTAL INVOICES\n49\nPENDING\n6\nREADY\n7\nSENT\n36\n Generate Single\n Create Multiple\nExport\nPeriod:\nAll Periods\n2024-11\n2024-10\n2024-09\n2024-0",
+    "errors": []
+  },
+  {
+    "route": "/invoice-history",
+    "width": 1440,
+    "url": "/invoice-history",
+    "title": "LogixSphere",
+    "bodyWidth": 1440,
+    "viewport": 1440,
+    "overflow": [],
+    "headings": [
+      "INVOICE HISTORY",
+      "Invoice Processing"
+    ],
+    "shells": 1,
+    "invisibleContent": [],
+    "topbarOverlap": false,
+    "text": "›\n?\n▣\nINVOICE HISTORY\nSearch system\n29/09/2026\nJoão Silva\nADMIN\nInvoice Processing\n\nInvoice history and management\n\nTOTAL INVOICES\n49\nPENDING\n6\nREADY\n7\nSENT\n36\n Generate Single\n Create Multiple\nExport\nPeriod:\nAll Periods\n2024-11\n2024-10\n202",
+    "errors": []
+  },
+  {
+    "route": "/invoice-processing-workflow",
+    "width": 390,
+    "url": "/invoice-processing-workflow",
+    "title": "LogixSphere",
+    "bodyWidth": 390,
+    "viewport": 390,
+    "overflow": [],
+    "headings": [
+      "INVOICE PROCESSING WORKFLOW",
+      "Invoice Processing"
+    ],
+    "shells": 1,
+    "invisibleContent": [],
+    "topbarOverlap": false,
+    "text": "?\n▣\nINVOICE PROCESSING WORKFLOW\nSearch system\nInvoice Processing\nTuesday, 29 Sept 2026\nProcess and manage vendor invoices.\nNew Single Invoice\nNew Multiple Invoices\nExport\nPeriod:\nAll Periods\nSeptember 2026\nAugust 2026\nJuly 2026\nJune 2026\nMa",
+    "errors": []
+  },
+  {
+    "route": "/invoice-processing-workflow",
+    "width": 768,
+    "url": "/invoice-processing-workflow",
+    "title": "LogixSphere",
+    "bodyWidth": 768,
+    "viewport": 768,
+    "overflow": [],
+    "headings": [
+      "INVOICE PROCESSING WORKFLOW",
+      "Invoice Processing"
+    ],
+    "shells": 1,
+    "invisibleContent": [],
+    "topbarOverlap": false,
+    "text": "›\n?\n▣\nINVOICE PROCESSING WORKFLOW\nSearch system\nJoão Silva\nADMIN\nInvoice Processing\nTuesday, 29 Sept 2026\nProcess and manage vendor invoices.\nNew Single Invoice\nNew Multiple Invoices\nExport\nPeriod:\nAll Periods\nSeptember 2026\nAugust 2026\nJul",
+    "errors": []
+  },
+  {
+    "route": "/invoice-processing-workflow",
+    "width": 1440,
+    "url": "/invoice-processing-workflow",
+    "title": "LogixSphere",
+    "bodyWidth": 1440,
+    "viewport": 1440,
+    "overflow": [],
+    "headings": [
+      "INVOICE PROCESSING WORKFLOW",
+      "Invoice Processing"
+    ],
+    "shells": 1,
+    "invisibleContent": [],
+    "topbarOverlap": false,
+    "text": "›\n?\n▣\nINVOICE PROCESSING WORKFLOW\nSearch system\n29/09/2026\nJoão Silva\nADMIN\nInvoice Processing\nTuesday, 29 Sept 2026\nProcess and manage vendor invoices.\nNew Single Invoice\nNew Multiple Invoices\nExport\nPeriod:\nAll Periods\nSeptember 2026\nAugu",
+    "errors": []
+  },
+  {
+    "route": "/logistics",
+    "width": 390,
+    "url": "/logistics",
+    "title": "LogixSphere",
+    "bodyWidth": 390,
+    "viewport": 390,
+    "overflow": [],
+    "headings": [
+      "LOGISTICS",
+      "Loops & Routes"
+    ],
+    "shells": 1,
+    "invisibleContent": [],
+    "topbarOverlap": false,
+    "text": "?\n▣\nLOGISTICS\nSearch system\nLoops & Routes\nTuesday, 29 Sept 2026\nLoop: LL3\n Add Route\n\nChild Rates: Band 1: (£3.67) Band 2: (£3.33) Band 3: (£3.10) Band 4: (£2.74)\n\nFlex Rates: Band 1: 1-80 (£3.30) Band 2: 81-90 (£3.10) Band 3: 91-100 (£2.9",
+    "errors": []
+  },
+  {
+    "route": "/logistics",
+    "width": 768,
+    "url": "/logistics",
+    "title": "LogixSphere",
+    "bodyWidth": 768,
+    "viewport": 768,
+    "overflow": [],
+    "headings": [
+      "LOGISTICS",
+      "Loops & Routes"
+    ],
+    "shells": 1,
+    "invisibleContent": [],
+    "topbarOverlap": false,
+    "text": "›\n?\n▣\nLOGISTICS\nSearch system\nJoão Silva\nADMIN\nLoops & Routes\nTuesday, 29 Sept 2026\nLoop: LL3\n Add Route\n\nChild Rates: Band 1: (£3.67) Band 2: (£3.33) Band 3: (£3.10) Band 4: (£2.74)\n\nFlex Rates: Band 1: 1-80 (£3.30) Band 2: 81-90 (£3.10) B",
+    "errors": []
+  },
+  {
+    "route": "/logistics",
+    "width": 1440,
+    "url": "/logistics",
+    "title": "LogixSphere",
+    "bodyWidth": 1440,
+    "viewport": 1440,
+    "overflow": [],
+    "headings": [
+      "LOGISTICS",
+      "Loops & Routes"
+    ],
+    "shells": 1,
+    "invisibleContent": [],
+    "topbarOverlap": false,
+    "text": "›\n?\n▣\nLOGISTICS\nSearch system\n29/09/2026\nJoão Silva\nADMIN\nLoops & Routes\nTuesday, 29 Sept 2026\nLoop: LL3\n Add Route\n\nChild Rates: Band 1: (£3.67) Band 2: (£3.33) Band 3: (£3.10) Band 4: (£2.74)\n\nFlex Rates: Band 1: 1-80 (£3.30) Band 2: 81-9",
+    "errors": []
+  },
+  {
+    "route": "/mobile-invoice",
+    "width": 390,
+    "url": "/mobile-invoice",
+    "title": "LogixSphere",
+    "bodyWidth": 390,
+    "viewport": 390,
+    "overflow": [],
+    "headings": [
+      "MY INVOICE"
+    ],
+    "shells": 1,
+    "invisibleContent": [],
+    "topbarOverlap": false,
+    "text": "?\n▣\nMY INVOICE\nSearch system\nLAST PAYMENT\n\n£3,960.00\n\nCovering September 2026\n\n1 invoice\nSEPTEMBER 2026\n£3,960.00\nInvoice #DEMO-202609-1\nIssued 29/09/2026\n£3,960.00",
+    "errors": []
+  },
+  {
+    "route": "/mobile-invoice",
+    "width": 768,
+    "url": "/mobile-invoice",
+    "title": "LogixSphere",
+    "bodyWidth": 768,
+    "viewport": 768,
+    "overflow": [],
+    "headings": [
+      "MY INVOICE"
+    ],
+    "shells": 1,
+    "invisibleContent": [],
+    "topbarOverlap": false,
+    "text": "›\n?\n▣\nMY INVOICE\nSearch system\nJoão Silva\nADMIN\nLAST PAYMENT\n\n£3,960.00\n\nCovering September 2026\n\n1 invoice\nSEPTEMBER 2026\n£3,960.00\nInvoice #DEMO-202609-1\nIssued 29/09/2026\n£3,960.00",
+    "errors": []
+  },
+  {
+    "route": "/mobile-invoice",
+    "width": 1440,
+    "url": "/mobile-invoice",
+    "title": "LogixSphere",
+    "bodyWidth": 1440,
+    "viewport": 1440,
+    "overflow": [],
+    "headings": [
+      "MY INVOICE"
+    ],
+    "shells": 1,
+    "invisibleContent": [],
+    "topbarOverlap": false,
+    "text": "›\n?\n▣\nMY INVOICE\nSearch system\n29/09/2026\nJoão Silva\nADMIN\nLAST PAYMENT\n\n£3,960.00\n\nCovering September 2026\n\n1 invoice\nSEPTEMBER 2026\n£3,960.00\nInvoice #DEMO-202609-1\nIssued 29/09/2026\n£3,960.00",
+    "errors": []
+  },
+  {
+    "route": "/op-dashboard",
+    "width": 390,
+    "url": "/op-dashboard",
+    "title": "LogixSphere",
+    "bodyWidth": 390,
+    "viewport": 390,
+    "overflow": [],
+    "headings": [
+      "OP DASHBOARD",
+      "Operations Dashboard"
+    ],
+    "shells": 1,
+    "invisibleContent": [],
+    "topbarOverlap": false,
+    "text": "?\n▣\nOP DASHBOARD\nSearch system\nOperations Dashboard\nTuesday, 29 Sept 2026\nTOTAL SERVICES\n12\n\nAdhoc Services Currently Active\n\nTOTAL CONTRACT VALUE\n£875.00\n\nCombined Contract Value\n\nTOTAL ROUTES\n10\n\nActive Routes Across All Loops\n\nSummary\nAd",
+    "errors": []
+  },
+  {
+    "route": "/op-dashboard",
+    "width": 768,
+    "url": "/op-dashboard",
+    "title": "LogixSphere",
+    "bodyWidth": 768,
+    "viewport": 768,
+    "overflow": [],
+    "headings": [
+      "OP DASHBOARD",
+      "Operations Dashboard"
+    ],
+    "shells": 1,
+    "invisibleContent": [],
+    "topbarOverlap": false,
+    "text": "›\n?\n▣\nOP DASHBOARD\nSearch system\nJoão Silva\nADMIN\nOperations Dashboard\nTuesday, 29 Sept 2026\nTOTAL SERVICES\n12\n\nAdhoc Services Currently Active\n\nTOTAL CONTRACT VALUE\n£875.00\n\nCombined Contract Value\n\nTOTAL ROUTES\n10\n\nActive Routes Across Al",
+    "errors": []
+  },
+  {
+    "route": "/op-dashboard",
+    "width": 1440,
+    "url": "/op-dashboard",
+    "title": "LogixSphere",
+    "bodyWidth": 1440,
+    "viewport": 1440,
+    "overflow": [],
+    "headings": [
+      "OP DASHBOARD",
+      "Operations Dashboard"
+    ],
+    "shells": 1,
+    "invisibleContent": [],
+    "topbarOverlap": false,
+    "text": "›\n?\n▣\nOP DASHBOARD\nSearch system\n29/09/2026\nJoão Silva\nADMIN\nOperations Dashboard\nTuesday, 29 Sept 2026\nTOTAL SERVICES\n12\n\nAdhoc Services Currently Active\n\nTOTAL CONTRACT VALUE\n£875.00\n\nCombined Contract Value\n\nTOTAL ROUTES\n10\n\nActive Route",
+    "errors": []
+  },
+  {
+    "route": "/op-management",
+    "width": 390,
+    "url": "/op-management",
+    "title": "LogixSphere",
+    "bodyWidth": 390,
+    "viewport": 390,
+    "overflow": [],
+    "headings": [
+      "OP MANAGEMENT",
+      "Daily Operations Management"
+    ],
+    "shells": 1,
+    "invisibleContent": [],
+    "topbarOverlap": false,
+    "text": "?\n▣\nOP MANAGEMENT\nSearch system\nDaily Operations Management\n\nRoute and vendor management system\n\nExport\nAdd New Record\nSearch (Name, Route, Vehicle)\nStatus\nAll\nOff\nVendor Type\nAll\nDATE\n←\n\t\nROUTE\n\t\nNAME\n\t\nPAYMENT MODE\n\t\nRATE\n\t\nSORT\n\t\nAD-HOC ",
+    "errors": []
+  },
+  {
+    "route": "/op-management",
+    "width": 768,
+    "url": "/op-management",
+    "title": "LogixSphere",
+    "bodyWidth": 768,
+    "viewport": 768,
+    "overflow": [],
+    "headings": [
+      "OP MANAGEMENT",
+      "Daily Operations Management"
+    ],
+    "shells": 1,
+    "invisibleContent": [],
+    "topbarOverlap": false,
+    "text": "›\n?\n▣\nOP MANAGEMENT\nSearch system\nJoão Silva\nADMIN\nDaily Operations Management\n\nRoute and vendor management system\n\nExport\nAdd New Record\nSearch (Name, Route, Vehicle)\nStatus\nAll\nOff\nVendor Type\nAll\nDATE\n←\n\t\nROUTE\n\t\nNAME\n\t\nPAYMENT MODE\n\t\nRA",
+    "errors": []
+  },
+  {
+    "route": "/op-management",
+    "width": 1440,
+    "url": "/op-management",
+    "title": "LogixSphere",
+    "bodyWidth": 1440,
+    "viewport": 1440,
+    "overflow": [],
+    "headings": [
+      "OP MANAGEMENT",
+      "Daily Operations Management"
+    ],
+    "shells": 1,
+    "invisibleContent": [],
+    "topbarOverlap": false,
+    "text": "›\n?\n▣\nOP MANAGEMENT\nSearch system\n29/09/2026\nJoão Silva\nADMIN\nDaily Operations Management\n\nRoute and vendor management system\n\nExport\nAdd New Record\nSearch (Name, Route, Vehicle)\nStatus\nAll\nOff\nVendor Type\nAll\nDATE\n←\n\t\nROUTE\n\t\nNAME\n\t\nPAYMEN",
+    "errors": []
+  },
+  {
+    "route": "/operations-management",
+    "width": 390,
+    "url": "/operations-management",
+    "title": "LogixSphere",
+    "bodyWidth": 390,
+    "viewport": 390,
+    "overflow": [],
+    "headings": [
+      "OPERATIONS MANAGEMENT",
+      "Daily Operations Management"
+    ],
+    "shells": 1,
+    "invisibleContent": [],
+    "topbarOverlap": false,
+    "text": "?\n▣\nOPERATIONS MANAGEMENT\nSearch system\nDaily Operations Management\n\nDate: 28 Sep 2026\n\nExport\nAdd Record\nWORKING\n0\nPENDING\n0\nTOTAL\n12\nSearch (Name, Route, Vehicle)\nStatus\nAll\nOff\nVendor Type\nAll\nService Partner\nDATE\n↓\n\t\nROUTE\n\t\nNAME\n\t\nPAYM",
+    "errors": []
+  },
+  {
+    "route": "/operations-management",
+    "width": 768,
+    "url": "/operations-management",
+    "title": "LogixSphere",
+    "bodyWidth": 768,
+    "viewport": 768,
+    "overflow": [],
+    "headings": [
+      "OPERATIONS MANAGEMENT",
+      "Daily Operations Management"
+    ],
+    "shells": 1,
+    "invisibleContent": [],
+    "topbarOverlap": false,
+    "text": "›\n?\n▣\nOPERATIONS MANAGEMENT\nSearch system\nJoão Silva\nADMIN\nDaily Operations Management\n\nDate: 28 Sep 2026\n\nExport\nAdd Record\nWORKING\n0\nPENDING\n0\nTOTAL\n12\nSearch (Name, Route, Vehicle)\nStatus\nAll\nOff\nVendor Type\nAll\nService Partner\nDATE\n↓\n\t\n",
+    "errors": []
+  },
+  {
+    "route": "/operations-management",
+    "width": 1440,
+    "url": "/operations-management",
+    "title": "LogixSphere",
+    "bodyWidth": 1440,
+    "viewport": 1440,
+    "overflow": [],
+    "headings": [
+      "OPERATIONS MANAGEMENT",
+      "Daily Operations Management"
+    ],
+    "shells": 1,
+    "invisibleContent": [],
+    "topbarOverlap": false,
+    "text": "›\n?\n▣\nOPERATIONS MANAGEMENT\nSearch system\n29/09/2026\nJoão Silva\nADMIN\nDaily Operations Management\n\nDate: 28 Sep 2026\n\nExport\nAdd Record\nWORKING\n0\nPENDING\n0\nTOTAL\n12\nSearch (Name, Route, Vehicle)\nStatus\nAll\nOff\nVendor Type\nAll\nService Partne",
+    "errors": []
+  },
+  {
+    "route": "/performance",
+    "width": 390,
+    "url": "/current-performance",
+    "title": "LogixSphere",
+    "bodyWidth": 390,
+    "viewport": 390,
+    "overflow": [],
+    "headings": [
+      "MY PERFORMANCE"
+    ],
+    "shells": 1,
+    "invisibleContent": [],
+    "topbarOverlap": false,
+    "text": "?\n▣\nMY PERFORMANCE\nSearch system\n\nMY PERFORMANCE · João Silva\n\nMonthly overview\n\nReview your monthly averages and daily delivery results.\n\nToday\nMonth\nOct\n2025\nNov\n2025\nDec\n2025\nJan\n2026\nFeb\n2026\nMar\n2026\nApr\n2026\nMay\n2026\nJun\n2026\nJul\n2026",
+    "errors": []
+  },
+  {
+    "route": "/performance",
+    "width": 768,
+    "url": "/current-performance",
+    "title": "LogixSphere",
+    "bodyWidth": 768,
+    "viewport": 768,
+    "overflow": [],
+    "headings": [
+      "MY PERFORMANCE"
+    ],
+    "shells": 1,
+    "invisibleContent": [],
+    "topbarOverlap": false,
+    "text": "›\n?\n▣\nMY PERFORMANCE\nSearch system\nJoão Silva\nADMIN\n\nMY PERFORMANCE · João Silva\n\nMonthly overview\n\nReview your monthly averages and daily delivery results.\n\nToday\nMonth\nOct\n2025\nNov\n2025\nDec\n2025\nJan\n2026\nFeb\n2026\nMar\n2026\nApr\n2026\nMay\n202",
+    "errors": []
+  },
+  {
+    "route": "/performance",
+    "width": 1440,
+    "url": "/current-performance",
+    "title": "LogixSphere",
+    "bodyWidth": 1440,
+    "viewport": 1440,
+    "overflow": [],
+    "headings": [
+      "MY PERFORMANCE"
+    ],
+    "shells": 1,
+    "invisibleContent": [],
+    "topbarOverlap": false,
+    "text": "›\n?\n▣\nMY PERFORMANCE\nSearch system\n29/09/2026\nJoão Silva\nADMIN\n\nMY PERFORMANCE · João Silva\n\nMonthly overview\n\nReview your monthly averages and daily delivery results.\n\nToday\nMonth\nOct\n2025\nNov\n2025\nDec\n2025\nJan\n2026\nFeb\n2026\nMar\n2026\nApr\n2",
+    "errors": []
+  },
+  {
+    "route": "/requests",
+    "width": 390,
+    "url": "/requests",
+    "title": "LogixSphere",
+    "bodyWidth": 390,
+    "viewport": 390,
+    "overflow": [],
+    "headings": [
+      "REQUESTS",
+      "Requests"
+    ],
+    "shells": 1,
+    "invisibleContent": [],
+    "topbarOverlap": false,
+    "text": "?\n▣\nREQUESTS\nSearch system\nRequests\n\nManage time off, holidays, pre-payments and request history.\n\nREQUESTS THIS MONTH\n1\nAWAITING REVIEW\n1\nDay Off\nHoliday\nPre-Payment\nHistory\nDay Off Request\n\nRequest a day off from work\n\nDate\nReason\nNotes\nS",
+    "errors": []
+  },
+  {
+    "route": "/requests",
+    "width": 768,
+    "url": "/requests",
+    "title": "LogixSphere",
+    "bodyWidth": 768,
+    "viewport": 768,
+    "overflow": [],
+    "headings": [
+      "REQUESTS",
+      "Requests"
+    ],
+    "shells": 1,
+    "invisibleContent": [],
+    "topbarOverlap": false,
+    "text": "›\n?\n▣\nREQUESTS\nSearch system\nJoão Silva\nADMIN\nRequests\n\nManage time off, holidays, pre-payments and request history.\n\nREQUESTS THIS MONTH\n1\nAWAITING REVIEW\n1\nDay Off\nHoliday\nPre-Payment\nHistory\nDay Off Request\n\nRequest a day off from work\n\n",
+    "errors": []
+  },
+  {
+    "route": "/requests",
+    "width": 1440,
+    "url": "/requests",
+    "title": "LogixSphere",
+    "bodyWidth": 1440,
+    "viewport": 1440,
+    "overflow": [],
+    "headings": [
+      "REQUESTS",
+      "Requests"
+    ],
+    "shells": 1,
+    "invisibleContent": [],
+    "topbarOverlap": false,
+    "text": "›\n?\n▣\nREQUESTS\nSearch system\n29/09/2026\nJoão Silva\nADMIN\nRequests\n\nManage time off, holidays, pre-payments and request history.\n\nREQUESTS THIS MONTH\n1\nAWAITING REVIEW\n1\nDay Off\nHoliday\nPre-Payment\nHistory\nDay Off Request\n\nRequest a day off ",
+    "errors": []
+  },
+  {
+    "route": "/requests-admin",
+    "width": 390,
+    "url": "/requests-admin",
+    "title": "LogixSphere",
+    "bodyWidth": 390,
+    "viewport": 390,
+    "overflow": [],
+    "headings": [
+      "REQUESTS ADMIN"
+    ],
+    "shells": 1,
+    "invisibleContent": [],
+    "topbarOverlap": false,
+    "text": "?\n▣\nREQUESTS ADMIN\nSearch system\nRequests Management\nReview and manage vendor requests.\nRequests (2)\nHistory\nPending Requests\nReview and approve or reject pending requests.\nAll Service Partners\nNorth Star Logistics\nAtlas Delivery\nRefresh\nRE",
+    "errors": []
+  },
+  {
+    "route": "/requests-admin",
+    "width": 768,
+    "url": "/requests-admin",
+    "title": "LogixSphere",
+    "bodyWidth": 768,
+    "viewport": 768,
+    "overflow": [],
+    "headings": [
+      "REQUESTS ADMIN"
+    ],
+    "shells": 1,
+    "invisibleContent": [],
+    "topbarOverlap": false,
+    "text": "›\n?\n▣\nREQUESTS ADMIN\nSearch system\nJoão Silva\nADMIN\nRequests Management\nReview and manage vendor requests.\nRequests (2)\nHistory\nPending Requests\nReview and approve or reject pending requests.\nAll Service Partners\nNorth Star Logistics\nAtlas ",
+    "errors": []
+  },
+  {
+    "route": "/requests-admin",
+    "width": 1440,
+    "url": "/requests-admin",
+    "title": "LogixSphere",
+    "bodyWidth": 1440,
+    "viewport": 1440,
+    "overflow": [],
+    "headings": [
+      "REQUESTS ADMIN"
+    ],
+    "shells": 1,
+    "invisibleContent": [],
+    "topbarOverlap": false,
+    "text": "›\n?\n▣\nREQUESTS ADMIN\nSearch system\n29/09/2026\nJoão Silva\nADMIN\nRequests Management\nReview and manage vendor requests.\nRequests (2)\nHistory\nPending Requests\nReview and approve or reject pending requests.\nAll Service Partners\nNorth Star Logis",
+    "errors": []
+  },
+  {
+    "route": "/requests-inbox",
+    "width": 390,
+    "url": "/requests-inbox",
+    "title": "LogixSphere",
+    "bodyWidth": 390,
+    "viewport": 390,
+    "overflow": [],
+    "headings": [
+      "REQUESTS INBOX",
+      "Vendor requests"
+    ],
+    "shells": 1,
+    "invisibleContent": [],
+    "topbarOverlap": false,
+    "text": "?\n▣\nREQUESTS INBOX\nSearch system\nVendor requests\n\nSeptember 2026\n\nSeptember 2026\nAll Service Partners\nNorth Star Logistics\nAtlas Delivery\nPending\n2\nSEPTEMBER 2026\nDAY OFF\npending\nJoão Silva · 01 Sep 2026\nDay off date: 01 Sep 2026\nApprove\nDe",
+    "errors": []
+  },
+  {
+    "route": "/requests-inbox",
+    "width": 768,
+    "url": "/requests-inbox",
+    "title": "LogixSphere",
+    "bodyWidth": 768,
+    "viewport": 768,
+    "overflow": [],
+    "headings": [
+      "REQUESTS INBOX",
+      "Vendor requests"
+    ],
+    "shells": 1,
+    "invisibleContent": [],
+    "topbarOverlap": false,
+    "text": "›\n?\n▣\nREQUESTS INBOX\nSearch system\nJoão Silva\nADMIN\nVendor requests\n2 pending\nSeptember 2026\nAll Service Partners\nNorth Star Logistics\nAtlas Delivery\nVendors Off\nPENDING\n\n2\n\nAPPROVED\n\n2\n\nREJECTED\n\n2\n\nADVANCE\n\n2\n\nDAY OFF\n\n2\n\nHOLIDAY\n\n2\n\nTOTA",
+    "errors": []
+  },
+  {
+    "route": "/requests-inbox",
+    "width": 1440,
+    "url": "/requests-inbox",
+    "title": "LogixSphere",
+    "bodyWidth": 1440,
+    "viewport": 1440,
+    "overflow": [],
+    "headings": [
+      "REQUESTS INBOX",
+      "Vendor requests"
+    ],
+    "shells": 1,
+    "invisibleContent": [],
+    "topbarOverlap": false,
+    "text": "›\n?\n▣\nREQUESTS INBOX\nSearch system\n29/09/2026\nJoão Silva\nADMIN\nVendor requests\n2 pending\nSeptember 2026\nAll Service Partners\nNorth Star Logistics\nAtlas Delivery\nVendors Off\nPENDING\n\n2\n\nAPPROVED\n\n2\n\nREJECTED\n\n2\n\nADVANCE\n\n2\n\nDAY OFF\n\n2\n\nHOLID",
+    "errors": []
+  },
+  {
+    "route": "/route-balance",
+    "width": 390,
+    "url": "/route-balance",
+    "title": "LogixSphere",
+    "bodyWidth": 390,
+    "viewport": 390,
+    "overflow": [],
+    "headings": [
+      "ROUTE BALANCE"
+    ],
+    "shells": 1,
+    "invisibleContent": [],
+    "topbarOverlap": false,
+    "text": "?\n▣\nROUTE BALANCE\nSearch system\nROUTE BALANCE\nOperational route management\nAM\nPM\nRebalance\nOperations\nImportar\n+\nAdd New Flex Rote\nSend to Drivers\nTOTAL STOPS\n128\n+4.2%\n8 routes\nPRÉ 12 DELIVERIES\n27\n21% of stops\nSPR\n75\n87% of SPR\nTARGET\nALE",
+    "errors": []
+  },
+  {
+    "route": "/route-balance",
+    "width": 768,
+    "url": "/route-balance",
+    "title": "LogixSphere",
+    "bodyWidth": 768,
+    "viewport": 768,
+    "overflow": [],
+    "headings": [
+      "ROUTE BALANCE"
+    ],
+    "shells": 1,
+    "invisibleContent": [],
+    "topbarOverlap": false,
+    "text": "›\n?\n▣\nROUTE BALANCE\nSearch system\nJoão Silva\nADMIN\nROUTE BALANCE\nOperational route management\nAM\nPM\nRebalance\nOperations\nImportar\n+\nAdd New Flex Rote\nSend to Drivers\nTOTAL STOPS\n128\n+4.2%\n8 routes\nPRÉ 12 DELIVERIES\n27\n21% of stops\nSPR\n75\n87",
+    "errors": []
+  },
+  {
+    "route": "/route-balance",
+    "width": 1440,
+    "url": "/route-balance",
+    "title": "LogixSphere",
+    "bodyWidth": 1440,
+    "viewport": 1440,
+    "overflow": [],
+    "headings": [
+      "ROUTE BALANCE"
+    ],
+    "shells": 1,
+    "invisibleContent": [],
+    "topbarOverlap": false,
+    "text": "›\n?\n▣\nROUTE BALANCE\nSearch system\n29/09/2026\nJoão Silva\nADMIN\nROUTE BALANCE\nOperational route management\nAM\nPM\nRebalance\nOperations\nImportar\n+\nAdd New Flex Rote\nSend to Drivers\nTOTAL STOPS\n128\n+4.2%\n8 routes\nPRÉ 12 DELIVERIES\n27\n21% of stop",
+    "errors": []
+  },
+  {
+    "route": "/schedule",
+    "width": 390,
+    "url": "/schedule",
+    "title": "LogixSphere",
+    "bodyWidth": 390,
+    "viewport": 390,
+    "overflow": [],
+    "headings": [
+      "SCHEDULE",
+      "Schedule for Payment"
+    ],
+    "shells": 1,
+    "invisibleContent": [],
+    "topbarOverlap": false,
+    "text": "?\n▣\nSCHEDULE\nSearch system\nSchedule for Payment\nTuesday, 29 Sept 2026\nThiago Brito\nLogo\nPAID\n0 invoices\nTotal £0.00\nSCHEDULED\n0 invoices\nTotal £0.00\nPENDING\n12 invoices\nTotal £45120.00\nSeptember 2026\nAugust 2026\nJuly 2026\nJune 2026\nMay 2026",
+    "errors": []
+  },
+  {
+    "route": "/schedule",
+    "width": 768,
+    "url": "/schedule",
+    "title": "LogixSphere",
+    "bodyWidth": 768,
+    "viewport": 768,
+    "overflow": [],
+    "headings": [
+      "SCHEDULE",
+      "Schedule for Payment"
+    ],
+    "shells": 1,
+    "invisibleContent": [],
+    "topbarOverlap": false,
+    "text": "›\n?\n▣\nSCHEDULE\nSearch system\nJoão Silva\nADMIN\nSchedule for Payment\nTuesday, 29 Sept 2026\nThiago Brito\nLogo\nPAID\n0 invoices\nTotal £0.00\nSCHEDULED\n0 invoices\nTotal £0.00\nPENDING\n12 invoices\nTotal £45120.00\nSeptember 2026\nAugust 2026\nJuly 2026",
+    "errors": []
+  },
+  {
+    "route": "/schedule",
+    "width": 1440,
+    "url": "/schedule",
+    "title": "LogixSphere",
+    "bodyWidth": 1440,
+    "viewport": 1440,
+    "overflow": [],
+    "headings": [
+      "SCHEDULE",
+      "Schedule for Payment"
+    ],
+    "shells": 1,
+    "invisibleContent": [],
+    "topbarOverlap": false,
+    "text": "›\n?\n▣\nSCHEDULE\nSearch system\n29/09/2026\nJoão Silva\nADMIN\nSchedule for Payment\nTuesday, 29 Sept 2026\nThiago Brito\nLogo\nPAID\n0 invoices\nTotal £0.00\nSCHEDULED\n0 invoices\nTotal £0.00\nPENDING\n12 invoices\nTotal £45120.00\nSeptember 2026\nAugust 202",
+    "errors": []
+  },
+  {
+    "route": "/service-partner-invoices",
+    "width": 390,
+    "url": "/service-partner-invoices",
+    "title": "LogixSphere",
+    "bodyWidth": 390,
+    "viewport": 390,
+    "overflow": [],
+    "headings": [
+      "SERVICE PARTNER INVOICES",
+      "Service Partner Invoices"
+    ],
+    "shells": 1,
+    "invisibleContent": [],
+    "topbarOverlap": false,
+    "text": "?\n▣\nSERVICE PARTNER INVOICES\nSearch system\nService Partner Invoices\n\nMonthly invoice summary by service partner.\n\nAll Service Partners\n‹\nSeptember 2026\n›\nInvoices\nDeductions & Reimbursements\nSingle Invoice\nMulti Invoice\n\nTOTAL AMOUNT\n\n£2,25",
+    "errors": []
+  },
+  {
+    "route": "/service-partner-invoices",
+    "width": 768,
+    "url": "/service-partner-invoices",
+    "title": "LogixSphere",
+    "bodyWidth": 768,
+    "viewport": 768,
+    "overflow": [],
+    "headings": [
+      "SERVICE PARTNER INVOICES",
+      "Service Partner Invoices"
+    ],
+    "shells": 1,
+    "invisibleContent": [],
+    "topbarOverlap": false,
+    "text": "›\n?\n▣\nSERVICE PARTNER INVOICES\nSearch system\nJoão Silva\nADMIN\nService Partner Invoices\n\nMonthly invoice summary by service partner.\n\nAll Service Partners\n‹\nSeptember 2026\n›\nInvoices\nDeductions & Reimbursements\nSingle Invoice\nMulti Invoice\n\n",
+    "errors": []
+  },
+  {
+    "route": "/service-partner-invoices",
+    "width": 1440,
+    "url": "/service-partner-invoices",
+    "title": "LogixSphere",
+    "bodyWidth": 1440,
+    "viewport": 1440,
+    "overflow": [],
+    "headings": [
+      "SERVICE PARTNER INVOICES",
+      "Service Partner Invoices"
+    ],
+    "shells": 1,
+    "invisibleContent": [],
+    "topbarOverlap": false,
+    "text": "›\n?\n▣\nSERVICE PARTNER INVOICES\nSearch system\n29/09/2026\nJoão Silva\nADMIN\nService Partner Invoices\n\nMonthly invoice summary by service partner.\n\nAll Service Partners\n‹\nSeptember 2026\n›\nInvoices\nDeductions & Reimbursements\nSingle Invoice\nMult",
+    "errors": []
+  },
+  {
+    "route": "/subcontractor",
+    "width": 390,
+    "url": "/subcontractor",
+    "title": "LogixSphere",
+    "bodyWidth": 390,
+    "viewport": 390,
+    "overflow": [],
+    "headings": [
+      "SUBCONTRACTOR"
+    ],
+    "shells": 1,
+    "invisibleContent": [],
+    "topbarOverlap": false,
+    "text": "?\n▣\nSUBCONTRACTOR\nSearch system\nSeptember\n2026\n1\nTUE\n2\nWED\n3\nTHU\n4\nFRI\n5\nSAT\n6\nSUN\n7\nMON\n8\nTUE\n9\nWED\n10\nTHU\n11\nFRI\n12\nSAT\n13\nSUN\n14\nMON\n15\nTUE\n16\nWED\n17\nTHU\n18\nFRI\n19\nSAT\n20\nSUN\n21\nMON\n22\nTUE\n23\nWED\n24\nTHU\n25\nFRI\n26\nSAT\n27\nSUN\n28\nMON\n29\nTUE",
+    "errors": []
+  },
+  {
+    "route": "/subcontractor",
+    "width": 768,
+    "url": "/subcontractor",
+    "title": "LogixSphere",
+    "bodyWidth": 768,
+    "viewport": 768,
+    "overflow": [],
+    "headings": [
+      "SUBCONTRACTOR"
+    ],
+    "shells": 1,
+    "invisibleContent": [],
+    "topbarOverlap": false,
+    "text": "›\n?\n▣\nSUBCONTRACTOR\nSearch system\nJoão Silva\nADMIN\nSeptember\n2026\n1\nTUE\n2\nWED\n3\nTHU\n4\nFRI\n5\nSAT\n6\nSUN\n7\nMON\n8\nTUE\n9\nWED\n10\nTHU\n11\nFRI\n12\nSAT\n13\nSUN\n14\nMON\n15\nTUE\n16\nWED\n17\nTHU\n18\nFRI\n19\nSAT\n20\nSUN\n21\nMON\n22\nTUE\n23\nWED\n24\nTHU\n25\nFRI\n26\nSAT\n2",
+    "errors": []
+  },
+  {
+    "route": "/subcontractor",
+    "width": 1440,
+    "url": "/subcontractor",
+    "title": "LogixSphere",
+    "bodyWidth": 1440,
+    "viewport": 1440,
+    "overflow": [],
+    "headings": [
+      "SUBCONTRACTOR"
+    ],
+    "shells": 1,
+    "invisibleContent": [],
+    "topbarOverlap": false,
+    "text": "›\n?\n▣\nSUBCONTRACTOR\nSearch system\n29/09/2026\nJoão Silva\nADMIN\nSeptember\n2026\n1\nTUE\n2\nWED\n3\nTHU\n4\nFRI\n5\nSAT\n6\nSUN\n7\nMON\n8\nTUE\n9\nWED\n10\nTHU\n11\nFRI\n12\nSAT\n13\nSUN\n14\nMON\n15\nTUE\n16\nWED\n17\nTHU\n18\nFRI\n19\nSAT\n20\nSUN\n21\nMON\n22\nTUE\n23\nWED\n24\nTHU\n25\nF",
+    "errors": []
+  },
+  {
+    "route": "/vehicles",
+    "width": 390,
+    "url": "/vehicles",
+    "title": "LogixSphere",
+    "bodyWidth": 390,
+    "viewport": 390,
+    "overflow": [],
+    "headings": [
+      "VEHICLES",
+      "Vehicles"
+    ],
+    "shells": 1,
+    "invisibleContent": [],
+    "topbarOverlap": false,
+    "text": "?\n▣\nVEHICLES\nSearch system\nVehicles\n\nVehicle fleet management\n\nTOTAL\n12\nACTIVE\n12\nINACTIVE\n0\nAll Service Partners\nNorth Star Logistics\nAtlas Delivery\nAll Status\nActive\nInactive\nAll Fuel\nDiesel\nElectric\nNew\nDE\nUK\nDE01 LOG\nSP\n\nMercedes-Benz S",
+    "errors": []
+  },
+  {
+    "route": "/vehicles",
+    "width": 768,
+    "url": "/vehicles",
+    "title": "LogixSphere",
+    "bodyWidth": 768,
+    "viewport": 768,
+    "overflow": [],
+    "headings": [
+      "VEHICLES",
+      "Vehicles"
+    ],
+    "shells": 1,
+    "invisibleContent": [],
+    "topbarOverlap": false,
+    "text": "›\n?\n▣\nVEHICLES\nSearch system\nJoão Silva\nADMIN\nVehicles\n\nVehicle fleet management\n\nTOTAL\n12\nACTIVE\n12\nINACTIVE\n0\nAll Service Partners\nNorth Star Logistics\nAtlas Delivery\nAll Statuses\nActive\nInactive\nAll Fuel Types\nDiesel\nElectric\nNew\nExport\n",
+    "errors": []
+  },
+  {
+    "route": "/vehicles",
+    "width": 1440,
+    "url": "/vehicles",
+    "title": "LogixSphere",
+    "bodyWidth": 1440,
+    "viewport": 1440,
+    "overflow": [],
+    "headings": [
+      "VEHICLES",
+      "Vehicles"
+    ],
+    "shells": 1,
+    "invisibleContent": [],
+    "topbarOverlap": false,
+    "text": "›\n?\n▣\nVEHICLES\nSearch system\n29/09/2026\nJoão Silva\nADMIN\nVehicles\n\nVehicle fleet management\n\nTOTAL\n12\nACTIVE\n12\nINACTIVE\n0\nAll Service Partners\nNorth Star Logistics\nAtlas Delivery\nAll Statuses\nActive\nInactive\nAll Fuel Types\nDiesel\nElectric\n",
+    "errors": []
+  },
+  {
+    "route": "/vendor",
+    "width": 390,
+    "url": "/vendor",
+    "title": "LogixSphere",
+    "bodyWidth": 390,
+    "viewport": 390,
+    "overflow": [],
+    "headings": [
+      "VENDOR",
+      "Vendors"
+    ],
+    "shells": 1,
+    "invisibleContent": [],
+    "topbarOverlap": false,
+    "text": "?\n▣\nVENDOR\nSearch system\nVendors\n\nVendor management and information\n\nTOTAL\n12\nACTIVE\n12\nINACTIVE\n0\nPENDING\n12\nAll\nActive\nInactive\nExpiring\nPending\nNew\nSelect a vendor to view\nAC\n\nAna Costa\n\nSP\n\nService Partner\n\nCP\n\nClara Pereira\n\nSP\n\nServic",
+    "errors": []
+  },
+  {
+    "route": "/vendor",
+    "width": 768,
+    "url": "/vendor",
+    "title": "LogixSphere",
+    "bodyWidth": 768,
+    "viewport": 768,
+    "overflow": [],
+    "headings": [
+      "VENDOR",
+      "Vendors"
+    ],
+    "shells": 1,
+    "invisibleContent": [],
+    "topbarOverlap": false,
+    "text": "›\n?\n▣\nVENDOR\nSearch system\nJoão Silva\nADMIN\nVendors\n\nVendor management and information\n\nTOTAL\n12\nACTIVE\n12\nINACTIVE\n0\nPENDING\n12\nAll Vendor Types\nService Partner\nAll Service Partners\nNorth Star Logistics\nAtlas Delivery\nStatus:\nAll\nActive\nIn",
+    "errors": []
+  },
+  {
+    "route": "/vendor",
+    "width": 1440,
+    "url": "/vendor",
+    "title": "LogixSphere",
+    "bodyWidth": 1440,
+    "viewport": 1440,
+    "overflow": [],
+    "headings": [
+      "VENDOR",
+      "Vendors"
+    ],
+    "shells": 1,
+    "invisibleContent": [],
+    "topbarOverlap": false,
+    "text": "›\n?\n▣\nVENDOR\nSearch system\n29/09/2026\nJoão Silva\nADMIN\nVendors\n\nVendor management and information\n\nTOTAL\n12\nACTIVE\n12\nINACTIVE\n0\nPENDING\n12\nAll Vendor Types\nService Partner\nAll Service Partners\nNorth Star Logistics\nAtlas Delivery\nStatus:\nAl",
+    "errors": []
+  },
+  {
+    "route": "/vendor-performance",
+    "width": 390,
+    "url": "/vendor-performance",
+    "title": "LogixSphere",
+    "bodyWidth": 390,
+    "viewport": 390,
+    "overflow": [],
+    "headings": [
+      "VENDOR PERFORMANCE",
+      "Vendor Performance"
+    ],
+    "shells": 1,
+    "invisibleContent": [],
+    "topbarOverlap": false,
+    "text": "?\n▣\nVENDOR PERFORMANCE\nSearch system\nVendor Performance\n\nSeptember 2026\n\nSERVICE PARTNER\nAll Service Partners\nVENDOR\nSelect a vendor\nSeptember 2026\nSeptember 2026 – Overview (all vendors)\n\n12 vendors with data\n\nSummary\nCharts\nAVG TW\n\n96.5\n\n",
+    "errors": []
+  },
+  {
+    "route": "/vendor-performance",
+    "width": 768,
+    "url": "/vendor-performance",
+    "title": "LogixSphere",
+    "bodyWidth": 768,
+    "viewport": 768,
+    "overflow": [],
+    "headings": [
+      "VENDOR PERFORMANCE",
+      "Vendor Performance"
+    ],
+    "shells": 1,
+    "invisibleContent": [],
+    "topbarOverlap": false,
+    "text": "›\n?\n▣\nVENDOR PERFORMANCE\nSearch system\nJoão Silva\nADMIN\nVendor Performance\n\nSeptember 2026\n\nVENDORS\n12\nSERVICE PARTNER\nAll Service Partners\nVENDOR\nSelect a vendor\nSeptember 2026\nSeptember 2026 – Overview (all vendors)\n\n12 vendors with data\n",
+    "errors": []
+  },
+  {
+    "route": "/vendor-performance",
+    "width": 1440,
+    "url": "/vendor-performance",
+    "title": "LogixSphere",
+    "bodyWidth": 1440,
+    "viewport": 1440,
+    "overflow": [],
+    "headings": [
+      "VENDOR PERFORMANCE",
+      "Vendor Performance"
+    ],
+    "shells": 1,
+    "invisibleContent": [],
+    "topbarOverlap": false,
+    "text": "›\n?\n▣\nVENDOR PERFORMANCE\nSearch system\n29/09/2026\nJoão Silva\nADMIN\nVendor Performance\n\nSeptember 2026\n\nVENDORS\n12\nSERVICE PARTNER\nAll Service Partners\nVENDOR\nSelect a vendor\nSeptember 2026\nSeptember 2026 – Overview (all vendors)\n\n12 vendors",
+    "errors": []
+  },
+  {
+    "route": "/week-planner",
+    "width": 390,
+    "url": "/week-planner",
+    "title": "LogixSphere",
+    "bodyWidth": 390,
+    "viewport": 390,
+    "overflow": [],
+    "headings": [
+      "WEEK PLANNER"
+    ],
+    "shells": 1,
+    "invisibleContent": [],
+    "topbarOverlap": false,
+    "text": "?\n▣\nWEEK PLANNER\nSearch system\nW34\n13 JUL — 19 JUL 2024\nSAVE\nMANAGEMENT AND SUPPORT\nADD ANNOTATIONS\nDAY OFF\nEXPORT WEEK\nEXPORT DAY\nGENERATE WEEK\nLCY\nMSE\nLSE\nBASP\n+\nADD NEW FLEXROUTE\n+\nTEAM LEADERS\nTeam Leader\nMARLON VALESAN\nPRIYA RAMANATHAN",
+    "errors": []
+  },
+  {
+    "route": "/week-planner",
+    "width": 768,
+    "url": "/week-planner",
+    "title": "LogixSphere",
+    "bodyWidth": 768,
+    "viewport": 768,
+    "overflow": [],
+    "headings": [
+      "WEEK PLANNER"
+    ],
+    "shells": 1,
+    "invisibleContent": [],
+    "topbarOverlap": false,
+    "text": "›\n?\n▣\nWEEK PLANNER\nSearch system\nJoão Silva\nADMIN\nW34\n13 JUL — 19 JUL 2024\nSAVE\nMANAGEMENT AND SUPPORT\nADD ANNOTATIONS\nDAY OFF\nEXPORT WEEK\nEXPORT DAY\nGENERATE WEEK\nLCY\nMSE\nLSE\nBASP\n+\nADD NEW FLEXROUTE\n+\nTEAM LEADERS\nTeam Leader\nMARLON VALES",
+    "errors": []
+  },
+  {
+    "route": "/week-planner",
+    "width": 1440,
+    "url": "/week-planner",
+    "title": "LogixSphere",
+    "bodyWidth": 1440,
+    "viewport": 1440,
+    "overflow": [],
+    "headings": [
+      "WEEK PLANNER"
+    ],
+    "shells": 1,
+    "invisibleContent": [],
+    "topbarOverlap": false,
+    "text": "›\n?\n▣\nWEEK PLANNER\nSearch system\n29/09/2026\nJoão Silva\nADMIN\nW34\n13 JUL — 19 JUL 2024\nSAVE\nMANAGEMENT AND SUPPORT\nADD ANNOTATIONS\nDAY OFF\nEXPORT WEEK\nEXPORT DAY\nGENERATE WEEK\nLCY\nMSE\nLSE\nBASP\n+\nADD NEW FLEXROUTE\n+\nTEAM LEADERS\nTeam Leader\nM",
+    "errors": []
+  },
+  {
+    "route": "/week-planner-operations",
+    "width": 390,
+    "url": "/week-planner-operations",
+    "title": "LogixSphere",
+    "bodyWidth": 390,
+    "viewport": 390,
+    "overflow": [],
+    "headings": [
+      "WEEK PLANNER OPERATIONS",
+      "Daily Operations Management - Tuesday - 29/09 - Week 40"
+    ],
+    "shells": 1,
+    "invisibleContent": [],
+    "topbarOverlap": false,
+    "text": "?\n▣\nWEEK PLANNER OPERATIONS\nSearch system\nDaily Operations Management - Tuesday - 29/09 - Week 40\nTOTAL OPERATIONS\n12\nWORKING\n12\nPENDING\n0\nDay\nAdd Record\nAdd Adhoc Service\nAdd Day off\nSearch (Vendor, Route, Vehicle)\nService Partner\nAll Serv",
+    "errors": []
+  },
+  {
+    "route": "/week-planner-operations",
+    "width": 768,
+    "url": "/week-planner-operations",
+    "title": "LogixSphere",
+    "bodyWidth": 768,
+    "viewport": 768,
+    "overflow": [],
+    "headings": [
+      "WEEK PLANNER OPERATIONS",
+      "Daily Operations Management - Tuesday - 29/09 - Week 40"
+    ],
+    "shells": 1,
+    "invisibleContent": [],
+    "topbarOverlap": false,
+    "text": "›\n?\n▣\nWEEK PLANNER OPERATIONS\nSearch system\nJoão Silva\nADMIN\nDaily Operations Management - Tuesday - 29/09 - Week 40\nTOTAL OPERATIONS\n12\nWORKING\n12\nPENDING\n0\nDay\nAdd Record\nAdd Adhoc Service\nAdd Day off\nSearch (Vendor, Route, Vehicle)\nServi",
+    "errors": []
+  },
+  {
+    "route": "/week-planner-operations",
+    "width": 1440,
+    "url": "/week-planner-operations",
+    "title": "LogixSphere",
+    "bodyWidth": 1440,
+    "viewport": 1440,
+    "overflow": [],
+    "headings": [
+      "WEEK PLANNER OPERATIONS",
+      "Daily Operations Management - Tuesday - 29/09 - Week 40"
+    ],
+    "shells": 1,
+    "invisibleContent": [],
+    "topbarOverlap": false,
+    "text": "›\n?\n▣\nWEEK PLANNER OPERATIONS\nSearch system\n29/09/2026\nJoão Silva\nADMIN\nDaily Operations Management - Tuesday - 29/09 - Week 40\nTOTAL OPERATIONS\n12\nWORKING\n12\nPENDING\n0\nDay\nAdd Record\nAdd Adhoc Service\nAdd Day off\nSearch (Vendor, Route, Veh",
+    "errors": []
+  },
+  {
+    "route": "/admin-login",
+    "width": 390,
+    "url": "/admin-login",
+    "title": "Sign in — LogixSphere",
+    "bodyWidth": 390,
+    "viewport": 390,
+    "overflow": [],
+    "headings": [
+      "Sign in to LogixSphere"
+    ],
+    "shells": 0,
+    "invisibleContent": [],
+    "topbarOverlap": false,
+    "text": "LOGIX\n/\nSPHERE\nSign in to LogixSphere\n\nUse your work email address.\n\nEmail\nPassword\nShow\nSIGN IN\nReset your password\nBack to the standard sign-in",
+    "errors": []
+  },
+  {
+    "route": "/admin-login",
+    "width": 768,
+    "url": "/admin-login",
+    "title": "Sign in — LogixSphere",
+    "bodyWidth": 768,
+    "viewport": 768,
+    "overflow": [],
+    "headings": [
+      "Sign in to LogixSphere"
+    ],
+    "shells": 0,
+    "invisibleContent": [],
+    "topbarOverlap": false,
+    "text": "LOGIX\n/\nSPHERE\nSign in to LogixSphere\n\nUse your work email address.\n\nEmail\nPassword\nShow\nSIGN IN\nReset your password\nBack to the standard sign-in",
+    "errors": []
+  },
+  {
+    "route": "/admin-login",
+    "width": 1440,
+    "url": "/admin-login",
+    "title": "Sign in — LogixSphere",
+    "bodyWidth": 1440,
+    "viewport": 1440,
+    "overflow": [],
+    "headings": [
+      "Sign in to LogixSphere"
+    ],
+    "shells": 0,
+    "invisibleContent": [],
+    "topbarOverlap": false,
+    "text": "LOGIX\n/\nSPHERE\nSign in to LogixSphere\n\nUse your work email address.\n\nEmail\nPassword\nShow\nSIGN IN\nReset your password\nBack to the standard sign-in",
+    "errors": []
+  },
+  {
+    "route": "/login",
+    "width": 390,
+    "url": "/login",
+    "title": "LogixSphere",
+    "bodyWidth": 390,
+    "viewport": 390,
+    "overflow": [],
+    "headings": [
+      "Keep every\nroute moving."
+    ],
+    "shells": 0,
+    "invisibleContent": [],
+    "topbarOverlap": false,
+    "text": "LOGIX\n/\nSPHERE\n\nOPERATIONS, IN VIEW\n\nKeep every\nroute moving.\n\nA clear view of people, plans and performance across your network.\n\nLOGIXSPHERE · ONE OPERATIONS VIEW\n\nSECURE WORKSPACE\n\nWelcome back\n\nSign in to continue to your operations wor",
+    "errors": []
+  },
+  {
+    "route": "/login",
+    "width": 768,
+    "url": "/login",
+    "title": "LogixSphere",
+    "bodyWidth": 768,
+    "viewport": 768,
+    "overflow": [],
+    "headings": [
+      "Keep every\nroute moving."
+    ],
+    "shells": 0,
+    "invisibleContent": [],
+    "topbarOverlap": false,
+    "text": "LOGIX\n/\nSPHERE\n\nOPERATIONS, IN VIEW\n\nKeep every\nroute moving.\n\nA clear view of people, plans and performance across your network.\n\nLOGIXSPHERE · ONE OPERATIONS VIEW\n\nSECURE WORKSPACE\n\nWelcome back\n\nSign in to continue to your operations wor",
+    "errors": []
+  },
+  {
+    "route": "/login",
+    "width": 1440,
+    "url": "/login",
+    "title": "LogixSphere",
+    "bodyWidth": 1440,
+    "viewport": 1440,
+    "overflow": [],
+    "headings": [
+      "Keep every\nroute moving."
+    ],
+    "shells": 0,
+    "invisibleContent": [],
+    "topbarOverlap": false,
+    "text": "LOGIX\n/\nSPHERE\n\nOPERATIONS, IN VIEW\n\nKeep every\nroute moving.\n\nA clear view of people, plans and performance across your network.\n\nLOGIXSPHERE · ONE OPERATIONS VIEW\n\nSECURE WORKSPACE\n\nWelcome back\n\nSign in to continue to your operations wor",
+    "errors": []
+  },
+  {
+    "route": "/register",
+    "width": 390,
+    "url": "/register",
+    "title": "LogixSphere",
+    "bodyWidth": 390,
+    "viewport": 390,
+    "overflow": [],
+    "headings": [],
+    "shells": 0,
+    "invisibleContent": [],
+    "topbarOverlap": false,
+    "text": "Create an account\nEnter your information below to create your account\nFirst Name\nLast Name\nDate of Birth\nEmail\nPassword\nConfirm Password\nRegister\nAlready have an account? Sign in",
+    "errors": []
+  },
+  {
+    "route": "/register",
+    "width": 768,
+    "url": "/register",
+    "title": "LogixSphere",
+    "bodyWidth": 768,
+    "viewport": 768,
+    "overflow": [],
+    "headings": [],
+    "shells": 0,
+    "invisibleContent": [],
+    "topbarOverlap": false,
+    "text": "Create an account\nEnter your information below to create your account\nFirst Name\nLast Name\nDate of Birth\nEmail\nPassword\nConfirm Password\nRegister\nAlready have an account? Sign in",
+    "errors": []
+  },
+  {
+    "route": "/register",
+    "width": 1440,
+    "url": "/register",
+    "title": "LogixSphere",
+    "bodyWidth": 1440,
+    "viewport": 1440,
+    "overflow": [],
+    "headings": [],
+    "shells": 0,
+    "invisibleContent": [],
+    "topbarOverlap": false,
+    "text": "Create an account\nEnter your information below to create your account\nFirst Name\nLast Name\nDate of Birth\nEmail\nPassword\nConfirm Password\nRegister\nAlready have an account? Sign in",
+    "errors": []
+  },
+  {
+    "route": "/register-successful",
+    "width": 390,
+    "url": "/register-successful",
+    "title": "LogixSphere",
+    "bodyWidth": 390,
+    "viewport": 390,
+    "overflow": [],
+    "headings": [],
+    "shells": 0,
+    "invisibleContent": [],
+    "topbarOverlap": false,
+    "text": "Registration Successful\nYour account has been created successfully\n\nThank you for registering. You can now log in with your credentials.\n\nGo to Login",
+    "errors": []
+  },
+  {
+    "route": "/register-successful",
+    "width": 768,
+    "url": "/register-successful",
+    "title": "LogixSphere",
+    "bodyWidth": 768,
+    "viewport": 768,
+    "overflow": [],
+    "headings": [],
+    "shells": 0,
+    "invisibleContent": [],
+    "topbarOverlap": false,
+    "text": "Registration Successful\nYour account has been created successfully\n\nThank you for registering. You can now log in with your credentials.\n\nGo to Login",
+    "errors": []
+  },
+  {
+    "route": "/register-successful",
+    "width": 1440,
+    "url": "/register-successful",
+    "title": "LogixSphere",
+    "bodyWidth": 1440,
+    "viewport": 1440,
+    "overflow": [],
+    "headings": [],
+    "shells": 0,
+    "invisibleContent": [],
+    "topbarOverlap": false,
+    "text": "Registration Successful\nYour account has been created successfully\n\nThank you for registering. You can now log in with your credentials.\n\nGo to Login",
+    "errors": []
+  },
+  {
+    "route": "/reset-password",
+    "width": 390,
+    "url": "/reset-password",
+    "title": "LogixSphere",
+    "bodyWidth": 390,
+    "viewport": 390,
+    "overflow": [],
+    "headings": [],
+    "shells": 0,
+    "invisibleContent": [],
+    "topbarOverlap": false,
+    "text": "Error\nMissing required information\nEmail and token are required in the URL.\nRequest a new password reset\nBack to login",
+    "errors": []
+  },
+  {
+    "route": "/reset-password",
+    "width": 768,
+    "url": "/reset-password",
+    "title": "LogixSphere",
+    "bodyWidth": 768,
+    "viewport": 768,
+    "overflow": [],
+    "headings": [],
+    "shells": 0,
+    "invisibleContent": [],
+    "topbarOverlap": false,
+    "text": "Error\nMissing required information\nEmail and token are required in the URL.\nRequest a new password reset\nBack to login",
+    "errors": []
+  },
+  {
+    "route": "/reset-password",
+    "width": 1440,
+    "url": "/reset-password",
+    "title": "LogixSphere",
+    "bodyWidth": 1440,
+    "viewport": 1440,
+    "overflow": [],
+    "headings": [],
+    "shells": 0,
+    "invisibleContent": [],
+    "topbarOverlap": false,
+    "text": "Error\nMissing required information\nEmail and token are required in the URL.\nRequest a new password reset\nBack to login",
+    "errors": []
+  },
+  {
+    "route": "/send-password-reset-token",
+    "width": 390,
+    "url": "/send-password-reset-token",
+    "title": "LogixSphere",
+    "bodyWidth": 390,
+    "viewport": 390,
+    "overflow": [],
+    "headings": [],
+    "shells": 0,
+    "invisibleContent": [],
+    "topbarOverlap": false,
+    "text": "Reset your password\nEnter your email address to receive a password reset link\nEmail\nSend Reset Link\nRemember your password? Back to login",
+    "errors": []
+  },
+  {
+    "route": "/send-password-reset-token",
+    "width": 768,
+    "url": "/send-password-reset-token",
+    "title": "LogixSphere",
+    "bodyWidth": 768,
+    "viewport": 768,
+    "overflow": [],
+    "headings": [],
+    "shells": 0,
+    "invisibleContent": [],
+    "topbarOverlap": false,
+    "text": "Reset your password\nEnter your email address to receive a password reset link\nEmail\nSend Reset Link\nRemember your password? Back to login",
+    "errors": []
+  },
+  {
+    "route": "/send-password-reset-token",
+    "width": 1440,
+    "url": "/send-password-reset-token",
+    "title": "LogixSphere",
+    "bodyWidth": 1440,
+    "viewport": 1440,
+    "overflow": [],
+    "headings": [],
+    "shells": 0,
+    "invisibleContent": [],
+    "topbarOverlap": false,
+    "text": "Reset your password\nEnter your email address to receive a password reset link\nEmail\nSend Reset Link\nRemember your password? Back to login",
+    "errors": []
+  }
+]

@@ -4,6 +4,7 @@ import {
   BUSINESS_RULES,
 } from "@/src/constants/businessRules";
 import {
+  MY_PERFORMANCE_ROUTES,
   canAccessPath,
   getBeamSidebarAccess,
   isPathAllowed,
@@ -27,11 +28,26 @@ describe("route permissions", () => {
 
   it("allows supervisors only on their whitelisted pages", () => {
     expect(
-      canAccessPath(BUSINESS_RULES.USER_TYPE.SUPERVISOR, "/home")
+      canAccessPath(BUSINESS_RULES.USER_TYPE.SUPERVISOR, "/week-planner")
     ).toBe(true);
+    expect(canAccessPath(BUSINESS_RULES.USER_TYPE.SUPERVISOR, "/vendor")).toBe(true);
+    expect(canAccessPath(BUSINESS_RULES.USER_TYPE.SUPERVISOR, "/vehicles")).toBe(true);
+    expect(canAccessPath(BUSINESS_RULES.USER_TYPE.SUPERVISOR, "/home")).toBe(false);
+    expect(canAccessPath(BUSINESS_RULES.USER_TYPE.SUPERVISOR, "/invoices")).toBe(false);
     expect(
       canAccessPath(BUSINESS_RULES.USER_TYPE.SUPERVISOR, "/daily-financial-insights")
     ).toBe(false);
+  });
+
+  it("shares personal driver pages with admins and supervisors", () => {
+    for (const role of [BUSINESS_RULES.USER_TYPE.ADMIN, BUSINESS_RULES.USER_TYPE.SUPERVISOR, BUSINESS_RULES.USER_TYPE.DRIVER]) {
+      for (const path of MY_PERFORMANCE_ROUTES) {
+        expect(canAccessPath(role, path)).toBe(true);
+        expect(canAccessPath(role, `${path}/details`)).toBe(true);
+      }
+    }
+    expect(canAccessPath(BUSINESS_RULES.USER_TYPE.SUPERVISOR, "/requests-admin")).toBe(false);
+    expect(canAccessPath(BUSINESS_RULES.USER_TYPE.SUPERVISOR, "/vendor-performance")).toBe(false);
   });
 
   it("grants admins unrestricted private-route access", () => {
@@ -52,7 +68,7 @@ describe("route permissions", () => {
     expect(
       getBeamSidebarAccess(BUSINESS_RULES.USER_TYPE.DRIVER)
     ).toEqual({
-      canSeeSidebar: false,
+      canSeeSidebar: true,
       canSeeFinancial: false,
       canSeeVendorRequests: false,
     });

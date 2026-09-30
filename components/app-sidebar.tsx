@@ -1,6 +1,7 @@
 ﻿"use client";
 
 import * as React from "react";
+import { BUSINESS_RULES } from "@/src/constants/businessRules";
 
 import { useState, useEffect, startTransition } from "react";
 
@@ -323,6 +324,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
     if (roles.includes("supervisor")) {
       return list.filter((item) => isPathAllowed(item.url, USER_TYPE_3_ALLOWED));
     }
+    if (roles.includes("driver")) return [];
     return list;
   }, [user]);
 
@@ -331,11 +333,13 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
     const list = NAVIGATION_DATA.financial;
     const roles = user?.roles ?? [];
     if (roles.includes("supervisor")) return [];
+    if (roles.includes("driver")) return [];
     if (roles.includes("admin")) return list;
     return list.filter((item) => item.name !== "Adhoc Works Invoice Management");
   }, [user]);
 
-  const showVendorRequests = !(user?.roles ?? []).includes("supervisor");
+  const showVendorRequests = !(user?.roles ?? []).includes("supervisor") && !(user?.roles ?? []).includes("driver");
+  const isDriver = user?.userTypeId === BUSINESS_RULES.USER_TYPE.DRIVER || (user?.roles ?? []).includes("driver");
 
   const fetchPendingCount = React.useCallback(() => {
     const roles = user?.roles ?? [];
@@ -417,7 +421,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
 
               <SidebarMenu>
 
-                <SidebarMenuItem>
+                {!isDriver && <SidebarMenuItem>
 
                   <SidebarMenuButton asChild>
 
@@ -436,7 +440,24 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
 
                   </SidebarMenuButton>
 
-                </SidebarMenuItem>
+                </SidebarMenuItem>}
+
+                {isDriver && <SidebarMenuItem>
+                  <SidebarMenuButton asChild>
+                    <Link href="/home" prefetch={false} style={{ textDecoration: 'none' }}>
+                      <Home className="w-5 h-5" />
+                      <span>Home</span>
+                    </Link>
+                  </SidebarMenuButton>
+                </SidebarMenuItem>}
+                {isDriver && <SidebarMenuItem>
+                  <SidebarMenuButton asChild>
+                    <Link href="/daily-performance-insight" prefetch={false} style={{ textDecoration: 'none' }}>
+                      <BarChart3 className="w-5 h-5" />
+                      <span>My Performance</span>
+                    </Link>
+                  </SidebarMenuButton>
+                </SidebarMenuItem>}
 
                 {showVendorRequests && (
                   <SidebarMenuItem>

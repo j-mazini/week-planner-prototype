@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useCallback } from "react";
-import { Truck, CalendarDays, BarChart3, ShieldCheck, Car, ChevronDown, Activity } from "lucide-react";
+import { type LucideIcon, Truck, CalendarDays, BarChart3, ShieldCheck, Car, ChevronDown, Activity } from "lucide-react";
 import {
   Collapsible,
   CollapsibleContent,
@@ -9,7 +9,7 @@ import {
 } from "@/components/ui/collapsible";
 import type { DashboardWidgetId } from "../../types/dashboard-grid-types";
 
-const BLOCK_CONFIG: { id: DashboardWidgetId; label: string; icon: React.ElementType }[] = [
+const BLOCK_CONFIG: { id: DashboardWidgetId; label: string; icon: LucideIcon }[] = [
   { id: "disco", label: "My deliveries", icon: Truck },
   { id: "dayview", label: "Day view", icon: CalendarDays },
   { id: "myperformance", label: "My Performance", icon: Activity },

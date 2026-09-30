@@ -1,14 +1,16 @@
 "use client";
 
 import { useCallback, useEffect, useMemo, useState } from "react";
+import { useAuth } from "@/hooks/useAuth";
 import { useRouter } from "next/navigation";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import NavbarWrapper from "@/components/navbar-wrapper";
 import { DgpPageFrame } from "@/app/(private)/components";
-import { PageHeader } from "../components";
 import { GradientDotsBackground } from "@/components/gradient-dots-background";
-import { getUserIdFromToken, hasAuthSession } from "@/lib/auth"
+import { ModernPageHeader } from "@/components/modern-page-header";
+import { ClipboardList, Clock3 } from "lucide-react";
+import { hasAuthSession } from "@/lib/auth"
 import {
   createVendorRequest,
   fetchVendorRequests,
@@ -23,7 +25,8 @@ import { RequestsHistory } from "./components/RequestsHistory";
 export default function RequestsPage() {
   const router = useRouter();
 
-  const [userId, setVendorId] = useState<number | null>(null);
+  const { user } = useAuth();
+  const userId = user?.id ?? null;
   const [activeTab, setActiveTab] = useState<"dayoff" | "holiday" | "prepayment" | "requests">("dayoff");
 
   const [status, setStatus] = useState<{ type: "success" | "error"; title: string; message: string } | null>(null);
@@ -81,6 +84,10 @@ export default function RequestsPage() {
     () => requestsFilteredByMonth.filter((r) => r.requestType === "PrePayment"),
     [requestsFilteredByMonth]
   );
+  const pendingRequestsCount = useMemo(
+    () => requestsFilteredByMonth.filter((request) => String(request.status).toLowerCase() === "pending").length,
+    [requestsFilteredByMonth]
+  );
 
   // Redirect only when not authenticated (Admin 1 and Supervisor 3 are allowed to access this page)
   useEffect(() => {
@@ -88,11 +95,6 @@ export default function RequestsPage() {
       router.replace("/home");
     }
   }, [router]);
-
-  useEffect(() => {
-    const id = getUserIdFromToken();
-    if (id) setVendorId(id);
-  }, []);
 
   const reloadMyRequests = useCallback(async () => {
     if (!userId) return;
@@ -294,14 +296,23 @@ export default function RequestsPage() {
         <div className="w-full min-w-0">
           <DgpPageFrame
             width="ultra"
-            containerClassName="mx-auto w-full px-[3%] md:px-6 lg:px-8 py-[2%] md:py-6 space-y-[2%] md:space-y-6"
+            containerClassName="mx-auto w-full px-[3%] md:px-6 lg:px-8 py-4 md:py-8 space-y-5 md:space-y-7"
             className="font-sans text-slate-800 text-sm"
           >
             <div id="main-content" className="flex-grow flex flex-col min-w-0 relative">
-              <main className="mx-auto w-full max-w-[86rem] pt-[2%] md:pt-6 space-y-[2%] md:space-y-4">
-                {/* Header com logout (padrão mobile-invoice) */}
-                <div className="mb-[2%] md:mb-4">
-                  <PageHeader alignHeader="right" />
+              <main className="mx-auto w-full max-w-[86rem] space-y-5 md:space-y-7">
+                <div className="mb-1">
+                  <ModernPageHeader
+                    title="Requests"
+                    subtitle="Manage time off, holidays, pre-payments and request history."
+                    gradientFrom="slate-900"
+                    gradientTo="teal-600"
+                    metrics={[
+                      { label: "Requests this month", value: requestsFilteredByMonth.length, icon: <ClipboardList size={14} /> },
+                      { label: "Awaiting review", value: pendingRequestsCount, icon: <Clock3 size={14} /> },
+                    ]}
+                    metricsLayout="grid2x2"
+                  />
                 </div>
 
                 {/* Status Alert */}
@@ -317,28 +328,28 @@ export default function RequestsPage() {
 
                 {/* Tabs */}
                 <Tabs value={activeTab} onValueChange={(v) => setActiveTab(v as "dayoff" | "holiday" | "prepayment" | "requests")}>
-                  <TabsList className="flex w-full rounded-xl bg-white/95 backdrop-blur-md border border-slate-200/80 shadow-sm p-1 gap-1">
+                  <TabsList className="flex h-auto w-full rounded-xl border border-slate-200/80 bg-white/95 p-1.5 shadow-sm backdrop-blur-md gap-1.5">
                     <TabsTrigger
                       value="dayoff"
-                      className="rounded-lg data-[state=active]:bg-slate-200/80 data-[state=active]:shadow-sm transition-all flex-1 min-w-0 py-2 sm:py-1.5 px-1.5 sm:px-3 text-[0.65rem] sm:text-sm text-center whitespace-nowrap"
+                      className="min-h-10 flex-1 min-w-0 rounded-lg px-1.5 py-2 text-center text-[0.65rem] whitespace-nowrap transition-all data-[state=active]:bg-emerald-600 data-[state=active]:text-white data-[state=active]:shadow-sm sm:px-3 sm:text-sm"
                     >
                       Day Off
                     </TabsTrigger>
                     <TabsTrigger
                       value="holiday"
-                      className="rounded-lg data-[state=active]:bg-slate-200/80 data-[state=active]:shadow-sm transition-all flex-1 min-w-0 py-2 sm:py-1.5 px-1.5 sm:px-3 text-[0.65rem] sm:text-sm text-center whitespace-nowrap"
+                      className="min-h-10 flex-1 min-w-0 rounded-lg px-1.5 py-2 text-center text-[0.65rem] whitespace-nowrap transition-all data-[state=active]:bg-emerald-600 data-[state=active]:text-white data-[state=active]:shadow-sm sm:px-3 sm:text-sm"
                     >
                       Holiday
                     </TabsTrigger>
                     <TabsTrigger
                       value="prepayment"
-                      className="rounded-lg data-[state=active]:bg-slate-200/80 data-[state=active]:shadow-sm transition-all flex-1 min-w-0 py-2 sm:py-1.5 px-1.5 sm:px-3 text-[0.65rem] sm:text-sm text-center whitespace-nowrap"
+                      className="min-h-10 flex-1 min-w-0 rounded-lg px-1.5 py-2 text-center text-[0.65rem] whitespace-nowrap transition-all data-[state=active]:bg-emerald-600 data-[state=active]:text-white data-[state=active]:shadow-sm sm:px-3 sm:text-sm"
                     >
                       Pre-Payment
                     </TabsTrigger>
                     <TabsTrigger
                       value="requests"
-                      className="rounded-lg data-[state=active]:bg-slate-200/80 data-[state=active]:shadow-sm transition-all font-semibold flex-1 min-w-0 py-2 sm:py-1.5 px-1.5 sm:px-3 text-[0.65rem] sm:text-sm text-center whitespace-nowrap"
+                      className="min-h-10 flex-1 min-w-0 rounded-lg px-1.5 py-2 text-center text-[0.65rem] font-semibold whitespace-nowrap transition-all data-[state=active]:bg-emerald-600 data-[state=active]:text-white data-[state=active]:shadow-sm sm:px-3 sm:text-sm"
                     >
                       History
                     </TabsTrigger>
@@ -412,6 +423,5 @@ export default function RequestsPage() {
     </GradientDotsBackground>
   );
 }
-
 
 

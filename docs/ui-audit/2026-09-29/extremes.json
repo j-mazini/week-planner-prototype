@@ -1,0 +1,262 @@
+[
+  {
+    "route": "/register",
+    "width": 320,
+    "url": "/register",
+    "title": "LogixSphere",
+    "bodyWidth": 320,
+    "viewport": 320,
+    "overflow": [],
+    "headings": [],
+    "shells": 0,
+    "invisibleContent": [],
+    "topbarOverlap": false,
+    "text": "Create an account\nEnter your information below to create your account\nFirst Name\nLast Name\nDate of Birth\nEmail\nPassword\nConfirm Password\nRegister\nAlready have an account? Sign in",
+    "errors": []
+  },
+  {
+    "route": "/register",
+    "width": 2560,
+    "url": "/register",
+    "title": "LogixSphere",
+    "bodyWidth": 2560,
+    "viewport": 2560,
+    "overflow": [],
+    "headings": [],
+    "shells": 0,
+    "invisibleContent": [],
+    "topbarOverlap": false,
+    "text": "Create an account\nEnter your information below to create your account\nFirst Name\nLast Name\nDate of Birth\nEmail\nPassword\nConfirm Password\nRegister\nAlready have an account? Sign in",
+    "errors": []
+  },
+  {
+    "route": "/register-successful",
+    "width": 320,
+    "url": "/register-successful",
+    "title": "LogixSphere",
+    "bodyWidth": 320,
+    "viewport": 320,
+    "overflow": [],
+    "headings": [],
+    "shells": 0,
+    "invisibleContent": [],
+    "topbarOverlap": false,
+    "text": "Registration Successful\nYour account has been created successfully\n\nThank you for registering. You can now log in with your credentials.\n\nGo to Login",
+    "errors": []
+  },
+  {
+    "route": "/register-successful",
+    "width": 2560,
+    "url": "/register-successful",
+    "title": "LogixSphere",
+    "bodyWidth": 2560,
+    "viewport": 2560,
+    "overflow": [],
+    "headings": [],
+    "shells": 0,
+    "invisibleContent": [],
+    "topbarOverlap": false,
+    "text": "Registration Successful\nYour account has been created successfully\n\nThank you for registering. You can now log in with your credentials.\n\nGo to Login",
+    "errors": []
+  },
+  {
+    "route": "/reset-password",
+    "width": 320,
+    "url": "/reset-password",
+    "title": "LogixSphere",
+    "bodyWidth": 320,
+    "viewport": 320,
+    "overflow": [],
+    "headings": [],
+    "shells": 0,
+    "invisibleContent": [],
+    "topbarOverlap": false,
+    "text": "Reset your password\nCreate a new password for your account\nNew Password\nConfirm New Password\nReset Password\nBack to login",
+    "errors": []
+  },
+  {
+    "route": "/reset-password",
+    "width": 2560,
+    "url": "/reset-password",
+    "title": "LogixSphere",
+    "bodyWidth": 2560,
+    "viewport": 2560,
+    "overflow": [],
+    "headings": [],
+    "shells": 0,
+    "invisibleContent": [],
+    "topbarOverlap": false,
+    "text": "Error\nMissing required information\nEmail and token are required in the URL.\nRequest a new password reset\nBack to login",
+    "errors": []
+  },
+  {
+    "route": "/send-password-reset-token",
+    "width": 320,
+    "url": "/send-password-reset-token",
+    "title": "LogixSphere",
+    "bodyWidth": 320,
+    "viewport": 320,
+    "overflow": [],
+    "headings": [],
+    "shells": 0,
+    "invisibleContent": [],
+    "topbarOverlap": false,
+    "text": "Reset your password\nEnter your email address to receive a password reset link\nEmail\nSend Reset Link\nRemember your password? Back to login",
+    "errors": []
+  },
+  {
+    "route": "/send-password-reset-token",
+    "width": 2560,
+    "url": "/send-password-reset-token",
+    "title": "LogixSphere",
+    "bodyWidth": 2560,
+    "viewport": 2560,
+    "overflow": [],
+    "headings": [],
+    "shells": 0,
+    "invisibleContent": [],
+    "topbarOverlap": false,
+    "text": "Reset your password\nEnter your email address to receive a password reset link\nEmail\nSend Reset Link\nRemember your password? Back to login",
+    "errors": []
+  },
+  {
+    "route": "/financial-management",
+    "width": 320,
+    "url": "/financial-management",
+    "title": "LogixSphere",
+    "bodyWidth": 320,
+    "viewport": 320,
+    "overflow": [],
+    "headings": [
+      "FINANCIAL MANAGEMENT"
+    ],
+    "shells": 1,
+    "invisibleContent": [],
+    "topbarOverlap": false,
+    "text": "?\n▣\nFINANCIAL MANAGEMENT\nSearch system\n\nChoose a financial workspace to review performance, manage invoices or track payments.\n\nFinancial insights\n\nReview revenue, costs and daily financial performance.\n\nFinancial invoices\n\nReview invoices ",
+    "errors": []
+  },
+  {
+    "route": "/financial-management",
+    "width": 2560,
+    "url": "/financial-management",
+    "title": "LogixSphere",
+    "bodyWidth": 2560,
+    "viewport": 2560,
+    "overflow": [],
+    "headings": [
+      "FINANCIAL MANAGEMENT"
+    ],
+    "shells": 1,
+    "invisibleContent": [],
+    "topbarOverlap": false,
+    "text": "›\n?\n▣\nFINANCIAL MANAGEMENT\nSearch system\n29/09/2026\nJoão Silva\nADMIN\n\nChoose a financial workspace to review performance, manage invoices or track payments.\n\nFinancial insights\n\nReview revenue, costs and daily financial performance.\n\nFinanc",
+    "errors": []
+  },
+  {
+    "route": "/financial-invoices",
+    "width": 320,
+    "url": "/financial-invoices",
+    "title": "LogixSphere",
+    "bodyWidth": 320,
+    "viewport": 320,
+    "overflow": [],
+    "headings": [
+      "FINANCIAL INVOICES",
+      "Financial Invoices"
+    ],
+    "shells": 1,
+    "invisibleContent": [],
+    "topbarOverlap": false,
+    "text": "?\n▣\nFINANCIAL INVOICES\nSearch system\nAll Service Partners\nNorth Star Logistics\nAtlas Delivery\nFinancial Invoices\n\nPeriod: Sep 2026\n\nTOTAL INVOICES\n1\nTOTAL AMOUNT\n3.960,00\nCOURIERS\n1\nPeriod:\nSeptember 2026\nNew Single Invoice\nNew Multiple Inv",
+    "errors": []
+  },
+  {
+    "route": "/financial-invoices",
+    "width": 2560,
+    "url": "/financial-invoices",
+    "title": "LogixSphere",
+    "bodyWidth": 2560,
+    "viewport": 2560,
+    "overflow": [],
+    "headings": [
+      "FINANCIAL INVOICES",
+      "Financial Invoices"
+    ],
+    "shells": 1,
+    "invisibleContent": [],
+    "topbarOverlap": false,
+    "text": "›\n?\n▣\nFINANCIAL INVOICES\nSearch system\n29/09/2026\nJoão Silva\nADMIN\nAll Service Partners\nNorth Star Logistics\nAtlas Delivery\nFinancial Invoices\n\nPeriod: Sep 2026\n\nTOTAL INVOICES\n1\nTOTAL AMOUNT\n3.960,00\nCOURIERS\n1\nPeriod:\nSeptember 2026\nSPMS ",
+    "errors": []
+  },
+  {
+    "route": "/contract-management",
+    "width": 320,
+    "url": "/contract-management",
+    "title": "LogixSphere",
+    "bodyWidth": 320,
+    "viewport": 320,
+    "overflow": [],
+    "headings": [
+      "CONTRACT MANAGEMENT",
+      "Contract Management"
+    ],
+    "shells": 1,
+    "invisibleContent": [],
+    "topbarOverlap": false,
+    "text": "?\n▣\nCONTRACT MANAGEMENT\nSearch system\nContract Management\n\nTuesday, September 29, 2026\n\nDepot\nBA Costs\nAd-Hoc\nPartner\nExport\n\nSCOPE\n\nSmart Filters\nClear\n\nDeposit\n\nAll\n\nLoop\n\nAll\nLOOP 1\nLOOP 2\nLOOP 3\n\nRoute Type\n\nall\nChild\nFlex\nLCY\nSP\n\nNorth",
+    "errors": []
+  },
+  {
+    "route": "/contract-management",
+    "width": 2560,
+    "url": "/contract-management",
+    "title": "LogixSphere",
+    "bodyWidth": 2560,
+    "viewport": 2560,
+    "overflow": [],
+    "headings": [
+      "CONTRACT MANAGEMENT",
+      "Contract Management"
+    ],
+    "shells": 1,
+    "invisibleContent": [],
+    "topbarOverlap": false,
+    "text": "›\n?\n▣\nCONTRACT MANAGEMENT\nSearch system\n29/09/2026\nJoão Silva\nADMIN\nContract Management\n\nTuesday, September 29, 2026\n\nDepot Management\nBA Costs Centers\nAd-Hoc Services\nService Partner\nExport\n\nSCOPE\n\nSmart Filters\nClear\n\nDeposit\n\nAll\n\nLoop\n\n",
+    "errors": []
+  },
+  {
+    "route": "/requests-admin",
+    "width": 320,
+    "url": "/requests-admin",
+    "title": "LogixSphere",
+    "bodyWidth": 320,
+    "viewport": 320,
+    "overflow": [],
+    "headings": [
+      "REQUESTS ADMIN"
+    ],
+    "shells": 1,
+    "invisibleContent": [],
+    "topbarOverlap": false,
+    "text": "?\n▣\nREQUESTS ADMIN\nSearch system\nRequests Management\nReview and manage vendor requests.\nRequests (2)\nHistory\nPending Requests\nReview and approve or reject pending requests.\nAll Service Partners\nNorth Star Logistics\nAtlas Delivery\nRefresh\nRE",
+    "errors": []
+  },
+  {
+    "route": "/requests-admin",
+    "width": 2560,
+    "url": "/requests-admin",
+    "title": "LogixSphere",
+    "bodyWidth": 2560,
+    "viewport": 2560,
+    "overflow": [],
+    "headings": [
+      "REQUESTS ADMIN"
+    ],
+    "shells": 1,
+    "invisibleContent": [],
+    "topbarOverlap": false,
+    "text": "›\n?\n▣\nREQUESTS ADMIN\nSearch system\n29/09/2026\nJoão Silva\nADMIN\nRequests Management\nReview and manage vendor requests.\nRequests (2)\nHistory\nPending Requests\nReview and approve or reject pending requests.\nAll Service Partners\nNorth Star Logis",
+    "errors": []
+  }
+]

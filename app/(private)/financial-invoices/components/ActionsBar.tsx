@@ -52,7 +52,7 @@ export const ActionsBar = memo<ActionsBarProps>(({
           : "SPMS validation is OFF - you can approve/create invoices without SPMS. Click to enable."}
         className={`
           rounded-lg font-medium h-11 px-4 
-          transition-all duration-[400ms] 
+          transition-all [transition-duration:400ms]
           border cursor-pointer 
           inline-flex items-center justify-center gap-2 
           relative z-20
@@ -68,7 +68,7 @@ export const ActionsBar = memo<ActionsBarProps>(({
         type="button"
         className="
           rounded-lg font-medium h-11 px-4 
-          transition-all duration-[400ms] 
+          transition-all [transition-duration:400ms]
           border-none cursor-pointer 
           inline-flex items-center justify-center gap-2 
           bg-blue-600 text-white 
@@ -86,7 +86,7 @@ export const ActionsBar = memo<ActionsBarProps>(({
         type="button"
         className="
           rounded-lg font-medium h-11 px-4 
-          transition-all duration-[400ms] 
+          transition-all [transition-duration:400ms]
           border-none cursor-pointer 
           inline-flex items-center justify-center gap-2 
           bg-blue-600 text-white 
@@ -100,13 +100,13 @@ export const ActionsBar = memo<ActionsBarProps>(({
         New Multiple Invoices
       </button>
       
-      <div className="relative z-20 transition-all duration-[400ms] hover:-translate-y-0.5">
+      <div className="relative z-20 transition-all [transition-duration:400ms] hover:-translate-y-0.5">
         <ExportButton
           filename={getExportFileName({ userTypeId, selectedMonth })}
           onExport={handleExport}
           className="
             rounded-lg font-medium h-11 px-4 
-            transition-all duration-[400ms] 
+            transition-all [transition-duration:400ms]
             border border-gray-300 cursor-pointer 
             inline-flex items-center gap-2 
             bg-white text-gray-600 

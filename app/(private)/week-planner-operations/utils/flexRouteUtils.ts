@@ -84,7 +84,7 @@ export function createFlexRouteFromTemplate(
     templateId: template.id,
     loopType: template.loop.toUpperCase() as Uppercase<string>,
     depot: template.depot,
-  } as FlexRouteWithTemplate;
+  };
 }
 
 /**

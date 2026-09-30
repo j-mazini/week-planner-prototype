@@ -11,7 +11,6 @@ import ExportDayScheduleModal from './ExportDayScheduleModal';
 import ExportWeekScheduleModal from './ExportWeekScheduleModal';
 import PdfPreviewModal, { type PdfEntry } from './PdfPreviewModal';
 import ConfirmationModal from './modals/ConfirmationModal';
-import { UserCard } from "@/components/user-card";
 import ColorLegend from './Common/ColorLegend';
 import type { WeekPlannerRecord } from '../contexts/PlannerContext';
 import type { Route, DepositWithRoutesDTO } from '@/lib/api/routes';
@@ -577,11 +576,7 @@ const PlannerView: React.FC<PlannerViewProps> = ({
                       </div>
                     </div>
 
-          {/* User */}
-          <div className="flex items-start justify-start lg:justify-end">
-                      <UserCard />
-                  </div>
-                </div>
+        </div>
 
                 {/* Controls Section - bloco da semana e botões alinhados na mesma linha */}
         <div className="relative z-10 w-full">
@@ -946,6 +941,4 @@ const PlannerView: React.FC<PlannerViewProps> = ({
 };
 
 export default PlannerView;
-
-
 

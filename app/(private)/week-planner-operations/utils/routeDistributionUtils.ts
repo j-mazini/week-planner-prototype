@@ -6,7 +6,6 @@
  * similar to the original planner implementation.
  */
 
-import type { Route } from '../types/planner';
 
 export type DepotKey = 'dcy' | 'lcy' | 'mse';
 export type LoopType = 'dy1' | 'dy2' | 'lse-ll3' | 'lse-ll4' | 'lse-lm9' | 'mse-md7' | 'mse-md9';
@@ -14,11 +13,18 @@ export type LoopType = 'dy1' | 'dy2' | 'lse-ll3' | 'lse-ll4' | 'lse-lm9' | 'mse-
 /**
  * Extended Route type that supports both planner Route format and lib/routes Route format
  */
-export type ExtendedRoute = Route | {
+export interface ExtendedRoute {
+  id?: number | string;
+  name?: string;
   routeId?: number;
   routeName?: string;
-  [key: string]: unknown;
-};
+  type?: string;
+  variant?: string;
+  depot?: string;
+  loopType?: string;
+  isFlex?: boolean;
+  templateId?: number | string;
+}
 
 /**
  * Helper to get route name from either format
@@ -277,7 +283,7 @@ export function getRoutesByDepot(
   depot: DepotKey
 ): ExtendedRoute[] {
   const allRoutes = [...loopRoutes, ...rotaRoutes];
-  const depotRoutes: Route[] = [];
+  const depotRoutes: ExtendedRoute[] = [];
 
   // Get loop routes for this depot
   LOOP_SECTION_CONFIGS.forEach((config) => {

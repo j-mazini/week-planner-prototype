@@ -6,7 +6,6 @@ import { ActionsBar } from './ActionsBar';
 import { FilterBar } from './FilterBar';
 import { SearchInput } from './SearchInput';
 import { InvoiceTable } from './InvoiceTable';
-import { StatsSection } from './StatsSection';
 import type { Invoice, SortField, SortDirection } from '../types';
 import { BUSINESS_RULES } from '@/src/constants/businessRules';
 
@@ -53,7 +52,6 @@ export const DesktopView = memo(function DesktopView({
   onMultipleInvoices,
   spmsValidationEnabled,
   onSpmsValidationToggle,
-  totalValue,
 }: DesktopViewProps) {
   return (
     <main className="hidden md:block pt-6 space-y-4">
@@ -74,8 +72,8 @@ export const DesktopView = memo(function DesktopView({
         shadow-md mb-6 border border-gray-200 
         relative overflow-visible
       ">
-        <div className="flex flex-nowrap items-center justify-between gap-4 relative z-10 min-h-[44px]">
-          <div className="flex items-center gap-3 flex-shrink-0 min-h-[44px]">
+        <div className="flex flex-wrap items-center justify-between gap-4 relative z-10 min-h-[44px]">
+          <div className="flex min-w-0 flex-wrap items-center gap-3 min-h-[44px]">
             <SearchInput 
               value={searchTerm}
               onChange={onSearchChange}
@@ -87,7 +85,7 @@ export const DesktopView = memo(function DesktopView({
               onPeriodChange={onPeriodChange}
             />
           </div>
-          <div className="flex items-center gap-2 flex-shrink-0 min-h-[44px]">
+          <div className="flex min-w-0 max-w-full flex-wrap items-center gap-2 min-h-[44px]">
             <ActionsBar
               userTypeId={userTypeId}
               invoices={sortedInvoices}
@@ -100,9 +98,6 @@ export const DesktopView = memo(function DesktopView({
           </div>
         </div>
       </div>
-
-      {/* Stat Cards - Admin Only */}
-      {userTypeId === BUSINESS_RULES.USER_TYPE.ADMIN && <StatsSection totalValue={totalValue} />}
 
       {/* Invoice Table - Admin Only */}
       {userTypeId === BUSINESS_RULES.USER_TYPE.ADMIN && (

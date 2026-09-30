@@ -30,7 +30,7 @@ export const FilterBar = memo<FilterBarProps>(({
   if (userTypeId !== BUSINESS_RULES.USER_TYPE.ADMIN && userTypeId !== 0) return null;
 
   return (
-    <div className="flex items-center gap-3 flex-shrink-0 h-11">
+    <div className="flex min-w-0 flex-wrap items-center gap-3 min-h-11">
       <strong className="whitespace-nowrap text-sm text-slate-700">Period:</strong>
       <SearchableSelect
         items={periodItems}

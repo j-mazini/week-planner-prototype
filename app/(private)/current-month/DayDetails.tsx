@@ -1,7 +1,6 @@
 "use client";
 
 import { memo } from "react";
-import { MobileHeader } from "../components/MobileHeader";
 import { DailyOverview } from "./types";
 import { OperationCard } from "./components/DayDetails/OperationCard";
 import { currentMonthStyles } from "./styles";
@@ -19,7 +18,6 @@ export const DayDetails = memo(function DayDetails({
 }: DayDetailsProps) {
   return (
     <div className={currentMonthStyles.dayDetailsRoot}>
-      <MobileHeader />
 
       <button
         onClick={onBack}

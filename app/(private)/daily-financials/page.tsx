@@ -427,13 +427,13 @@ export default function Page() {
 
   return (
     <NavbarWrapper>
-      <div className="daily-financials-page pt-16 w-full max-w-content-wide mx-auto">
+      <div className="daily-financials-page pt-4 w-full max-w-content-wide mx-auto">
         <div className="p-4">
           <h1 className="text-2xl font-bold">Daily Financials</h1>
           <TodayDateLine className="mt-1 text-xs font-medium text-slate-500" />
         </div>
-        <div className="flex flex-col md:flex-row md:justify-between items-center gap-4 p-4">
-          <div className="flex flex-col md:flex-row items-center gap-4 w-full md:w-auto">
+        <div className="flex flex-col lg:flex-row flex-wrap lg:justify-between items-start gap-4 p-4">
+          <div className="flex flex-col sm:flex-row flex-wrap items-start gap-4 w-full lg:w-auto">
             <DatePicker date={selectedDate} setDate={handleDateChange} />
             <div className="relative w-full md:w-64">
               <span className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400">
@@ -458,7 +458,7 @@ export default function Page() {
         </div>
         <div className="flex flex-col md:flex-row md:justify-between">
           <div>
-            <h1 className="p-4">Deposits</h1>
+            <h2 className="p-4">Deposits</h2>
             <div className="flex flex-wrap gap-2 p-4">
               <Button
                 variant={selectedDepositId === 0 ? "default" : "outline"}
@@ -489,7 +489,7 @@ export default function Page() {
 
           {selectedDepositId > 0 && (
             <div>
-              <h1 className="p-4">Loops</h1>
+              <h2 className="p-4">Loops</h2>
               <div className="flex flex-wrap gap-2 p-4">
                 {loadingServiceTypes ? (
                   <div className="flex items-center justify-center p-2">

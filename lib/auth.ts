@@ -373,7 +373,6 @@ export const getToken = (): string | null => {
   }
 
   if (process.env.NODE_ENV === "development" && token) {
-    // eslint-disable-next-line no-console
     console.debug(`[Auth] Token found from ${source}: ${token.substring(0, 15)}...`);
   } else if (process.env.NODE_ENV === "development" && !token) {
     console.warn("[Auth] No auth token found in any storage source.");

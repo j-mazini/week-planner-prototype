@@ -27,7 +27,6 @@ const PdfPreviewModal: React.FC<PdfPreviewModalProps> = ({ open, onClose, pdfs }
   // Create/revoke object URLs whenever blobs change
   useEffect(() => {
     if (!open || pdfs.length === 0) {
-      objectUrls.forEach((u) => URL.revokeObjectURL(u));
       setObjectUrls([]);
       setCurrentIndex(0);
       return;

@@ -1,0 +1,223 @@
+.driver-home {
+  --driver-surface: #fafaef;
+  --driver-paper: #fffef8;
+  --driver-line: #c7cdbb;
+  --driver-line-soft: #e3e5d9;
+  --driver-ink: #1a1c16;
+  --driver-muted: #68705f;
+  --driver-teal: #27676c;
+  --driver-deep: #003b3e;
+  --driver-lime: #b2f746;
+  min-height: calc(100vh - 64px);
+  padding: 25px clamp(18px, 3vw, 42px) 44px;
+  background: var(--driver-surface);
+  color: var(--driver-ink);
+  font-family: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 12px;
+  line-height: 1.45;
+}
+
+.driver-home__content {
+  width: min(100%, 1380px);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  align-items: start;
+  gap: 20px;
+}
+
+/* The two columns share the page width but not their row heights. */
+.driver-home__columns {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+  align-items: start;
+  gap: 20px;
+}
+.driver-home__column { min-width: 0; display: flex; flex-direction: column; gap: 20px; }
+
+.driver-home__greeting {
+  grid-column: 1 / -1;
+  margin: 0;
+  font-family: "Space Grotesk", "Helvetica Neue", Arial, sans-serif;
+  font-size: 26px;
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -.02em;
+  color: var(--driver-ink);
+}
+
+.driver-home__facts {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px 28px;
+  padding: 0 0 18px;
+  border-bottom: 1px solid var(--driver-line);
+}
+
+/* Vehicle and depot are the same kind of fact, so they share one block. */
+.driver-home__fact { display: flex; align-items: center; gap: 13px; min-width: 0; }
+.driver-home__fact > div { display: grid; gap: 2px; min-width: 0; }
+.driver-home__fact > div > span { color: var(--driver-muted); font-size: 10px; letter-spacing: .07em; text-transform: uppercase; }
+.driver-home__fact strong { min-width: 0; overflow-wrap: break-word; color: var(--driver-ink); font-family: "Space Grotesk", "Helvetica Neue", Arial, sans-serif; font-size: 22px; font-weight: 700; line-height: 1.25; }
+.driver-home__fact-icon { width: 52px; height: 52px; flex: 0 0 52px; display: grid; place-items: center; border: 1px solid var(--driver-line); border-radius: 2px; background: var(--driver-paper); color: var(--driver-teal); }
+
+.driver-home__payments,
+.driver-home__schedule { position: relative; overflow: hidden; border: 1px solid var(--driver-deep); border-radius: 2px; background: var(--driver-deep); color: var(--driver-paper); }
+.driver-home__payments { padding: 22px 24px 0; border: 0; border-radius: 25px; background: linear-gradient(135deg, #073f42 0%, #07565a 58%, #167176 100%); box-shadow: 0 16px 34px #003b3e24, inset 0 1px 0 #ffffff20; }
+.driver-home__payments::before { content: ""; position: absolute; width: 210px; height: 210px; right: -65px; top: -108px; border: 1px solid #ffffff1b; border-radius: 50%; box-shadow: 0 0 0 20px #ffffff08, 0 0 0 42px #ffffff06; pointer-events: none; }
+.driver-home__payments-top { position: relative; z-index: 1; }
+.driver-home__payments-heading { display: flex; align-items: center; gap: 10px; }
+.driver-home__payments h1 { margin: 0; color: var(--driver-paper); font-family: "Space Grotesk", "Helvetica Neue", Arial, sans-serif; font-size: 25px; font-weight: 700; line-height: 1.2; letter-spacing: -.035em; }
+.driver-home__visibility { display: grid; place-items: center; padding: 7px; border: 1px solid #ffffff27; border-radius: 50%; background: #ffffff12; color: var(--driver-paper); cursor: pointer; backdrop-filter: blur(12px); }
+.driver-home__payments p { margin: 9px 0 15px; color: #c9e2dc; font-size: 9px; letter-spacing: .09em; text-transform: uppercase; }
+.driver-home__payment-stats { position: relative; z-index: 1; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 9px; padding: 0 0 18px; }
+.driver-home__payment-stats > div { display: grid; gap: 5px; }
+.driver-home__payment-stats > div:nth-child(2) { text-align: center; }
+.driver-home__payment-stats > div:nth-child(3) { text-align: right; }
+.driver-home__payment-stats > div { padding: 10px 11px; border: 1px solid #ffffff14; border-radius: 15px; background: #ffffff0c; }
+.driver-home__payment-stats span { color: #c2d9d4; font-size: 9px; letter-spacing: .055em; text-transform: uppercase; }
+.driver-home__payment-stats strong { color: var(--driver-paper); font-family: "Space Grotesk", "Helvetica Neue", Arial, sans-serif; font-size: clamp(15px, 1.8vw, 22px); font-weight: 700; letter-spacing: -.035em; }
+.driver-home__invoice-link { position: relative; z-index: 1; min-height: 48px; display: flex; justify-content: space-between; align-items: center; border-top: 1px solid #ffffff25; color: #d6f98e; font-size: 11px; font-weight: 700; text-decoration: none; }
+.driver-home__coin { position: absolute; top: auto; right: 66px; bottom: 7px; color: var(--driver-lime); opacity: .12; }
+.app-imported-page[data-page="home"] .driver-home__payments h1 { color: var(--driver-paper) !important; }
+
+.driver-home__task-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+.driver-home__task { position: relative; min-height: 145px; display: grid; grid-template-columns: 40px minmax(0, 1fr); align-content: start; align-items: center; column-gap: 10px; row-gap: 12px; padding: 17px 15px; border: 1px solid var(--driver-line); border-radius: 20px; background: var(--driver-paper); color: var(--driver-ink); text-decoration: none; box-shadow: 0 8px 20px #26391a0b, inset 0 1px 0 #ffffff; }
+.driver-home__task-icon { width: 38px; height: 38px; display: grid; place-items: center; border: 1px solid var(--driver-line); border-radius: 2px; background: #eef1df; color: var(--driver-deep); }
+.driver-home__task-icon--box { background: #e5f1dc; color: var(--driver-teal); }
+.driver-home__task > strong { min-width: 0; color: var(--driver-ink); font-family: "Space Grotesk", "Helvetica Neue", Arial, sans-serif; font-size: 14px; line-height: 1.2; }
+.driver-home__task > span:nth-of-type(2) { grid-column: 1 / -1; min-width: 0; color: var(--driver-muted); font-size: 10px; line-height: 1.55; }
+.driver-home__task-arrow { display: none; }
+.driver-home__schedule-trigger { width: 100%; cursor: pointer; font: inherit; text-align: left; }
+
+.driver-home__schedule-modal { max-width: min(92vw, 560px); max-height: 82vh; gap: 16px; overflow: hidden; padding: 22px; border: 1px solid var(--driver-line); border-radius: 2px; background: var(--driver-paper); color: var(--driver-ink); }
+.driver-home__route-balance-modal { max-width: min(92vw, 600px); max-height: 82vh; gap: 16px; overflow: hidden; padding: 22px; border: 1px solid var(--driver-line); border-radius: 22px; background: var(--driver-paper); color: var(--driver-ink); }
+.driver-home__route-metrics { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 7px; margin-top: 10px; }
+.driver-home__route-metrics > div { min-width: 0; display: grid; gap: 2px; padding: 7px 8px; border: 1px solid var(--driver-line-soft); border-radius: 10px; background: #f8f9f2; }
+.driver-home__route-metrics span { color: var(--driver-muted); font-size: 8px; letter-spacing: .04em; text-transform: uppercase; }
+.driver-home__route-metrics strong { overflow-wrap: anywhere; color: var(--driver-ink); font-size: 11px; }
+.driver-home__route-postcodes { grid-column: 1 / -1; }
+.driver-home__route-summary { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 9px; }
+.driver-home__route-summary > div { display: grid; gap: 4px; padding: 11px 13px; border: 1px solid var(--driver-line-soft); border-radius: 14px; background: #f4f6e9; }
+.driver-home__route-summary span { color: var(--driver-muted); font-size: 9px; letter-spacing: .06em; text-transform: uppercase; }
+.driver-home__route-summary strong { color: var(--driver-deep); font-family: "Space Grotesk", "Helvetica Neue", Arial, sans-serif; font-size: 20px; line-height: 1; }
+.driver-home__schedule-modal-title { color: var(--driver-ink); font-family: "Space Grotesk", "Helvetica Neue", Arial, sans-serif; font-size: 22px; }
+.driver-home__schedule-modal-description { color: var(--driver-muted); font-family: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 11px; }
+.driver-home__schedule-list { min-height: 80px; overflow-y: auto; padding-right: 4px; }
+.driver-home__schedule-empty { margin: 4px 0; color: var(--driver-muted); font-size: 11px; }
+.driver-home__schedule-day { padding: 13px 0; border-bottom: 1px solid var(--driver-line-soft); }
+.driver-home__schedule-day:first-child { padding-top: 0; }
+.driver-home__schedule-day:last-child { border-bottom: 0; padding-bottom: 0; }
+.driver-home__schedule-day h3 { margin: 0 0 8px; color: var(--driver-deep); font-family: "Space Grotesk", "Helvetica Neue", Arial, sans-serif; font-size: 14px; font-weight: 700; }
+.driver-home__schedule-today { margin-left: 8px; padding: 2px 6px; border: 1px solid var(--driver-line); background: #eef1df; color: var(--driver-teal); font-family: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 9px; font-weight: 600; text-transform: uppercase; vertical-align: middle; }
+.driver-home__schedule-empty--day { margin: 0; padding: 7px 0; }
+.driver-home__schedule-assignment { display: grid; gap: 3px; padding: 8px 10px; border-left: 2px solid var(--driver-lime); background: #f4f6e9; }
+.driver-home__schedule-assignment + .driver-home__schedule-assignment { margin-top: 6px; }
+.driver-home__schedule-assignment strong { font-size: 11px; }
+.driver-home__schedule-assignment span { color: var(--driver-muted); font-size: 10px; }
+
+.driver-home__schedule { padding: 20px 22px; background: var(--driver-paper); color: var(--driver-ink); border-color: var(--driver-line); }
+.driver-home__eyebrow { display: block; color: var(--driver-muted); font-size: 10px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; }
+.driver-home__schedule p { margin: 6px 0 18px; color: var(--driver-ink); font-family: "Space Grotesk", "Helvetica Neue", Arial, sans-serif; font-size: 17px; font-weight: 600; }
+.driver-home__calendar-art { position: absolute; top: 17px; right: 22px; color: var(--driver-teal); }
+.driver-home__schedule > button { width: 100%; min-height: 48px; display: flex; justify-content: center; align-items: center; gap: 8px; border: 1px solid var(--driver-deep); border-radius: 2px; background: var(--driver-lime); color: var(--driver-deep); font: inherit; font-size: 11px; font-weight: 700; text-decoration: none; text-transform: uppercase; letter-spacing: .04em; cursor: pointer; }
+.driver-home__route-mobile-link { min-height: 37px; display: flex; justify-content: center; align-items: center; gap: 6px; margin-top: 8px; border: 1px solid var(--driver-line); border-radius: 2px; color: var(--driver-teal); font-size: 10px; font-weight: 700; text-decoration: none; text-transform: uppercase; letter-spacing: .035em; }
+
+.driver-home__quick-access { min-width: 0; padding: 2px 0; }
+.driver-home__quick-access h2 { margin: 0 0 13px; color: var(--driver-ink); font-family: "Space Grotesk", "Helvetica Neue", Arial, sans-serif; font-size: 20px; line-height: 1.2; }
+.driver-home__quick-links { display: grid; grid-template-columns: repeat(auto-fit, minmax(122px, 1fr)); gap: 11px; }
+/* Stacked, not side by side: with the icon beside it the title had ~52px to work with
+   at 1280px, which is not enough for "Performance" — so only two cards fit per row and
+   the third sat alone. Stacking gives the title the whole card width. */
+.driver-home__quick-card {
+  min-width: 0;
+  min-height: 0;
+  grid-template-columns: minmax(0, 1fr);
+  align-content: start;
+  row-gap: 9px;
+  padding: 14px 13px 15px;
+  text-align: left;
+}
+.driver-home__quick-card > strong { grid-column: 1 / -1; font-size: 13px; }
+.driver-home__quick-card .driver-home__task-icon { width: 32px; height: 32px; }
+.driver-home__quick-card .driver-home__task-icon svg { width: 18px; height: 18px; }
+.driver-home__quick-card-copy { grid-column: 1 / -1; display: grid; gap: 4px; min-width: 0; color: var(--driver-muted); font-size: 10px; line-height: 1.45; }
+.driver-home__quick-card-copy small { color: var(--driver-muted); font-size: 9px; line-height: 1.45; }
+.driver-home__quick-card-value { color: #b3382e !important; font-family: "Space Grotesk", "Helvetica Neue", Arial, sans-serif; font-size: 19px !important; font-weight: 700; line-height: 1.2; letter-spacing: -.04em; }
+.driver-home__quick-card-arrow { position: absolute; top: 13px; right: 11px; color: #88917e; }
+.driver-home__quick-card--deductions .driver-home__task-icon { background: #fff1ee; color: #a43c32; }
+
+.driver-home__bonus { grid-column: 1 / -1; position: relative; width: 100%; min-height: 88px; display: flex; align-items: center; gap: 12px; overflow: hidden; padding: 16px 20px; border: 1px solid var(--driver-line); border-left: 5px solid var(--driver-lime); border-radius: 2px; background: var(--driver-paper); color: var(--driver-deep); font: inherit; text-align: left; text-decoration: none; cursor: pointer; }
+.driver-home__bonus > span:first-child { display: grid; gap: 4px; }
+.driver-home__bonus strong { color: var(--driver-ink); font-family: "Space Grotesk", "Helvetica Neue", Arial, sans-serif; font-size: 19px; }
+.driver-home__bonus small { max-width: 300px; color: var(--driver-muted); font-size: 10px; }
+.driver-home__bonus-art { width: 40px; height: 40px; display: grid; place-items: center; margin-left: auto; border: 1px solid var(--driver-line); border-radius: 2px; background: #eef1df; color: var(--driver-teal); }
+.driver-home__bonus > svg { flex: 0 0 auto; }
+.driver-home__referral-modal { max-width: min(92vw, 420px); gap: 14px; padding: 26px; border: 1px solid #dfe4d5; border-radius: 23px; background: linear-gradient(150deg, #fffef9 0%, #f3f6e9 100%); color: var(--driver-ink); box-shadow: 0 24px 70px #003b3e30; }
+.driver-home__referral-art { width: 50px; height: 50px; display: grid; place-items: center; border: 1px solid #dfe8cd; border-radius: 16px; background: #edf3df; color: var(--driver-teal); }
+.driver-home :is(a, button):focus-visible { outline: 2px solid var(--driver-teal); outline-offset: 2px; }
+
+@media (max-width: 1080px) {
+  .driver-home__content { display: flex; flex-direction: column; align-items: stretch; gap: 16px; }
+  .driver-home__columns { grid-template-columns: minmax(0, 1fr); gap: 16px; }
+  .driver-home__column { gap: 16px; }
+.driver-home__facts { width: 100%; }
+  .driver-home__payments,
+  .driver-home__task-grid,
+  .driver-home__schedule,
+  .driver-home__quick-access,
+  .driver-home__bonus { width: 100%; }
+  .driver-home__task { min-height: 130px; }
+}
+
+@media (max-width: 520px) {
+  .driver-home { min-height: calc(100vh - 64px); padding: 15px 14px 26px; }
+  .driver-home__content { gap: 14px; }
+  .driver-home__columns, .driver-home__column { gap: 14px; }
+.driver-home__facts { gap: 9px 14px; padding-bottom: 13px; }
+  .driver-home__fact { gap: 9px; }
+  .driver-home__fact-icon { width: 45px; height: 45px; flex-basis: 45px; }
+  .driver-home__fact strong { font-size: 17px; }
+  .driver-home__fact > div > span { font-size: 9px; }
+  .driver-home__payments { padding: 17px 16px 0; }
+  .driver-home__payments { border-radius: 22px; }
+  .driver-home__payments h1 { font-size: 22px; }
+  .driver-home__payments p { margin: 9px 0 12px; }
+  .driver-home__payment-stats { padding-bottom: 14px; }
+  .driver-home__payment-stats span { font-size: 9px; }
+  .driver-home__payment-stats strong { font-size: 17px; }
+  .driver-home__payment-stats > div { padding: 9px 7px; border-radius: 12px; }
+  .driver-home__coin { top: 15px; right: 14px; width: 30px; height: 30px; }
+  .driver-home__task-grid { gap: 9px; }
+  .driver-home__task { min-height: 125px; grid-template-columns: 34px 1fr; gap: 9px; padding: 12px 10px; }
+  .driver-home__task { border-radius: 18px; }
+  .driver-home__quick-links { grid-template-columns: repeat(auto-fit, minmax(96px, 1fr)); }
+  .driver-home__quick-card { min-height: 0; }
+  .driver-home__task-icon { width: 32px; height: 32px; }
+  .driver-home__task-icon svg { width: 20px; height: 20px; }
+  .driver-home__task > strong { font-size: 11px; }
+  .driver-home__task > span:nth-of-type(2) { font-size: 9px; }
+  .driver-home__schedule { padding: 16px; }
+  .driver-home__schedule p { max-width: 68%; font-size: 15px; }
+  .driver-home__calendar-art { top: 12px; right: 14px; width: 39px; height: 39px; }
+  .driver-home__schedule > button { min-height: 44px; font-size: 10px; }
+  .driver-home__quick-access h2 { font-size: 18px; }
+  .driver-home__quick-links { gap: 9px; }
+  .driver-home__quick-card { min-height: 0; }
+  .driver-home__quick-card-copy small { font-size: 8px; }
+  .driver-home__quick-card-value { font-size: 17px !important; }
+  .driver-home__bonus { min-height: 75px; padding: 13px; }
+  .driver-home__bonus strong { font-size: 16px; }
+  .driver-home__bonus small { max-width: 165px; font-size: 9px; }
+  .driver-home__bonus-art { width: 32px; height: 32px; }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .driver-home__task,
+  .driver-home__schedule > button { transition: background-color .15s ease, border-color .15s ease; }
+  .driver-home__task:hover { border-color: var(--driver-teal); background: #f4f6e9; }
+  .driver-home__schedule > button:hover { background: #c8f579; }
+}

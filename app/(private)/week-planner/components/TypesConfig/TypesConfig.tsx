@@ -2,7 +2,6 @@
 
 import React, { useState } from 'react';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
-import VendorTypeTab from './VendorTypeTab';
 import UserTypeTab from './UserTypeTab';
 import VendorTypeTab from './VendorTypeTab';
 import CostModelTab from './CostModelTab';

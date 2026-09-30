@@ -1,5 +1,5 @@
 /* Page Header Component Styles */
-/* Using Inter font family from Home page */
+/* Shared LogixSphere typography. */
 
 .page-header-section {
   display: flex;
@@ -30,31 +30,24 @@
 
 .page-header-welcome-text {
   flex: 1;
+  min-width: 0;
 }
 
 .page-header-title {
-  font-family: 'Inter', sans-serif;
-  font-size: 2rem;
+  font-family: var(--font-sans);
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  overflow-wrap: anywhere;
+  color: hsl(var(--foreground));
   font-weight: 600;
   margin: 0;
   margin-right: auto;
   line-height: 1.2;
 }
 
-/* Aplicar gradiente apenas em telas desktop (igual à página home) */
-@media (min-width: 768px) {
-  .page-header-title {
-    background: linear-gradient(to bottom right, #1e293b 0%, #0d6efd 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
-}
-
 .page-header-date {
-  font-family: 'Inter', sans-serif;
+  font-family: var(--font-mono);
   font-size: 0.875rem;
-  color: #8491a1;
+  color: hsl(var(--muted-foreground));
   margin-top: 0.5rem;
   display: flex;
   align-items: center;

@@ -1,10 +1,10 @@
 :where(.app-imported-page[data-page="logistics"]) {
-    --sidebar-bg: #ffffff;
-    --main-bg: #f7f8fa;
-    --text-dark: #2c3e50;
-    --text-light: #8491a1;
-    --border-color: #e9ecef;
-    --primary-blue: #0d6efd;
+    --sidebar-bg: #fffef8;
+    --main-bg: #fafaef;
+    --text-dark: #1a1c16;
+    --text-light: #68705f;
+    --border-color: #c7cdbb;
+    --primary-blue: #27676c;
     --card-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
     --badge-child-bg: #ffebeb;
     --badge-child-text: #dc3545;
@@ -15,7 +15,7 @@
 }
 
 :where(.app-imported-page[data-page="logistics"]) {
-    font-family: 'Inter', sans-serif;
+    font-family: var(--font-mono);
     background-color: var(--main-bg);
     color: var(--text-dark);
 }

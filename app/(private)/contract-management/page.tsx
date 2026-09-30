@@ -583,11 +583,11 @@ const RoutesManagement = () => {
           <MobilePageShell
             title="Contract Management"
             subtitle={currentDate}
-            className="pt-4"
+            className="pt-4 pb-0 min-h-0"
           >
             <Tabs value={activeTab} onValueChange={(v) => setActiveTab(v as ContractManagementTabValue)} className="w-full">
               <div className="rounded-xl border border-border/60 bg-background/80 px-3 py-2 shadow-sm">
-                <TabsList className="h-auto w-full flex flex-nowrap gap-1 overflow-x-auto rounded-lg bg-transparent p-0 border-0">
+                <TabsList className="grid h-auto w-full grid-cols-2 sm:grid-cols-4 gap-1 rounded-lg bg-transparent p-0 border-0">
                   {TABS.map((tab) => (
                     <TabsTrigger
                       key={tab.value}

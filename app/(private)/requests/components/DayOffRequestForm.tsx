@@ -81,7 +81,7 @@ function DayOffRequestFormComponent({
           <Button
             onClick={onSubmit}
             disabled={submitting}
-            className="w-full md:w-auto min-w-[160px] bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white shadow-lg hover:shadow-xl transition-all duration-200 disabled:opacity-50"
+            className="w-full md:w-auto min-w-[160px] bg-primary hover:bg-primary/90 text-primary-foreground transition-all duration-200 disabled:opacity-50"
           >
             {submitting ? "Submitting…" : "Submit Request"}
           </Button>

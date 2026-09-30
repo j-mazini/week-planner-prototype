@@ -1,15 +1,15 @@
 /* InvoiceHistory.css */
 
 :where(.app-imported-page[data-page="invoice-history"]) {
-    --sidebar-bg: #ffffff;
-    --main-bg: #f7f8fa;
-    --text-dark: #2c3e50;
-    --text-light: #8491a1;
-    --border-color: #e9ecef;
-    --primary-blue: #0d6efd;
+    --sidebar-bg: #fffef8;
+    --main-bg: #fafaef;
+    --text-dark: #1a1c16;
+    --text-light: #68705f;
+    --border-color: #c7cdbb;
+    --primary-blue: #27676c;
     --danger-red: #dc3545;
     --card-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
-    
+
     --color-light-blue: #e6f2ff;
     --color-green-tag: #28a745;
     --color-green-tag-bg: #eaf6ec;
@@ -17,41 +17,41 @@
 
 /* Container principal do React */
 :where(.app-imported-page[data-page="invoice-history"]) .invoice-history-container {
-    font-family: 'Inter', sans-serif; 
-    background: linear-gradient(135deg, #f8faff 0%, #eef3ff 45%, #e5f6ff 100%);
+    font-family: var(--font-mono);
+    background: var(--surface);
     background-size: 280% 280%;
-    animation: fadeIn 0.6s ease-in, gradientFlow 36s ease infinite;
-    color: var(--text-dark); 
+
+    color: var(--text-dark);
     font-size: 0.9rem;
     position: relative;
     min-height: 100vh;
 }
 
 /* Animações */
-@keyframes fadeIn { 
-    from { opacity: 0; transform: translateY(10px); } 
-    to { opacity: 1; transform: translateY(0); } 
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
-@keyframes gradientFlow { 
-    0% { background-position: 0% 50%; } 
-    50% { background-position: 100% 50%; } 
-    100% { background-position: 0% 50%; } 
+@keyframes gradientFlow {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
 }
 
-@keyframes scaleIn { 
-    from { opacity: 0; transform: scale(0.9); } 
-    to { opacity: 1; transform: scale(1); } 
+@keyframes scaleIn {
+    from { opacity: 0; transform: scale(0.9); }
+    to { opacity: 1; transform: scale(1); }
 }
 
-@keyframes fadeInUp { 
-    from { opacity: 0; transform: translateY(30px); } 
-    to { opacity: 1; transform: translateY(0); } 
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
-@keyframes shimmer { 
-    0% { background-position: -1000px 0; } 
-    100% { background-position: 1000px 0; } 
+@keyframes shimmer {
+    0% { background-position: -1000px 0; }
+    100% { background-position: 1000px 0; }
 }
 
 @keyframes slideDown {
@@ -60,21 +60,21 @@
 }
 
 /* Estrutura */
-:where(.app-imported-page[data-page="invoice-history"]) .wrapper { 
-    display: flex; 
-    min-height: 100vh; 
+:where(.app-imported-page[data-page="invoice-history"]) .wrapper {
+    display: flex;
+    min-height: 100vh;
 }
 
-:where(.app-imported-page[data-page="invoice-history"]) #main-content { 
-    flex-grow: 1; 
-    display: flex; 
-    flex-direction: column; 
+:where(.app-imported-page[data-page="invoice-history"]) #main-content {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
     min-width: 0;
     margin-left: 0;
 }
 
-:where(.app-imported-page[data-page="invoice-history"]) .page-content { 
-    padding: 2rem; 
+:where(.app-imported-page[data-page="invoice-history"]) .page-content {
+    padding: 2rem;
 }
 
 /* Filter Bar */
@@ -144,43 +144,43 @@
     animation: scaleIn 0.5s ease-out;
 }
 
-:where(.app-imported-page[data-page="invoice-history"]) .table-container { 
-    width: 100%; 
-    overflow-x: auto; 
-    background-color: #fff; 
+:where(.app-imported-page[data-page="invoice-history"]) .table-container {
+    width: 100%;
+    overflow-x: auto;
+    background-color: #fff;
 }
 
-:where(.app-imported-page[data-page="invoice-history"]) .table-container .table { 
-    margin-bottom: 0; 
-    vertical-align: middle; 
-    width: 100%; 
+:where(.app-imported-page[data-page="invoice-history"]) .table-container .table {
+    margin-bottom: 0;
+    vertical-align: middle;
+    width: 100%;
 }
 
 :where(.app-imported-page[data-page="invoice-history"]) .table-container th {
-    color: var(--text-light); 
-    font-weight: 600; 
-    text-transform: uppercase; 
-    font-size: 0.75rem; 
+    color: var(--text-light);
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.75rem;
     padding: 16px 20px;
 }
 
-:where(.app-imported-page[data-page="invoice-history"]) .table-container td { 
-    padding: 16px 20px; 
-    font-size: 0.9rem; 
+:where(.app-imported-page[data-page="invoice-history"]) .table-container td {
+    padding: 16px 20px;
+    font-size: 0.9rem;
 }
 
-:where(.app-imported-page[data-page="invoice-history"]) .table tbody tr:hover { 
-    background-color: rgba(13, 110, 253, 0.03); 
+:where(.app-imported-page[data-page="invoice-history"]) .table tbody tr:hover {
+    background-color: rgba(13, 110, 253, 0.03);
 }
 
 /* Buttons & Icons */
 :where(.app-imported-page[data-page="invoice-history"]) .btn-icon {
-    width: 34px; 
-    height: 34px; 
-    display: inline-flex; 
-    align-items: center; 
+    width: 34px;
+    height: 34px;
+    display: inline-flex;
+    align-items: center;
     justify-content: center;
-    border: 1px solid var(--border-color); 
+    border: 1px solid var(--border-color);
     color: var(--text-light);
     border-radius: 6px;
     transition: all 0.3s;
@@ -188,41 +188,41 @@
     background: transparent;
 }
 
-:where(.app-imported-page[data-page="invoice-history"]) .btn-icon:hover { 
-    background-color: var(--color-light-blue); 
-    color: var(--primary-blue); 
+:where(.app-imported-page[data-page="invoice-history"]) .btn-icon:hover {
+    background-color: var(--color-light-blue);
+    color: var(--primary-blue);
     border-color: var(--primary-blue);
 }
 
 /* Status Tags */
 :where(.app-imported-page[data-page="invoice-history"]) .status-tag {
-    font-size: 0.8rem; 
-    font-weight: 600; 
+    font-size: 0.8rem;
+    font-weight: 600;
     padding: 0.25rem 0.6rem;
-    border-radius: 50px; 
-    display: inline-flex; 
-    align-items: center; 
+    border-radius: 50px;
+    display: inline-flex;
+    align-items: center;
     gap: 0.3rem;
 }
 
-:where(.app-imported-page[data-page="invoice-history"]) .status-tag.paid { 
-    background-color: var(--color-green-tag-bg); 
-    color: var(--color-green-tag); 
+:where(.app-imported-page[data-page="invoice-history"]) .status-tag.paid {
+    background-color: var(--color-green-tag-bg);
+    color: var(--color-green-tag);
 }
 
-:where(.app-imported-page[data-page="invoice-history"]) .status-tag.pending { 
-    background-color: #fff8e1; 
-    color: #f57c00; 
+:where(.app-imported-page[data-page="invoice-history"]) .status-tag.pending {
+    background-color: #fff8e1;
+    color: #f57c00;
 }
 
-:where(.app-imported-page[data-page="invoice-history"]) .status-tag.rejected { 
-    background-color: #ffeef0; 
-    color: var(--danger-red); 
+:where(.app-imported-page[data-page="invoice-history"]) .status-tag.rejected {
+    background-color: #ffeef0;
+    color: var(--danger-red);
 }
 
-:where(.app-imported-page[data-page="invoice-history"]) .status-tag.draft { 
-    background-color: #f0f2f5; 
-    color: #5a6a7d; 
+:where(.app-imported-page[data-page="invoice-history"]) .status-tag.draft {
+    background-color: #f0f2f5;
+    color: #5a6a7d;
 }
 
 :where(.app-imported-page[data-page="invoice-history"]) .btn-clear {
@@ -232,9 +232,9 @@
     font-weight: 600;
     padding: 10px 20px;
     border-radius: 8px;
-    display: inline-flex; 
-    align-items: center; 
-    justify-content: center; 
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
     gap: 8px;
     width: 100%;
     transition: all 0.3s;

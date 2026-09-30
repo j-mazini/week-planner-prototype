@@ -1,9 +1,11 @@
 "use client";
 
+import { useAuth } from "@/hooks/useAuth";
+
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 import { format } from "date-fns";
-import { getUserIdFromToken, hasAuthSession, getBearerAuthHeader } from "@/lib/auth";
+import { hasAuthSession, getBearerAuthHeader } from "@/lib/auth";
 import { useDateStore } from "@/lib/date-store";
 import { getApiBaseUrl } from "@/lib/apiBaseUrl";
 import { PerformanceLayout } from "./PerformanceLayout";
@@ -24,7 +26,8 @@ function DailyPerformanceView() {
   const { selectedDate: storedDate, setSelectedDate } = useDateStore();
   const [performanceData, setPerformanceData] = useState<DailyPerformanceData[]>([]);
   const [loading, setLoading] = useState(true);
-  const [userId, setUserId] = useState("0");
+  const { user } = useAuth();
+  const userId = user?.id ? String(user.id) : "0";
 
   const selectedDate = useMemo(() => {
     const date = storedDate instanceof Date ? storedDate : new Date(storedDate);
@@ -55,11 +58,6 @@ function DailyPerformanceView() {
     window.addEventListener("storage", handleStorageChange);
     return () => window.removeEventListener("storage", handleStorageChange);
   }, [selectedDate, setSelectedDate]);
-
-  useEffect(() => {
-    const id = getUserIdFromToken();
-    if (id) setUserId(id.toString());
-  }, []);
 
   const fetchDailyPerformance = useCallback(async (dateToFetch: Date) => {
     if (userId === "0") return;

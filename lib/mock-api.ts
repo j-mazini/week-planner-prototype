@@ -14,7 +14,28 @@ const user = {
   servicePartnerId: null,
 };
 
-export const mockToken = "mock.local.offline-token";
+/** base64url, padding kept — `decodeJwtPayload` only swaps the alphabet before `atob`. */
+const toBase64Url = (value: unknown) =>
+  btoa(JSON.stringify(value)).replace(/\+/g, "-").replace(/\//g, "_");
+
+/**
+ * Shaped like a real JWT on purpose. The old placeholder split into three parts but its
+ * middle segment was not base64, so `atob` threw on every offline sign-in: the login still
+ * went through, but it logged two errors and the tenant ids never came off the token.
+ * Unsigned and not a secret — the offline prototype never verifies it.
+ */
+export const mockToken = [
+  toBase64Url({ alg: "none", typ: "JWT" }),
+  toBase64Url({
+    sub: String(user.id),
+    username: user.email,
+    userId: user.id,
+    userTypeId: user.userTypeId,
+    companyId: user.companyId,
+    servicePartnerId: user.servicePartnerId,
+  }),
+  "offline",
+].join(".");
 
 export function mockPayload(url: string, method = "GET"): unknown {
   const parsed = new URL(url, "http://mock.local");

@@ -1,0 +1,126 @@
+.driver-route-balance{font-family:'Space Grotesk',sans-serif;color:#1a1c16;background:#e9e9de;font-synthesis:none;text-rendering:optimizeLegibility;--cream:#fafaef;--lime:#a3e635;--line:#c2cab0;min-width:0}
+/* Keep resets below the original component styles in specificity. */
+:where(.driver-route-balance) *,:where(.driver-route-balance) *::before,:where(.driver-route-balance) *::after{box-sizing:border-box;border:0 solid currentColor}:where(.driver-route-balance),:where(.driver-route-balance) p,:where(.driver-route-balance) fieldset,:where(.driver-route-balance) legend{margin:0}:where(.driver-route-balance){min-width:320px}:where(.driver-route-balance) button,:where(.driver-route-balance) input,:where(.driver-route-balance) textarea{font:inherit;color:inherit}:where(.driver-route-balance) button{background:transparent;padding:0;cursor:pointer}:where(.driver-route-balance) a{color:inherit;text-decoration:none}:where(.driver-route-balance) button:focus-visible,:where(.driver-route-balance) textarea:focus-visible{outline:2px solid #446900;outline-offset:3px}:where(.driver-route-balance) button:disabled{opacity:.6;cursor:wait}:where(.driver-route-balance) img{display:block}:where(.driver-route-balance) p{margin:0}:where(.driver-route-balance) fieldset{min-width:0;padding:0}:where(.driver-route-balance) legend{padding:0}
+.driver-route-balance .mobile-app{width:100%;max-width:none;min-height:100dvh;margin:0 auto;background:var(--cream)}
+.driver-route-balance .mobile-app>div{min-height:100dvh}
+.driver-route-balance .mobile-app [data-name='app-header']{height:67px}
+.driver-route-balance .mobile-app [data-name='main-scroll']{height:auto;min-height:calc(100dvh - 112px);flex:1 0 auto}
+.driver-route-balance .mobile-app [data-name='Footer']{min-height:45px;padding-bottom:13px}
+.driver-route-balance .asset{display:block;max-width:none;flex-shrink:0}
+.driver-route-balance [data-node-id='322:14694']{padding-top:0;padding-bottom:0}
+.driver-route-balance [data-node-id='322:14632']{padding:16px}
+.driver-route-balance [data-node-id='322:14649']{padding:16px}
+.driver-route-balance [data-node-id='322:14657']{display:flex;align-items:center;justify-content:center}
+.driver-route-balance .notice{position:fixed;bottom:16px;left:50%;transform:translateX(-50%);width:min(358px,calc(100% - 32px));padding:14px 36px 14px 14px;background:#1a1c16;color:#fff;box-shadow:0 4px 20px #0003;font:12px/18px 'IBM Plex Mono',monospace;z-index:10}
+.driver-route-balance .notice button{position:absolute;right:12px;top:10px;font-size:22px}
+@media(max-width:389px){.driver-route-balance [data-name='section-header']{flex-wrap:wrap;gap:8px}.driver-route-balance [data-name='table-header'],.driver-route-balance [data-name='table-row']{min-width:0;width:100%}.driver-route-balance [data-name='main-scroll']{overflow-x:hidden}.driver-route-balance [data-name='Footer'] p{font-size:9px}.driver-route-balance [data-name='special-indicators']{flex-wrap:wrap}.driver-route-balance [data-name='breakdown-table']{max-width:100%;overflow:auto}}
+/* Match the original frame's row and border geometry. */
+.driver-route-balance .mobile-app [data-name='back-header']{height:52px;padding-top:0;padding-bottom:0}
+.driver-route-balance .mobile-app [data-name='Footer']{min-height:45px;height:45px;padding-top:16px}
+.driver-route-balance [data-name='table-header-label']{height:32px;padding-top:8px;padding-bottom:8px}
+.driver-route-balance [data-name='table-header-label'] p{white-space:nowrap}
+.driver-route-balance [data-name='delivery-row']{padding-top:0;padding-bottom:0}
+.driver-route-balance [data-name='category-badge']{padding-top:0;padding-bottom:0;display:flex;align-items:center}
+.driver-route-balance [data-node-id="322:14660"]{height:31px;}
+.driver-route-balance [data-node-id="322:14662"]{height:73px;}
+.driver-route-balance [data-node-id="322:14663"]{height:25px;}
+.driver-route-balance [data-node-id="322:14672"]{height:23px;}
+.driver-route-balance [data-node-id="322:14682"]{height:23px;}
+.driver-route-balance [data-node-id="322:14699"]{height:42px;}
+.driver-route-balance [data-node-id="322:14700"]{height:42px;}
+.driver-route-balance [data-node-id="322:14701"]{height:42px;}
+.driver-route-balance [data-node-id="322:14730"]{height:42px;}
+.driver-route-balance [data-node-id="322:14736"]{height:18px;}
+.driver-route-balance [data-node-id="322:14738"]{height:42px;}
+.driver-route-balance [data-node-id="322:14744"]{height:18px;}
+.driver-route-balance [data-node-id="322:14746"]{height:42px;}
+.driver-route-balance [data-node-id="322:14752"]{height:18px;}
+.driver-route-balance [data-node-id="322:14754"]{height:42px;}
+.driver-route-balance [data-node-id="322:14760"]{height:18px;}
+.driver-route-balance [data-node-id="322:14762"]{height:42px;}
+.driver-route-balance [data-node-id="322:14768"]{height:18px;}
+.driver-route-balance [data-node-id="322:14770"]{height:42px;}
+.driver-route-balance [data-node-id="322:14776"]{height:18px;}
+.driver-route-balance [data-node-id="322:14778"]{height:42px;}
+.driver-route-balance [data-node-id="322:14784"]{height:18px;}
+.driver-route-balance [data-node-id="322:14786"]{height:42px;}
+.driver-route-balance [data-node-id="322:14792"]{height:18px;}
+.driver-route-balance [data-node-id="322:14794"]{height:42px;}
+.driver-route-balance [data-node-id="322:14800"]{height:18px;}
+.driver-route-balance [data-node-id="322:14802"]{height:42px;}
+.driver-route-balance [data-node-id="322:14808"]{height:18px;}
+.driver-route-balance [data-node-id="322:14810"]{height:42px;}
+.driver-route-balance [data-node-id="322:14816"]{height:18px;}
+.driver-route-balance [data-node-id="322:14818"]{height:42px;}
+.driver-route-balance [data-node-id="322:14824"]{height:18px;}
+.driver-route-balance [data-node-id="322:14826"]{height:42px;}
+.driver-route-balance [data-node-id="322:14832"]{height:18px;}
+.driver-route-balance [data-node-id="322:14834"]{height:42px;}
+.driver-route-balance [data-node-id="322:14840"]{height:18px;}
+.driver-route-balance [data-node-id="322:14865"]{height:74px;}
+.driver-route-balance [data-node-id="322:14873"]{height:14px;}
+.driver-route-balance [data-node-id="322:14875"]{height:14px;}
+.driver-route-balance [data-node-id="322:14877"]{height:14px;}
+.driver-route-balance [data-node-id="322:14879"]{height:74px;}
+.driver-route-balance [data-node-id="322:14887"]{height:14px;}
+.driver-route-balance [data-node-id="322:14889"]{height:14px;}
+.driver-route-balance [data-node-id="322:14891"]{height:14px;}
+.driver-route-balance [data-node-id="322:14893"]{height:74px;}
+.driver-route-balance [data-node-id="322:14901"]{height:14px;}
+.driver-route-balance [data-node-id="322:14903"]{height:14px;}
+.driver-route-balance [data-node-id="322:14905"]{height:14px;}
+.driver-route-balance [data-node-id="322:14907"]{height:74px;}
+.driver-route-balance [data-node-id="322:14915"]{height:14px;}
+.driver-route-balance [data-node-id="322:14917"]{height:14px;}
+.driver-route-balance [data-node-id="322:14919"]{height:14px;}
+.driver-route-balance [data-node-id="322:14921"]{height:74px;}
+.driver-route-balance [data-node-id="322:14929"]{height:14px;}
+.driver-route-balance [data-node-id="322:14931"]{height:14px;}
+.driver-route-balance [data-node-id="322:14933"]{height:14px;}
+.driver-route-balance [data-node-id="322:14935"]{height:74px;}
+.driver-route-balance [data-node-id="322:14943"]{height:14px;}
+.driver-route-balance [data-node-id="322:14945"]{height:14px;}
+.driver-route-balance [data-node-id="322:14947"]{height:14px;}
+.driver-route-balance [data-node-id="322:14949"]{height:74px;}
+.driver-route-balance [data-node-id="322:14957"]{height:14px;}
+.driver-route-balance [data-node-id="322:14959"]{height:14px;}
+.driver-route-balance [data-node-id="322:14961"]{height:14px;}
+.driver-route-balance [data-node-id="322:14963"]{height:74px;}
+.driver-route-balance [data-node-id="322:14971"]{height:14px;}
+.driver-route-balance [data-node-id="322:14973"]{height:14px;}
+.driver-route-balance [data-node-id="322:14975"]{height:14px;}
+.driver-route-balance [data-node-id="322:14996"]{height:54px;}
+.driver-route-balance [data-node-id="322:14997"]{height:54px;}
+.driver-route-balance [data-node-id="322:15000"]{height:54px;}
+.driver-route-balance [data-node-id="322:15003"]{height:54px;}
+.driver-route-balance [data-node-id="322:15004"]{height:54px;}
+.driver-route-balance [data-node-id="322:15007"]{height:54px;}
+.driver-route-balance [data-node-id="322:15010"]{height:57px;}
+.driver-route-balance [data-node-id="322:15011"]{height:54px;}
+.driver-route-balance [data-node-id="322:15014"]{height:57px;}
+.driver-route-balance [data-node-id="322:15017"]{height:55px;}
+.driver-route-balance [data-node-id="322:15018"]{height:55px;}
+.driver-route-balance [data-node-id="322:15021"]{height:55px;}
+.driver-route-balance [data-node-id="322:15028"]{height:54px;}
+.driver-route-balance [data-node-id="322:15029"]{height:54px;}
+.driver-route-balance [data-node-id="322:15036"]{height:29px;}
+.driver-route-balance [data-node-id="322:15042"]{height:30px;}
+.driver-route-balance [data-node-id="322:15048"]{height:30px;}
+.driver-route-balance [data-node-id="322:15054"]{height:30px;}
+.driver-route-balance [data-node-id="322:15060"]{height:30px;}
+.driver-route-balance [data-node-id="322:15066"]{height:30px;}
+.driver-route-balance [data-node-id="322:15072"]{height:30px;}
+.driver-route-balance [data-node-id="322:15078"]{height:30px;}
+.driver-route-balance [data-node-id="322:15084"]{height:41px;}
+.driver-route-balance [data-node-id="400:8738"]{height:179px;}
+.driver-route-balance [data-node-id="400:8754"]{height:56px;}
+.driver-route-balance [data-node-id="322:14662"]{padding:0}
+.driver-route-balance [data-node-id="I322:14660;209:10838"]{padding:0;height:31px}
+.driver-route-balance [data-node-id="322:14994"]{padding-bottom:24px;}
+.driver-route-balance [data-node-id="322:15035"]{height:239px;border:0;outline:1px solid #c2cab0;outline-offset:-1px}
+.driver-route-balance [data-node-id="322:14995"]{border:0;outline:1px solid #1a1c16;outline-offset:-1px}
+.driver-route-balance [data-node-id="400:8754"]{width:56px;padding:0}
+.driver-route-balance [data-name="table-row"],.driver-route-balance [data-name="table-header"],.driver-route-balance [data-name="table-totals"]{padding-top:0;padding-bottom:0;align-items:center}
+.driver-route-balance [data-node-id='322:14987']{padding-bottom:0!important}
+.driver-route-balance [data-node-id='322:15035']{box-shadow:inset 0 0 0 1px #c2cab0}
+.driver-route-balance [data-node-id='322:14647']{padding-top:2px;padding-bottom:2px}

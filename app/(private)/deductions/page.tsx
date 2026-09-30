@@ -13,19 +13,13 @@ import {
 } from "./components";
 import { deductionsStyles } from "./styles";
 import { calculateTotalDeductions } from "./utils";
-import { useServicePartners } from "@/hooks/useServicePartners";
-import { useAuth } from "@/hooks/useAuth";
 import "bootstrap-icons/font/bootstrap-icons.css";
+import { ModernPageHeader } from "@/components/modern-page-header";
+import { CircleDollarSign, ReceiptText } from "lucide-react";
 
 export default function DeductionsPage() {
   const [selectedYear, setSelectedYear] = useState<number>(new Date().getFullYear());
   const [selectedMonth, setSelectedMonth] = useState<number>(new Date().getMonth());
-  const [selectedServicePartnerId, setSelectedServicePartnerId] = useState('');
-  const { servicePartners } = useServicePartners();
-  const { user } = useAuth();
-  // Filtro de Service Partner: visível apenas para ADMIN (não Supervisor/Driver).
-  const isAdmin = (user?.roles ?? []).includes('admin');
-
   const selectedDate = useMemo(
     () => new Date(selectedYear, selectedMonth, 1),
     [selectedYear, selectedMonth]
@@ -35,7 +29,7 @@ export default function DeductionsPage() {
     deductions: rawDeductions,
     error,
     isLoading,
-  } = useDeductions(selectedDate, selectedServicePartnerId !== '' ? Number(selectedServicePartnerId) : undefined);
+  } = useDeductions(selectedDate);
 
   const deductions = rawDeductions;
 
@@ -113,30 +107,23 @@ export default function DeductionsPage() {
 
   return (
     <StandardPageLayout width="wide" bottomPadding="pb-[70px]">
-      <PageHeader />
+      <PageHeader alignHeader="left">
+        <ModernPageHeader
+          title="Deductions"
+          subtitle="Review deductions and track repayment progress."
+          gradientFrom="slate-900"
+          gradientTo="teal-600"
+          metrics={[
+            { label: "Total this month", value: currencyFormatter.format(totalDeductions), icon: <CircleDollarSign size={14} /> },
+            { label: "Entries", value: deductions.length, icon: <ReceiptText size={14} /> },
+          ]}
+          metricsLayout="grid2x2"
+        />
+      </PageHeader>
 
       <PageSection>
         <MonthCarousel months={monthsCarousel} onMonthClick={handleMonthClick} />
       </PageSection>
-
-      {isAdmin && servicePartners.length > 0 && (
-        <PageSection>
-          <div className="flex justify-start px-1 pb-2">
-            <select
-              value={selectedServicePartnerId}
-              onChange={(e) => setSelectedServicePartnerId(e.target.value)}
-              className="px-3 py-2 border border-gray-200 rounded-lg bg-white text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 w-56"
-            >
-              <option value="">All Service Partners</option>
-              {servicePartners.map((sp) => (
-                <option key={sp.servicePartnerId} value={String(sp.servicePartnerId)}>
-                  {sp.partnerName}
-                </option>
-              ))}
-            </select>
-          </div>
-        </PageSection>
-      )}
 
       <PageContent className={deductionsStyles.pageContent}>
         {error ? (

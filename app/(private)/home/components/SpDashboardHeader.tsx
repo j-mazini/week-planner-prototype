@@ -22,7 +22,7 @@ export function SpDashboardHeader() {
         metrics={[]}
         gradientFrom="slate-900"
         gradientTo="blue-600"
-        showUserCard={true}
+        showUserCard={false}
       />
     </div>
   );

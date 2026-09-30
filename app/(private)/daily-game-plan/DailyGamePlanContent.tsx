@@ -168,7 +168,7 @@ export default function DailyGamePlanContent() {
                             isFinishing={isFinishing}
                             isCollapsed={collapsedDeposits.has(depId)}
                             onToggleCollapse={() => handleToggleCollapse(depId)}
-                            canEdit={isSupervisor || isAdmin}
+                            canEdit={isAdmin}
                             isAdmin={isAdmin}
                             userId={userId}
                             adhocServices={adhocServices}

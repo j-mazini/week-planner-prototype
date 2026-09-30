@@ -136,7 +136,7 @@ export const useLoginForm = (options: UseLoginFormOptions) => {
         setIsLoading(false);
       }
     },
-    [email, password, rememberMe, passwordInputRef, onLoginFailed, searchParams, demoProfile]
+    [email, password, rememberMe, passwordInputRef, onLoginFailed, searchParams, demoProfile, auth]
   );
 
   const handleForgotPassword = useCallback(
