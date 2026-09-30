@@ -41,6 +41,35 @@ describe('mapPayee', () => {
     expect(mapPayee(dto).sort).toBe(true);
     expect(mapPayee({ ...dto, sort: 'NO' }).sort).toBe(false);
   });
+
+  it('handles thousands separators in payment amounts', () => {
+    expect(mapPayee({ ...dto, payment: '£1,600.00' }).payment)
+      .toEqual({ amount: 1600, flat: false });
+  });
+
+  it('handles negative payment amounts', () => {
+    expect(mapPayee({ ...dto, payment: '-£20.00' }).payment)
+      .toEqual({ amount: -20, flat: false });
+  });
+
+  it('returns null for empty payment strings', () => {
+    expect(mapPayee({ ...dto, payment: '' }).payment)
+      .toEqual({ amount: null, flat: false });
+  });
+
+  it('returns null for malformed payment strings', () => {
+    expect(mapPayee({ ...dto, payment: '£1.2.3' }).payment)
+      .toEqual({ amount: null, flat: false });
+  });
+
+  it('handles thousands separators in sort value', () => {
+    expect(mapPayee({ ...dto, sort_value: '1,600.00' }).sortValue).toBe(1600);
+  });
+
+  it('throws on invalid payment mode', () => {
+    expect(() => mapPayee({ ...dto, payment_mode: 'INVALID' }))
+      .toThrow(/Invalid payment mode: "INVALID"/);
+  });
 });
 
 describe('formatMoney', () => {
