@@ -14,6 +14,7 @@ vi.mock('@/hooks/useClearingDesk', () => ({ useClearingDesk: () => hook.value })
 import ClearingDeskContent from './ClearingDeskContent';
 
 const queue = () => within(screen.getByLabelText('Pending authorizations'));
+const bench = () => within(screen.getByLabelText('Selected transaction'));
 
 beforeEach(() => {
   cleanup();
@@ -65,8 +66,6 @@ describe('the pending queue', () => {
 });
 
 describe('the clearing panel', () => {
-  const bench = () => within(screen.getByLabelText('Selected transaction'));
-
   it('shows the first pending payee by default', () => {
     render(<ClearingDeskContent />);
     expect(bench().getByRole('heading', { name: 'Diego Ferreira' })).toBeInTheDocument();
@@ -150,6 +149,6 @@ describe('the payee editor', () => {
     fireEvent.click(screen.getByRole('button', { name: 'EDITAR' }));
     fireEvent.click(screen.getByRole('button', { name: 'CANCEL' }));
     expect(hook.value.savePayee).not.toHaveBeenCalled();
-    expect(screen.getByRole('heading', { name: 'Diego Ferreira' })).toBeInTheDocument();
+    expect(bench().getByRole('heading', { name: 'Diego Ferreira' })).toBeInTheDocument();
   });
 });
