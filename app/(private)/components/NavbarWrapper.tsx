@@ -4,7 +4,7 @@ import { useEffect, useState, type ReactNode } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import {
-  ArrowRightLeft, Building2, Handshake, Inbox, TrendingUp, Wallet, Activity, BarChart3, CalendarDays, CarFront, ClipboardList, FileBarChart,
+  ArrowRightLeft, Building2, Handshake, Inbox, TrendingUp, Wallet, Activity, BarChart3, CalendarDays, CarFront, ClipboardCheck, ClipboardList, FileBarChart,
   FileSpreadsheet, FileText, Gauge, Home, Landmark, LayoutDashboard, ListChecks,
   Menu, Package, Receipt, Route as RouteIcon, Scale, Settings2, ShieldCheck, Truck, Users, ChevronDown, LogOut, UserRound, type LucideIcon,
 } from "lucide-react";
@@ -26,7 +26,7 @@ function CurrentDate() {
   return <>{date}</>;
 }
 
-type NavKey = "home" | "week-planner" | "route-balance" | "cleaning-desk";
+type NavKey = "home" | "week-planner" | "route-balance" | "clearing-desk";
 
 const importedGroups = [
   {
@@ -100,6 +100,7 @@ const sidebarGroups = [
       ["/assets", "Assets", Package],
       ["/week-planner", "Week Planner", CalendarDays],
       ["/route-balance", "Route Balance", Scale],
+      ["/clearing-desk", "Clearing Desk", ClipboardCheck],
       ["/daily-game-plan", "Daily Game Plan", ListChecks],
       ["/daily-operations-management", "Daily Operations", ClipboardList],
       ["/daily-operations-reports", "Daily Insights", ArrowRightLeft],

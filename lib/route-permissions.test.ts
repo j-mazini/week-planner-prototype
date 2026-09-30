@@ -56,6 +56,13 @@ describe("route permissions", () => {
     expect(canAccessPath(BUSINESS_RULES.USER_TYPE.DRIVER, "/route-balance")).toBe(false);
   });
 
+  it("lets admins and supervisors reach the clearing desk", () => {
+    expect(canAccessPath(BUSINESS_RULES.USER_TYPE.ADMIN, "/clearing-desk")).toBe(true);
+    expect(canAccessPath(BUSINESS_RULES.USER_TYPE.SUPERVISOR, "/clearing-desk")).toBe(true);
+    expect(canAccessPath(BUSINESS_RULES.USER_TYPE.DRIVER, "/clearing-desk")).toBe(false);
+    expect(canAccessPath(BUSINESS_RULES.USER_TYPE.SERVICE_PARTNER, "/clearing-desk")).toBe(false);
+  });
+
   it("keeps the personal route balance distinct from the operations one", () => {
     expect(canAccessPath(BUSINESS_RULES.USER_TYPE.DRIVER, "/driver-route-balance")).toBe(true);
     expect(canAccessPath(BUSINESS_RULES.USER_TYPE.SUPERVISOR, "/driver-route-balance")).toBe(true);

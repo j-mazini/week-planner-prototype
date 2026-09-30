@@ -76,6 +76,31 @@ describe('the operations Route Balance link', () => {
   });
 });
 
+describe('the Clearing Desk link', () => {
+  it('is offered to an admin', () => {
+    asProfile(BUSINESS_RULES.USER_TYPE.ADMIN, ['admin']);
+    renderShell();
+    openGroup('Operations');
+    expect(screen.getByRole('link', { name: 'Clearing Desk' }))
+      .toHaveAttribute('href', '/clearing-desk');
+  });
+
+  it('is offered to a supervisor', () => {
+    asProfile(BUSINESS_RULES.USER_TYPE.SUPERVISOR, ['supervisor']);
+    renderShell();
+    openGroup('Operations');
+    expect(screen.getByRole('link', { name: 'Clearing Desk' }))
+      .toHaveAttribute('href', '/clearing-desk');
+  });
+
+  it('stays hidden from a driver', () => {
+    asProfile(BUSINESS_RULES.USER_TYPE.DRIVER, ['driver']);
+    renderShell();
+    openGroup('Operations');
+    expect(screen.queryByRole('link', { name: 'Clearing Desk' })).toBeNull();
+  });
+});
+
 describe('the navigation sidebar', () => {
   it('starts collapsed on a fresh visit', () => {
     renderShell();
