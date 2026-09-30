@@ -30,25 +30,49 @@ export function useClearingDesk({ depot, date }: Params) {
   // reconciliation with server-computed state (e.g. a route re-sorted by
   // someone else); re-add `onSettled: () => queryClient.invalidateQueries({ queryKey })`
   // once `updatePayee`/`approveClearing`/`returnToQueue` hit a real API that
-  // echoes back authoritative state.
+  // echoes back authoritative state. In place of that reconciliation, each
+  // mutation below snapshots the pre-edit board in `onMutate` and restores it
+  // in `onError`, so a failed call rolls the cache back instead of leaving it
+  // silently diverged from the server — that rollback is what `onSettled`
+  // would otherwise have covered, and it should stay even after `onSettled`
+  // is reinstated for a real backend.
   const approveMutation = useMutation({
     mutationFn: (id: string) => approveClearing(id),
-    onMutate: (id) => edit(board => ({ ...board, cleared: [id, ...board.cleared] })),
+    onMutate: (id) => {
+      const previous = queryClient.getQueryData<ClearingDeskBoard>(queryKey);
+      edit(board => ({ ...board, cleared: [id, ...board.cleared] }));
+      return { previous };
+    },
+    onError: (_err, _id, context) => {
+      if (context?.previous) queryClient.setQueryData(queryKey, context.previous);
+    },
   });
 
   const restoreMutation = useMutation({
     mutationFn: (id: string) => returnToQueue(id),
-    onMutate: (id) => edit(board => ({
-      ...board, cleared: board.cleared.filter(c => c !== id),
-    })),
+    onMutate: (id) => {
+      const previous = queryClient.getQueryData<ClearingDeskBoard>(queryKey);
+      edit(board => ({ ...board, cleared: board.cleared.filter(c => c !== id) }));
+      return { previous };
+    },
+    onError: (_err, _id, context) => {
+      if (context?.previous) queryClient.setQueryData(queryKey, context.previous);
+    },
   });
 
   const savePayeeMutation = useMutation({
     mutationFn: ({ id, update }: { id: string; update: PayeeUpdate }) => updatePayee(id, update),
-    onMutate: ({ id, update }) => edit(board => ({
-      ...board,
-      payees: board.payees.map(p => (p.id === id ? { ...p, ...update } : p)),
-    })),
+    onMutate: ({ id, update }) => {
+      const previous = queryClient.getQueryData<ClearingDeskBoard>(queryKey);
+      edit(board => ({
+        ...board,
+        payees: board.payees.map(p => (p.id === id ? { ...p, ...update } : p)),
+      }));
+      return { previous };
+    },
+    onError: (_err, _vars, context) => {
+      if (context?.previous) queryClient.setQueryData(queryKey, context.previous);
+    },
   });
 
   const saveNoteMutation = useMutation({
