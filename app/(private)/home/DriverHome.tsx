@@ -198,7 +198,7 @@ export default function DriverHome() {
           </section>
 
           <section className="driver-home__schedule">
-            <div><span className="driver-home__eyebrow">My Route Balance</span><p>See your routes for this week</p></div>
+            <div><span className="driver-home__eyebrow">My Route</span><p>See your routes for this week</p></div>
             <CalendarDays className="driver-home__calendar-art" size={50} />
             <button type="button" onClick={() => setRouteBalanceOpen(true)}>View my routes <ChevronRight size={19} /></button>
             <Link className="driver-home__route-mobile-link" href="/driver-route-balance">Open mobile route view <ChevronRight size={17} /></Link>
@@ -291,7 +291,7 @@ export default function DriverHome() {
       <Dialog open={routeBalanceOpen} onOpenChange={setRouteBalanceOpen}>
         <DialogContent className="driver-home__route-balance-modal">
           <DialogHeader>
-            <DialogTitle className="driver-home__schedule-modal-title">My Route Balance</DialogTitle>
+            <DialogTitle className="driver-home__schedule-modal-title">My Route</DialogTitle>
             <DialogDescription className="driver-home__schedule-modal-description">Your assigned routes for this week.</DialogDescription>
           </DialogHeader>
           {scheduledDays === null ? (

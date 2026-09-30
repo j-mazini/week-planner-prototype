@@ -72,7 +72,7 @@ describe('the operations Route Balance link', () => {
     openGroup('Operations');
     openGroup('My Performance');
     expect(screen.queryByRole('link', { name: 'Route Balance' })).toBeNull();
-    expect(screen.getByRole('link', { name: 'My Route Balance' })).toHaveAttribute('href', '/driver-route-balance');
+    expect(screen.getByRole('link', { name: 'My Route' })).toHaveAttribute('href', '/driver-route-balance');
   });
 });
 

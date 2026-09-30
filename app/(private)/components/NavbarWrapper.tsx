@@ -81,7 +81,7 @@ const sidebarGroups = [
   {
     label: "My Performance",
     items: [
-      ["/driver-route-balance", "My Route Balance", RouteIcon],
+      ["/driver-route-balance", "My Route", RouteIcon],
       ["/daily-performance-insight", "Today", Gauge],
       ["/current-performance", "Current Performance", BarChart3],
       ["/subcontractor", "Subcontractor", Users],
@@ -165,7 +165,7 @@ export default function NavbarWrapper({ children, title }: { children: ReactNode
     "/deductions": "Deductions",
     "/current-month": "Current Month",
     "/current-performance": "Current Performance",
-    "/driver-route-balance": "My Route Balance",
+    "/driver-route-balance": "My Route",
     "/mobile-invoice": "My Invoice",
     "/requests": "Requests",
   };
