@@ -6,3 +6,10 @@
 node_modules/
 tsconfig.tsbuildinfo
 public/ultrawide-harness.html
+
+# Repositório separado, clonado aqui por conveniência — não faz parte deste
+# projeto. Já excluído de tsconfig.json, eslint.config.mjs e .gitignore.
+Logix-new-front/
+
+# Workspace do subagent-driven-development (ledger, briefs, reports).
+.superpowers/
