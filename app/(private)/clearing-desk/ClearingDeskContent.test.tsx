@@ -2,7 +2,7 @@
 import React from 'react';
 import '@testing-library/jest-dom/vitest';
 import { describe, expect, it, vi, beforeEach } from 'vitest';
-import { render, screen, fireEvent, cleanup, within } from '@testing-library/react';
+import { render, screen, fireEvent, cleanup, within, waitFor } from '@testing-library/react';
 import { mapBoard } from './utils/mappers';
 import { clearingDeskFixture } from '@/lib/mocks/clearing-desk-fixtures';
 
@@ -35,13 +35,17 @@ describe('the pending queue', () => {
     expect(queue().getByRole('button', { name: /Codrin Stephan/ })).toBeInTheDocument();
   });
 
-  it('filters by name, by route and by vehicle', () => {
+  it('filters by name, by route and by vehicle', async () => {
     render(<ClearingDeskContent />);
     const search = screen.getByLabelText('Search pending transactions');
 
     fireEvent.change(search, { target: { value: 'aliu' } });
     expect(queue().getByRole('button', { name: /Aliu Balde/ })).toBeInTheDocument();
-    expect(queue().queryByRole('button', { name: /Diego Ferreira/ })).toBeNull();
+    // Awaited, not loosened: cards leave through AnimatePresence, so a filtered
+    // card is unmounted a tick later than the state change. The assertion is the
+    // same one — that it is gone — and it still fails if the filter stops working.
+    await waitFor(() =>
+      expect(queue().queryByRole('button', { name: /Diego Ferreira/ })).toBeNull());
 
     fireEvent.change(search, { target: { value: 'DHOC' } });
     expect(queue().getByRole('button', { name: /Lee Roberts/ })).toBeInTheDocument();

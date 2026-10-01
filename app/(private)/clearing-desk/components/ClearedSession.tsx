@@ -1,10 +1,14 @@
+import { AnimatePresence, motion, useReducedMotion } from 'framer-motion';
 import type { Payee } from '../types';
 import { displayVehicle } from '../utils/mappers';
 import Icon from './Icon';
+import { CARD_ENTER, CARD_SETTLED, CLEARED_EXIT, cardTransition } from '../motion';
 
 export default function ClearedSession({ payees, clearedIds, total, onReturn }: {
   payees: Payee[]; clearedIds: string[]; total: number; onReturn: (id: string) => void;
 }) {
+  const reduced = useReducedMotion() ?? false;
+  const { enter, exit } = cardTransition(reduced);
   const byId = new Map(payees.map(payee => [payee.id, payee]));
   const done = clearedIds.length === payees.length && payees.length > 0;
   const percent = payees.length > 0 ? (clearedIds.length / payees.length) * 100 : 0;
@@ -22,11 +26,19 @@ export default function ClearedSession({ payees, clearedIds, total, onReturn }: 
         {done && <span data-testid="cleared-total">TOTAL: £{total.toFixed(2)}</span>}
       </div>
       <div className="history-list">
+        <AnimatePresence initial={false}>
         {clearedIds.map(id => {
           const payee = byId.get(id);
           if (!payee) return null;
           return (
-            <article className="cleared-card" key={id}>
+            <motion.article
+              layout
+              initial={CARD_ENTER}
+              animate={{ ...CARD_SETTLED, transition: enter }}
+              exit={{ ...CLEARED_EXIT, transition: exit }}
+              className="cleared-card"
+              key={id}
+            >
               <div className="cleared-card-top">
                 <span className="cleared-icon"><Icon name="cleared" /></span>
                 <div className="cleared-person">
@@ -48,9 +60,10 @@ export default function ClearedSession({ payees, clearedIds, total, onReturn }: 
                   <span aria-hidden="true">⤺</span> RETURN TO QUEUE
                 </button>
               </div>
-            </article>
+            </motion.article>
           );
         })}
+        </AnimatePresence>
       </div>
     </aside>
   );

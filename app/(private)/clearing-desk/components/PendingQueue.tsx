@@ -1,4 +1,5 @@
 import type { ReactNode } from 'react';
+import { AnimatePresence } from 'framer-motion';
 import type { Payee } from '../types';
 import { displayVehicle } from '../utils/mappers';
 import PayeeCard from './PayeeCard';
@@ -28,14 +29,16 @@ export default function PendingQueue({
       />
       <div className="depot-heading">{depot}</div>
       {children}
-      {matches.map(payee => (
-        <PayeeCard
-          key={payee.id}
-          payee={payee}
-          selected={payee.id === selectedId}
-          onSelect={() => onSelect(payee.id)}
-        />
-      ))}
+      <AnimatePresence initial={false}>
+        {matches.map(payee => (
+          <PayeeCard
+            key={payee.id}
+            payee={payee}
+            selected={payee.id === selectedId}
+            onSelect={() => onSelect(payee.id)}
+          />
+        ))}
+      </AnimatePresence>
       {matches.length === 0 && <p className="no-results">No matching transactions.</p>}
     </aside>
   );
