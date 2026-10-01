@@ -101,10 +101,32 @@ describe('the clearing panel', () => {
     expect(bench().getByTestId('summary-pre12')).toHaveTextContent('2');
   });
 
-  it('approves the selected payee', () => {
+  it('approves the selected payee', async () => {
     render(<ClearingDeskContent />);
     fireEvent.click(screen.getByRole('button', { name: 'Approve Diego Ferreira' }));
-    expect(hook.value.approve).toHaveBeenCalledWith('DY1B');
+    // Awaited, not loosened: the button holds a short green confirmation before
+    // handing the approval on. Same assertion, same argument — it still fails if
+    // the click stops approving.
+    await waitFor(() => expect(hook.value.approve).toHaveBeenCalledWith('DY1B'));
+  });
+
+  it('shows the confirmation before it hands the approval on', () => {
+    render(<ClearingDeskContent />);
+    const approve = screen.getByRole('button', { name: 'Approve Diego Ferreira' });
+    expect(approve).not.toHaveClass('is-approving');
+
+    fireEvent.click(approve);
+    // The window the green check lives in: marked, and not yet approved.
+    expect(approve).toHaveClass('is-approving');
+    expect(hook.value.approve).not.toHaveBeenCalled();
+  });
+
+  it('cannot be approved twice by a double click', async () => {
+    render(<ClearingDeskContent />);
+    const approve = screen.getByRole('button', { name: 'Approve Diego Ferreira' });
+    fireEvent.click(approve);
+    fireEvent.click(approve);
+    await waitFor(() => expect(hook.value.approve).toHaveBeenCalledTimes(1));
   });
 
   it('saves a note against the selected payee', () => {

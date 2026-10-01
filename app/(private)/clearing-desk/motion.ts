@@ -22,6 +22,13 @@ export const CLEARED_EXIT = { opacity: 0, x: -8 } as const;
 const EASE = [0.4, 0, 0.2, 1] as const;
 
 /**
+ * How long the approve tick stays green before the approval is handed on.
+ * Long enough to read as "registered", short enough not to feel like latency —
+ * and it chains into the card's exit toward the cleared column.
+ */
+export const APPROVE_CONFIRM_MS = 250;
+
+/**
  * Exit is quicker than entry: the vacated slot closing slowly reads as lag,
  * while the arriving card is the part worth watching.
  */

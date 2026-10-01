@@ -1,9 +1,28 @@
+import { useEffect, useRef, useState } from 'react';
+import { useReducedMotion } from 'framer-motion';
 import type { Payee } from '../types';
 import { displayVehicle, formatMoney } from '../utils/mappers';
+import CheckMark from './CheckMark';
+import { APPROVE_CONFIRM_MS } from '../motion';
 
 export default function ClearingPanel({ payee, onEdit, onApprove }: {
   payee: Payee; onEdit: () => void; onApprove: () => void;
 }) {
+  const reduced = useReducedMotion() ?? false;
+  const [confirming, setConfirming] = useState(false);
+  const timer = useRef<ReturnType<typeof setTimeout>>(undefined);
+
+  // The card unmounts as soon as the approval lands, so the timer has to be
+  // cleared on the way out — and on a selection change, which swaps the payee
+  // under a confirmation already in flight.
+  useEffect(() => () => clearTimeout(timer.current), []);
+
+  function approve() {
+    if (confirming) return;
+    setConfirming(true);
+    timer.current = setTimeout(onApprove, reduced ? 0 : APPROVE_CONFIRM_MS);
+  }
+
   return (
     <article className="payee-card">
       <div className="route-seam">ROUTE: {payee.id}</div>
@@ -31,12 +50,12 @@ export default function ClearingPanel({ payee, onEdit, onApprove }: {
         </div>
       </div>
       <button
-        className="approve"
+        className={`approve${confirming ? ' is-approving' : ''}`}
         type="button"
-        onClick={onApprove}
+        onClick={approve}
         aria-label={`Approve ${payee.name}`}
       >
-        <span className="approve-mark" aria-hidden="true" />
+        <span className="approve-mark" aria-hidden="true"><CheckMark /></span>
         <span>APPROVE</span>
       </button>
     </article>
