@@ -58,7 +58,6 @@ describe('useClearingDesk', () => {
     await waitFor(() => expect(result.current.board).toBeDefined());
     act(() => result.current.savePayee('MD7E', {
       name: 'Carlos S.', vehicle: 'MA26 XWK', mode: 'VSR',
-      payment: { amount: 212.75, flat: true },
       sort: false, sortValue: 12.5, adhoc: null,
     }));
     await waitFor(() => {
@@ -66,7 +65,6 @@ describe('useClearingDesk', () => {
       expect(carlos.name).toBe('Carlos S.');
       expect(carlos.mode).toBe('VSR');
       expect(carlos.sortValue).toBe(12.5);
-      expect(carlos.payment).toEqual({ amount: 212.75, flat: true });
     });
   });
 
@@ -114,7 +112,6 @@ describe('useClearingDesk', () => {
     const originalName = result.current.board!.payees.find(p => p.id === 'MD7E')!.name;
     act(() => result.current.savePayee('MD7E', {
       name: 'Carlos S.', vehicle: 'MA26 XWK', mode: 'VSR',
-      payment: { amount: 212.75, flat: true },
       sort: false, sortValue: 12.5, adhoc: null,
     }));
     await waitFor(() => {

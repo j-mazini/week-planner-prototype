@@ -12,7 +12,6 @@ export default function PayeeEditor({ payee, onSave }: {
     name: payee.name,
     vehicle: payee.vehicle,
     mode: payee.mode,
-    payment: payee.payment,
     sort: payee.sort,
     sortValue: payee.sortValue,
     adhoc: payee.adhoc,
@@ -51,38 +50,6 @@ export default function PayeeEditor({ payee, onSave }: {
               onChange={e => setDraft({ ...draft, mode: e.target.value as PaymentMode })}
             >
               {MODES.map(mode => <option key={mode} value={mode}>{mode}</option>)}
-            </select>
-            <Icon name="select" />
-          </span>
-        </label>
-        <label className="form-field">
-          <span>PAYMENT VALUE</span>
-          <input
-            aria-label="Payment value" type="number" min="0" step="0.01"
-            value={draft.payment.amount ?? ''}
-            onChange={e => setDraft({
-              ...draft,
-              payment: {
-                ...draft.payment,
-                // An emptied field means "not known", the same state the design
-                // renders as an em dash — not a zero the operator never typed.
-                amount: e.target.value === '' ? null : Number(e.target.value),
-              },
-            })}
-          />
-        </label>
-        <label className="form-field">
-          <span>FLAT</span>
-          <span className="select-wrap">
-            <select
-              aria-label="Flat" value={draft.payment.flat ? 'YES' : 'NO'}
-              onChange={e => setDraft({
-                ...draft,
-                payment: { ...draft.payment, flat: e.target.value === 'YES' },
-              })}
-            >
-              <option value="YES">YES</option>
-              <option value="NO">NO</option>
             </select>
             <Icon name="select" />
           </span>
