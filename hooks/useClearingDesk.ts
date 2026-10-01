@@ -87,6 +87,7 @@ export function useClearingDesk({ depot, date }: Params) {
     approve: (id: string) => approveMutation.mutate(id),
     restore: (id: string) => restoreMutation.mutate(id),
     savePayee: (id: string, update: PayeeUpdate) => savePayeeMutation.mutate({ id, update }),
-    saveNote: (id: string, note: string) => saveNoteMutation.mutate({ id, note }),
+    saveNote: (id: string, note: string, onSuccess?: () => void) =>
+      saveNoteMutation.mutate({ id, note }, onSuccess ? { onSuccess } : undefined),
   };
 }

@@ -109,7 +109,22 @@ describe('the clearing panel', () => {
       target: { value: 'checked with depot' },
     });
     fireEvent.click(screen.getByRole('button', { name: 'SAVE NOTE' }));
-    expect(hook.value.saveNote).toHaveBeenCalledWith('DY1B', 'checked with depot');
+    expect(hook.value.saveNote).toHaveBeenCalledWith(
+      'DY1B', 'checked with depot', expect.any(Function),
+    );
+  });
+
+  it('confirms with a toast once the note is saved', async () => {
+    hook.value = {
+      ...hook.value,
+      saveNote: vi.fn((_id, _note, onSuccess?: () => void) => onSuccess?.()),
+    };
+    render(<ClearingDeskContent />);
+    fireEvent.change(screen.getByLabelText('MANANGEMENT NOTES'), {
+      target: { value: 'checked with depot' },
+    });
+    fireEvent.click(screen.getByRole('button', { name: 'SAVE NOTE' }));
+    expect(await screen.findByText('Note saved.')).toBeInTheDocument();
   });
 
   it('clears the notes draft when a different payee is selected', () => {
@@ -225,8 +240,24 @@ describe('the progress notice', () => {
 
   it('can be dismissed and stays dismissed', () => {
     withCleared(['DY1B', 'MD7E', 'DHOC']);
-    render(<ClearingDeskContent />);
+    const { rerender } = render(<ClearingDeskContent />);
     fireEvent.click(screen.getByRole('button', { name: 'Dismiss goal' }));
     expect(screen.queryByText('GOAL IN SIGHT!')).toBeNull();
+
+    // Re-render with a changed (but still length-3) `cleared` list: the
+    // notice must stay hidden, not just absent because nothing re-rendered.
+    withCleared(['MD7E', 'DY1B', 'DHOC']);
+    rerender(<ClearingDeskContent />);
+    expect(screen.queryByText('GOAL IN SIGHT!')).toBeNull();
+  });
+});
+
+describe('the error state', () => {
+  it('lets the operator retry', () => {
+    hook.value = { ...hook.value, isError: true };
+    render(<ClearingDeskContent />);
+    expect(screen.getByRole('alert')).toBeInTheDocument();
+    fireEvent.click(screen.getByRole('button', { name: 'Try again' }));
+    expect(hook.value.refetch).toHaveBeenCalled();
   });
 });

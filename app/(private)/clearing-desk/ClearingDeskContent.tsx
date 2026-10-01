@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useClearingDesk } from '@/hooks/useClearingDesk';
 import PendingQueue from './components/PendingQueue';
 import ClearingPanel from './components/ClearingPanel';
@@ -20,6 +20,12 @@ export default function ClearingDeskContent() {
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [editing, setEditing] = useState(false);
   const [goalDismissed, setGoalDismissed] = useState(false);
+  const [toast, setToast] = useState('');
+  useEffect(() => {
+    if (!toast) return;
+    const timer = setTimeout(() => setToast(''), 3000);
+    return () => clearTimeout(timer);
+  }, [toast]);
   const pending = board ? board.payees.filter(p => !board.cleared.includes(p.id)) : [];
   const active = pending.find(p => p.id === selectedId) ?? pending[0];
   const clearedTotal = board
@@ -83,7 +89,10 @@ export default function ClearingDeskContent() {
                   )}
                   <RouteBalanceResume summary={board.routeSummary} />
                   <PayableEstimate perStop={active.perStop} stops={board.routeSummary.stops} />
-                  <ManagementNotes payeeId={active.id} onSave={note => saveNote(active.id, note)} />
+                  <ManagementNotes
+                    payeeId={active.id}
+                    onSave={note => saveNote(active.id, note, () => setToast('Note saved.'))}
+                  />
                 </>
               ) : (
                 <CompletionPanel />
@@ -97,6 +106,7 @@ export default function ClearingDeskContent() {
             />
           </div>
         )}
+      {toast && <div className="toast" role="status">{toast}</div>}
     </div>
   );
 }
