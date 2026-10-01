@@ -1,7 +1,14 @@
+import Icon from './Icon';
+
 export default function CompletionPanel() {
   return (
     <section className="completion" aria-label="All transactions cleared">
-      <div className="trophy" aria-hidden="true" />
+      <div className="trophy" aria-hidden="true">
+        <Icon name="trophy" />
+        <span>
+          <Icon name="star" />
+        </span>
+      </div>
       <span className="excellence">100% EXCELLENCE</span>
       <h2>ZERO QUEUE &amp; MAXIMUM RECOGNITION</h2>
       <div className="completion-progress">

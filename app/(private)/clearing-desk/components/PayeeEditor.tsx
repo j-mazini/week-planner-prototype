@@ -1,5 +1,6 @@
 import { useState, type FormEvent } from 'react';
 import type { Payee, PayeeUpdate, PaymentMode } from '../types';
+import Icon from './Icon';
 
 const MODES: PaymentMode[] = ['DAF', 'DR', 'VSR', 'SP_VSR'];
 const ADHOC_OPTIONS = ['NONE', 'Extra Belt Sort'];
@@ -50,6 +51,7 @@ export default function PayeeEditor({ payee, onSave, onCancel }: {
           >
             {MODES.map(mode => <option key={mode} value={mode}>{mode}</option>)}
           </select>
+          <Icon name="select" />
         </label>
         <label className="form-field select-wrap">
           <span>SORT</span>
@@ -60,6 +62,7 @@ export default function PayeeEditor({ payee, onSave, onCancel }: {
             <option value="YES">YES</option>
             <option value="NO">NO</option>
           </select>
+          <Icon name="select" />
         </label>
         <label className="form-field">
           <span>SORT VALUE</span>
@@ -79,6 +82,7 @@ export default function PayeeEditor({ payee, onSave, onCancel }: {
           >
             {ADHOC_OPTIONS.map(option => <option key={option} value={option}>{option}</option>)}
           </select>
+          <Icon name="select" />
         </label>
       </div>
     </form>
