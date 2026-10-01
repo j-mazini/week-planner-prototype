@@ -26,9 +26,9 @@ export type IconName = keyof typeof ASSETS;
  */
 export default function Icon({ name }: { name: IconName }) {
   return (
-    // eslint-disable-next-line @next/next/no-img-element -- these are 11-19px
-    // decorative SVGs with intrinsic dimensions; next/image neither optimises
-    // SVG nor adds anything here.
+    // These are 11-19px decorative SVGs with intrinsic dimensions; next/image
+    // neither optimises SVG nor adds anything here.
+    // eslint-disable-next-line @next/next/no-img-element
     <img className="icon" src={`/clearing-desk/assets/${ASSETS[name]}`} alt="" />
   );
 }
