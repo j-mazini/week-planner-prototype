@@ -13,46 +13,45 @@ export default function ExceptionsPanel({ exceptions, fallbackLabel }: Exception
   const dayLabel = exceptions?.dayLabel ?? fallbackLabel;
 
   return (
-    <section style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+    <section className="exceptions-panel" aria-label="Exceptions">
       <h3 className="rhead"><b>EXCEPTIONS</b> <span>FOLLOW THE SELECTED DAY · AUTO-ALLOCATION</span></h3>
       <div className="exc">
-        <article className="excard">
+        <article className="excard" aria-label="Vehicle exceptions">
           <div className="exhd">
             <span className="daychip">{dayLabel}</span>
             <span className="exkind">VEHICLES</span>
-            <span className="excount">{exceptions?.vehicles.items.length ?? 0}</span>
+            <span className="excount">{exceptions?.vehicles.items.filter((item) => item.usable).length ?? 0}</span>
           </div>
           {exceptions && (
             <>
-              <div style={{ display: "flex", alignItems: "baseline", gap: 8 }}>
-                <span style={{ fontSize: 16, fontWeight: 600 }}>{exceptions.vehicles.utilizationLabel}</span>
-                <span style={{ fontSize: 9, fontWeight: 600, color: "var(--green)" }}>{exceptions.vehicles.utilizationPercent}%</span>
+              <div className="exutilization">
+                <strong>{exceptions.vehicles.utilizationLabel}</strong>
+                <span>{exceptions.vehicles.utilizationPercent}%</span>
+                <small>UTILIZATION · {exceptions.vehicles.depotLabel} · {dayLabel.slice(0, 3)}</small>
               </div>
-              <span style={{ fontSize: "6.5px", letterSpacing: ".65px", color: "var(--ink-faint)" }}>
-                UTILIZATION · {exceptions.vehicles.depotLabel} · {dayLabel.slice(0, 3)}
-              </span>
+              <div className="exitems exvehicles">
               {exceptions.vehicles.items.map((item, index) => (
-                <div key={index} className="exrow">
+                <div key={index} className={`exrow${item.tag === "VOR" ? " exrow-vor" : ""}`}>
                   <span className="exlbl" style={{ color: item.tag === "VOR" ? "var(--orange)" : "var(--ink-faint)" }}>{item.tag}</span>
-                  <span className="plate-chip">{item.plate}</span>
+                  <span className="plate-chip" title={item.plate}>{item.plate}</span>
                   {item.usable ? (
                     <button type="button" className="use" onClick={() => showToast("Vehicle allocated to the day (prototype).")}>Use</button>
-                  ) : (
-                    <span style={{ width: 34 }} />
-                  )}
+                  ) : null}
                 </div>
               ))}
+              </div>
               <p className="foot">UNUSED VANS AUTO-TAG AS SPARE · VOR = OFF ROAD, EXCLUDED FROM FLEET COUNT</p>
             </>
           )}
         </article>
 
-        <article className="excard">
+        <article className="excard" aria-label="Driver exceptions">
           <div className="exhd">
             <span className="daychip">{dayLabel}</span>
             <span className="exkind">DRIVERS</span>
             <span className="excount">{exceptions?.drivers.items.length ?? 0}</span>
           </div>
+          <div className="exitems exdrivers">
           {exceptions?.drivers.unallocated && (
             <div className="unall">
               <span className="exlbl" style={{ color: "var(--olive-alt)", fontWeight: 600 }}>UNALL</span>
@@ -68,6 +67,7 @@ export default function ExceptionsPanel({ exceptions, fallbackLabel }: Exception
               <span className="exname">{item.name}</span>
             </div>
           ))}
+          </div>
           <p className="foot">UNPLACED BY THE ENGINE — EVERYONE ELSE IS ALREADY ON THE BOARD</p>
         </article>
       </div>

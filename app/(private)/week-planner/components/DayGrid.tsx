@@ -20,7 +20,7 @@ interface DayGridProps {
 export default function DayGrid({ days, variant, selectedDate, onSelectDay, onAddInDay, onOpenRoute }: DayGridProps) {
   return (
     <div className="gridscroll">
-      <div className="grid" style={{ gridTemplateColumns: `repeat(${days.length}, minmax(0, 1fr))` }}>
+      <div className={`grid grid-${variant}`} style={{ gridTemplateColumns: `repeat(${days.length}, minmax(0, 1fr))` }}>
         {days.map((day) => {
           const selected = variant === "main" && day.date === selectedDate;
           const badge = badgeFor(day, selected);
@@ -47,7 +47,7 @@ export default function DayGrid({ days, variant, selectedDate, onSelectDay, onAd
                   +
                 </button>
               </div>
-              <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+              <div className="route-list">
                 {routes.map((route) => (
                   <RouteCard key={route.id} route={route} onOpen={onOpenRoute} />
                 ))}

@@ -7,7 +7,7 @@ const DISC_STYLE: Record<RouteStatus, { bg: string; ring?: string }> = {
   ok: { bg: "var(--olive)" },
   warning: { bg: "var(--disc-warn)" },
   error: { bg: "var(--red)" },
-  conflict: { bg: "var(--notch)", ring: "var(--olive-code)" },
+  conflict: { bg: "var(--red)" },
   open: { bg: "radial-gradient(circle at 30% 30%, rgb(241,248,144) 0%, rgb(229,240,108) 37%, rgb(217,232,72) 74%)", ring: "rgba(90,100,16,.35)" },
 };
 
@@ -29,7 +29,7 @@ function Glyph({ status }: { status: RouteStatus }) {
     );
   }
   if (status === "error" || status === "conflict") {
-    return <span className="gl" style={{ color: status === "error" ? "#fff" : "var(--olive-code)" }}>!</span>;
+    return <span className="gl" style={{ color: "#fff" }}>!</span>;
   }
   return <span className="gl" style={{ color: "var(--ink-strong)" }}>+</span>;
 }

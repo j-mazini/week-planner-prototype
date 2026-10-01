@@ -119,7 +119,7 @@ function WeekPlannerBoard() {
 
         <div className="cols">
           <div className="board">
-            <TeamLeaderTrack selectedIndex={leaderIndex} onSelect={setLeaderIndex} onOpenRail={() => setRailOpen((prev) => !prev)} />
+            <TeamLeaderTrack railOpen={railOpen} selectedIndex={leaderIndex} onSelect={setLeaderIndex} onOpenRail={() => setRailOpen((prev) => !prev)} />
             <DayGrid
               days={visibleDays}
               variant="main"
@@ -132,20 +132,21 @@ function WeekPlannerBoard() {
           </div>
 
           {railOpen && (
-            <div className="railcol">
+            <aside className="railcol" id="week-planner-details" aria-label="Planning details">
+              <ManagementSupportPanel days={board.management}>
+                <NotesPanel
+                  notes={board.notes}
+                  onAddNote={() => setModal("addNote")}
+                  onAcknowledge={() => runAction("Acknowledge Note")}
+                />
+              </ManagementSupportPanel>
+              <OffHolidayPanel days={board.absences} />
               <ExceptionsPanel
                 exceptions={selectedDay ? (board.exceptionsByDate[selectedDay.date] ?? null) : null}
                 fallbackLabel={selectedDay?.name ?? "Selected day"}
               />
-              <ManagementSupportPanel days={board.management} />
-              <OffHolidayPanel days={board.absences} />
               <PlanHorizonPanel weeks={board.horizon} />
-              <NotesPanel
-                notes={board.notes}
-                onAddNote={() => setModal("addNote")}
-                onAcknowledge={() => runAction("Acknowledge Note")}
-              />
-            </div>
+            </aside>
           )}
         </div>
 

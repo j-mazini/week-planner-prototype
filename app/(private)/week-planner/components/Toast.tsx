@@ -27,7 +27,7 @@ export default function ToastProvider({ children }: { children: ReactNode }) {
   return (
     <ToastContext.Provider value={{ showToast }}>
       {children}
-      <div className="toast" hidden={message === null}>
+      <div className="week-planner-toast" role="status" hidden={message === null}>
         {message}
       </div>
     </ToastContext.Provider>

@@ -1,11 +1,6 @@
-/* ===========================================================================
-   LogixSphere — Week Planner (protótipo)
-   Tokens portados do artifact aprovado (Figma "Week-Planner",
-   Qx1Tf0v03GgwzvaGt2Y6Vw). Esta tela comete deliberadamente ao mundo visual
-   único do produto (papel quente, ações teal, cards oliva-lima); por isso
-   não segue o tema do navegador — toda superfície e cor é pintada
-   explicitamente, igual ao protótipo original.
-   =========================================================================== */
+/* Week Planner — reconstructed from the supplied Figma export, desktop frame
+   2192:18133 and planning panel 2258:22098. Component rules stay scoped to this
+   page and its portalled dialogs so generic names cannot restyle other pages. */
 /* `.scrim` shares this scope: the modal overlay is portalled onto <body>, so it
    sits outside the page element and cannot inherit these tokens through the tree. */
 .week-planner-page, .scrim {
@@ -37,7 +32,7 @@
 
   color: var(--ink); font-family: var(--mono);
 }
-.week-planner-page { background: var(--surface); min-height: 100vh; }
+.week-planner-page { background: var(--surface); min-height: calc(100vh - 64px); }
 :is(.week-planner-page, .scrim) * { box-sizing: border-box; }
 :is(.week-planner-page, .scrim) h1, :is(.week-planner-page, .scrim) h2, :is(.week-planner-page, .scrim) h3 { margin: 0; text-wrap: balance; }
 /* `:where()` keeps this reset at zero specificity — the selector weighs only its
@@ -51,90 +46,96 @@
 .week-planner-page .mono { font-family: var(--mono); }
 .week-planner-page .disp { font-family: var(--display); }
 
-.wrap { max-width: 2253px; margin: 0 auto; padding-inline: 16px; padding-block: 20px 40px; }
+:is(.week-planner-page, .scrim) .wrap { max-width: 2253px; margin: 0 auto; padding-inline: 16px; padding-block: 20px 40px; }
 
-.topbar { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 12px; }
-.title { font-family: var(--display); font-size: 28px; font-weight: 700; line-height: 32px; }
-.demo-tag { font-size: 9px; letter-spacing: .9px; text-transform: uppercase; color: var(--ink-foot); border: 1px solid var(--line); padding: 4px 8px; }
+:is(.week-planner-page, .scrim) .topbar { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 12px; }
+:is(.week-planner-page, .scrim) .title { font-family: var(--display); font-size: 28px; font-weight: 700; line-height: 32px; }
+:is(.week-planner-page, .scrim) .demo-tag { font-size: 9px; letter-spacing: .9px; text-transform: uppercase; color: var(--ink-foot); border: 1px solid var(--line); padding: 4px 8px; }
 /* Positioned and raised so the week-picker popover it hosts paints over the
    rows that follow it in the document (depot tabs, add-row, the board). Without
    this the popover's own z-index only orders it against its header siblings. */
-.header { position: relative; z-index: 2; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px; border-bottom: 1px solid var(--line); padding-block: 16px; margin-top: 8px; }
-.weekbtn { display: flex; align-items: center; gap: 12px; background: none; border: 0; padding: 0; }
-.weekbtn .wk { font-family: var(--display); font-size: 18px; font-weight: 700; line-height: 32px; }
-.weekbtn .rg { font-size: 13px; font-weight: 500; color: var(--ink-muted); }
-.actions { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 8px; margin-left: auto; }
+:is(.week-planner-page, .scrim) .header { position: relative; z-index: 2; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px; border-bottom: 1px solid var(--line); padding-block: 16px; margin-top: 8px; }
+:is(.week-planner-page, .scrim) .weekbtn { display: flex; align-items: center; gap: 12px; background: none; border: 0; padding: 0; }
+:is(.week-planner-page, .scrim) .weekbtn .wk { font-family: var(--display); font-size: 18px; font-weight: 700; line-height: 32px; }
+:is(.week-planner-page, .scrim) .weekbtn .rg { font-size: 13px; font-weight: 500; color: var(--ink-muted); }
+:is(.week-planner-page, .scrim) .actions { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 8px; margin-left: auto; }
 /* 7px block padding, not 8px: the design's button box is 28px and the 1px border
    counts toward it under `box-sizing: border-box` (7 + 12 line-height + 7 + 2). */
-.tbtn { background: var(--teal); border: 1px solid var(--teal); color: #fff; padding: 7px 16px; font-size: 12px; font-weight: 600; letter-spacing: .6px; text-transform: uppercase; line-height: 12px; }
-.tbtn:hover { opacity: .88; }
+:is(.week-planner-page, .scrim) .tbtn { background: var(--teal); border: 1px solid var(--teal); color: #fff; padding: 7px 15px; font-size: 12px; font-weight: 600; letter-spacing: .6px; text-transform: uppercase; line-height: 12px; }
+:is(.week-planner-page, .scrim) .tbtn:hover { opacity: .88; }
 
-.controls { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; padding-top: 16px; }
-.tabs { display: flex; gap: 8px; }
+:is(.week-planner-page, .scrim) .controls { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; padding-top: 16px; }
+:is(.week-planner-page, .scrim) .tabs { display: flex; gap: 8px; }
 /* 8px block padding for the design's 32px box (8 + 14 line-height + 8 + 2 border). */
-.tab { background: var(--paper); border: 1px solid var(--line); color: var(--ink-muted); padding: 8px 16px; font-size: 11px; font-weight: 500; line-height: 14px; }
-.tab[aria-pressed="true"] { background: var(--lime); border-color: var(--teal-deep); color: var(--olive); font-weight: 700; }
-.wkend { display: flex; align-items: center; gap: 8px; font-size: 11px; color: var(--ink-muted); cursor: pointer; }
-.addrow { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 11px; padding-top: 16px; }
-.addbtn { display: flex; align-items: center; gap: 8px; background: var(--teal); color: #fff; border: 1px solid var(--olive); border-radius: 2px; padding: 9px 17px; }
-.addbtn:hover { opacity: .88; }
-.addbtn .plus { font-size: 18px; font-weight: 600; line-height: 12px; color: var(--surface); }
-.addbtn .lbl { font-size: 12px; font-weight: 600; line-height: 12px; text-transform: uppercase; }
+:is(.week-planner-page, .scrim) .tab { background: var(--paper); border: 1px solid var(--line); color: var(--ink-muted); padding: 9px 15px; font-size: 11px; font-weight: 500; line-height: 14px; }
+:is(.week-planner-page, .scrim) .tab[aria-pressed="true"] { background: var(--lime); border-color: var(--teal-deep); color: var(--olive); font-weight: 700; }
+:is(.week-planner-page, .scrim) .wkend { display: flex; align-items: center; gap: 8px; font-size: 11px; color: var(--ink-muted); cursor: pointer; }
+:is(.week-planner-page, .scrim) .addrow { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 11px; padding-top: 16px; }
+:is(.week-planner-page, .scrim) .addbtn { display: flex; align-items: center; gap: 8px; background: var(--teal); color: #fff; border: 1px solid var(--olive); border-radius: 2px; padding: 8px 16px; }
+:is(.week-planner-page, .scrim) .addbtn:hover { opacity: .88; }
+:is(.week-planner-page, .scrim) .addbtn .plus { font-size: 18px; font-weight: 600; line-height: 12px; color: var(--surface); }
+:is(.week-planner-page, .scrim) .addbtn .lbl { font-size: 12px; font-weight: 600; line-height: 12px; text-transform: uppercase; }
 
-.cols { display: flex; flex-direction: column; gap: 24px; padding-top: 16px; }
-@media (min-width: 1280px) { .cols { flex-direction: row; gap: 24px; } }
-.board { min-width: 0; flex: 1; display: flex; flex-direction: column; gap: 16px; }
+:is(.week-planner-page, .scrim) .cols { display: flex; flex-direction: column; gap: 24px; padding-top: 16px; }
+@media (min-width: 1280px) { :is(.week-planner-page, .scrim) .cols { flex-direction: row; gap: 24px; } }
+:is(.week-planner-page, .scrim) .board { min-width: 0; flex: 1; display: flex; flex-direction: column; gap: 16px; }
 
-.tltrack { display: flex; align-items: stretch; gap: 16px; height: 40px; }
-.tltrack .cat { display: flex; align-items: center; width: 145px; flex: none; background: var(--teal-soft); color: var(--teal); padding: 0 12px; font-size: 12px; font-weight: 700; line-height: 14px; }
-.tlscroll { display: flex; gap: 8px; min-width: 0; flex: 1; overflow-x: auto; padding: 8px; }
-.tlchip { flex: none; height: 24px; display: flex; align-items: center; padding: 0 8px; border: 0; background: var(--rail); color: var(--ink-muted); font-size: 12px; font-weight: 600; line-height: 11px; }
-.tlchip[aria-pressed="true"] { background: var(--lime); color: var(--olive); }
-.chip-nav { width: 22px; height: 22px; flex: none; align-self: center; display: grid; place-items: center; background: var(--ghost); border: 1px solid var(--line); padding: 0; }
+:is(.week-planner-page, .scrim) .tltrack { display: flex; align-items: stretch; gap: 0; height: 40px; }
+:is(.week-planner-page, .scrim) .tltrack .cat { display: flex; align-items: center; width: 145px; flex: none; background: var(--teal-soft); color: var(--teal); padding: 0 12px; font-size: 12px; font-weight: 700; line-height: 14px; }
+/* The export shows one leader beside the cyan label; the select keeps all
+   existing leaders available without adding extra chips to the board. */
+:is(.week-planner-page, .scrim) .tlleader { appearance: none; width: 180px; min-width: 0; height: 40px; padding: 0 16px; border: 0; border-radius: 0; background: var(--rail); color: var(--ink-muted); font: 600 12px/14px var(--mono); cursor: pointer; }
+:is(.week-planner-page, .scrim) .tltrack .chip-nav { margin-left: auto; }
+:is(.week-planner-page, .scrim) .tltrack .chip-nav[aria-expanded="true"] svg { transform: rotate(180deg); }
+:is(.week-planner-page, .scrim) .chip-nav { width: 22px; height: 22px; flex: none; align-self: center; display: grid; place-items: center; background: var(--ghost); border: 1px solid var(--line); padding: 0; }
 
-.gridscroll { overflow-x: auto; }
-.grid { display: grid; gap: 16px; min-width: 760px; }
-.day { background: var(--overlay); padding: 8px; display: flex; flex-direction: column; gap: 8px; border: 1px solid transparent; min-width: 0; }
-.day.sel { border-color: var(--lime); }
-.dayhead { display: flex; align-items: center; justify-content: space-between; padding: 0 4px; gap: 6px; }
-.daybtn { display: flex; align-items: center; gap: 8px; min-width: 0; background: none; border: 0; padding: 0; text-align: left; }
-.dayname { font-family: var(--display); font-size: 12px; font-weight: 700; letter-spacing: .36px; color: var(--ink-strong); white-space: nowrap; }
-.daynum { font-size: 10px; letter-spacing: .36px; color: var(--ink-faint); }
-.daybadge { height: 17.5px; display: inline-flex; align-items: center; padding: 0 6px; font-size: 8.5px; line-height: 8.5px; white-space: nowrap; }
-.daybadge.rev { background: rgba(23, 166, 115, .12); color: var(--green); border-radius: 999px; }
-.daybadge.rerev { background: rgba(201, 138, 18, .14); color: var(--amber-ink); border-radius: 999px; }
-.daybadge.sel { background: var(--lime-sel); color: var(--ink-strong); font-weight: 600; }
-.dayadd { font-family: var(--display); font-size: 17px; line-height: 17px; background: none; border: 0; padding: 0 4px; }
+:is(.week-planner-page, .scrim) .gridscroll { overflow-x: auto; }
+:is(.week-planner-page, .scrim) .grid { display: grid; gap: 16px; min-width: 1000px; }
+:is(.week-planner-page, .scrim) .day { background: transparent; padding: 0 0 14px; display: flex; flex-direction: column; gap: 0; min-width: 0; }
+:is(.week-planner-page, .scrim) .dayhead { height: 44px; display: flex; align-items: center; justify-content: space-between; padding: 0 4px; gap: 6px; }
+:is(.week-planner-page, .scrim) .grid-adhoc .dayhead { height: 38px; }
+:is(.week-planner-page, .scrim) .grid-adhoc .day { padding-bottom: 11px; }
+.week-planner-page .route-list { display: flex; flex-direction: column; gap: 8px; padding-bottom: 2px; }
+.week-planner-page .grid-main .route-list { max-height: max(392px, calc(100vh - 624px)); overflow-y: auto; scrollbar-width: thin; scrollbar-color: var(--line) transparent; }
+.week-planner-page .route-list .rc { flex-shrink: 0; }
+:is(.week-planner-page, .scrim) .daybtn { display: flex; align-items: center; gap: 8px; min-width: 0; background: none; border: 0; padding: 0; text-align: left; }
+:is(.week-planner-page, .scrim) .dayname { font-family: var(--display); font-size: 12px; font-weight: 700; letter-spacing: .36px; color: var(--ink-strong); white-space: nowrap; }
+:is(.week-planner-page, .scrim) .daynum { font-size: 10px; letter-spacing: .36px; color: var(--ink-faint); }
+:is(.week-planner-page, .scrim) .daybadge { height: 17.5px; display: inline-flex; align-items: center; padding: 0 6px; font-size: 8.5px; line-height: 8.5px; white-space: nowrap; }
+:is(.week-planner-page, .scrim) .daybadge.rev { background: rgba(23, 166, 115, .12); color: var(--green); border-radius: 999px; }
+:is(.week-planner-page, .scrim) .daybadge.rerev { background: rgba(201, 138, 18, .14); color: var(--amber-ink); border-radius: 999px; }
+:is(.week-planner-page, .scrim) .daybadge.sel { background: var(--lime-sel); color: var(--ink-strong); font-weight: 600; }
+:is(.week-planner-page, .scrim) .dayadd { font-family: var(--display); font-size: 17px; line-height: 17px; background: none; border: 0; padding: 0 4px; }
 
-.rc { position: relative; display: flex; align-items: center; height: 42px; width: 100%; overflow: hidden; border: 0; padding: 0; text-align: left; box-shadow: var(--sh-card); background-image: var(--card), var(--wash), var(--sheen); transition: transform .12s ease; }
-.rc:hover { transform: translateY(-1px); }
-.rc.open { background-image: var(--card-open), var(--wash), var(--sheen); }
-.plate { position: relative; width: 76px; flex: none; height: 100%; display: flex; flex-direction: column; justify-content: center; padding-left: 12px; }
-.flexlbl { font-size: 8px; font-weight: 600; text-transform: uppercase; line-height: 1; color: var(--olive-code); }
-.code { font-size: 11.5px; font-weight: 600; letter-spacing: .345px; color: var(--olive-code); text-shadow: 0 0 3px rgba(255, 255, 255, .9), 0 0 9px rgba(255, 255, 255, .95); }
-.rc.open .code { color: var(--olive-alt); }
-.notchel { position: absolute; top: -5px; bottom: -4.5px; left: 60px; width: 17px; background: var(--notch); transform: skewX(-15.65deg); box-shadow: -1px 0 0 rgba(23, 23, 26, .09), 1px 0 0 rgba(23, 23, 26, .09); }
-.disc { position: relative; z-index: 1; margin-left: -9px; width: 19px; height: 19px; flex: none; border-radius: 50%; display: grid; place-items: center; box-shadow: var(--sh-disc); }
-.disc .gl { font-size: 9px; font-weight: 500; line-height: 9px; }
-.rcbody { margin-left: 8px; padding-right: 9px; min-width: 0; flex: 1; display: flex; flex-direction: column; align-items: flex-end; gap: 2px; }
-.driver { font-family: var(--display); font-size: 10px; font-weight: 700; line-height: 1; letter-spacing: -.1px; color: var(--ink-strong); max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.veh { height: 15.5px; display: inline-flex; align-items: center; padding: 0 5px; font-size: 7.5px; font-weight: 600; letter-spacing: .6px; white-space: nowrap; max-width: 100%; overflow: hidden; }
-.veh.ok { background: #fff; border: 1px solid rgba(23, 23, 26, .3); color: var(--ink-plate); border-radius: 3.5px; }
-.veh.none { background: rgba(255, 255, 255, .6); border: 1px dashed var(--orange); color: var(--orange); }
-.veh.sub { background: #fff; border: 1px solid var(--amber); color: var(--amber-ink); }
-.drop { margin: 0 10px 0 12px; height: 32px; flex: 1; display: flex; align-items: center; justify-content: flex-end; border: 1px dashed rgba(70, 78, 12, .45); padding: 0 8px; }
+:is(.week-planner-page, .scrim) .rc { position: relative; display: flex; align-items: center; height: 42px; width: 100%; overflow: hidden; border: 0; padding: 0; text-align: left; box-shadow: var(--sh-card); background-image: var(--sheen), var(--wash), var(--card); transition: transform .12s ease; }
+:is(.week-planner-page, .scrim) .rc:hover { transform: translateY(-1px); }
+:is(.week-planner-page, .scrim) .rc.open { background-image: var(--sheen), var(--wash), var(--card-open); }
+:is(.week-planner-page, .scrim) .plate { position: relative; width: calc(35% + 7px); flex: none; height: 100%; display: flex; flex-direction: column; justify-content: center; padding-left: 12px; background: #efefea; clip-path: polygon(0 0, 100% 0, calc(100% - 12px) 100%, 0 100%); }
+:is(.week-planner-page, .scrim) .flexlbl { letter-spacing: 2px; font-size: 6px; font-weight: 600; text-transform: uppercase; line-height: 1; color: var(--olive-code); }
+:is(.week-planner-page, .scrim) .code { font-size: 11.5px; font-weight: 600; letter-spacing: .345px; color: var(--olive-code); text-shadow: 0 0 3px rgba(255, 255, 255, .9), 0 0 9px rgba(255, 255, 255, .95); }
+:is(.week-planner-page, .scrim) .rc.open .code { color: var(--olive-alt); }
+:is(.week-planner-page, .scrim) .notchel { position: absolute; top: -5px; bottom: -4.5px; left: calc(35% - 4px); width: 8px; background: var(--notch); transform: skewX(-15.65deg); box-shadow: -1px 0 0 rgba(23, 23, 26, .09), 1px 0 0 rgba(23, 23, 26, .09); }
+:is(.week-planner-page, .scrim) .disc { position: absolute; left: 35%; top: 50%; transform: translate(-50%, -50%); z-index: 1; width: 19px; height: 19px; flex: none; border-radius: 50%; display: grid; place-items: center; box-shadow: var(--sh-disc); }
+:is(.week-planner-page, .scrim) .disc .gl { font-size: 9px; font-weight: 500; line-height: 9px; }
+:is(.week-planner-page, .scrim) .rcbody { margin-left: 8px; padding-right: 9px; min-width: 0; flex: 1; display: flex; flex-direction: column; align-items: flex-end; gap: 2px; }
+:is(.week-planner-page, .scrim) .driver { font-family: var(--display); font-size: 10px; font-weight: 700; line-height: 1; letter-spacing: -.1px; color: var(--ink-strong); max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+:is(.week-planner-page, .scrim) .veh { height: 15.5px; display: inline-flex; align-items: center; padding: 0 5px; font-size: 7.5px; font-weight: 600; letter-spacing: .6px; white-space: nowrap; max-width: 100%; overflow: hidden; }
+:is(.week-planner-page, .scrim) .veh.ok { background: #fff; border: 1px solid rgba(23, 23, 26, .3); color: var(--ink-plate); border-radius: 3.5px; }
+:is(.week-planner-page, .scrim) .veh.none { background: rgba(255, 255, 255, .6); border: 1px dashed var(--orange); color: var(--orange); }
+:is(.week-planner-page, .scrim) .veh.sub { background: #fff; border: 1px solid var(--amber); color: var(--amber-ink); }
+:is(.week-planner-page, .scrim) .drop { margin: 0 10px 0 12px; height: 32px; flex: 1; display: flex; align-items: center; justify-content: center; border: 1px dashed rgba(70, 78, 12, .45); padding: 0 8px; }
 /* The design's unassigned-slot call to action is a dark pill, not a lime chip:
    measured #17171a on the card with #efefea type. */
-.assign { height: 20px; background: var(--ink-strong); border: 1px solid var(--ink-strong); padding: 0 12px; font-size: 9px; font-weight: 600; }
+:is(.week-planner-page, .scrim) .assign { display: inline-flex; align-items: center; justify-content: center; height: 20px; background: var(--ink-strong); border: 1px solid var(--ink-strong); padding: 0 12px; font-size: 9px; font-weight: 600; }
 :is(.week-planner-page, .scrim) .assign { color: var(--on-ink); }
 
-.sechead { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding-top: 16px; }
-.sechead h2 { font-family: var(--display); font-size: 20px; font-weight: 700; line-height: 32px; }
-footer.pg { margin-top: 24px; border-top: 1px solid var(--line); padding-top: 16px; text-align: right; font-size: 10px; line-height: 15px; color: var(--ink-foot); }
+:is(.week-planner-page, .scrim) .sechead { display: flex; align-items: center; justify-content: space-between; gap: 12px; height: 30px; padding-top: 0; }
+:is(.week-planner-page, .scrim) .sechead h2 { font-family: var(--display); font-size: 20px; font-weight: 700; line-height: 32px; }
+:is(.week-planner-page, .scrim) footer.pg { margin-top: 16px; border-top: 1px solid var(--line); padding-top: 16px; text-align: right; font-size: 10px; line-height: 15px; color: var(--ink-foot); }
 
-.railcol { width: 100%; display: flex; flex-direction: column; gap: 24px; min-width: 0; }
+:is(.week-planner-page, .scrim) .railcol { width: 100%; display: flex; flex-direction: column; gap: 24px; min-width: 0; }
 @media (min-width: 1280px) {
-  .railcol {
+  :is(.week-planner-page, .scrim) .railcol {
     width: 404px;
     flex: none;
     height: min(760px, calc(100vh - 230px));
@@ -144,177 +145,189 @@ footer.pg { margin-top: 24px; border-top: 1px solid var(--line); padding-top: 16
     scrollbar-width: thin;
     scrollbar-color: var(--line-panel) transparent;
   }
-  .railcol::-webkit-scrollbar { width: 6px; }
-  .railcol::-webkit-scrollbar-track { background: transparent; }
-  .railcol::-webkit-scrollbar-thumb { background: var(--line-panel); border-radius: 999px; }
+  :is(.week-planner-page, .scrim) .railcol::-webkit-scrollbar { width: 6px; }
+  :is(.week-planner-page, .scrim) .railcol::-webkit-scrollbar-track { background: transparent; }
+  :is(.week-planner-page, .scrim) .railcol::-webkit-scrollbar-thumb { background: var(--line-panel); border-radius: 999px; }
 }
-.rhead { letter-spacing: 2px; }
-.rhead b { font-size: 10px; font-weight: 600; color: var(--ink-strong); }
-.rhead span { font-size: 8px; letter-spacing: .8px; color: var(--ink-faint); }
-.notes { border: 1px solid var(--line-panel); background: #fff; padding: 1px; }
-.noteshd { height: 35px; display: flex; align-items: center; justify-content: space-between; gap: 8px; background: #fafaf4; border-bottom: 1px solid var(--line-rail); padding: 4px 8px 5px; }
-.dot { width: 8px; height: 8px; border-radius: 999px; background: #f43f5e; }
-.noteslbl { font-size: 11px; font-weight: 700; letter-spacing: .55px; color: var(--ink-card); }
-.mini { font-size: 10px; font-weight: 700; line-height: 16px; border: 1px solid var(--line-rail); background: #fff; color: #44403c; padding: 5px 9px; }
-.mini.solid { background: #2d4f46; color: #fff; border-color: #2d4f46; padding: 4px 10px; }
-.noteslist { display: flex; flex-direction: column; gap: 8px; max-height: 220px; overflow-y: auto; padding: 8px 4px 8px 8px; }
-.note { display: flex; align-items: flex-start; justify-content: space-between; gap: 8px; padding: 11px; border: 1px solid; }
-.note.urgent { background: rgba(255, 241, 242, .7); border-color: #fecdd3; }
-.note.critical { background: rgba(255, 251, 235, .7); border-color: #fde68a; }
-.sev { flex: none; margin-top: 2px; padding: 3px 7px; font-size: 9px; font-weight: 700; text-transform: uppercase; border: 1px solid; }
-.sev.urgent { background: #ffe4e6; border-color: #fda4af; color: #9f1239; }
-.sev.critical { background: #fef3c7; border-color: #fcd34d; color: #92400e; }
-.notebody { font-size: 11px; line-height: 15.13px; color: var(--ink-card); margin: 0; }
-.notemeta { font-size: 9px; line-height: 16px; color: var(--ink-help); }
+:is(.week-planner-page, .scrim) .rhead { display: flex; flex-wrap: wrap; align-items: baseline; gap: 2px 8px; font-size: 10px; line-height: 14px; letter-spacing: 2px; }
+:is(.week-planner-page, .scrim) .rhead b { font-size: 10px; font-weight: 600; color: var(--ink-strong); }
+:is(.week-planner-page, .scrim) .rhead span { font-size: 8px; letter-spacing: .8px; color: var(--ink-faint); }
+:is(.week-planner-page, .scrim) .notes { border: 1px solid var(--line-panel); background: #fff; padding: 1px; }
+:is(.week-planner-page, .scrim) .noteshd { height: 35px; display: flex; align-items: center; justify-content: space-between; gap: 8px; background: #fafaf4; border-bottom: 1px solid var(--line-rail); padding: 4px 8px 5px; }
+:is(.week-planner-page, .scrim) .dot { width: 8px; height: 8px; border-radius: 999px; background: #f43f5e; }
+:is(.week-planner-page, .scrim) .noteslbl { font-size: 11px; font-weight: 700; letter-spacing: .55px; color: var(--ink-card); }
+:is(.week-planner-page, .scrim) .mini { font-size: 9px; font-weight: 700; line-height: 16px; border: 1px solid var(--line-rail); background: #fff; color: #44403c; padding: 4px 8px; }
+:is(.week-planner-page, .scrim) .mini.solid { background: #2d4f46; color: #fff; border-color: #2d4f46; padding: 4px 10px; }
+:is(.week-planner-page, .scrim) .noteslist { display: flex; flex-direction: column; gap: 8px; max-height: 220px; overflow-y: auto; padding: 8px 4px 8px 8px; }
+:is(.week-planner-page, .scrim) .note { display: flex; align-items: flex-start; justify-content: space-between; gap: 8px; padding: 11px; border: 1px solid; }
+:is(.week-planner-page, .scrim) .note.urgent { background: rgba(255, 241, 242, .7); border-color: #fecdd3; }
+:is(.week-planner-page, .scrim) .note.critical { background: rgba(255, 251, 235, .7); border-color: #fde68a; }
+:is(.week-planner-page, .scrim) .sev { flex: none; margin-top: 2px; padding: 3px 7px; font-size: 9px; font-weight: 700; text-transform: uppercase; border: 1px solid; }
+:is(.week-planner-page, .scrim) .sev.urgent { background: #ffe4e6; border-color: #fda4af; color: #9f1239; }
+:is(.week-planner-page, .scrim) .sev.critical { background: #fef3c7; border-color: #fcd34d; color: #92400e; }
+:is(.week-planner-page, .scrim) .notebody { font-size: 11px; line-height: 15.13px; color: var(--ink-card); margin: 0; }
+:is(.week-planner-page, .scrim) .notemeta { font-size: 9px; line-height: 16px; color: var(--ink-help); }
 
-.mgrid {
+:is(.week-planner-page, .scrim) .mgrid {
   display: grid;
   grid-template-columns: repeat(5, minmax(0, 1fr));
   gap: 10px;
 }
-.mday { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
-.mday > b { font-size: 8.5px; font-weight: 600; color: var(--ink-strong); }
-.mcard { box-shadow: var(--sh-card); position: relative; }
-.mband { height: 22px; display: grid; place-items: center; background: var(--ink-strong); color: rgba(255, 255, 255, .94); font-size: 11px; font-weight: 600; letter-spacing: .675px; }
-.mcard.muted .mband { background: rgba(23, 23, 26, .45); }
-.mname { height: 24px; display: grid; place-items: center; background-image: var(--card); font-family: var(--display); font-size: 10px; font-weight: 700; letter-spacing: -.105px; color: var(--ink-strong); }
-.tip { position: absolute; left: calc(100% + 6px); top: 50%; transform: translateY(-50%); z-index: 5; background: #181818; color: #f5f5f5; font-size: 9px; padding: 4px; white-space: nowrap; opacity: 0; pointer-events: none; transition: opacity .12s ease; }
-.mcard.hastip:hover .tip, .mcard.hastip:focus-within .tip { opacity: 1; }
+:is(.week-planner-page, .scrim) .mday { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+:is(.week-planner-page, .scrim) .mday > b { line-height: 12px; font-size: 8.5px; font-weight: 600; color: var(--ink-strong); }
+:is(.week-planner-page, .scrim) .mcard { box-shadow: var(--sh-card); position: relative; }
+:is(.week-planner-page, .scrim) .mband { height: 18px; display: grid; place-items: center; background: var(--olive-code); color: rgba(255, 255, 255, .94); font-size: 11px; font-weight: 600; letter-spacing: .675px; }
+:is(.week-planner-page, .scrim) .mcard.muted .mband { background: #e6ecbb; color: var(--olive-code); }
+:is(.week-planner-page, .scrim) .mname { height: 24px; display: grid; place-items: center; background-image: var(--card); font-family: var(--display); font-size: 10px; font-weight: 700; letter-spacing: -.105px; color: var(--ink-strong); }
+:is(.week-planner-page, .scrim) .tip { display: none; position: absolute; left: calc(100% + 6px); top: 50%; transform: translateY(-50%); z-index: 5; background: #181818; color: #f5f5f5; font-size: 9px; padding: 4px; white-space: nowrap; opacity: 0; pointer-events: none; transition: opacity .12s ease; }
+:is(.week-planner-page, .scrim) .mcard.hastip:hover .tip, :is(.week-planner-page, .scrim) .mcard.hastip:focus-within .tip { display: block; opacity: 1; }
 
-.offgrid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 8px; }
-.offday { display: flex; flex-direction: column; gap: 5px; min-width: 0; }
-.offday > b { font-size: 8.5px; font-weight: 600; color: var(--ink-strong); }
-.hatch { height: 22px; display: flex; align-items: center; gap: 4px; padding: 0 3px; border: 1px dashed rgba(23, 23, 26, .12); background-image: repeating-linear-gradient(56deg, rgba(23, 23, 26, .035) 0 2px, transparent 2px 6px); }
-.hatch .k { font-size: 6px; letter-spacing: .6px; }
-.hatch .p { font-family: var(--display); font-size: 9px; color: #6b6b63; overflow: hidden; text-overflow: ellipsis; }
-.more { font-size: 6.5px; letter-spacing: .52px; color: var(--ink-faint); }
+:is(.week-planner-page, .scrim) .offgrid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 8px; }
+:is(.week-planner-page, .scrim) .offday { display: flex; flex-direction: column; gap: 5px; min-width: 0; }
+:is(.week-planner-page, .scrim) .offday > b { font-size: 8.5px; font-weight: 600; color: var(--ink-strong); }
+:is(.week-planner-page, .scrim) .hatch { height: 22px; display: flex; align-items: center; gap: 4px; padding: 0 3px; border: 1px dashed rgba(23, 23, 26, .12); background-image: repeating-linear-gradient(56deg, rgba(23, 23, 26, .035) 0 2px, transparent 2px 6px); }
+:is(.week-planner-page, .scrim) .hatch .k { font-size: 6px; letter-spacing: .6px; }
+:is(.week-planner-page, .scrim) .hatch .p { font-family: var(--display); font-size: 9px; color: #6b6b63; overflow: hidden; text-overflow: ellipsis; }
+:is(.week-planner-page, .scrim) .more { font-size: 6.5px; letter-spacing: .52px; color: var(--ink-faint); }
 
-.exc { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
-.excard { background: #fff; padding: 12px; display: flex; flex-direction: column; gap: 6px; box-shadow: var(--sh-card); }
-.exhd { display: flex; align-items: center; justify-content: space-between; gap: 6px; }
-.daychip { background: var(--lime-sel); padding: 4px; font-size: 9px; font-weight: 600; color: var(--ink-strong); }
-.exkind { font-size: 7px; letter-spacing: .98px; color: var(--ink-faint); }
-.excount { font-size: 14px; font-weight: 600; }
-.exrow { display: flex; align-items: center; justify-content: space-between; gap: 4px; padding: 4px 5px; border-bottom: 1px solid var(--line-row); }
-.exlbl { font-size: 6.5px; letter-spacing: .52px; color: var(--ink-faint); }
-.plate-chip { border: 1px solid rgba(0, 0, 0, .3); padding: 4px; font-size: 7.5px; font-weight: 600; letter-spacing: .6px; color: var(--ink-plate); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.use { background: var(--lime-primary); border: 1px solid var(--olive); padding: 4px 8px; font-family: var(--display); font-size: 8.5px; font-weight: 700; }
-.week-planner-page .use { color: var(--olive-deep); }
-.unall { display: flex; align-items: center; justify-content: space-between; gap: 4px; padding: 7px 6px; background: rgba(228, 240, 99, .28); border: 1px dashed rgba(70, 78, 12, .4); }
-.place { background: var(--lime-primary); border: 1px solid var(--olive); border-radius: 999px; padding: 4px 12px; font-family: var(--display); font-size: 8.5px; font-weight: 700; }
-.week-planner-page .place { color: var(--olive-deep); }
-.exname { font-family: var(--display); font-size: 10.5px; font-weight: 700; color: var(--ink-strong); }
-.foot { font-size: 6.5px; line-height: 11px; letter-spacing: .325px; color: var(--ink-faint); margin: 0; }
+.week-planner-page .exceptions-panel { display: flex; flex-direction: column; gap: 8px; }
+.week-planner-page .exceptions-panel .rhead { flex-direction: column; align-items: flex-start; gap: 0; min-height: 25px; }
+.week-planner-page .exc { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+.week-planner-page .excard { min-width: 0; min-height: 242px; background: #fff; padding: 12px; display: flex; flex-direction: column; gap: 6px; box-shadow: var(--sh-card); }
+.week-planner-page .exhd { display: flex; align-items: center; gap: 5px; height: 20px; }
+.week-planner-page .daychip { display: inline-flex; align-items: center; justify-content: center; height: 20px; flex: none; background: var(--lime-sel); padding: 0 4px; font-size: 9px; line-height: 11px; font-weight: 600; color: var(--ink-strong); }
+.week-planner-page .exkind { font-size: 7px; line-height: 9px; letter-spacing: .7px; color: var(--ink-faint); }
+.week-planner-page .excount { margin-left: auto; font-size: 14px; line-height: 18px; font-weight: 600; }
+.week-planner-page .exutilization { display: grid; grid-template-columns: 1fr auto; gap: 2px 8px; }
+.week-planner-page .exutilization strong { font-size: 16px; line-height: 20px; font-weight: 600; }
+.week-planner-page .exutilization > span { color: var(--green); font-size: 9px; line-height: 20px; font-weight: 600; }
+.week-planner-page .exutilization small { grid-column: 1 / -1; font-size: 6.5px; line-height: 9px; letter-spacing: .65px; color: var(--ink-faint); }
+.week-planner-page .exitems { display: flex; flex-direction: column; min-width: 0; }
+.week-planner-page .exdrivers { gap: 2px; }
+.week-planner-page .exrow { display: grid; grid-template-columns: 40px minmax(0, 1fr) auto; align-items: center; gap: 4px; min-height: 30px; padding: 4px 5px; border-bottom: 1px solid var(--line-row); }
+.week-planner-page .exdrivers .exrow { grid-template-columns: 40px minmax(0, 1fr); }
+.week-planner-page .exrow:last-child { border-bottom: 0; }
+.week-planner-page .exlbl { font-size: 6.5px; line-height: 9px; letter-spacing: .52px; color: var(--ink-faint); }
+.week-planner-page .plate-chip { justify-self: start; max-width: 100%; border: 1px solid rgba(0, 0, 0, .3); padding: 2px 4px; font-size: 7.5px; line-height: 10px; font-weight: 600; letter-spacing: .6px; color: var(--ink-plate); white-space: nowrap; }
+.week-planner-page .exrow-vor { grid-template-columns: 40px minmax(0, 1fr); }
+.week-planner-page .exrow-vor .plate-chip { white-space: normal; overflow-wrap: anywhere; }
+.week-planner-page .use, .week-planner-page .place { height: 19px; flex: none; background: var(--ink-strong); border: 1px solid var(--ink-strong); color: #fff; padding: 0 8px; font: 700 8.5px/10px var(--display); }
+.week-planner-page .unall { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; gap: 6px; min-height: 35px; padding: 5px 6px; background: rgba(228, 240, 99, .28); border: 1px dashed rgba(70, 78, 12, .4); }
+.week-planner-page .place { border-radius: 999px; padding-inline: 10px; }
+.week-planner-page .exname { min-width: 0; font: 700 10.5px/13px var(--display); color: var(--ink-strong); }
+.week-planner-page .exdrivers .exname { text-align: right; }
+.week-planner-page .excard > .foot { margin-top: auto; min-height: 23px; }
+:is(.week-planner-page, .scrim) .foot { font-size: 6.5px; line-height: 11px; letter-spacing: .325px; color: var(--ink-faint); margin: 0; }
 
-.hz { display: flex; flex-direction: column; gap: 8px; }
-.hzrow { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; background: rgba(255, 255, 255, .9); border: 1px solid transparent; padding: 8px 12px; box-shadow: var(--sh-card); }
-.hzrow.active { border-color: var(--lime); }
-.hzwk { width: 70px; flex: none; display: flex; flex-direction: column; }
-.hzwk b { font-size: 14px; font-weight: 600; color: var(--ink-strong); }
-.hzwk span { font-size: 7px; letter-spacing: .28px; color: var(--ink-faint); }
-.strip { display: flex; gap: 2px; flex: none; }
-.strip i { width: 21px; height: 21px; display: grid; place-items: center; font-style: normal; font-size: 8px; }
-.strip i.ok { background: rgba(23, 166, 115, .16); color: var(--green); font-weight: 600; }
-.strip i.bad { background: rgba(224, 89, 43, .16); color: var(--orange); font-weight: 600; }
-.strip i.we { border: 1px dashed rgba(23, 23, 26, .12); color: var(--ink-faint); }
-.hzact { display: flex; flex-wrap: wrap; gap: 4px; flex: 1; min-width: 0; }
-.hzbtn { padding: 7px 12px; font-size: 7.5px; font-weight: 600; letter-spacing: .45px; color: var(--ink-strong); border: 1px solid #e3e2dc; background: rgba(255, 255, 255, .9); }
-.hzbtn.pri { background: var(--lime-sel); border-color: transparent; }
-.hzbtn.pill { border-radius: 999px; }
-.hzend { margin-left: auto; display: flex; flex-direction: column; align-items: flex-end; gap: 4px; }
-.depots { display: flex; gap: 1px; }
-.depots span { padding: 2px 4px; font-size: 6.5px; font-weight: 600; letter-spacing: .325px; }
-.depots .ap { background: rgba(23, 166, 115, .14); color: var(--green); }
-.depots .pd { background: rgba(201, 138, 18, .16); color: var(--amber-ink); }
-.stat { padding: 5px 8px; font-size: 7px; font-weight: 600; letter-spacing: .7px; }
-.stat.sealed { background: rgba(23, 166, 115, .13); color: var(--green); }
-.stat.pending { background: rgba(201, 138, 18, .15); color: var(--amber-ink); }
-.stat.fix { background: rgba(224, 89, 43, .14); border: 1px solid rgba(224, 89, 43, .3); color: var(--orange); }
-.stat.open { background: rgba(23, 23, 26, .06); color: var(--ink-strong); }
+:is(.week-planner-page, .scrim) .hz { display: flex; flex-direction: column; gap: 8px; }
+:is(.week-planner-page, .scrim) .hzrow { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; background: rgba(255, 255, 255, .9); border: 1px solid transparent; padding: 8px 12px; box-shadow: var(--sh-card); }
+:is(.week-planner-page, .scrim) .hzrow.active { border-color: var(--lime); }
+:is(.week-planner-page, .scrim) .hzwk { width: 70px; flex: none; display: flex; flex-direction: column; }
+:is(.week-planner-page, .scrim) .hzwk b { font-size: 14px; font-weight: 600; color: var(--ink-strong); }
+:is(.week-planner-page, .scrim) .hzwk span { font-size: 7px; letter-spacing: .28px; color: var(--ink-faint); }
+:is(.week-planner-page, .scrim) .strip { display: flex; gap: 2px; flex: none; }
+:is(.week-planner-page, .scrim) .strip i { width: 21px; height: 21px; display: grid; place-items: center; font-style: normal; font-size: 8px; }
+:is(.week-planner-page, .scrim) .strip i.ok { background: rgba(23, 166, 115, .16); color: var(--green); font-weight: 600; }
+:is(.week-planner-page, .scrim) .strip i.bad { background: rgba(224, 89, 43, .16); color: var(--orange); font-weight: 600; }
+:is(.week-planner-page, .scrim) .strip i.we { border: 1px dashed rgba(23, 23, 26, .12); color: var(--ink-faint); }
+:is(.week-planner-page, .scrim) .hzact { display: flex; flex-wrap: wrap; gap: 4px; flex: 1; min-width: 0; }
+:is(.week-planner-page, .scrim) .hzbtn { padding: 7px 12px; font-size: 7.5px; font-weight: 600; letter-spacing: .45px; color: var(--ink-strong); border: 1px solid #e3e2dc; background: rgba(255, 255, 255, .9); }
+:is(.week-planner-page, .scrim) .hzbtn.pri { background: var(--lime-sel); border-color: transparent; }
+:is(.week-planner-page, .scrim) .hzbtn.pill { border-radius: 999px; }
+:is(.week-planner-page, .scrim) .hzend { margin-left: auto; display: flex; flex-direction: column; align-items: flex-end; gap: 4px; }
+:is(.week-planner-page, .scrim) .depots { display: flex; gap: 1px; }
+:is(.week-planner-page, .scrim) .depots span { padding: 2px 4px; font-size: 6.5px; font-weight: 600; letter-spacing: .325px; }
+:is(.week-planner-page, .scrim) .depots .ap { background: rgba(23, 166, 115, .14); color: var(--green); }
+:is(.week-planner-page, .scrim) .depots .pd { background: rgba(201, 138, 18, .16); color: var(--amber-ink); }
+:is(.week-planner-page, .scrim) .stat { padding: 5px 8px; font-size: 7px; font-weight: 600; letter-spacing: .7px; }
+:is(.week-planner-page, .scrim) .stat.sealed { background: rgba(23, 166, 115, .13); color: var(--green); }
+:is(.week-planner-page, .scrim) .stat.pending { background: rgba(201, 138, 18, .15); color: var(--amber-ink); }
+:is(.week-planner-page, .scrim) .stat.fix { background: rgba(224, 89, 43, .14); border: 1px solid rgba(224, 89, 43, .3); color: var(--orange); }
+:is(.week-planner-page, .scrim) .stat.open { background: rgba(23, 23, 26, .06); color: var(--ink-strong); }
 
-.scrim { position: fixed; inset: 0; z-index: 40; background: rgba(15, 23, 42, .25); backdrop-filter: blur(8px) saturate(120%); display: flex; justify-content: center; padding: 24px 16px; overflow-y: auto; }
-.dlg { background: var(--surface); width: 100%; max-width: 870px; align-self: flex-start; box-shadow: 0 24px 60px rgba(0, 0, 0, .25); display: flex; flex-direction: column; }
-.dlg.narrow { max-width: 454px; }
-.dlghd { height: 61px; flex: none; display: flex; align-items: center; justify-content: space-between; gap: 12px; background: var(--ghost); border-bottom: 1px solid var(--line-modal); padding: 16px 16px 17px; }
-.dlghd h2 { font-family: var(--display); font-size: 24px; font-weight: 700; line-height: 32px; text-transform: uppercase; color: #1a1a1a; }
-.xbtn { background: none; border: 0; padding: 0; line-height: 0; color: #1a1a1a; }
-.dlgbody { padding: 24px 24px 8px; display: flex; flex-direction: column; gap: 16px; }
-.dlgdesc { font-size: 14px; line-height: 20px; color: #4a4a4a; margin: 0; white-space: pre-line; }
-.dlgft { display: flex; justify-content: flex-end; gap: 10px; padding: 24px; background: var(--surface); }
-.ghost { height: 30px; background: transparent; border: 1px solid var(--line-hard); padding: 0 17px; font-family: var(--display); font-size: 12px; font-weight: 700; letter-spacing: .6px; text-transform: uppercase; color: var(--olive-deep); }
-.primary { height: 30px; background: var(--lime-primary); border: 1px solid var(--olive); padding: 0 17px; font-size: 12px; font-weight: 600; text-transform: uppercase; }
+.scrim { position: fixed; inset: 0; z-index: 40; background: rgba(26, 28, 22, .55); backdrop-filter: blur(3px); display: flex; justify-content: center; padding: 24px 16px; overflow-y: auto; }
+:is(.week-planner-page, .scrim) .dlg { background: var(--surface); width: 100%; max-width: 870px; align-self: flex-start; margin-block: auto; box-shadow: 0 24px 60px rgba(0, 0, 0, .25); display: flex; flex-direction: column; }
+:is(.week-planner-page, .scrim) .dlg.narrow { max-width: 454px; }
+:is(.week-planner-page, .scrim) .dlghd { height: 61px; flex: none; display: flex; align-items: center; justify-content: space-between; gap: 12px; background: var(--ghost); border-bottom: 1px solid var(--line-modal); padding: 16px 16px 17px; }
+:is(.week-planner-page, .scrim) .dlghd h2 { font-family: var(--display); font-size: 24px; font-weight: 700; line-height: 32px; text-transform: uppercase; color: #1a1a1a; }
+:is(.week-planner-page, .scrim) .xbtn { background: none; border: 0; padding: 0; line-height: 0; color: #1a1a1a; }
+:is(.week-planner-page, .scrim) .dlgbody { padding: 24px 24px 8px; display: flex; flex-direction: column; gap: 16px; }
+:is(.week-planner-page, .scrim) .dlgdesc { font-size: 14px; line-height: 20px; color: #4a4a4a; margin: 0; white-space: pre-line; }
+:is(.week-planner-page, .scrim) .dlgft { display: flex; justify-content: flex-end; gap: 10px; padding: 24px; background: var(--surface); }
+:is(.week-planner-page, .scrim) .ghost { height: 30px; background: transparent; border: 1px solid var(--line-hard); padding: 0 17px; font-family: var(--display); font-size: 12px; font-weight: 700; letter-spacing: .6px; text-transform: uppercase; color: var(--olive-deep); }
+:is(.week-planner-page, .scrim) .primary { height: 30px; background: var(--lime-primary); border: 1px solid var(--olive); padding: 0 17px; font-size: 12px; font-weight: 600; text-transform: uppercase; }
 /* The design types the lime primary in olive, not white — white on #a3e635 is
    about 1.7:1 and was unreadable. */
 :is(.week-planner-page, .scrim) .primary { color: var(--olive-deep); }
-.two { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
-@media (max-width: 700px) { .two { grid-template-columns: 1fr; } }
-.span2 { grid-column: 1 / -1; }
-.fld { display: flex; flex-direction: column; gap: 8px; min-width: 0; }
-.fld > label, .fld > span { font-size: 10px; font-weight: 700; line-height: 15px; letter-spacing: 1px; text-transform: uppercase; color: var(--ink-soft); }
-.ctl { width: 100%; height: 42px; border: 1px solid var(--line-hard); border-radius: 2px; padding: 11px; font-family: var(--mono); font-size: 14px; line-height: 20px; color: #000; background: #fff; box-shadow: 0 1px 2px rgba(0, 0, 0, .05); }
-textarea.ctl { height: 78px; resize: none; }
-textarea.ctl.tall { height: 100px; }
-.ctl[disabled] { background: var(--disabled); color: var(--ink-off); }
-.seg { display: flex; gap: 4px; padding: 5px; background: #fff; border: 1px solid var(--line-modal); }
-.seg button { flex: 1; height: 36px; border: 0; background: #fff; color: #1a1a1a; font-family: var(--display); font-size: 14px; font-weight: 600; }
-.seg button[aria-pressed="true"] { background: #1a1a1a; color: #fff; }
-.chkrow { display: flex; align-items: center; gap: 11px; background: #fff; padding: 12px; cursor: pointer; }
-.box { width: 18px; height: 18px; flex: none; display: grid; place-items: center; border: 1px solid var(--ink-soft); background: #fff; }
-.box[data-on="1"] { background: #1a1c16; border-color: #1a1c16; }
-.box[data-on="1"]::after { content: ""; width: 10px; height: 5px; border: 2px solid #fff; border-top: 0; border-right: 0; transform: translateY(-1px) rotate(-45deg); }
-.chkrow span { font-size: 14px; font-weight: 500; line-height: 24px; color: var(--ink-card); }
-.depotrow { display: flex; flex-wrap: wrap; gap: 12px; }
-.depotchip { flex: 1; min-width: 120px; display: flex; align-items: center; gap: 7px; height: 36px; background: #f3f4f6; padding: 0 7px; cursor: pointer; }
-.depotchip span { font-size: 14px; font-weight: 500; color: #000; }
-.rad { width: 16px; height: 16px; flex: none; border-radius: 50%; border: 1px solid var(--ink-soft); background: #fff; display: grid; place-items: center; }
-.rad[data-on="1"] { width: 18px; height: 18px; background: #1a1c16; border-color: #1a1c16; }
-.rad[data-on="1"]::after { content: ""; width: 6px; height: 6px; border-radius: 50%; background: #fff; }
-.rad.we { border-color: var(--weekend-accent); }
-.fullwk { display: flex; align-items: center; gap: 12px; background: #fff; padding: 12px; cursor: pointer; }
-.fullwk span { font-size: 13px; font-weight: 500; line-height: 24px; color: var(--ink-card); }
-.orsel { font-size: 14px; line-height: 20px; color: var(--ink-help); margin: 4px 0 0; }
-.daycards { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; }
-@media (max-width: 760px) { .daycards { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-.daycard { height: 88px; display: flex; flex-direction: column; justify-content: space-between; background: #fff; padding: 12px; cursor: pointer; }
-.daycard.on { background: rgba(163, 230, 53, .1); }
-.daycard.we { background: var(--weekend-bg); }
-.dctop { display: flex; align-items: flex-start; gap: 8px; }
-.dcname { font-size: 14px; font-weight: 700; line-height: 16px; color: var(--ink-card); }
-.dcdate { font-size: 14px; line-height: 20px; color: var(--ink-card); }
-.daycard.we .dcname, .daycard.we .dcdate { color: var(--weekend-ink); }
-.dccount { align-self: flex-end; font-size: 12px; line-height: 16px; color: var(--ink-help); }
-.daycard.we .dccount { color: var(--weekend-accent); }
-.callout { border-left: 4px solid #1a1a1a; padding: 4px 0 4px 16px; display: flex; flex-direction: column; gap: 4px; }
-.callout p { margin: 0; font-size: 14px; line-height: 20px; color: #374151; }
-.result { text-align: center; font-size: 14px; line-height: 28px; color: #111827; margin: 0; }
-.count { display: inline-flex; align-items: center; justify-content: center; min-width: 42px; height: 25px; margin: 0 4px; background: #fff; border: 1px solid #1f2937; border-radius: 2px; font-size: 14px; font-weight: 600; }
-.breakdown { display: flex; flex-direction: column; font-size: 14px; line-height: 20px; color: #4a4a4a; }
+:is(.week-planner-page, .scrim) .two { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+@media (max-width: 700px) { :is(.week-planner-page, .scrim) .two { grid-template-columns: 1fr; } }
+:is(.week-planner-page, .scrim) .span2 { grid-column: 1 / -1; }
+:is(.week-planner-page, .scrim) .fld { display: flex; flex-direction: column; gap: 8px; min-width: 0; }
+:is(.week-planner-page, .scrim) .fld > label, :is(.week-planner-page, .scrim) .fld > span { font-size: 10px; font-weight: 700; line-height: 15px; letter-spacing: 1px; text-transform: uppercase; color: var(--ink-soft); }
+:is(.week-planner-page, .scrim) .ctl { width: 100%; height: 42px; border: 1px solid var(--line-hard); border-radius: 2px; padding: 11px; font-family: var(--mono); font-size: 14px; line-height: 20px; color: #000; background: var(--surface); box-shadow: 0 1px 2px rgba(0, 0, 0, .05); }
+:is(.week-planner-page, .scrim) textarea.ctl { height: 78px; resize: none; }
+:is(.week-planner-page, .scrim) textarea.ctl.tall { height: 100px; }
+:is(.week-planner-page, .scrim) .ctl[disabled] { background: var(--disabled); color: var(--ink-off); }
+:is(.week-planner-page, .scrim) .seg { display: flex; gap: 4px; padding: 5px; background: #fff; border: 1px solid var(--line-modal); }
+:is(.week-planner-page, .scrim) .seg button { flex: 1; height: 36px; border: 0; background: #fff; color: #1a1a1a; font-family: var(--display); font-size: 14px; font-weight: 600; }
+:is(.week-planner-page, .scrim) .seg button[aria-pressed="true"] { background: #1a1a1a; color: #fff; }
+:is(.week-planner-page, .scrim) .chkrow { display: flex; align-items: center; gap: 11px; background: #fff; padding: 12px; cursor: pointer; }
+:is(.week-planner-page, .scrim) .box { width: 18px; height: 18px; flex: none; display: grid; place-items: center; border: 1px solid var(--ink-soft); background: #fff; }
+:is(.week-planner-page, .scrim) .box[data-on="1"] { background: #1a1c16; border-color: #1a1c16; }
+:is(.week-planner-page, .scrim) .box[data-on="1"]::after { content: ""; width: 10px; height: 5px; border: 2px solid #fff; border-top: 0; border-right: 0; transform: translateY(-1px) rotate(-45deg); }
+:is(.week-planner-page, .scrim) .chkrow span { font-size: 14px; font-weight: 500; line-height: 24px; color: var(--ink-card); }
+:is(.week-planner-page, .scrim) .depotrow { display: flex; flex-wrap: wrap; gap: 12px; }
+:is(.week-planner-page, .scrim) .depotchip { flex: 1; min-width: 120px; display: flex; align-items: center; gap: 7px; height: 36px; background: #f3f4f6; padding: 0 7px; cursor: pointer; }
+:is(.week-planner-page, .scrim) .depotchip span { font-size: 14px; font-weight: 500; color: #000; }
+:is(.week-planner-page, .scrim) .rad { width: 16px; height: 16px; flex: none; border-radius: 50%; border: 1px solid var(--ink-soft); background: #fff; display: grid; place-items: center; }
+:is(.week-planner-page, .scrim) .rad[data-on="1"] { width: 18px; height: 18px; background: #1a1c16; border-color: #1a1c16; }
+:is(.week-planner-page, .scrim) .rad[data-on="1"]::after { content: ""; width: 6px; height: 6px; border-radius: 50%; background: #fff; }
+:is(.week-planner-page, .scrim) .rad.we { border-color: var(--weekend-accent); }
+:is(.week-planner-page, .scrim) .fullwk { display: flex; align-items: center; gap: 12px; background: #fff; padding: 12px; cursor: pointer; }
+:is(.week-planner-page, .scrim) .fullwk span { font-size: 13px; font-weight: 500; line-height: 24px; color: var(--ink-card); }
+:is(.week-planner-page, .scrim) .orsel { font-size: 14px; line-height: 20px; color: var(--ink-help); margin: 4px 0 0; }
+:is(.week-planner-page, .scrim) .daycards { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; }
+@media (max-width: 760px) { :is(.week-planner-page, .scrim) .daycards { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+:is(.week-planner-page, .scrim) .daycard { height: 88px; display: flex; flex-direction: column; justify-content: space-between; background: #fff; padding: 12px; cursor: pointer; }
+:is(.week-planner-page, .scrim) .daycard.on { background: rgba(163, 230, 53, .1); }
+:is(.week-planner-page, .scrim) .daycard.we { background: var(--weekend-bg); }
+:is(.week-planner-page, .scrim) .dctop { display: flex; align-items: flex-start; gap: 8px; }
+:is(.week-planner-page, .scrim) .dcname { font-size: 14px; font-weight: 700; line-height: 16px; color: var(--ink-card); }
+:is(.week-planner-page, .scrim) .dcdate { font-size: 14px; line-height: 20px; color: var(--ink-card); }
+:is(.week-planner-page, .scrim) .daycard.we .dcname, :is(.week-planner-page, .scrim) .daycard.we .dcdate { color: var(--weekend-ink); }
+:is(.week-planner-page, .scrim) .dccount { align-self: flex-end; font-size: 12px; line-height: 16px; color: var(--ink-help); }
+:is(.week-planner-page, .scrim) .daycard.we .dccount { color: var(--weekend-accent); }
+:is(.week-planner-page, .scrim) .callout { border-left: 4px solid #1a1a1a; padding: 4px 0 4px 16px; display: flex; flex-direction: column; gap: 4px; }
+:is(.week-planner-page, .scrim) .callout p { margin: 0; font-size: 14px; line-height: 20px; color: #374151; }
+:is(.week-planner-page, .scrim) .result { text-align: center; font-size: 14px; line-height: 28px; color: #111827; margin: 0; }
+:is(.week-planner-page, .scrim) .count { display: inline-flex; align-items: center; justify-content: center; min-width: 42px; height: 25px; margin: 0 4px; background: #fff; border: 1px solid #1f2937; border-radius: 2px; font-size: 14px; font-weight: 600; }
+:is(.week-planner-page, .scrim) .breakdown { display: flex; flex-direction: column; font-size: 14px; line-height: 20px; color: #4a4a4a; }
 
-.pickwrap { position: relative; }
-.picker { position: absolute; top: calc(100% + 8px); left: 0; z-index: 30; width: 276px; background: #fff; box-shadow: var(--sh-pop); }
-.pkhd { height: 69px; display: flex; align-items: center; justify-content: space-between; gap: 8px; border-bottom: 1px solid var(--line-rail); padding: 14px 10px; }
-.pkmonth { font-size: 12px; font-weight: 700; line-height: 16px; letter-spacing: .3px; color: #1a1a18; }
-.gotonow { border: 1px solid #a3a3a3; background: #fff; padding: 5px 9px; font-size: 11px; font-weight: 600; line-height: 16.5px; color: #1a1a18; }
-.pklist { max-height: 254px; overflow-y: auto; border-top: 1px solid #e5e4d8; }
-.pkrow { display: flex; width: 100%; align-items: center; justify-content: space-between; gap: 8px; background: none; border: 0; border-top: 1px solid #f1efe6; padding: 11px 10px 10px; text-align: left; }
-.pkrow .l { display: flex; align-items: center; gap: 12px; }
-.pkrow b { font-size: 12px; font-weight: 700; line-height: 16px; }
-.pkrow em { font-style: normal; font-size: 11px; line-height: 16px; }
-.pkrow.cur { background: rgba(233, 249, 177, .6); border-top: 0; padding: 12px 10px; }
-.curbadge { background: #000; color: var(--lime-primary); padding: 2px 6px; font-size: 9px; font-weight: 700; letter-spacing: .45px; text-transform: uppercase; line-height: 16px; }
-.pkrow.past b { color: #737373; } .pkrow.past em { color: #525252; }
-.pkrow.next b { color: #262626; } .pkrow.next em { color: #525252; }
-.pkrow.draft b { color: #a3a3a3; } .pkrow.draft em { color: #737373; }
-.pkrow.future { opacity: .75; } .pkrow.future b, .pkrow.future em { color: #a3a3a3; }
+:is(.week-planner-page, .scrim) .pickwrap { position: relative; }
+:is(.week-planner-page, .scrim) .picker { position: absolute; top: calc(100% - 5px); left: 0; z-index: 30; width: 276px; background: #fff; box-shadow: var(--sh-pop); }
+:is(.week-planner-page, .scrim) .pkhd { height: 69px; display: flex; align-items: center; justify-content: space-between; gap: 8px; border-bottom: 1px solid var(--line-rail); padding: 14px 10px; }
+:is(.week-planner-page, .scrim) .pkmonth { font-size: 12px; font-weight: 700; line-height: 16px; letter-spacing: .3px; color: #1a1a18; }
+:is(.week-planner-page, .scrim) .gotonow { border: 1px solid #a3a3a3; background: #fff; padding: 5px 9px; font-size: 11px; font-weight: 600; line-height: 16.5px; color: #1a1a18; }
+:is(.week-planner-page, .scrim) .pklist { max-height: 300px; overflow-y: auto; border-top: 1px solid #e5e4d8; }
+:is(.week-planner-page, .scrim) .pkrow { display: flex; width: 100%; align-items: center; justify-content: space-between; gap: 8px; background: none; border: 0; border-top: 1px solid #f1efe6; padding: 13px 10px 12px; text-align: left; }
+:is(.week-planner-page, .scrim) .pkrow .l { display: flex; align-items: center; gap: 12px; }
+:is(.week-planner-page, .scrim) .pkrow b { font-size: 12px; font-weight: 700; line-height: 16px; }
+:is(.week-planner-page, .scrim) .pkrow em { font-style: normal; font-size: 11px; line-height: 16px; }
+:is(.week-planner-page, .scrim) .pkrow.cur { background: rgba(233, 249, 177, .6); border-top: 0; padding: 12px 10px; }
+:is(.week-planner-page, .scrim) .curbadge { background: #000; color: var(--lime-primary); padding: 2px 6px; font-size: 9px; font-weight: 700; letter-spacing: .45px; text-transform: uppercase; line-height: 16px; }
+:is(.week-planner-page, .scrim) .pkrow.past b { color: #737373; } :is(.week-planner-page, .scrim) .pkrow.past em { color: #525252; }
+:is(.week-planner-page, .scrim) .pkrow.next b { color: #262626; } :is(.week-planner-page, .scrim) .pkrow.next em { color: #525252; }
+:is(.week-planner-page, .scrim) .pkrow.draft b { color: #a3a3a3; } :is(.week-planner-page, .scrim) .pkrow.draft em { color: #737373; }
+:is(.week-planner-page, .scrim) .pkrow.future { opacity: .75; } :is(.week-planner-page, .scrim) .pkrow.future b, :is(.week-planner-page, .scrim) .pkrow.future em { color: #a3a3a3; }
 
-.toast { position: fixed; left: 50%; bottom: 24px; transform: translateX(-50%); z-index: 60; background: var(--ink-strong); color: #fff; padding: 10px 16px; font-size: 11px; letter-spacing: .4px; box-shadow: 0 8px 24px rgba(0, 0, 0, .25); animation: toast-in .24s cubic-bezier(.22, 1, .36, 1) both; }
-.toast[hidden] { display: none; }
+.week-planner-toast { display: block; font-family: "IBM Plex Mono", monospace; position: fixed; left: 50%; bottom: 24px; transform: translateX(-50%); z-index: 60; background: #17171a; color: #fff; max-width: calc(100vw - 32px); padding: 10px 16px; font-size: 11px; letter-spacing: .4px; box-shadow: 0 8px 24px rgba(0, 0, 0, .25); animation: toast-in .24s cubic-bezier(.22, 1, .36, 1) both; }
+.week-planner-toast[hidden] { display: none; }
 
 /* App shell (sidebar/topbar) now lives in NavbarWrapper.css — this page only
    overrides how it hosts the week-planner-page content inside it. */
-.week-planner-page .wrap { max-width: none; padding: 10px 45px 40px; }
+.week-planner-page .wrap { max-width: none; padding: 0 32px 16px 45px; }
 .week-planner-page .topbar { display: none; }
-.week-planner-page .header { margin-top: 0; padding-block: 10px; }
+.week-planner-page .header { margin-top: 0; padding-block: 16px; min-height: 65px; }
 .week-planner-page .wkend { display: none; }
 .week-planner-page .cols { display: block; }
 .week-planner-page .board { width: 100%; }
@@ -324,12 +337,15 @@ textarea.ctl.tall { height: 100px; }
    (404px, see .railcol above) needs real horizontal room, so it only
    lays out side-by-side with the board on wide viewports; narrower ones
    stack it below. */
-.week-planner-page.rail-open .cols { display: flex; flex-direction: column; gap: 24px; }
+.week-planner-page.rail-open .cols { display: flex; flex-direction: column; gap: 18px; }
 .week-planner-page.rail-open .board { width: auto; flex: 1; min-width: 0; }
 .week-planner-page.rail-open .railcol { display: flex; width: 100%; }
 @media (min-width: 1280px) {
   .week-planner-page.rail-open .cols { flex-direction: row; }
-  .week-planner-page.rail-open .railcol { width: 404px; }
+  .week-planner-page.rail-open .addrow { margin-right: 422px; }
+  .week-planner-page.rail-open .railcol { width: 404px; margin-top: -96px; height: calc(100vh - 200px); padding-right: 0; }
+  .week-planner-page.rail-open .grid { min-width: 760px; gap: 12px; }
+  .week-planner-page.rail-open .day.sel { outline: 1px solid var(--lime); outline-offset: -1px; }
 }
 
 @media (max-width: 980px) {
@@ -366,34 +382,65 @@ textarea.ctl.tall { height: 100px; }
    viewport. `backwards` plays the same motion and then lets the element settle
    back to `transform: none`. */
 .week-planner-page { animation: planner-in .42s cubic-bezier(.22, 1, .36, 1) backwards; }
-.topbar, .header, .controls, .addrow { animation: planner-rise .38s cubic-bezier(.22, 1, .36, 1) backwards; }
-.header { animation-delay: .04s; }
-.controls { animation-delay: .08s; }
-.addrow { animation-delay: .12s; }
-.board .day { animation: planner-rise .38s cubic-bezier(.22, 1, .36, 1) backwards; }
-.board .day:nth-child(2) { animation-delay: .04s; }
-.board .day:nth-child(3) { animation-delay: .08s; }
-.board .day:nth-child(4) { animation-delay: .12s; }
-.board .day:nth-child(5) { animation-delay: .16s; }
-.railcol > * { animation: planner-rise .38s cubic-bezier(.22, 1, .36, 1) backwards; }
-.railcol > :nth-child(2) { animation-delay: .05s; }
-.railcol > :nth-child(3) { animation-delay: .1s; }
-.railcol > :nth-child(4) { animation-delay: .15s; }
-.railcol > :nth-child(5) { animation-delay: .2s; }
+:is(.week-planner-page, .scrim) .topbar, :is(.week-planner-page, .scrim) .header, :is(.week-planner-page, .scrim) .controls, :is(.week-planner-page, .scrim) .addrow { animation: planner-rise .38s cubic-bezier(.22, 1, .36, 1) backwards; }
+:is(.week-planner-page, .scrim) .header { animation-delay: .04s; }
+:is(.week-planner-page, .scrim) .controls { animation-delay: .08s; }
+:is(.week-planner-page, .scrim) .addrow { animation-delay: .12s; }
+:is(.week-planner-page, .scrim) .board .day { animation: planner-rise .38s cubic-bezier(.22, 1, .36, 1) backwards; }
+:is(.week-planner-page, .scrim) .board .day:nth-child(2) { animation-delay: .04s; }
+:is(.week-planner-page, .scrim) .board .day:nth-child(3) { animation-delay: .08s; }
+:is(.week-planner-page, .scrim) .board .day:nth-child(4) { animation-delay: .12s; }
+:is(.week-planner-page, .scrim) .board .day:nth-child(5) { animation-delay: .16s; }
+:is(.week-planner-page, .scrim) .railcol > * { animation: planner-rise .38s cubic-bezier(.22, 1, .36, 1) backwards; }
+:is(.week-planner-page, .scrim) .railcol > :nth-child(2) { animation-delay: .05s; }
+:is(.week-planner-page, .scrim) .railcol > :nth-child(3) { animation-delay: .1s; }
+:is(.week-planner-page, .scrim) .railcol > :nth-child(4) { animation-delay: .15s; }
+:is(.week-planner-page, .scrim) .railcol > :nth-child(5) { animation-delay: .2s; }
 
-.tbtn, .addbtn, .tab, .mini, .use, .place, .hzbtn, .ghost, .primary, .xbtn, .gotonow, .pkrow, .tlchip, .chip-nav {
+:is(.week-planner-page, .scrim) .tbtn, :is(.week-planner-page, .scrim) .addbtn, :is(.week-planner-page, .scrim) .tab, :is(.week-planner-page, .scrim) .mini, :is(.week-planner-page, .scrim) .use, :is(.week-planner-page, .scrim) .place, :is(.week-planner-page, .scrim) .hzbtn, :is(.week-planner-page, .scrim) .ghost, :is(.week-planner-page, .scrim) .primary, :is(.week-planner-page, .scrim) .xbtn, :is(.week-planner-page, .scrim) .gotonow, :is(.week-planner-page, .scrim) .pkrow, :is(.week-planner-page, .scrim) .tlchip, :is(.week-planner-page, .scrim) .chip-nav {
   transition: background-color .16s ease, border-color .16s ease, color .16s ease, opacity .16s ease, transform .16s ease, box-shadow .16s ease;
 }
-.tbtn:hover, .addbtn:hover, .primary:hover, .use:hover, .place:hover { transform: translateY(-1px); box-shadow: 0 4px 10px rgba(23, 23, 26, .12); }
-.tbtn:active, .addbtn:active, .primary:active, .use:active, .place:active { transform: translateY(0); box-shadow: none; }
-.tab:hover, .mini:hover, .ghost:hover, .gotonow:hover, .hzbtn:hover, .chip-nav:hover { background-color: var(--ghost); }
-.tlchip:hover { background: var(--lime-sel); color: var(--olive); }
-.daybtn:hover .dayname, .dayadd:hover { color: var(--teal); }
-.mcard, .excard, .hzrow, .note { transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease; }
-.mcard:hover, .excard:hover, .hzrow:hover, .note:hover { transform: translateY(-2px); box-shadow: 0 8px 18px rgba(23, 23, 26, .1); }
+:is(.week-planner-page, .scrim) .tbtn:hover, :is(.week-planner-page, .scrim) .addbtn:hover, :is(.week-planner-page, .scrim) .primary:hover, :is(.week-planner-page, .scrim) .use:hover, :is(.week-planner-page, .scrim) .place:hover { transform: translateY(-1px); box-shadow: 0 4px 10px rgba(23, 23, 26, .12); }
+:is(.week-planner-page, .scrim) .tbtn:active, :is(.week-planner-page, .scrim) .addbtn:active, :is(.week-planner-page, .scrim) .primary:active, :is(.week-planner-page, .scrim) .use:active, :is(.week-planner-page, .scrim) .place:active { transform: translateY(0); box-shadow: none; }
+:is(.week-planner-page, .scrim) .tab:hover, :is(.week-planner-page, .scrim) .mini:hover, :is(.week-planner-page, .scrim) .ghost:hover, :is(.week-planner-page, .scrim) .gotonow:hover, :is(.week-planner-page, .scrim) .hzbtn:hover, :is(.week-planner-page, .scrim) .chip-nav:hover { background-color: var(--ghost); }
+:is(.week-planner-page, .scrim) .tlchip:hover { background: var(--lime-sel); color: var(--olive); }
+:is(.week-planner-page, .scrim) .daybtn:hover .dayname, :is(.week-planner-page, .scrim) .dayadd:hover { color: var(--teal); }
+:is(.week-planner-page, .scrim) .mcard, :is(.week-planner-page, .scrim) .excard, :is(.week-planner-page, .scrim) .hzrow, :is(.week-planner-page, .scrim) .note { transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease; }
+:is(.week-planner-page, .scrim) .mcard:hover, :is(.week-planner-page, .scrim) .excard:hover, :is(.week-planner-page, .scrim) .hzrow:hover, :is(.week-planner-page, .scrim) .note:hover { transform: translateY(-2px); box-shadow: 0 8px 18px rgba(23, 23, 26, .1); }
 .scrim { animation: planner-in .2s ease-out backwards; }
-.dlg { transform-origin: center top; animation: modal-in .28s cubic-bezier(.22, 1, .36, 1) both; }
-.picker { animation: modal-in .2s cubic-bezier(.22, 1, .36, 1) both; }
-.xbtn:hover { transform: rotate(90deg); }
+:is(.week-planner-page, .scrim) .dlg { transform-origin: center top; animation: modal-in .28s cubic-bezier(.22, 1, .36, 1) both; }
+:is(.week-planner-page, .scrim) .picker { animation: modal-in .2s cubic-bezier(.22, 1, .36, 1) both; }
+:is(.week-planner-page, .scrim) .xbtn:hover { transform: rotate(90deg); }
 
 @media (prefers-reduced-motion: reduce) { :is(.week-planner-page, .scrim) * { transition: none !important; animation: none !important; } }
+
+/* Narrow screens retain a scrollable weekly board and usable touch controls. */
+@media (max-width: 680px) {
+  .week-planner-page .header { gap: 12px; }
+  .week-planner-page .actions { justify-content: flex-start; margin-left: 0; gap: 6px; }
+  .week-planner-page .tbtn { min-height: 36px; padding-inline: 10px; font-size: 10px; }
+  .week-planner-page .addrow { justify-content: flex-start; gap: 8px; }
+  .week-planner-page .addbtn { min-height: 36px; padding-inline: 10px; }
+  .week-planner-page .addbtn .lbl { font-size: 10px; }
+  .week-planner-page .tltrack .cat { width: 110px; padding-inline: 8px; }
+  .week-planner-page .tlleader { width: 160px; padding-inline: 8px; font-size: 10px; }
+  .week-planner-page .chip-nav { width: 32px; height: 32px; }
+  .week-planner-page .railcol { gap: 18px; }
+  .week-planner-page .hzrow { flex-wrap: wrap; }
+  .scrim .dlghd { height: auto; min-height: 61px; }
+  .scrim .dlghd h2 { font-size: 20px; line-height: 26px; }
+  .scrim .dlgbody { padding: 20px 16px 8px; }
+  .scrim .dlgft { padding: 20px 16px; }
+}
+
+@media (max-width: 420px) {
+  .week-planner-page .exc { grid-template-columns: 1fr; }
+  .week-planner-page .excard { min-height: 0; }
+  .week-planner-page .exrow { min-height: 36px; }
+  .week-planner-page .exkind, .week-planner-page .exlbl { font-size: 9px; line-height: 12px; }
+  .week-planner-page .use, .week-planner-page .place { height: 28px; font-size: 10px; }
+  .week-planner-page .plate-chip { font-size: 10px; line-height: 14px; }
+  .week-planner-page .exname { font-size: 12px; line-height: 16px; }
+}
+
+.week-planner-page .mday:nth-last-child(-n + 2) .tip { left: auto; right: 0; top: calc(100% + 4px); transform: none; }

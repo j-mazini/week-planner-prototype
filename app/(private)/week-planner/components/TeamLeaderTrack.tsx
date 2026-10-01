@@ -6,31 +6,25 @@ export default function TeamLeaderTrack({
   selectedIndex,
   onSelect,
   onOpenRail,
+  railOpen,
 }: {
   selectedIndex: number;
   onSelect: (index: number) => void;
   onOpenRail: () => void;
+  railOpen: boolean;
 }) {
   return (
     <div className="tltrack">
       <span className="cat">Team Leader</span>
-      <div className="tlscroll">
-        {LEADERS.map((name, index) => (
-          <button
-            key={name}
-            type="button"
-            className="tlchip"
-            aria-pressed={index === selectedIndex}
-            onClick={() => onSelect(index)}
-          >
-            {name}
-          </button>
-        ))}
-      </div>
+      <select className="tlleader" aria-label="Team leader" value={selectedIndex} onChange={(event) => onSelect(Number(event.target.value))}>
+        {LEADERS.map((name, index) => <option key={name} value={index}>{name}</option>)}
+      </select>
       <button
         type="button"
         className="chip-nav"
-        aria-label="Open planning panel"
+        aria-label={railOpen ? "Close planning panel" : "Open planning panel"}
+        aria-expanded={railOpen}
+        aria-controls="week-planner-details"
         title="Exceptions, Management & Support, Off · Holiday, Plan Horizon, Notes"
         onClick={onOpenRail}
       >

@@ -1,9 +1,11 @@
+import type { ReactNode } from "react";
 import type { ManagementDayModel } from "../../types";
 
-export default function ManagementSupportPanel({ days }: { days: ManagementDayModel[] }) {
+export default function ManagementSupportPanel({ days, children }: { days: ManagementDayModel[]; children?: ReactNode }) {
   return (
-    <section style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+    <section style={{ display: "flex", flexDirection: "column", gap: 8 }}>
       <h3 className="rhead"><b>MANAGEMENT &amp; SUPPORT</b> <span>DEEP MATERIAL · RUNS THE DAY</span></h3>
+      {children}
       <div className="mgrid">
         {days.map((day) => (
           <div key={day.dayLabel} className="mday">
