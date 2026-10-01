@@ -243,6 +243,17 @@ Registradas em vez de escondidas, no espírito da seção 12 do `ANATOMIA-DE-UMA
 3. **`sidebarGroups` em vez de `beam-sidebar.tsx`.** O doc (passo 8) cita
    `components/beam-sidebar.tsx`; a navegação efetivamente renderizada hoje é a de
    `NavbarWrapper.tsx`. Registro a menção desatualizada do doc e sigo o código.
+4. **Estado de carregamento é um único `<p role="status">`, não um skeleton.** A
+   seção 8 pede "skeleton na fila; painel central e direita neutros". O port
+   renderiza `<p role="status">Loading transactions…</p>` no lugar das três colunas
+   até o board chegar. Mais simples que o skeleton descrito e sem equivalente nos
+   estados do export original; registrado em vez de construído sem necessidade
+   comprovada.
+5. **Breakpoints de 760 px e 1190 px, não "abaixo de 900 px".** A seção 8 diz que as
+   três colunas empilham "abaixo de 900 px". O CSS portado (herdado do export Figma)
+   empilha abaixo de 760 px e vai para duas colunas entre 760 px e 1190 px. Os
+   números do CSS do export prevalecem sobre o número solto do doc, já que o
+   objetivo é corresponder ao Figma aprovado.
 
 ---
 
