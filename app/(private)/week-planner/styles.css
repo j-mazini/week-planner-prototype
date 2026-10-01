@@ -126,8 +126,10 @@
 :is(.week-planner-page, .scrim) .drop { margin: 0 10px 0 12px; height: 32px; flex: 1; display: flex; align-items: center; justify-content: center; border: 1px dashed rgba(70, 78, 12, .45); padding: 0 8px; }
 /* The design's unassigned-slot call to action is a dark pill, not a lime chip:
    measured #17171a on the card with #efefea type. */
-:is(.week-planner-page, .scrim) .assign { display: inline-flex; align-items: center; justify-content: center; height: 20px; background: var(--ink-strong); border: 1px solid var(--ink-strong); padding: 0 12px; font-size: 9px; font-weight: 600; }
-:is(.week-planner-page, .scrim) .assign { color: var(--on-ink); }
+:is(.week-planner-page, .scrim) .assign { display: inline-flex; align-items: center; justify-content: center; gap: 5px; height: 23px; background: var(--teal); border: 1px solid var(--teal); border-radius: 999px; padding: 0 11px 0 7px; font-size: 9px; font-weight: 700; letter-spacing: .15px; box-shadow: 0 2px 5px rgba(0, 59, 62, .2); transition: background-color .16s ease, border-color .16s ease, box-shadow .16s ease, transform .16s ease; }
+:is(.week-planner-page, .scrim) .assign { color: #fff; }
+:is(.week-planner-page, .scrim) .assign::before { content: "+"; display: inline-grid; place-items: center; width: 14px; height: 14px; border: 1px solid rgba(255, 255, 255, .72); border-radius: 50%; font: 500 12px/1 var(--display); }
+:is(.week-planner-page, .scrim) .rc.open:hover .assign { background: var(--teal-deep); border-color: var(--teal-deep); box-shadow: 0 3px 8px rgba(0, 59, 62, .28); transform: translateY(-1px); }
 
 :is(.week-planner-page, .scrim) .sechead { display: flex; align-items: center; justify-content: space-between; gap: 12px; height: 30px; padding-top: 0; }
 :is(.week-planner-page, .scrim) .sechead h2 { font-family: var(--display); font-size: 20px; font-weight: 700; line-height: 32px; }
@@ -444,3 +446,35 @@
 }
 
 .week-planner-page .mday:nth-last-child(-n + 2) .tip { left: auto; right: 0; top: calc(100% + 4px); transform: none; }
+
+/* Keep each planning week on a compact two-row grid. The day strip, action
+   buttons and approval badges used to compete for space in a wrapping flex row. */
+.week-planner-page .hzrow {
+  display: grid;
+  grid-template-columns: 58px minmax(0, 1fr) 86px;
+  grid-template-areas: "week days meta" "actions actions meta";
+  align-items: center;
+  gap: 5px 8px;
+  padding: 7px 8px;
+}
+.week-planner-page .hzwk { grid-area: week; width: auto; min-width: 0; }
+.week-planner-page .hzwk b { line-height: 17px; }
+.week-planner-page .hzwk span { font-size: 6.5px; line-height: 10px; letter-spacing: 0; white-space: nowrap; }
+.week-planner-page .strip { grid-area: days; min-width: 0; justify-content: flex-end; }
+.week-planner-page .strip i { width: 20px; height: 20px; flex: 1 1 0; max-width: 21px; }
+.week-planner-page .hzact { grid-area: actions; width: 100%; min-width: 0; flex: none; gap: 4px; }
+.week-planner-page .hzbtn { min-height: 22px; padding: 4px 7px; font-size: 7px; line-height: 10px; letter-spacing: .2px; white-space: normal; overflow-wrap: normal; text-align: center; }
+.week-planner-page .hzend { grid-area: meta; width: 86px; min-width: 0; margin-left: 0; gap: 3px; align-items: flex-end; }
+.week-planner-page .depots { max-width: 100%; gap: 1px; }
+.week-planner-page .depots span { padding: 2px 3px; font-size: 6px; line-height: 8px; letter-spacing: 0; }
+.week-planner-page .hzend > span:last-child { max-width: 100%; gap: 3px !important; }
+.week-planner-page .stat { padding: 3px 5px; font-size: 6px; line-height: 9px; letter-spacing: .2px; white-space: nowrap; }
+
+@media (max-width: 360px) {
+  .week-planner-page .hzrow {
+    grid-template-columns: 55px minmax(0, 1fr);
+    grid-template-areas: "week days" "actions actions" "meta meta";
+  }
+  .week-planner-page .strip { justify-content: flex-start; }
+  .week-planner-page .hzend { width: 100%; flex-direction: row; justify-content: space-between; align-items: center; }
+}
