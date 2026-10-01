@@ -1,5 +1,6 @@
 import type { ReactNode } from 'react';
 import type { Payee } from '../types';
+import { displayVehicle } from '../utils/mappers';
 import PayeeCard from './PayeeCard';
 
 export default function PendingQueue({
@@ -10,7 +11,7 @@ export default function PendingQueue({
   children?: ReactNode;
 }) {
   const matches = payees.filter(p =>
-    `${p.id} ${p.name} ${p.vehicle ?? ''}`.toLowerCase().includes(query.trim().toLowerCase()));
+    `${p.id} ${p.name} ${displayVehicle(p)}`.toLowerCase().includes(query.trim().toLowerCase()));
 
   return (
     <aside className="pending-panel" aria-label="Pending authorizations">
@@ -21,7 +22,6 @@ export default function PendingQueue({
       <label className="sr-only" htmlFor="clearing-desk-search">Search pending transactions</label>
       <input
         id="clearing-desk-search"
-        aria-label="Search pending transactions"
         value={query}
         onChange={event => onQueryChange(event.target.value)}
         placeholder="SEARCH..."

@@ -1,4 +1,5 @@
 import type { Payee } from '../types';
+import { displayVehicle } from '../utils/mappers';
 
 export default function PayeeCard({ payee, selected, onSelect }: {
   payee: Payee; selected: boolean; onSelect: () => void;
@@ -18,7 +19,7 @@ export default function PayeeCard({ payee, selected, onSelect }: {
         <span>{payee.name}</span>
         <strong>{payee.mode}</strong>
       </span>
-      <span className="vehicle-id">{payee.vehicle ?? 'NOVEHICLE'}</span>
+      <span className="vehicle-id">{displayVehicle(payee)}</span>
     </button>
   );
 }

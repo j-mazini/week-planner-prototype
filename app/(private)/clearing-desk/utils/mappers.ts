@@ -24,6 +24,9 @@ export interface ClearingDeskBoardDTO {
 /** The design writes an unknown figure as an em dash, and a hyphen for "no adhoc service". */
 const EM_DASH = '—';
 
+/** The design's placeholder for a payee with no vehicle assigned. */
+const NO_VEHICLE = 'NOVEHICLE';
+
 /** Valid payment modes. */
 const VALID_PAYMENT_MODES: readonly string[] = ['DAF', 'DR', 'VSR', 'SP_VSR'];
 
@@ -67,6 +70,16 @@ function parseDecimal(raw: string): number | null {
     const thousandsSep = decimalSep === ',' ? '.' : ',';
     // Remove thousands separator, keep decimal separator
     decimalNormalized = decimalNormalized.replace(new RegExp(`\\${thousandsSep}`, 'g'), '');
+  } else if (commaCount + dotCount === 1) {
+    // A single separator is ambiguous: "£1,600" (thousands) vs "0,00" (decimal).
+    // Treat it as a thousands separator only when it is followed by exactly
+    // three digits at the end of the string.
+    const sep = commaCount === 1 ? ',' : '.';
+    const idx = decimalNormalized.indexOf(sep);
+    const tail = decimalNormalized.slice(idx + 1);
+    if (/^\d{3}$/.test(tail)) {
+      decimalNormalized = decimalNormalized.replace(sep, '');
+    }
   }
 
   // Normalize comma to dot for Number parsing
@@ -84,6 +97,15 @@ function parseMoney(raw: string): Money {
 export function formatMoney(amount: number | null, flat: boolean): string {
   if (amount === null) return EM_DASH;
   return `£${amount.toFixed(2)}${flat ? ' flat' : ''}`;
+}
+
+/**
+ * The one place the `NOVEHICLE` placeholder is spelled. Every surface that
+ * shows a vehicle — and the queue's search haystack — goes through here, so the
+ * search matches the text the operator can actually read on screen.
+ */
+export function displayVehicle(payee: Pick<Payee, 'vehicle'>): string {
+  return payee.vehicle ?? NO_VEHICLE;
 }
 
 export function mapPayee(dto: PayeeDTO): Payee {

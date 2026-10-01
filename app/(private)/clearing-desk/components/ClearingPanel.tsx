@@ -1,5 +1,5 @@
 import type { Payee } from '../types';
-import { formatMoney } from '../utils/mappers';
+import { displayVehicle, formatMoney } from '../utils/mappers';
 
 export default function ClearingPanel({ payee, onEdit, onApprove }: {
   payee: Payee; onEdit: () => void; onApprove: () => void;
@@ -11,7 +11,7 @@ export default function ClearingPanel({ payee, onEdit, onApprove }: {
         <div className="person-heading">
           <div>
             <h2>{payee.name}</h2>
-            <p><b>VEHICLE:</b> {payee.vehicle ?? 'NOVEHICLE'}</p>
+            <p><b>VEHICLE:</b> {displayVehicle(payee)}</p>
           </div>
           <button className="small-button" type="button" onClick={onEdit}>EDITAR</button>
         </div>

@@ -47,6 +47,15 @@ describe('mapPayee', () => {
       .toEqual({ amount: 1600, flat: false });
   });
 
+  it('treats a lone comma followed by three digits as a thousands separator', () => {
+    expect(mapPayee({ ...dto, payment: '£1,600' }).payment)
+      .toEqual({ amount: 1600, flat: false });
+  });
+
+  it('treats a lone comma followed by two digits as a decimal separator', () => {
+    expect(mapPayee({ ...dto, sort_value: '0,00' }).sortValue).toBe(0);
+  });
+
   it('handles negative payment amounts', () => {
     expect(mapPayee({ ...dto, payment: '-£20.00' }).payment)
       .toEqual({ amount: -20, flat: false });
