@@ -1,17 +1,45 @@
 import { useState, type FormEvent } from 'react';
-import type { Payee, PayeeUpdate, PaymentMode } from '../types';
+import type { CostModel } from '@/lib/api/cost-models';
+import { useCostModels } from '@/hooks/useCostModels';
+import type { Payee, PayeeUpdate } from '../types';
 import Icon from './Icon';
 
-const MODES: PaymentMode[] = ['DAF', 'DR', 'VSR', 'SP_VSR'];
 const ADHOC_OPTIONS = ['NONE', 'Extra Belt Sort'];
+
+/** "DR — £185.00 fixed", so the rate is visible before the model is chosen. */
+function costModelLabel(model: CostModel): string {
+  const name = model.name ?? `Cost model ${model.costModelId}`;
+  if (model.fixedPrice != null && model.fixedPrice > 0) {
+    return `${name} — £${model.fixedPrice.toFixed(2)} fixed`;
+  }
+  if (model.pricePerStop != null && model.pricePerStop > 0) {
+    return `${name} — £${model.pricePerStop.toFixed(2)} per stop`;
+  }
+  return name;
+}
+
+/**
+ * A fixed price is flat by definition; a per-stop model carries no single
+ * figure, so the amount stays unknown and the card keeps its em dash.
+ */
+function paymentFromCostModel(model: CostModel) {
+  const fixed = model.fixedPrice ?? null;
+  return fixed != null && fixed > 0
+    ? { amount: fixed, flat: true }
+    : { amount: null, flat: false };
+}
 
 export default function PayeeEditor({ payee, onSave }: {
   payee: Payee; onSave: (update: PayeeUpdate) => void;
 }) {
+  const { data: costModels = [] } = useCostModels();
   const [draft, setDraft] = useState<PayeeUpdate>({
     name: payee.name,
     vehicle: payee.vehicle,
     mode: payee.mode,
+    costModelId: null,
+    payment: payee.payment,
+    perStop: payee.perStop,
     sort: payee.sort,
     sortValue: payee.sortValue,
     adhoc: payee.adhoc,
@@ -43,13 +71,29 @@ export default function PayeeEditor({ payee, onSave }: {
           />
         </label>
         <label className="form-field">
-          <span>PAYMENT MODE</span>
+          <span>COST MODEL</span>
           <span className="select-wrap">
             <select
-              aria-label="Payment mode" value={draft.mode}
-              onChange={e => setDraft({ ...draft, mode: e.target.value as PaymentMode })}
+              aria-label="Cost model"
+              value={draft.costModelId ?? ''}
+              onChange={e => {
+                const chosen = costModels.find(m => String(m.costModelId) === e.target.value);
+                if (!chosen) return;
+                setDraft({
+                  ...draft,
+                  costModelId: chosen.costModelId,
+                  mode: chosen.name ?? draft.mode,
+                  payment: paymentFromCostModel(chosen),
+                  perStop: chosen.pricePerStop ?? 0,
+                });
+              }}
             >
-              {MODES.map(mode => <option key={mode} value={mode}>{mode}</option>)}
+              {draft.costModelId === null && <option value="">{draft.mode}</option>}
+              {costModels.map(model => (
+                <option key={model.costModelId} value={model.costModelId}>
+                  {costModelLabel(model)}
+                </option>
+              ))}
             </select>
             <Icon name="select" />
           </span>

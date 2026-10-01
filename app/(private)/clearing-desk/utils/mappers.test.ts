@@ -75,9 +75,10 @@ describe('mapPayee', () => {
     expect(mapPayee({ ...dto, sort_value: '1,600.00' }).sortValue).toBe(1600);
   });
 
-  it('throws on invalid payment mode', () => {
-    expect(() => mapPayee({ ...dto, payment_mode: 'INVALID' }))
-      .toThrow(/Invalid payment mode: "INVALID"/);
+  it('passes an unfamiliar payment mode through untouched', () => {
+    // The mode is a cost model's name now, and that catalogue is data. Rejecting
+    // an unknown one here would break the page on a model the backend added.
+    expect(mapPayee({ ...dto, payment_mode: 'NEW_MODEL' }).mode).toBe('NEW_MODEL');
   });
 });
 

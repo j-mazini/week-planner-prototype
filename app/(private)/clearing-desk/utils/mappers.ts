@@ -27,16 +27,12 @@ const EM_DASH = '—';
 /** The design's placeholder for a payee with no vehicle assigned. */
 const NO_VEHICLE = 'NOVEHICLE';
 
-/** Valid payment modes. */
-const VALID_PAYMENT_MODES: readonly string[] = ['DAF', 'DR', 'VSR', 'SP_VSR'];
-
-/** Validate that a payment mode string is one of the allowed literals. */
-function validatePaymentMode(raw: string): PaymentMode {
-  if (VALID_PAYMENT_MODES.includes(raw)) {
-    return raw as PaymentMode;
-  }
-  throw new Error(`Invalid payment mode: "${raw}". Expected one of: ${VALID_PAYMENT_MODES.join(', ')}`);
-}
+/**
+ * No validation against a fixed list any more. The mode is a cost model's name
+ * and the catalogue lives at `/bff/cost-models`, so rejecting an unknown one
+ * here would break the page on a model the backend legitimately added. The
+ * earlier guard existed when the four literals were the whole world.
+ */
 
 /**
  * Parse a decimal string with flexible separator handling.
@@ -113,7 +109,7 @@ export function mapPayee(dto: PayeeDTO): Payee {
     id: dto.id,
     name: dto.name,
     vehicle: dto.vehicle === 'NOVEHICLE' ? null : dto.vehicle,
-    mode: validatePaymentMode(dto.payment_mode),
+    mode: dto.payment_mode,
     payment: parseMoney(dto.payment),
     sort: dto.sort.toUpperCase() === 'YES',
     sortValue: parseDecimal(dto.sort_value) ?? 0,

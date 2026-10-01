@@ -57,13 +57,15 @@ describe('useClearingDesk', () => {
     const { result } = renderHook(() => useClearingDesk({}), { wrapper });
     await waitFor(() => expect(result.current.board).toBeDefined());
     act(() => result.current.savePayee('MD7E', {
-      name: 'Carlos S.', vehicle: 'MA26 XWK', mode: 'VSR',
+      name: 'Carlos S.', vehicle: 'MA26 XWK', mode: 'DR',
+      costModelId: 2, payment: { amount: 185, flat: true }, perStop: 0,
       sort: false, sortValue: 12.5, adhoc: null,
     }));
     await waitFor(() => {
       const carlos = result.current.board!.payees.find(p => p.id === 'MD7E')!;
       expect(carlos.name).toBe('Carlos S.');
-      expect(carlos.mode).toBe('VSR');
+      expect(carlos.mode).toBe('DR');
+      expect(carlos.payment).toEqual({ amount: 185, flat: true });
       expect(carlos.sortValue).toBe(12.5);
     });
   });
@@ -111,7 +113,8 @@ describe('useClearingDesk', () => {
     await waitFor(() => expect(result.current.board).toBeDefined());
     const originalName = result.current.board!.payees.find(p => p.id === 'MD7E')!.name;
     act(() => result.current.savePayee('MD7E', {
-      name: 'Carlos S.', vehicle: 'MA26 XWK', mode: 'VSR',
+      name: 'Carlos S.', vehicle: 'MA26 XWK', mode: 'DR',
+      costModelId: 2, payment: { amount: 185, flat: true }, perStop: 0,
       sort: false, sortValue: 12.5, adhoc: null,
     }));
     await waitFor(() => {

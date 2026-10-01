@@ -255,6 +255,22 @@ Registradas em vez de escondidas, no espírito da seção 12 do `ANATOMIA-DE-UMA
    números do CSS do export prevalecem sobre o número solto do doc, já que o
    objetivo é corresponder ao Figma aprovado.
 
+6. **PAYMENT MODE virou COST MODEL, alimentado por `/bff/cost-models`.** O frame
+   `154:2524` tem um PAYMENT MODE com lista fixa de quatro valores, e a seção 6
+   deste spec tratava `PaymentMode` como união de literais. Mas a fixture do app
+   traz `{ costModelId: 2, name: 'DR', fixedPrice: 185, pricePerStop: 0 }` — o nome
+   do cost model **é** o payment mode, e o cost model carrega as cifras que o card
+   exibe. A pedido do product owner, o campo passa a listar os cost models reais;
+   escolher um traz `fixedPrice` e `pricePerStop` para o payee.
+
+   Consequência registrada: a Ruling 4, tomada durante a execução, criou um
+   validador que lançava erro se `payment_mode` não fosse um dos quatro literais —
+   rede contra quebra de contrato do backend. Com o catálogo vindo de `/bff/cost-models`,
+   a lista válida deixou de ser compile-time e virou dado; o validador foi removido
+   e `PaymentMode` alargado para `string`. Mantê-lo faria um cost model legítimo de
+   nome novo derrubar a página. O custo é perder a detecção precoce de um modo
+   corrompido — que agora só aparece como rótulo estranho na tela.
+
 ---
 
 ## 10. Testes e gates

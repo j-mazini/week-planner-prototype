@@ -3,6 +3,7 @@ import React from 'react';
 import '@testing-library/jest-dom/vitest';
 import { describe, expect, it, vi, beforeEach } from 'vitest';
 import { render, screen, fireEvent, cleanup, within, waitFor } from '@testing-library/react';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { mapBoard } from './utils/mappers';
 import { clearingDeskFixture } from '@/lib/mocks/clearing-desk-fixtures';
 
@@ -12,6 +13,24 @@ const hook = vi.hoisted(() => ({
 vi.mock('@/hooks/useClearingDesk', () => ({ useClearingDesk: () => hook.value }));
 
 import ClearingDeskContent from './ClearingDeskContent';
+
+/**
+ * The editor's cost-model select is a real useQuery, so the tree needs a client.
+ * It resolves through MOCK_MODE to the repo's own page fixtures — the same path
+ * the page takes offline — rather than a mock of the hook, so the wiring from
+ * select to /bff/cost-models is actually exercised.
+ */
+function renderDesk() {
+  const client = new QueryClient({ defaultOptions: { queries: { retry: false } } });
+  const tree = () => (
+    <QueryClientProvider client={client}><ClearingDeskContent /></QueryClientProvider>
+  );
+  const result = render(tree());
+  // A fresh element each time — re-rendering the same element reference lets
+  // React bail out, and the point here is to pick up a changed board. The client
+  // is reused so this is not a remount for the cost-model query.
+  return { ...result, rerenderDesk: () => result.rerender(tree()) };
+}
 
 const queue = () => within(screen.getByLabelText('Pending authorizations'));
 const bench = () => within(screen.getByLabelText('Selected transaction'));
@@ -29,14 +48,14 @@ beforeEach(() => {
 
 describe('the pending queue', () => {
   it('lists every pending payee with its total', () => {
-    render(<ClearingDeskContent />);
+    renderDesk();
     expect(screen.getByText('6 TOTAL')).toBeInTheDocument();
     expect(queue().getByRole('button', { name: /Diego Ferreira/ })).toBeInTheDocument();
     expect(queue().getByRole('button', { name: /Codrin Stephan/ })).toBeInTheDocument();
   });
 
   it('filters by name, by route and by vehicle', async () => {
-    render(<ClearingDeskContent />);
+    renderDesk();
     const search = screen.getByLabelText('Search pending transactions');
 
     fireEvent.change(search, { target: { value: 'aliu' } });
@@ -55,7 +74,7 @@ describe('the pending queue', () => {
   });
 
   it('says so when nothing matches', () => {
-    render(<ClearingDeskContent />);
+    renderDesk();
     fireEvent.change(screen.getByLabelText('Search pending transactions'), {
       target: { value: 'zzzz' },
     });
@@ -64,7 +83,7 @@ describe('the pending queue', () => {
 
   it('hides payees already cleared', () => {
     hook.value = { ...hook.value, board: { ...hook.value.board!, cleared: ['DY1B'] } };
-    render(<ClearingDeskContent />);
+    renderDesk();
     expect(queue().queryByRole('button', { name: /Diego Ferreira/ })).toBeNull();
     expect(screen.getByText('5 TOTAL')).toBeInTheDocument();
   });
@@ -72,21 +91,21 @@ describe('the pending queue', () => {
 
 describe('the clearing panel', () => {
   it('shows the first pending payee by default', () => {
-    render(<ClearingDeskContent />);
+    renderDesk();
     expect(bench().getByRole('heading', { name: 'Diego Ferreira' })).toBeInTheDocument();
     expect(bench().getByText('YF25 OZL')).toBeInTheDocument();
     expect(bench().getByText('£160.00')).toBeInTheDocument();
   });
 
   it('renders an unknown amount as an em dash', () => {
-    render(<ClearingDeskContent />);
+    renderDesk();
     fireEvent.click(screen.getByRole('button', { name: /Terry Roberts/ }));
     expect(bench().getByRole('heading', { name: 'Terry Roberts' })).toBeInTheDocument();
     expect(bench().getByTestId('payment-amount')).toHaveTextContent('—');
   });
 
   it('computes the estimate from per-stop and stops, not a fixed figure', () => {
-    render(<ClearingDeskContent />);
+    renderDesk();
     expect(bench().getByTestId('estimate-per-stop')).toHaveTextContent('£ 2.00');
     expect(bench().getByTestId('estimate-total')).toHaveTextContent('£ 30.00');
     fireEvent.click(screen.getByRole('button', { name: /Aliu Balde/ }));
@@ -95,14 +114,14 @@ describe('the clearing panel', () => {
   });
 
   it('carries the route summary from the board', () => {
-    render(<ClearingDeskContent />);
+    renderDesk();
     expect(bench().getByText('ME1, ME2')).toBeInTheDocument();
     expect(bench().getByTestId('summary-stops')).toHaveTextContent('15');
     expect(bench().getByTestId('summary-pre12')).toHaveTextContent('2');
   });
 
   it('approves the selected payee', async () => {
-    render(<ClearingDeskContent />);
+    renderDesk();
     fireEvent.click(screen.getByRole('button', { name: 'Approve Diego Ferreira' }));
     // Awaited, not loosened: the button holds a short green confirmation before
     // handing the approval on. Same assertion, same argument — it still fails if
@@ -111,7 +130,7 @@ describe('the clearing panel', () => {
   });
 
   it('shows the confirmation before it hands the approval on', () => {
-    render(<ClearingDeskContent />);
+    renderDesk();
     const approve = screen.getByRole('button', { name: 'Approve Diego Ferreira' });
     expect(approve).not.toHaveClass('is-approving');
 
@@ -122,13 +141,13 @@ describe('the clearing panel', () => {
   });
 
   it('does not carry the confirmation over to the next payee', async () => {
-    const { rerender } = render(<ClearingDeskContent />);
+    const { rerenderDesk } = renderDesk();
     fireEvent.click(screen.getByRole('button', { name: 'Approve Diego Ferreira' }));
     await waitFor(() => expect(hook.value.approve).toHaveBeenCalledWith('DY1B'));
 
     // Diego is cleared, so Carlos takes the panel.
     hook.value = { ...hook.value, board: { ...hook.value.board!, cleared: ['DY1B'] } };
-    rerender(<ClearingDeskContent />);
+    rerenderDesk();
 
     const next = screen.getByRole('button', { name: 'Approve Carlos Silva' });
     expect(next).not.toHaveClass('is-approving');
@@ -138,7 +157,7 @@ describe('the clearing panel', () => {
   });
 
   it('cannot be approved twice by a double click', async () => {
-    render(<ClearingDeskContent />);
+    renderDesk();
     const approve = screen.getByRole('button', { name: 'Approve Diego Ferreira' });
     fireEvent.click(approve);
     fireEvent.click(approve);
@@ -146,7 +165,7 @@ describe('the clearing panel', () => {
   });
 
   it('saves a note against the selected payee', () => {
-    render(<ClearingDeskContent />);
+    renderDesk();
     fireEvent.change(screen.getByLabelText('MANANGEMENT NOTES'), {
       target: { value: 'checked with depot' },
     });
@@ -161,7 +180,7 @@ describe('the clearing panel', () => {
       ...hook.value,
       saveNote: vi.fn((_id, _note, onSuccess?: () => void) => onSuccess?.()),
     };
-    render(<ClearingDeskContent />);
+    renderDesk();
     fireEvent.change(screen.getByLabelText('MANANGEMENT NOTES'), {
       target: { value: 'checked with depot' },
     });
@@ -170,7 +189,7 @@ describe('the clearing panel', () => {
   });
 
   it('clears the notes draft when a different payee is selected', () => {
-    render(<ClearingDeskContent />);
+    renderDesk();
     fireEvent.change(screen.getByLabelText('MANANGEMENT NOTES'), {
       target: { value: 'checked with depot' },
     });
@@ -181,7 +200,7 @@ describe('the clearing panel', () => {
 
 describe('the payee editor', () => {
   it('opens on EDITAR with the payee already filled in', () => {
-    render(<ClearingDeskContent />);
+    renderDesk();
     fireEvent.click(screen.getByRole('button', { name: 'EDITAR' }));
     expect(screen.getByLabelText('Name')).toHaveValue('Diego Ferreira');
     expect(screen.getByLabelText('Vehicle')).toHaveValue('YF25 OZL');
@@ -189,32 +208,56 @@ describe('the payee editor', () => {
   });
 
   it('saves the edited payee as typed values, not strings', () => {
-    render(<ClearingDeskContent />);
+    renderDesk();
     fireEvent.click(screen.getByRole('button', { name: 'EDITAR' }));
     fireEvent.change(screen.getByLabelText('Name'), { target: { value: 'D. Ferreira' } });
     fireEvent.change(screen.getByLabelText('Sort value'), { target: { value: '12.50' } });
-    fireEvent.change(screen.getByLabelText('Payment mode'), { target: { value: 'VSR' } });
     fireEvent.click(screen.getByRole('button', { name: 'SAVE' }));
 
-    expect(hook.value.savePayee).toHaveBeenCalledWith('DY1B', {
-      name: 'D. Ferreira', vehicle: 'YF25 OZL', mode: 'VSR',
-      sort: true, sortValue: 12.5, adhoc: null,
-    });
+    expect(hook.value.savePayee).toHaveBeenCalledWith('DY1B', expect.objectContaining({
+      name: 'D. Ferreira', vehicle: 'YF25 OZL', sortValue: 12.5, adhoc: null,
+    }));
+  });
+
+  it('offers the cost models from the API, labelled with their rate', async () => {
+    renderDesk();
+    fireEvent.click(screen.getByRole('button', { name: 'EDITAR' }));
+    const select = await screen.findByLabelText('Cost model');
+    await waitFor(() =>
+      expect(within(select).getByRole('option', { name: 'DR — £185.00 fixed' }))
+        .toBeInTheDocument());
+  });
+
+  it('brings the chosen cost model data onto the payee', async () => {
+    renderDesk();
+    fireEvent.click(screen.getByRole('button', { name: 'EDITAR' }));
+    const select = await screen.findByLabelText('Cost model');
+    await waitFor(() =>
+      expect(within(select).getByRole('option', { name: /DR/ })).toBeInTheDocument());
+    fireEvent.change(select, { target: { value: '2' } });
+    fireEvent.click(screen.getByRole('button', { name: 'SAVE' }));
+
+    expect(hook.value.savePayee).toHaveBeenCalledWith('DY1B', expect.objectContaining({
+      costModelId: 2,
+      mode: 'DR',
+      payment: { amount: 185, flat: true },
+      perStop: 0,
+    }));
   });
 
   it('keeps the approve column beside the form, as the design frame does', () => {
-    render(<ClearingDeskContent />);
+    renderDesk();
     fireEvent.click(screen.getByRole('button', { name: 'EDITAR' }));
     expect(bench().getByRole('button', { name: 'Approve Diego Ferreira' })).toBeInTheDocument();
   });
 
   it('puts each dropdown chevron inside its own field, not on the label line', () => {
-    render(<ClearingDeskContent />);
+    renderDesk();
     fireEvent.click(screen.getByRole('button', { name: 'EDITAR' }));
     // .select-wrap is the positioning context the stylesheet anchors the chevron
     // to. On the whole .form-field it lands on the label; it has to wrap the
     // select alone.
-    for (const field of ['Payment mode', 'Sort', 'Adhoc service']) {
+    for (const field of ['Cost model', 'Sort', 'Adhoc service']) {
       const select = screen.getByLabelText(field);
       expect(select.parentElement).toHaveClass('select-wrap');
       expect(select.parentElement).not.toHaveClass('form-field');
@@ -224,7 +267,7 @@ describe('the payee editor', () => {
   it('abandons the draft when another payee is picked', () => {
     // The design frame has no CANCEL: picking someone else in the queue is the
     // way out of the form, and it must not save what was typed.
-    render(<ClearingDeskContent />);
+    renderDesk();
     fireEvent.click(screen.getByRole('button', { name: 'EDITAR' }));
     fireEvent.change(screen.getByLabelText('Name'), { target: { value: 'typed but abandoned' } });
 
@@ -238,13 +281,13 @@ describe('the payee editor', () => {
 
 describe('the cleared session', () => {
   it('counts nothing cleared at the start', () => {
-    render(<ClearingDeskContent />);
+    renderDesk();
     expect(screen.getByRole('heading', { name: '0 / 6 CLEARED' })).toBeInTheDocument();
   });
 
   it('lists a cleared payee and counts it', () => {
     hook.value = { ...hook.value, board: { ...hook.value.board!, cleared: ['DY1B', 'MD7E'] } };
-    render(<ClearingDeskContent />);
+    renderDesk();
     expect(screen.getByRole('heading', { name: '2 / 6 CLEARED' })).toBeInTheDocument();
     expect(history().getByRole('button', { name: 'Return Diego Ferreira to queue' }))
       .toBeInTheDocument();
@@ -252,7 +295,7 @@ describe('the cleared session', () => {
 
   it('returns a cleared payee to the queue', () => {
     hook.value = { ...hook.value, board: { ...hook.value.board!, cleared: ['DY1B'] } };
-    render(<ClearingDeskContent />);
+    renderDesk();
     fireEvent.click(history().getByRole('button', { name: 'Return Diego Ferreira to queue' }));
     expect(hook.value.restore).toHaveBeenCalledWith('DY1B');
   });
@@ -263,14 +306,14 @@ describe('the cleared session', () => {
       ...hook.value,
       board: { ...board, cleared: board.payees.map(p => p.id) },
     };
-    render(<ClearingDeskContent />);
+    renderDesk();
     expect(screen.getByRole('heading', { name: /ZERO QUEUE/ })).toBeInTheDocument();
     expect(screen.getByText('100% EXCELLENCE')).toBeInTheDocument();
   });
 
   it('hides the total until every payee is cleared', () => {
     hook.value = { ...hook.value, board: { ...hook.value.board!, cleared: ['DY1B', 'DY1A'] } };
-    render(<ClearingDeskContent />);
+    renderDesk();
     expect(screen.queryByTestId('cleared-total')).toBeNull();
   });
 
@@ -280,7 +323,7 @@ describe('the cleared session', () => {
       ...hook.value,
       board: { ...board, cleared: board.payees.map(p => p.id) },
     };
-    render(<ClearingDeskContent />);
+    renderDesk();
     // 2·15 + 2·15 + 2·15 + 1.75·15 + 2·15 + 2·15 = 176.25
     expect(screen.getByTestId('cleared-total')).toHaveTextContent('£176.25');
     expect(screen.queryByText('£21,420.00')).toBeNull();
@@ -294,27 +337,27 @@ describe('the progress notice', () => {
 
   it('stays hidden below three cleared', () => {
     withCleared(['DY1B', 'MD7E']);
-    render(<ClearingDeskContent />);
+    renderDesk();
     expect(screen.queryByText('GOAL IN SIGHT!')).toBeNull();
   });
 
   it('appears at three cleared, with the remaining count', () => {
     withCleared(['DY1B', 'MD7E', 'DHOC']);
-    render(<ClearingDeskContent />);
+    renderDesk();
     expect(screen.getByText('GOAL IN SIGHT!')).toBeInTheDocument();
     expect(screen.getByText('ONLY 3 APPROVALS LEFT!')).toBeInTheDocument();
   });
 
   it('can be dismissed and stays dismissed', () => {
     withCleared(['DY1B', 'MD7E', 'DHOC']);
-    const { rerender } = render(<ClearingDeskContent />);
+    const { rerenderDesk } = renderDesk();
     fireEvent.click(screen.getByRole('button', { name: 'Dismiss goal' }));
     expect(screen.queryByText('GOAL IN SIGHT!')).toBeNull();
 
     // Re-render with a changed (but still length-3) `cleared` list: the
     // notice must stay hidden, not just absent because nothing re-rendered.
     withCleared(['MD7E', 'DY1B', 'DHOC']);
-    rerender(<ClearingDeskContent />);
+    rerenderDesk();
     expect(screen.queryByText('GOAL IN SIGHT!')).toBeNull();
   });
 });
@@ -322,7 +365,7 @@ describe('the progress notice', () => {
 describe('the error state', () => {
   it('lets the operator retry', () => {
     hook.value = { ...hook.value, isError: true };
-    render(<ClearingDeskContent />);
+    renderDesk();
     expect(screen.getByRole('alert')).toBeInTheDocument();
     fireEvent.click(screen.getByRole('button', { name: 'Try again' }));
     expect(hook.value.refetch).toHaveBeenCalled();

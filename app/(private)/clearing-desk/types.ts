@@ -1,4 +1,12 @@
-export type PaymentMode = 'DAF' | 'DR' | 'VSR' | 'SP_VSR';
+/**
+ * The payment mode is a cost model's name. The authoritative list is data —
+ * `/bff/cost-models` — not a union here, so a model the backend adds must not
+ * be a compile error or a thrown mapper. The four below are what the design's
+ * fixtures use; they are documentation, not a constraint.
+ *
+ * Known values: DAF, DR, VSR, SP_VSR.
+ */
+export type PaymentMode = string;
 
 export interface Money {
   /** null when the design shows an em dash: the figure is not known for this payee. */
@@ -41,6 +49,12 @@ export interface PayeeUpdate {
   name: string;
   vehicle: string | null;
   mode: PaymentMode;
+  /** The cost model the mode and the figures below came from. */
+  costModelId: number | null;
+  /** Derived from the chosen cost model's fixedPrice. */
+  payment: Money;
+  /** Derived from the chosen cost model's pricePerStop. */
+  perStop: number;
   sort: boolean;
   sortValue: number;
   adhoc: string | null;
