@@ -121,6 +121,22 @@ describe('the clearing panel', () => {
     expect(hook.value.approve).not.toHaveBeenCalled();
   });
 
+  it('does not carry the confirmation over to the next payee', async () => {
+    const { rerender } = render(<ClearingDeskContent />);
+    fireEvent.click(screen.getByRole('button', { name: 'Approve Diego Ferreira' }));
+    await waitFor(() => expect(hook.value.approve).toHaveBeenCalledWith('DY1B'));
+
+    // Diego is cleared, so Carlos takes the panel.
+    hook.value = { ...hook.value, board: { ...hook.value.board!, cleared: ['DY1B'] } };
+    rerender(<ClearingDeskContent />);
+
+    const next = screen.getByRole('button', { name: 'Approve Carlos Silva' });
+    expect(next).not.toHaveClass('is-approving');
+    // And the stale confirmation must not be swallowing his click either.
+    fireEvent.click(next);
+    await waitFor(() => expect(hook.value.approve).toHaveBeenCalledWith('MD7E'));
+  });
+
   it('cannot be approved twice by a double click', async () => {
     render(<ClearingDeskContent />);
     const approve = screen.getByRole('button', { name: 'Approve Diego Ferreira' });

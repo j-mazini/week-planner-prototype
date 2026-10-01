@@ -82,6 +82,11 @@ export default function ClearingDeskContent() {
                     </article>
                   ) : (
                     <ClearingPanel
+                      // Keyed like the editor beside it: the panel holds a
+                      // confirmation state, and without this React reuses the
+                      // instance when the next payee takes the panel — leaving
+                      // the new payee's button green and swallowing its click.
+                      key={active.id}
                       payee={active}
                       onEdit={() => setEditing(true)}
                       onApprove={() => approve(active.id)}
