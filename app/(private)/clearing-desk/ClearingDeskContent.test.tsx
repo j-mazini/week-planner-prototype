@@ -202,12 +202,37 @@ describe('the payee editor', () => {
     });
   });
 
-  it('closes without saving on cancel', () => {
+  it('keeps the approve column beside the form, as the design frame does', () => {
     render(<ClearingDeskContent />);
     fireEvent.click(screen.getByRole('button', { name: 'EDITAR' }));
-    fireEvent.click(screen.getByRole('button', { name: 'CANCEL' }));
+    expect(bench().getByRole('button', { name: 'Approve Diego Ferreira' })).toBeInTheDocument();
+  });
+
+  it('puts each dropdown chevron inside its own field, not on the label line', () => {
+    render(<ClearingDeskContent />);
+    fireEvent.click(screen.getByRole('button', { name: 'EDITAR' }));
+    // .select-wrap is the positioning context the stylesheet anchors the chevron
+    // to. On the whole .form-field it lands on the label; it has to wrap the
+    // select alone.
+    for (const field of ['Payment mode', 'Sort', 'Adhoc service']) {
+      const select = screen.getByLabelText(field);
+      expect(select.parentElement).toHaveClass('select-wrap');
+      expect(select.parentElement).not.toHaveClass('form-field');
+    }
+  });
+
+  it('abandons the draft when another payee is picked', () => {
+    // The design frame has no CANCEL: picking someone else in the queue is the
+    // way out of the form, and it must not save what was typed.
+    render(<ClearingDeskContent />);
+    fireEvent.click(screen.getByRole('button', { name: 'EDITAR' }));
+    fireEvent.change(screen.getByLabelText('Name'), { target: { value: 'typed but abandoned' } });
+
+    fireEvent.click(queue().getByRole('button', { name: /Carlos Silva/ }));
+
     expect(hook.value.savePayee).not.toHaveBeenCalled();
-    expect(bench().getByRole('heading', { name: 'Diego Ferreira' })).toBeInTheDocument();
+    expect(bench().getByRole('heading', { name: 'Carlos Silva' })).toBeInTheDocument();
+    expect(screen.queryByLabelText('Name')).toBeNull();
   });
 });
 

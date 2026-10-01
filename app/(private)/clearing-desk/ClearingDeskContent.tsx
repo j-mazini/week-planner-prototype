@@ -5,6 +5,7 @@ import { useClearingDesk } from '@/hooks/useClearingDesk';
 import PendingQueue from './components/PendingQueue';
 import ClearingPanel from './components/ClearingPanel';
 import PayeeEditor from './components/PayeeEditor';
+import ApproveButton from './components/ApproveButton';
 import RouteBalanceResume from './components/RouteBalanceResume';
 import PayableEstimate from './components/PayableEstimate';
 import ManagementNotes from './components/ManagementNotes';
@@ -76,8 +77,16 @@ export default function ClearingDeskContent() {
                       <PayeeEditor
                         key={active.id}
                         payee={active}
-                        onCancel={() => setEditing(false)}
                         onSave={update => { savePayee(active.id, update); setEditing(false); }}
+                      />
+                      {/* The design frame keeps the approve column beside the
+                          form — present but inert, so the card keeps both panes
+                          and its proportions while editing. */}
+                      <ApproveButton
+                        key={`approve-${active.id}`}
+                        payee={active}
+                        onApprove={() => approve(active.id)}
+                        disabled
                       />
                     </article>
                   ) : (
