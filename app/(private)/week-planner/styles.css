@@ -6,7 +6,9 @@
    não segue o tema do navegador — toda superfície e cor é pintada
    explicitamente, igual ao protótipo original.
    =========================================================================== */
-.week-planner-page {
+/* `.scrim` shares this scope: the modal overlay is portalled onto <body>, so it
+   sits outside the page element and cannot inherit these tokens through the tree. */
+.week-planner-page, .scrim {
   --surface: #fafaef; --rail: #e9e9de; --paper: #ffffff; --notch: #fdfcfa;
   --ghost: #f4f4e9; --overlay: rgba(250, 249, 245, .5); --disabled: #e3e3e3;
   --ink: #1a1c16; --ink-strong: #17171a; --ink-plate: #1a1a1e; --ink-muted: #424936;
@@ -18,6 +20,9 @@
   --lime: #b2f746; --lime-primary: #a3e635; --lime-sel: #e4f063;
   --olive: #446900; --olive-deep: #416400; --olive-code: #59651b; --olive-alt: #565f0e;
   --red: #ba1a1a; --orange: #e0592b; --amber: #c98a12; --amber-ink: #8a5c0b;
+  /* Status-disc fills, measured off the design frames. `--disc-warn` is a hotter
+     orange than `--orange`, which the vehicle chips keep using. */
+  --disc-warn: #ff7700; --on-ink: #efefea;
   --green: #17a673; --weekend-bg: #fff7ed; --weekend-ink: #c2410c; --weekend-accent: #ea580c;
   --flex-blue: #3b3af0;
   --card: linear-gradient(107.71deg, rgb(218, 227, 152) 42%, rgb(230, 236, 187) 68%, rgb(235, 240, 202) 100%);
@@ -30,12 +35,19 @@
   --mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
   --display: "Space Grotesk", "Helvetica Neue", Arial, sans-serif;
 
-  background: var(--surface); color: var(--ink); font-family: var(--mono); min-height: 100vh;
+  color: var(--ink); font-family: var(--mono);
 }
-.week-planner-page * { box-sizing: border-box; }
-.week-planner-page h1, .week-planner-page h2, .week-planner-page h3 { margin: 0; text-wrap: balance; }
-.week-planner-page button { font: inherit; color: inherit; cursor: pointer; }
-.week-planner-page :focus-visible { outline: 2px solid var(--teal-deep); outline-offset: 2px; }
+.week-planner-page { background: var(--surface); min-height: 100vh; }
+:is(.week-planner-page, .scrim) * { box-sizing: border-box; }
+:is(.week-planner-page, .scrim) h1, :is(.week-planner-page, .scrim) h2, :is(.week-planner-page, .scrim) h3 { margin: 0; text-wrap: balance; }
+/* `:where()` keeps this reset at zero specificity — the selector weighs only its
+   `button` type (0,0,1). With `:is()` it weighed (0,1,1) and the `font`/`color`
+   shorthands silently beat every single-class component rule (0,1,0): `.tbtn`,
+   `.tab`, `.tlchip`, `.dayadd`, `.ghost` and `.primary` all rendered at the
+   inherited 16px/400/24px in the inherited ink instead of their own type ramp.
+   Only `.seg button` escaped, by tying on specificity and being declared later. */
+:where(.week-planner-page, .scrim) button { font: inherit; color: inherit; cursor: pointer; }
+:is(.week-planner-page, .scrim) :focus-visible { outline: 2px solid var(--teal-deep); outline-offset: 2px; }
 .week-planner-page .mono { font-family: var(--mono); }
 .week-planner-page .disp { font-family: var(--display); }
 
@@ -44,17 +56,23 @@
 .topbar { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 12px; }
 .title { font-family: var(--display); font-size: 28px; font-weight: 700; line-height: 32px; }
 .demo-tag { font-size: 9px; letter-spacing: .9px; text-transform: uppercase; color: var(--ink-foot); border: 1px solid var(--line); padding: 4px 8px; }
-.header { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px; border-bottom: 1px solid var(--line); padding-block: 16px; margin-top: 8px; }
+/* Positioned and raised so the week-picker popover it hosts paints over the
+   rows that follow it in the document (depot tabs, add-row, the board). Without
+   this the popover's own z-index only orders it against its header siblings. */
+.header { position: relative; z-index: 2; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px; border-bottom: 1px solid var(--line); padding-block: 16px; margin-top: 8px; }
 .weekbtn { display: flex; align-items: center; gap: 12px; background: none; border: 0; padding: 0; }
 .weekbtn .wk { font-family: var(--display); font-size: 18px; font-weight: 700; line-height: 32px; }
 .weekbtn .rg { font-size: 13px; font-weight: 500; color: var(--ink-muted); }
-.actions { display: flex; flex-wrap: wrap; gap: 8px; }
-.tbtn { background: var(--teal); border: 1px solid var(--teal); color: #fff; padding: 8px 16px; font-size: 12px; font-weight: 600; letter-spacing: .6px; text-transform: uppercase; line-height: 12px; }
+.actions { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 8px; margin-left: auto; }
+/* 7px block padding, not 8px: the design's button box is 28px and the 1px border
+   counts toward it under `box-sizing: border-box` (7 + 12 line-height + 7 + 2). */
+.tbtn { background: var(--teal); border: 1px solid var(--teal); color: #fff; padding: 7px 16px; font-size: 12px; font-weight: 600; letter-spacing: .6px; text-transform: uppercase; line-height: 12px; }
 .tbtn:hover { opacity: .88; }
 
 .controls { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; padding-top: 16px; }
 .tabs { display: flex; gap: 8px; }
-.tab { background: var(--paper); border: 1px solid var(--line); color: var(--ink-muted); padding: 10px 16px; font-size: 11px; font-weight: 500; line-height: 14px; }
+/* 8px block padding for the design's 32px box (8 + 14 line-height + 8 + 2 border). */
+.tab { background: var(--paper); border: 1px solid var(--line); color: var(--ink-muted); padding: 8px 16px; font-size: 11px; font-weight: 500; line-height: 14px; }
 .tab[aria-pressed="true"] { background: var(--lime); border-color: var(--teal-deep); color: var(--olive); font-weight: 700; }
 .wkend { display: flex; align-items: center; gap: 8px; font-size: 11px; color: var(--ink-muted); cursor: pointer; }
 .addrow { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 11px; padding-top: 16px; }
@@ -98,7 +116,6 @@
 .notchel { position: absolute; top: -5px; bottom: -4.5px; left: 60px; width: 17px; background: var(--notch); transform: skewX(-15.65deg); box-shadow: -1px 0 0 rgba(23, 23, 26, .09), 1px 0 0 rgba(23, 23, 26, .09); }
 .disc { position: relative; z-index: 1; margin-left: -9px; width: 19px; height: 19px; flex: none; border-radius: 50%; display: grid; place-items: center; box-shadow: var(--sh-disc); }
 .disc .gl { font-size: 9px; font-weight: 500; line-height: 9px; }
-.disc .spec { position: absolute; left: 2px; top: 2px; width: 5px; height: 5px; border-radius: 2.5px; background: rgba(255, 255, 255, .8); }
 .rcbody { margin-left: 8px; padding-right: 9px; min-width: 0; flex: 1; display: flex; flex-direction: column; align-items: flex-end; gap: 2px; }
 .driver { font-family: var(--display); font-size: 10px; font-weight: 700; line-height: 1; letter-spacing: -.1px; color: var(--ink-strong); max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .veh { height: 15.5px; display: inline-flex; align-items: center; padding: 0 5px; font-size: 7.5px; font-weight: 600; letter-spacing: .6px; white-space: nowrap; max-width: 100%; overflow: hidden; }
@@ -106,8 +123,10 @@
 .veh.none { background: rgba(255, 255, 255, .6); border: 1px dashed var(--orange); color: var(--orange); }
 .veh.sub { background: #fff; border: 1px solid var(--amber); color: var(--amber-ink); }
 .drop { margin: 0 10px 0 12px; height: 32px; flex: 1; display: flex; align-items: center; justify-content: flex-end; border: 1px dashed rgba(70, 78, 12, .45); padding: 0 8px; }
-.assign { height: 19px; background: var(--lime-primary); border: 1px solid var(--olive); padding: 0 12px; font-size: 9px; font-weight: 600; }
-.week-planner-page .assign { color: var(--olive-deep); }
+/* The design's unassigned-slot call to action is a dark pill, not a lime chip:
+   measured #17171a on the card with #efefea type. */
+.assign { height: 20px; background: var(--ink-strong); border: 1px solid var(--ink-strong); padding: 0 12px; font-size: 9px; font-weight: 600; }
+:is(.week-planner-page, .scrim) .assign { color: var(--on-ink); }
 
 .sechead { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding-top: 16px; }
 .sechead h2 { font-family: var(--display); font-size: 20px; font-weight: 700; line-height: 32px; }
@@ -224,7 +243,9 @@ footer.pg { margin-top: 24px; border-top: 1px solid var(--line); padding-top: 16
 .dlgft { display: flex; justify-content: flex-end; gap: 10px; padding: 24px; background: var(--surface); }
 .ghost { height: 30px; background: transparent; border: 1px solid var(--line-hard); padding: 0 17px; font-family: var(--display); font-size: 12px; font-weight: 700; letter-spacing: .6px; text-transform: uppercase; color: var(--olive-deep); }
 .primary { height: 30px; background: var(--lime-primary); border: 1px solid var(--olive); padding: 0 17px; font-size: 12px; font-weight: 600; text-transform: uppercase; }
-.week-planner-page .primary { color: #fff; }
+/* The design types the lime primary in olive, not white — white on #a3e635 is
+   about 1.7:1 and was unreadable. */
+:is(.week-planner-page, .scrim) .primary { color: var(--olive-deep); }
 .two { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
 @media (max-width: 700px) { .two { grid-template-columns: 1fr; } }
 .span2 { grid-column: 1 / -1; }
@@ -336,17 +357,25 @@ textarea.ctl.tall { height: 100px; }
   to { opacity: 1; transform: translate(-50%, 0); }
 }
 
-.week-planner-page { animation: planner-in .42s cubic-bezier(.22, 1, .36, 1) both; }
-.topbar, .header, .controls, .addrow { animation: planner-rise .38s cubic-bezier(.22, 1, .36, 1) both; }
+/* Entrance animations run `backwards`, never `both`. `both` keeps the final
+   keyframe applied for good, and these keyframes end on `transform: translateY(0)`
+   — an identity matrix, but not `none`. That is enough to make every one of these
+   elements a permanent stacking context *and* a containing block for fixed
+   descendants: it trapped `.picker`'s z-index inside `.header` (the depot tabs
+   painted over the open week dropdown) and stopped `.scrim` from covering the
+   viewport. `backwards` plays the same motion and then lets the element settle
+   back to `transform: none`. */
+.week-planner-page { animation: planner-in .42s cubic-bezier(.22, 1, .36, 1) backwards; }
+.topbar, .header, .controls, .addrow { animation: planner-rise .38s cubic-bezier(.22, 1, .36, 1) backwards; }
 .header { animation-delay: .04s; }
 .controls { animation-delay: .08s; }
 .addrow { animation-delay: .12s; }
-.board .day { animation: planner-rise .38s cubic-bezier(.22, 1, .36, 1) both; }
+.board .day { animation: planner-rise .38s cubic-bezier(.22, 1, .36, 1) backwards; }
 .board .day:nth-child(2) { animation-delay: .04s; }
 .board .day:nth-child(3) { animation-delay: .08s; }
 .board .day:nth-child(4) { animation-delay: .12s; }
 .board .day:nth-child(5) { animation-delay: .16s; }
-.railcol > * { animation: planner-rise .38s cubic-bezier(.22, 1, .36, 1) both; }
+.railcol > * { animation: planner-rise .38s cubic-bezier(.22, 1, .36, 1) backwards; }
 .railcol > :nth-child(2) { animation-delay: .05s; }
 .railcol > :nth-child(3) { animation-delay: .1s; }
 .railcol > :nth-child(4) { animation-delay: .15s; }
@@ -362,9 +391,9 @@ textarea.ctl.tall { height: 100px; }
 .daybtn:hover .dayname, .dayadd:hover { color: var(--teal); }
 .mcard, .excard, .hzrow, .note { transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease; }
 .mcard:hover, .excard:hover, .hzrow:hover, .note:hover { transform: translateY(-2px); box-shadow: 0 8px 18px rgba(23, 23, 26, .1); }
-.scrim { animation: planner-in .2s ease-out both; }
+.scrim { animation: planner-in .2s ease-out backwards; }
 .dlg { transform-origin: center top; animation: modal-in .28s cubic-bezier(.22, 1, .36, 1) both; }
 .picker { animation: modal-in .2s cubic-bezier(.22, 1, .36, 1) both; }
 .xbtn:hover { transform: rotate(90deg); }
 
-@media (prefers-reduced-motion: reduce) { .week-planner-page * { transition: none !important; animation: none !important; } }
+@media (prefers-reduced-motion: reduce) { :is(.week-planner-page, .scrim) * { transition: none !important; animation: none !important; } }

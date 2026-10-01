@@ -1,6 +1,8 @@
 "use client";
 
-import { useEffect, useRef, type ReactNode } from "react";
+import { useEffect, useRef, useState, type ReactNode } from "react";
+import { createPortal } from "react-dom";
+import { useBodyScrollLock } from "@/hooks/useBodyScrollLock";
 
 interface PlannerModalProps {
   title: string;
@@ -14,20 +16,21 @@ interface PlannerModalProps {
 
 export default function PlannerModal({ title, description, narrow, primaryLabel, onCancel, onSubmit, children }: PlannerModalProps) {
   const scrimRef = useRef<HTMLDivElement>(null);
+  const [mounted, setMounted] = useState(false);
+
+  useBodyScrollLock(true);
+
+  useEffect(() => setMounted(true), []);
 
   useEffect(() => {
-    document.body.style.overflow = "hidden";
     function handleEscape(event: KeyboardEvent) {
       if (event.key === "Escape") onCancel();
     }
     document.addEventListener("keydown", handleEscape);
-    return () => {
-      document.body.style.overflow = "";
-      document.removeEventListener("keydown", handleEscape);
-    };
+    return () => document.removeEventListener("keydown", handleEscape);
   }, [onCancel]);
 
-  return (
+  const overlay = (
     <div
       className="scrim"
       ref={scrimRef}
@@ -55,4 +58,13 @@ export default function PlannerModal({ title, description, narrow, primaryLabel,
       </div>
     </div>
   );
+
+  // Hosted on <body>, not inside the page shell. The scrim is `position: fixed`,
+  // so any transformed ancestor becomes its containing block and it stops
+  // covering the viewport — which is exactly what the shell's entrance animation
+  // used to do. Portalling makes that impossible to regress. Out here the scrim
+  // no longer inherits the screen's tokens through the tree, so styles.css names
+  // `.scrim` alongside `.week-planner-page` wherever that scope is declared.
+  if (!mounted) return null;
+  return createPortal(overlay, document.body);
 }
