@@ -199,7 +199,36 @@ describe('the payee editor', () => {
     expect(hook.value.savePayee).toHaveBeenCalledWith('DY1B', {
       name: 'D. Ferreira', vehicle: 'YF25 OZL', mode: 'VSR',
       sort: true, sortValue: 12.5, adhoc: null,
+      payment: { amount: 160, flat: false },
     });
+  });
+
+  it('opens with the payee current amount and saves an edited one as a number', () => {
+    render(<ClearingDeskContent />);
+    fireEvent.click(screen.getByRole('button', { name: 'EDITAR' }));
+    expect(screen.getByLabelText('Payment value')).toHaveValue(160);
+
+    fireEvent.change(screen.getByLabelText('Payment value'), { target: { value: '212.75' } });
+    fireEvent.change(screen.getByLabelText('Flat'), { target: { value: 'YES' } });
+    fireEvent.click(screen.getByRole('button', { name: 'SAVE' }));
+
+    expect(hook.value.savePayee).toHaveBeenCalledWith('DY1B', expect.objectContaining({
+      payment: { amount: 212.75, flat: true },
+    }));
+  });
+
+  it('opens empty for a payee with no known amount, and an emptied field stays unknown', () => {
+    render(<ClearingDeskContent />);
+    // Terry has no financial detail in any design frame: his amount is null and
+    // the card shows an em dash. Editing must not invent a zero for him.
+    fireEvent.click(queue().getByRole('button', { name: /Terry Roberts/ }));
+    fireEvent.click(screen.getByRole('button', { name: 'EDITAR' }));
+    expect(screen.getByLabelText('Payment value')).toHaveValue(null);
+
+    fireEvent.click(screen.getByRole('button', { name: 'SAVE' }));
+    expect(hook.value.savePayee).toHaveBeenCalledWith('LL2A', expect.objectContaining({
+      payment: { amount: null, flat: false },
+    }));
   });
 
   it('keeps the approve column beside the form, as the design frame does', () => {

@@ -41,6 +41,13 @@ export interface PayeeUpdate {
   name: string;
   vehicle: string | null;
   mode: PaymentMode;
+  /**
+   * Editable on request, which departs from the design frame — it has no amount
+   * field. Both halves are here on purpose: letting the figure be set while the
+   * flat marking stayed fixed would allow saving an amount whose rendered label
+   * contradicts it.
+   */
+  payment: Money;
   sort: boolean;
   sortValue: number;
   adhoc: string | null;

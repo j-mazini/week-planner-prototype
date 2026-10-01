@@ -255,6 +255,17 @@ Registradas em vez de escondidas, no espírito da seção 12 do `ANATOMIA-DE-UMA
    números do CSS do export prevalecem sobre o número solto do doc, já que o
    objetivo é corresponder ao Figma aprovado.
 
+6. **A edição altera o valor do pagamento; o frame não tem esse campo.** O frame
+   `154:2524` expõe nome, veículo, modalidade, sort, valor de sort e serviço
+   adicional — a cifra não. A seção 6 deste spec também manteve `payment` fora de
+   `PayeeUpdate`, e a Ruling 14 durante a execução confirmou que não recalcular o
+   valor ao trocar a modalidade era fiel ao design. O product owner reverteu essa
+   decisão: numa tela de autorização de pagamento, quem altera a modalidade espera
+   poder acertar a cifra. `PayeeUpdate` passa a carregar `payment` inteiro — cifra
+   **e** marcação `flat` —, porque editar só a cifra permitiria gravar um valor cujo
+   rótulo exibido o contradiz. Campo vazio continua significando "não conhecido" e
+   renderiza o travessão, preservando o caso do Terry e do Codrin.
+
 ---
 
 ## 10. Testes e gates
