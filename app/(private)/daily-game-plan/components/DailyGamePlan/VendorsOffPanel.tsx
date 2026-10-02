@@ -22,35 +22,37 @@ export default function VendorsOffPanel({ entries, collapsed, onToggle }: Props)
           <span className="dgp-chip">TOTAL: {entries.length}</span>
           <button
             type="button"
-            className="dgp-toggle-btn"
+            className={`dgp-toggle-btn${collapsed ? " dgp-toggle-btn--collapsed" : ""}`}
             aria-label={collapsed ? "Expand vendors off panel" : "Collapse vendors off panel"}
             onClick={onToggle}
           >
-            {collapsed ? "▾" : "▴"}
+            ▴
           </button>
         </div>
       </div>
-      {!collapsed && (
-        <div className="dgp-side-panel__body">
-          {entries.map((entry) => (
-            <div key={entry.vendorName} className="dgp-vendor-card">
-              <div className="dgp-vendor-card__row">
-                <span className="dgp-label">VENDOR NAME:</span>
-                <span className="dgp-value">{entry.vendorName}</span>
+      <div className={`dgp-side-panel__collapsible${collapsed ? " dgp-side-panel__collapsible--collapsed" : ""}`}>
+        <div>
+          <div className="dgp-side-panel__body">
+            {entries.map((entry) => (
+              <div key={entry.vendorName} className="dgp-vendor-card">
+                <div className="dgp-vendor-card__row">
+                  <span className="dgp-label">VENDOR NAME:</span>
+                  <span className="dgp-value">{entry.vendorName}</span>
+                </div>
+                <div className="dgp-vendor-card__row">
+                  <span className="dgp-label">ASSIGNED HUB:</span>
+                  <span className="dgp-chip">{entry.assignedHub}</span>
+                </div>
+                <div className="dgp-vendor-card__row">
+                  <span className="dgp-label">REASON:</span>
+                  <span className="dgp-value dgp-muted">{entry.reason}</span>
+                </div>
               </div>
-              <div className="dgp-vendor-card__row">
-                <span className="dgp-label">ASSIGNED HUB:</span>
-                <span className="dgp-chip">{entry.assignedHub}</span>
-              </div>
-              <div className="dgp-vendor-card__row">
-                <span className="dgp-label">REASON:</span>
-                <span className="dgp-value dgp-muted">{entry.reason}</span>
-              </div>
-            </div>
-          ))}
-          {entries.length === 0 && <p className="dgp-muted">No vendors off today.</p>}
+            ))}
+            {entries.length === 0 && <p className="dgp-muted">No vendors off today.</p>}
+          </div>
         </div>
-      )}
+      </div>
     </div>
   );
 }

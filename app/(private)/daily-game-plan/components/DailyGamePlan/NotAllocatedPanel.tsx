@@ -22,16 +22,16 @@ export default function NotAllocatedPanel({ entries, collapsed, onToggle }: Prop
           <span className="dgp-chip">TOTAL: {entries.length}</span>
           <button
             type="button"
-            className="dgp-toggle-btn"
+            className={`dgp-toggle-btn${collapsed ? " dgp-toggle-btn--collapsed" : ""}`}
             aria-label={collapsed ? "Expand not allocated panel" : "Collapse not allocated panel"}
             onClick={onToggle}
           >
-            {collapsed ? "▾" : "▴"}
+            ▴
           </button>
         </div>
       </div>
-      {!collapsed && (
-        <>
+      <div className={`dgp-side-panel__collapsible${collapsed ? " dgp-side-panel__collapsible--collapsed" : ""}`}>
+        <div>
           <div className="dgp-side-panel__subheader">
             {entries.length} vendor{entries.length === 1 ? "" : "s"} standby with no route
           </div>
@@ -54,8 +54,8 @@ export default function NotAllocatedPanel({ entries, collapsed, onToggle }: Prop
               </div>
             ))}
           </div>
-        </>
-      )}
+        </div>
+      </div>
     </div>
   );
 }

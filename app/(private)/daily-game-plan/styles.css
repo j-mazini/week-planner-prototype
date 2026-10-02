@@ -114,6 +114,7 @@
   text-align: left;
   cursor: pointer;
   font-family: var(--mono);
+  transition: background-color 0.15s ease, border-left-color 0.15s ease;
 }
 .dgp-depot-card:hover {
   background: #f0efe6;
@@ -238,11 +239,18 @@
   background: transparent;
   text-transform: uppercase;
   white-space: nowrap;
+  transition: background-color 0.12s ease, border-color 0.12s ease, transform 0.12s ease;
+}
+.dgp-btn:active {
+  transform: scale(0.97);
 }
 .dgp-btn--outline {
   background: #f5f5f4;
   border-color: #d6d3d1;
   color: #44403c;
+}
+.dgp-btn--outline:hover {
+  background: #ececeb;
 }
 .dgp-btn--finish {
   background: var(--dgp-olive);
@@ -252,20 +260,32 @@
   gap: 6px;
   height: 26px;
 }
+.dgp-btn--finish:hover {
+  background: #375400;
+}
 .dgp-btn--ghost {
   border: 1px solid #111827;
   color: var(--dgp-ink);
   background: transparent;
+}
+.dgp-btn--ghost:hover {
+  background: #f4f3ed;
 }
 .dgp-btn--primary {
   background: #a3e635;
   border-color: var(--dgp-olive);
   color: var(--dgp-ink);
 }
+.dgp-btn--primary:hover {
+  background: #8fd01d;
+}
 .dgp-btn--danger {
   background: #ff383c;
   border-color: #c81e22;
   color: white;
+}
+.dgp-btn--danger:hover {
+  background: #e4252a;
 }
 
 .dgp-badge {
@@ -371,6 +391,14 @@
   cursor: pointer;
   font-size: 10px;
   line-height: 1;
+  display: inline-flex;
+  transition: background-color 0.12s ease, transform 0.18s ease;
+}
+.dgp-toggle-btn:hover {
+  background: #e9e7dc;
+}
+.dgp-toggle-btn--collapsed {
+  transform: rotate(180deg);
 }
 .dgp-link-heading {
   background: none;
@@ -417,6 +445,10 @@
 }
 .dgp-table tbody tr {
   border-top: 1px solid rgba(216, 214, 199, 0.8);
+  transition: background-color 0.12s ease;
+}
+.dgp-table tbody tr:hover {
+  background: #f6f5ee;
 }
 .dgp-table td {
   padding: 16px;
@@ -505,6 +537,17 @@
   font-size: 13px;
   color: #6f6e65;
 }
+.dgp-side-panel__collapsible {
+  display: grid;
+  grid-template-rows: 1fr;
+  transition: grid-template-rows 0.18s ease;
+}
+.dgp-side-panel__collapsible--collapsed {
+  grid-template-rows: 0fr;
+}
+.dgp-side-panel__collapsible > div {
+  overflow: hidden;
+}
 .dgp-side-panel__body {
   display: flex;
   flex-direction: column;
@@ -551,6 +594,15 @@
   z-index: 100;
   padding: 24px;
   overflow-y: auto;
+  animation: dgp-overlay-in 0.15s ease-out;
+}
+@keyframes dgp-overlay-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes dgp-modal-in {
+  from { opacity: 0; transform: translateY(-8px) scale(0.98); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
 }
 .dgp-modal {
   width: 100%;
@@ -561,6 +613,7 @@
   display: flex;
   flex-direction: column;
   font-family: var(--mono);
+  animation: dgp-modal-in 0.18s cubic-bezier(0.16, 1, 0.3, 1);
 }
 .dgp-modal--small {
   max-width: 400px;
