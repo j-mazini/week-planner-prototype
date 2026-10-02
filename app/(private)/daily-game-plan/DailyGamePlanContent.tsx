@@ -30,7 +30,6 @@ import NotAllocatedPanel from "./components/DailyGamePlan/NotAllocatedPanel";
 import VendorsOffPanel from "./components/DailyGamePlan/VendorsOffPanel";
 import DriverEditModal from "./components/DailyGamePlan/DriverEditModal";
 import DriverDeleteModal from "./components/DailyGamePlan/DriverDeleteModal";
-import SupervisorEditModal from "./components/DailyGamePlan/SupervisorEditModal";
 
 type EditTarget = { depositKey: DepositKey; index: number } | null;
 
@@ -44,7 +43,6 @@ export default function DailyGamePlanContent() {
 
   const [editTarget, setEditTarget] = useState<EditTarget>(null);
   const [deleteTarget, setDeleteTarget] = useState<EditTarget>(null);
-  const [editingSupervisor, setEditingSupervisor] = useState(false);
 
   const activeDeposit = deposits[selected];
 
@@ -83,14 +81,6 @@ export default function DailyGamePlanContent() {
     setDeleteTarget(null);
   }
 
-  function handleSaveSupervisor(lead: string) {
-    setDeposits((prev) => ({
-      ...prev,
-      [selected]: { ...prev[selected], lead },
-    }));
-    setEditingSupervisor(false);
-  }
-
   function handleRestoreDemo() {
     setDeposits(initialDeposits);
     setSelected("BAOP");
@@ -99,7 +89,6 @@ export default function DailyGamePlanContent() {
     setVendorsOffCollapsed(false);
     setEditTarget(null);
     setDeleteTarget(null);
-    setEditingSupervisor(false);
   }
 
   return (
@@ -132,7 +121,6 @@ export default function DailyGamePlanContent() {
             <DepositBench
               deposit={activeDeposit}
               finished={selected === "BAOP" && finished}
-              onEditSupervisor={() => setEditingSupervisor(true)}
               onFinish={() => setFinished(true)}
               onEditDriver={(index) => setEditTarget({ depositKey: selected, index })}
               onDeleteDriver={(index) => setDeleteTarget({ depositKey: selected, index })}
@@ -164,14 +152,6 @@ export default function DailyGamePlanContent() {
           driverName={deletingDriver.name}
           onCancel={() => setDeleteTarget(null)}
           onConfirm={handleConfirmDelete}
-        />
-      )}
-
-      {editingSupervisor && (
-        <SupervisorEditModal
-          currentLead={activeDeposit.lead}
-          onCancel={() => setEditingSupervisor(false)}
-          onSave={handleSaveSupervisor}
         />
       )}
     </div>

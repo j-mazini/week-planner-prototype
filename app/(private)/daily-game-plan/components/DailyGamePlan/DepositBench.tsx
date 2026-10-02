@@ -6,7 +6,6 @@ import DriverTable from "./DriverTable";
 type Props = {
   deposit: DepositMock;
   finished: boolean;
-  onEditSupervisor: () => void;
   onFinish: () => void;
   onEditDriver: (index: number) => void;
   onDeleteDriver: (index: number) => void;
@@ -15,7 +14,6 @@ type Props = {
 export default function DepositBench({
   deposit,
   finished,
-  onEditSupervisor,
   onFinish,
   onEditDriver,
   onDeleteDriver,
@@ -34,9 +32,6 @@ export default function DepositBench({
             </p>
           </div>
           <div className="dgp-bench__actions">
-            <button type="button" className="dgp-btn dgp-btn--outline" onClick={onEditSupervisor}>
-              EDITAR
-            </button>
             {finished ? (
               <span className="dgp-badge dgp-badge--finished">FINISHED</span>
             ) : (
