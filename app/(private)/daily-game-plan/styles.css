@@ -282,9 +282,9 @@
   color: #848484;
 }
 .dgp-badge--sort-yes {
-  background: rgba(255, 56, 60, 0.14);
-  border-color: #ff383c;
-  color: #ff383c;
+  background: rgba(4, 120, 87, 0.14);
+  border-color: #047857;
+  color: #047857;
 }
 .dgp-badge--sort-no {
   background: #f4f3ed;
@@ -329,6 +329,40 @@
 }
 .dgp-icon-btn:hover {
   color: var(--dgp-teal);
+}
+
+/* Row action buttons (table edit/delete) */
+.dgp-row-actions {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.dgp-row-action-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border: 1px solid #d8d6c7;
+  background: #f4f3ed;
+  color: var(--dgp-ink-soft);
+  cursor: pointer;
+  padding: 0;
+  transition: background-color 0.12s ease, border-color 0.12s ease, color 0.12s ease;
+}
+.dgp-row-action-btn:hover {
+  background: var(--dgp-teal);
+  border-color: var(--dgp-teal);
+  color: white;
+}
+.dgp-row-action-btn:focus-visible {
+  outline: 2px solid var(--dgp-teal);
+  outline-offset: 2px;
+}
+.dgp-row-action-btn--danger:hover {
+  background: #ff383c;
+  border-color: #c81e22;
+  color: white;
 }
 .dgp-toggle-btn {
   border: 1px solid #d8d6c7;

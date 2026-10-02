@@ -1,5 +1,6 @@
 "use client";
 
+import { Pencil, Trash2 } from "lucide-react";
 import { DriverRow } from "../../mockDailyGamePlanData";
 
 type Props = {
@@ -48,24 +49,26 @@ export default function DriverTable({ drivers, canEdit, onEdit, onDelete }: Prop
               <td className="dgp-table__notes">{driver.notes || <span className="dgp-muted">Notes...</span>}</td>
               <td className="dgp-table__actions">
                 {canEdit && (
-                  <>
+                  <div className="dgp-row-actions">
                     <button
                       type="button"
                       aria-label={`Edit ${driver.name}`}
-                      className="dgp-icon-btn"
+                      title="Edit"
+                      className="dgp-row-action-btn"
                       onClick={() => onEdit(index)}
                     >
-                      ✎
+                      <Pencil size={15} strokeWidth={2} />
                     </button>
                     <button
                       type="button"
                       aria-label={`Delete ${driver.name}`}
-                      className="dgp-icon-btn"
+                      title="Delete"
+                      className="dgp-row-action-btn dgp-row-action-btn--danger"
                       onClick={() => onDelete(index)}
                     >
-                      🗑
+                      <Trash2 size={15} strokeWidth={2} />
                     </button>
-                  </>
+                  </div>
                 )}
               </td>
             </tr>
