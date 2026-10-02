@@ -94,7 +94,7 @@
 }
 .dgp-side-col {
   flex: none;
-  width: 320px;
+  width: 380px;
   display: flex;
   flex-direction: column;
   gap: 16px;
@@ -137,7 +137,7 @@
   color: var(--dgp-lime-dark);
 }
 .dgp-depot-card__lead {
-  font-size: 11px;
+  font-size: 12px;
   text-transform: uppercase;
   opacity: 0.8;
 }
@@ -145,7 +145,7 @@
   font-weight: 600;
 }
 .dgp-depot-card__count {
-  font-size: 10px;
+  font-size: 11px;
   font-weight: 700;
   text-transform: uppercase;
   color: #047857;
@@ -161,7 +161,6 @@
   flex-direction: column;
   gap: 16px;
   width: 100%;
-  max-width: 640px;
 }
 .dgp-bench__card {
   background: white;
@@ -273,8 +272,8 @@
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  font-size: 12px;
-  padding: 2px 5px;
+  font-size: 13px;
+  padding: 3px 7px;
   border: 1px solid transparent;
 }
 .dgp-badge--route {
@@ -364,7 +363,7 @@
   width: 100%;
   border-collapse: collapse;
   font-family: var(--mono);
-  font-size: 12px;
+  font-size: 14px;
 }
 .dgp-table thead tr {
   background: #f4f3ed;
@@ -372,8 +371,8 @@
 }
 .dgp-table th {
   text-align: left;
-  padding: 12px;
-  font-size: 11px;
+  padding: 16px;
+  font-size: 12px;
   font-weight: 700;
   letter-spacing: 0.55px;
   text-transform: uppercase;
@@ -386,18 +385,19 @@
   border-top: 1px solid rgba(216, 214, 199, 0.8);
 }
 .dgp-table td {
-  padding: 12px;
+  padding: 16px;
   vertical-align: middle;
 }
 .dgp-table__name {
   font-weight: 700;
-  font-size: 14px;
+  font-size: 16px;
   color: #141412;
 }
 .dgp-table__notes {
   background: #f4f3ed;
   border: 1px solid #d8d6c7;
-  font-size: 12px;
+  font-size: 13px;
+  padding: 8px 10px;
   color: #141412;
 }
 .dgp-table__actions {
@@ -466,9 +466,9 @@
   gap: 8px;
 }
 .dgp-side-panel__subheader {
-  padding: 12px 16px;
+  padding: 14px 18px;
   background: white;
-  font-size: 12px;
+  font-size: 13px;
   color: #6f6e65;
 }
 .dgp-side-panel__body {
@@ -478,8 +478,8 @@
 .dgp-vendor-card {
   display: flex;
   flex-direction: column;
-  gap: 8px;
-  padding: 12px;
+  gap: 10px;
+  padding: 16px 18px;
   border-bottom: 1px solid #d8d6c7;
 }
 .dgp-vendor-card__row {
@@ -489,20 +489,20 @@
   gap: 8px;
 }
 .dgp-label {
-  font-size: 10px;
+  font-size: 11px;
   text-transform: uppercase;
   color: #6f6e65;
 }
 .dgp-value {
   font-weight: 700;
-  font-size: 14px;
+  font-size: 15px;
   color: #141412;
 }
 .dgp-vendor-card__notes {
   border: 1px solid #d8d6c7;
   background: white;
-  padding: 5px 9px;
-  font-size: 12px;
+  padding: 7px 11px;
+  font-size: 13px;
   color: #6b7280;
 }
 
