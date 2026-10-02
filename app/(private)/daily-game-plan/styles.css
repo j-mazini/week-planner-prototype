@@ -81,9 +81,23 @@
   flex: 1;
   min-width: 0;
   display: flex;
+  align-items: flex-start;
+  gap: 24px;
+  padding: 0 24px 24px;
+}
+.dgp-bench-col {
+  flex: 1;
+  min-width: 0;
+  display: flex;
   flex-direction: column;
   gap: 16px;
-  padding: 0 24px 24px;
+}
+.dgp-side-col {
+  flex: none;
+  width: 320px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
 }
 
 /* Depot cards (aside) */
@@ -589,5 +603,14 @@
   }
   .dgp-center {
     padding: 16px 0 24px;
+  }
+}
+
+@media (max-width: 1200px) {
+  .dgp-center {
+    flex-direction: column;
+  }
+  .dgp-side-col {
+    width: 100%;
   }
 }

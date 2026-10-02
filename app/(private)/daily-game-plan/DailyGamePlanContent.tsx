@@ -128,26 +128,30 @@ export default function DailyGamePlanContent() {
         <DepotAside deposits={deposits} selected={selected} onSelect={setSelected} finished={finished} />
 
         <div className="dgp-center">
-          <DepositBench
-            deposit={activeDeposit}
-            finished={selected === "BAOP" && finished}
-            onEditSupervisor={() => setEditingSupervisor(true)}
-            onFinish={() => setFinished(true)}
-            onEditDriver={(index) => setEditTarget({ depositKey: selected, index })}
-            onDeleteDriver={(index) => setDeleteTarget({ depositKey: selected, index })}
-          />
+          <div className="dgp-bench-col">
+            <DepositBench
+              deposit={activeDeposit}
+              finished={selected === "BAOP" && finished}
+              onEditSupervisor={() => setEditingSupervisor(true)}
+              onFinish={() => setFinished(true)}
+              onEditDriver={(index) => setEditTarget({ depositKey: selected, index })}
+              onDeleteDriver={(index) => setDeleteTarget({ depositKey: selected, index })}
+            />
+          </div>
 
-          <VendorsOffPanel
-            entries={vendorsOffMock}
-            collapsed={vendorsOffCollapsed}
-            onToggle={() => setVendorsOffCollapsed((v) => !v)}
-          />
+          <div className="dgp-side-col">
+            <VendorsOffPanel
+              entries={vendorsOffMock}
+              collapsed={vendorsOffCollapsed}
+              onToggle={() => setVendorsOffCollapsed((v) => !v)}
+            />
 
-          <NotAllocatedPanel
-            entries={notAllocatedMock}
-            collapsed={notAllocatedCollapsed}
-            onToggle={() => setNotAllocatedCollapsed((v) => !v)}
-          />
+            <NotAllocatedPanel
+              entries={notAllocatedMock}
+              collapsed={notAllocatedCollapsed}
+              onToggle={() => setNotAllocatedCollapsed((v) => !v)}
+            />
+          </div>
         </div>
       </div>
 
