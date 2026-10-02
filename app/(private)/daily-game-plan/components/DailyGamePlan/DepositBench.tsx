@@ -6,6 +6,8 @@ import DriverTable from "./DriverTable";
 type Props = {
   deposit: DepositMock;
   finished: boolean;
+  /** Whether the signed-in profile may finish the depot or edit/delete its drivers (admins are read-only here). */
+  canEdit: boolean;
   onFinish: () => void;
   onEditDriver: (index: number) => void;
   onDeleteDriver: (index: number) => void;
@@ -14,6 +16,7 @@ type Props = {
 export default function DepositBench({
   deposit,
   finished,
+  canEdit,
   onFinish,
   onEditDriver,
   onDeleteDriver,
@@ -34,10 +37,14 @@ export default function DepositBench({
           <div className="dgp-bench__actions">
             {finished ? (
               <span className="dgp-badge dgp-badge--finished">FINISHED</span>
-            ) : (
+            ) : canEdit ? (
               <button type="button" className="dgp-btn dgp-btn--finish" onClick={onFinish}>
                 ⚑ FINISH
               </button>
+            ) : (
+              <span className="dgp-badge dgp-badge--route" title="Admins have read-only access to the Daily Game Plan">
+                READ-ONLY
+              </span>
             )}
           </div>
         </div>
@@ -56,7 +63,7 @@ export default function DepositBench({
       {deposit.hasData ? (
         <DriverTable
           drivers={deposit.drivers}
-          canEdit={!finished}
+          canEdit={canEdit && !finished}
           onEdit={onEditDriver}
           onDelete={onDeleteDriver}
         />

@@ -85,12 +85,11 @@ describe('the Clearing Desk link', () => {
       .toHaveAttribute('href', '/clearing-desk');
   });
 
-  it('is offered to a supervisor', () => {
+  it('stays hidden from a supervisor', () => {
     asProfile(BUSINESS_RULES.USER_TYPE.SUPERVISOR, ['supervisor']);
     renderShell();
     openGroup('Operations');
-    expect(screen.getByRole('link', { name: 'Clearing Desk' }))
-      .toHaveAttribute('href', '/clearing-desk');
+    expect(screen.queryByRole('link', { name: 'Clearing Desk' })).toBeNull();
   });
 
   it('stays hidden from a driver', () => {

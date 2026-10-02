@@ -26,7 +26,6 @@ export const USER_TYPE_2_ALLOWED = ["/home", ...MY_PERFORMANCE_ROUTES] as const;
 export const USER_TYPE_3_ALLOWED = [
   ...MY_PERFORMANCE_ROUTES,
   "/route-balance",
-  "/clearing-desk",
   "/week-planner",
   "/daily-game-plan",
   "/vendor",

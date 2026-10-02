@@ -14,6 +14,8 @@
 
 import { useMemo, useState } from "react";
 import "./styles.css";
+import { useAuth } from "@/hooks/useAuth";
+import { BUSINESS_RULES } from "@/src/constants/businessRules";
 import {
   DepositKey,
   DepositMock,
@@ -34,6 +36,9 @@ import DriverDeleteModal from "./components/DailyGamePlan/DriverDeleteModal";
 type EditTarget = { depositKey: DepositKey; index: number } | null;
 
 export default function DailyGamePlanContent() {
+  const { user } = useAuth();
+  const isAdmin = user?.userTypeId === BUSINESS_RULES.USER_TYPE.ADMIN;
+
   const [deposits, setDeposits] = useState<Record<DepositKey, DepositMock>>(initialDeposits);
   const [selected, setSelected] = useState<DepositKey>("BAOP");
   const [finished, setFinished] = useState(false);
@@ -121,6 +126,7 @@ export default function DailyGamePlanContent() {
             <DepositBench
               deposit={activeDeposit}
               finished={selected === "BAOP" && finished}
+              canEdit={!isAdmin}
               onFinish={() => setFinished(true)}
               onEditDriver={(index) => setEditTarget({ depositKey: selected, index })}
               onDeleteDriver={(index) => setDeleteTarget({ depositKey: selected, index })}
