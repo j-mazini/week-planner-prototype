@@ -1,149 +1,593 @@
 /* Daily Game Plan styles
-   Observação:
-   - Os inputs de data desta página são estilizados via Tailwind no JSX.
-   - Evite CSS global em `input[type="date"]` aqui, pois pode adicionar ícones/overlays
-     e causar sobreposição com o ícone nativo do navegador (especialmente no hover). */
+   Visual-only rebuild ported from the Figma export (daily-game-plan-completo-react,
+   2026-10-02). Palette and type scale match that export, which itself reuses this
+   project's real paper/teal/lime tokens (see app/(private)/components/NavbarWrapper.css).
+   NavbarWrapper already renders the app sidebar and topbar — everything below starts
+   at the page's own title/content area. */
 
-/* Estilização para os selects (dropdowns) */
-/* Canonical Route Balance / Week Planner surface for this imported screen. */
-.app-imported-page .daily-game-plan-page {
-  --dgp-paper: #fffef8;
-  --dgp-surface: #fafaef;
-  --dgp-line: #c7cdbb;
+.dgp-page {
+  --dgp-paper: #fafaef;
   --dgp-ink: #1a1c16;
-  width: 100%;
-  max-width: var(--content-wide);
-  margin-inline: auto;
-  min-height: calc(100vh - 64px);
-  /* NavbarWrapper already provides the imported-page gutter, so cancel the
-     vertical margin; the horizontal axis is centered via margin-inline above. */
-  margin-block: 0;
-  padding: 0;
-  background: var(--dgp-surface);
+  --dgp-ink-soft: #3f4849;
+  --dgp-line: #bfc8c9;
+  --dgp-lime: #b2f746;
+  --dgp-lime-dark: #334f00;
+  --dgp-olive: #446900;
+  --dgp-teal: #003b3e;
+  --mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+  --display: "Space Grotesk", "Helvetica Neue", Arial, sans-serif;
+
+  background: var(--dgp-paper);
   color: var(--dgp-ink);
-  font-family: "IBM Plex Mono", ui-monospace, monospace;
-}
-.app-imported-page .daily-game-plan-page .daily-game-plan-header-wrapper { margin-bottom: 24px; }
-.app-imported-page .daily-game-plan-page .daily-game-plan-header-wrapper h1 span {
-  color: var(--dgp-ink) !important;
-  -webkit-text-fill-color: var(--dgp-ink) !important;
-  background: none !important;
-  background-image: none !important;
-}
-.app-imported-page .daily-game-plan-page .daily-game-plan-header-wrapper > div > div:first-child {
-  border: 1px solid var(--dgp-line) !important;
-  border-radius: 3px !important;
-  background: var(--dgp-paper) !important;
-  box-shadow: 0 2px 8px rgba(23,23,26,.05) !important;
-}
-.app-imported-page .daily-game-plan-page .daily-game-plan-header-wrapper input {
-  min-height: 40px;
-  border-color: var(--dgp-line) !important;
-  border-radius: 2px !important;
-  background: var(--dgp-paper) !important;
-  color: var(--dgp-ink) !important;
-  font: 11px "IBM Plex Mono", ui-monospace, monospace !important;
-}
-.app-imported-page .daily-game-plan-page .daily-game-plan-header-wrapper svg { color: #27676c; }
-.app-imported-page .daily-game-plan-page table { min-width: 720px; }
-.app-imported-page .daily-game-plan-page .overflow-x-auto { max-width: 100%; }
-.app-imported-page .daily-game-plan-page [class*="bg-white"],
-.app-imported-page .daily-game-plan-page [class*="bg-slate-50"],
-.app-imported-page .daily-game-plan-page [class*="bg-gray-50"] { background-color: var(--dgp-paper) !important; }
-.app-imported-page .daily-game-plan-page [class*="bg-gradient"] { background-image: none !important; }
-.app-imported-page .daily-game-plan-page [class*="rounded-3xl"],
-.app-imported-page .daily-game-plan-page [class*="rounded-2xl"],
-.app-imported-page .daily-game-plan-page [class*="rounded-xl"] { border-radius: 3px !important; }
-
-@media (max-width: 680px) {
-  .app-imported-page .daily-game-plan-page { margin: 0; padding: 0; }
-  .app-imported-page .daily-game-plan-page .daily-game-plan-header-wrapper { margin-bottom: 18px; }
+  font-family: var(--mono);
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
 }
 
-.daily-game-plan-page select {
-  background-image: none !important;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-  transition: all 0.2s ease-in-out;
+/* Page title */
+.dgp-page-title {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 16px;
+  border-bottom: 1px solid #727a64;
+  padding-bottom: 17px;
 }
-
-/* Estilização das opções do select */
-.daily-game-plan-page select option {
-  background-color: #ffffff;
-  color: #334155;
-  padding: 0.75rem 1rem;
-  font-size: 0.875rem;
+.dgp-page-title__heading {
+  margin: 0;
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: 32px;
+  color: var(--dgp-ink);
+}
+.dgp-page-title__subheading {
+  margin: 4px 0 0;
+  font-size: 14px;
+  color: #424936;
+}
+.dgp-page-title__week {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.dgp-page-title__week-label {
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: 18px;
+}
+.dgp-page-title__week-range {
+  font-size: 13px;
   font-weight: 500;
-  border: none;
+  color: #424936;
+}
+
+/* Layout */
+.dgp-layout {
+  display: flex;
+  align-items: flex-start;
+  gap: 0;
+  min-height: 575px;
+}
+.dgp-aside {
+  display: flex;
+  flex-direction: column;
+  width: 188px;
+  flex: none;
+  border-right: 1px solid var(--dgp-line);
+}
+.dgp-center {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 0 24px 24px;
+}
+
+/* Depot cards (aside) */
+.dgp-depot-card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  width: 100%;
+  padding: 16px 16px 16px 20px;
+  border: 0;
+  border-left: 4px solid transparent;
+  background: transparent;
+  text-align: left;
   cursor: pointer;
-  transition: all 0.2s ease;
+  font-family: var(--mono);
 }
-
-.daily-game-plan-page select option:hover {
-  background-color: #f1f5f9;
-  color: #1e293b;
+.dgp-depot-card:hover {
+  background: #f0efe6;
 }
-
-.daily-game-plan-page select option:checked {
-  background-color: #3b82f6;
-  color: #ffffff;
+.dgp-depot-card--active {
+  border-left-color: var(--dgp-teal);
+  background: var(--dgp-lime);
+}
+.dgp-depot-card--active:hover {
+  background: var(--dgp-lime);
+}
+.dgp-depot-card__status {
+  background: white;
+  padding: 2px 8px;
+  font-size: 16px;
+}
+.dgp-depot-card__name {
+  font-family: var(--display);
+  font-weight: 600;
+  font-size: 24px;
+  color: var(--dgp-lime-dark);
+}
+.dgp-depot-card__lead {
+  font-size: 11px;
+  text-transform: uppercase;
+  opacity: 0.8;
+}
+.dgp-depot-card__lead-label {
   font-weight: 600;
 }
-
-.daily-game-plan-page select:focus {
-  border-color: #3b82f6;
-  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
-  outline: none;
+.dgp-depot-card__count {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #047857;
+}
+.dgp-depot-card:not(.dgp-depot-card--active) .dgp-depot-card__count {
+  color: #838383;
+  font-weight: 400;
 }
 
-.daily-game-plan-page select:hover {
-  border-color: #cbd5e1;
-  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.05);
+/* Bench card */
+.dgp-bench {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+  max-width: 640px;
+}
+.dgp-bench__card {
+  background: white;
+  border: 1px solid #707979;
+  padding: 30px 33px 30px 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+.dgp-bench__header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 8px;
+}
+.dgp-bench__title {
+  margin: 0;
+  font-family: var(--display);
+  font-weight: 600;
+  font-size: 30px;
+  text-transform: uppercase;
+  color: var(--dgp-ink);
+}
+.dgp-bench__subtitle {
+  margin: 0;
+  font-size: 14px;
+  text-transform: uppercase;
+  color: #3f4849;
+}
+.dgp-bench__subtitle span {
+  font-weight: 400;
+}
+.dgp-bench__actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: none;
+}
+.dgp-bench__stats {
+  display: flex;
+  gap: 12px;
+  border-top: 1px solid #e5e5e5;
+  padding-top: 13px;
+}
+.dgp-stat {
+  flex: 1;
+  border: 1px solid #d4d4d4;
+  padding: 5px;
+}
+.dgp-stat__label {
+  display: block;
+  font-size: 8px;
+  text-transform: uppercase;
+  color: #737373;
+}
+.dgp-stat__value {
+  font-weight: 700;
+  font-size: 12px;
+}
+.dgp-stat__value--off {
+  color: #b45309;
+}
+.dgp-stat__value--working {
+  color: var(--dgp-lime-dark);
 }
 
-.daily-game-plan-page select:focus-visible {
-  outline: 2px solid #3b82f6;
-  outline-offset: 2px;
+/* Buttons / badges reused across the page */
+.dgp-btn {
+  font-family: var(--mono);
+  font-weight: 700;
+  font-size: 10px;
+  border: 1px solid transparent;
+  padding: 5px 9px;
+  cursor: pointer;
+  background: transparent;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.dgp-btn--outline {
+  background: #f5f5f4;
+  border-color: #d6d3d1;
+  color: #44403c;
+}
+.dgp-btn--finish {
+  background: var(--dgp-olive);
+  color: white;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 26px;
+}
+.dgp-btn--ghost {
+  border: 1px solid #111827;
+  color: var(--dgp-ink);
+  background: transparent;
+}
+.dgp-btn--primary {
+  background: #a3e635;
+  border-color: var(--dgp-olive);
+  color: var(--dgp-ink);
+}
+.dgp-btn--danger {
+  background: #ff383c;
+  border-color: #c81e22;
+  color: white;
 }
 
-/* Wrapper de select com ícone (quando usado) */
-.daily-game-plan-select-wrapper {
-  position: relative;
+.dgp-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  padding: 2px 5px;
+  border: 1px solid transparent;
+}
+.dgp-badge--route {
+  background: #e5e5e5;
+  border-color: #a8a8a8;
+  color: #848484;
+}
+.dgp-badge--sort-yes {
+  background: rgba(255, 56, 60, 0.14);
+  border-color: #ff383c;
+  color: #ff383c;
+}
+.dgp-badge--sort-no {
+  background: #f4f3ed;
+  border-color: #d8d6c7;
+  color: #6f6e65;
+}
+.dgp-badge--vehicle {
+  background: rgba(245, 130, 32, 0.2);
+  border-color: rgba(245, 130, 32, 0.4);
+  color: #9a3412;
+}
+.dgp-badge__dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 9999px;
+  background: #e0592b;
+  display: inline-block;
+}
+.dgp-badge--finished {
+  background: #a3e635;
+  border-color: var(--dgp-olive);
+  color: var(--dgp-lime-dark);
+  font-weight: 700;
+  font-size: 10px;
+  padding: 4px 10px;
+}
+.dgp-chip {
+  background: #141412;
+  color: white;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 2px 8px;
+}
+.dgp-icon-btn {
+  border: 1px solid transparent;
+  background: transparent;
+  cursor: pointer;
+  font-size: 14px;
+  line-height: 1;
+  padding: 4px;
+  color: inherit;
+}
+.dgp-icon-btn:hover {
+  color: var(--dgp-teal);
+}
+.dgp-toggle-btn {
+  border: 1px solid #d8d6c7;
+  background: #f4f3ed;
+  padding: 5px;
+  cursor: pointer;
+  font-size: 10px;
+  line-height: 1;
+}
+.dgp-link-heading {
+  background: none;
+  border: 0;
+  cursor: pointer;
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: 14px;
+  letter-spacing: -0.35px;
+  color: #e0592b;
+}
+.dgp-link-heading--neutral {
+  color: var(--dgp-teal);
 }
 
-.daily-game-plan-select-wrapper::after {
-  content: '';
-  position: absolute;
-  right: 0.75rem;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 1.25rem;
-  height: 1.25rem;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%2364758b'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'/%3E%3C/svg%3E");
-  background-repeat: no-repeat;
-  background-position: center;
-  pointer-events: none;
-  z-index: 0;
-  transition: transform 0.2s ease, background-image 0.2s ease;
+/* Driver table */
+.dgp-table-container {
+  width: 100%;
+  overflow-x: auto;
+  border: 1px solid #bfc8c9;
+  background: var(--dgp-paper);
+}
+.dgp-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: var(--mono);
+  font-size: 12px;
+}
+.dgp-table thead tr {
+  background: #f4f3ed;
+  border-bottom: 1px solid #d8d6c7;
+}
+.dgp-table th {
+  text-align: left;
+  padding: 12px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.55px;
+  text-transform: uppercase;
+  color: #6f6e65;
+}
+.dgp-table__col-actions {
+  text-align: right;
+}
+.dgp-table tbody tr {
+  border-top: 1px solid rgba(216, 214, 199, 0.8);
+}
+.dgp-table td {
+  padding: 12px;
+  vertical-align: middle;
+}
+.dgp-table__name {
+  font-weight: 700;
+  font-size: 14px;
+  color: #141412;
+}
+.dgp-table__notes {
+  background: #f4f3ed;
+  border: 1px solid #d8d6c7;
+  font-size: 12px;
+  color: #141412;
+}
+.dgp-table__actions {
+  text-align: right;
+  white-space: nowrap;
+}
+.dgp-table__empty {
+  text-align: center;
+  padding: 24px;
+  color: #6f6e65;
+}
+.dgp-empty-state {
+  width: 100%;
+  border: 1px dashed var(--dgp-line);
+  background: #f4f3ed;
+  padding: 24px;
+  text-align: center;
+  color: #6f6e65;
+  font-size: 13px;
+}
+.dgp-muted {
+  color: #9a9a8e;
 }
 
-.daily-game-plan-select-wrapper:hover::after {
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%233b82f6'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'/%3E%3C/svg%3E");
+/* Vendors Off / Not Allocated side panels */
+.dgp-side-panel {
+  width: 100%;
+  background: #faf9f5;
+  border: 1px dashed rgba(224, 89, 43, 0.7);
+}
+.dgp-side-panel--neutral {
+  border: 1px solid #d8d6c7;
+  border-style: solid;
+}
+.dgp-side-panel__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 16px 13px;
+  background: #eae8de;
+  border-bottom: 1px solid #d8d6c7;
+}
+.dgp-side-panel__title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.dgp-side-panel__icon {
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #e0592b;
+  color: white;
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: 12px;
+}
+.dgp-side-panel__icon--neutral {
+  background: var(--dgp-teal);
+}
+.dgp-side-panel__tools {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.dgp-side-panel__subheader {
+  padding: 12px 16px;
+  background: white;
+  font-size: 12px;
+  color: #6f6e65;
+}
+.dgp-side-panel__body {
+  display: flex;
+  flex-direction: column;
+}
+.dgp-vendor-card {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 12px;
+  border-bottom: 1px solid #d8d6c7;
+}
+.dgp-vendor-card__row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+.dgp-label {
+  font-size: 10px;
+  text-transform: uppercase;
+  color: #6f6e65;
+}
+.dgp-value {
+  font-weight: 700;
+  font-size: 14px;
+  color: #141412;
+}
+.dgp-vendor-card__notes {
+  border: 1px solid #d8d6c7;
+  background: white;
+  padding: 5px 9px;
+  font-size: 12px;
+  color: #6b7280;
 }
 
-.daily-game-plan-select-wrapper:has(select:focus)::after {
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%233b82f6'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'/%3E%3C/svg%3E");
-  transform: translateY(-50%) rotate(180deg);
+/* Modals */
+.dgp-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(26, 28, 22, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+  padding: 24px;
+}
+.dgp-modal {
+  width: 100%;
+  max-width: 480px;
+  background: var(--dgp-paper);
+  border: 1px solid var(--dgp-ink);
+  display: flex;
+  flex-direction: column;
+  font-family: var(--mono);
+}
+.dgp-modal--small {
+  max-width: 400px;
+}
+.dgp-modal__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--dgp-line);
+}
+.dgp-modal__header h2 {
+  margin: 0;
+  font-family: var(--display);
+  font-size: 18px;
+  font-weight: 700;
+}
+.dgp-modal__body {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.dgp-modal__footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  padding: 16px 20px;
+  border-top: 1px solid var(--dgp-line);
+}
+.dgp-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 11px;
+  text-transform: uppercase;
+  color: #3f4849;
+}
+.dgp-field-row {
+  display: flex;
+  gap: 12px;
+}
+.dgp-field-row .dgp-field {
+  flex: 1;
+}
+.dgp-input,
+.dgp-select {
+  font-family: var(--mono);
+  font-size: 14px;
+  text-transform: none;
+  color: var(--dgp-ink);
+  border: 1px solid black;
+  background: white;
+  padding: 8px 10px;
+  height: 36px;
+}
+.dgp-textarea {
+  height: 88px;
+  resize: none;
 }
 
-/* ============================================
-   REDUÇÃO DA LARGURA DAS MÉTRICAS EM TELAS GRANDES
-   ============================================ */
-@media (min-width: 768px) {
-  /* Reduz a largura do grid de métricas pela metade */
-  .daily-game-plan-header-wrapper .grid.grid-cols-2 {
-    max-width: 50%;
+@media (max-width: 900px) {
+  .dgp-layout {
+    flex-direction: column;
+  }
+  .dgp-aside {
+    width: 100%;
+    flex-direction: row;
+    flex-wrap: wrap;
+    border-right: 0;
+    border-bottom: 1px solid var(--dgp-line);
+  }
+  .dgp-depot-card {
+    width: auto;
+    flex: 1 1 200px;
+  }
+  .dgp-center {
+    padding: 16px 0 24px;
   }
 }
-
