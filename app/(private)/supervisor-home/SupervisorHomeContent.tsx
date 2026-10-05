@@ -73,6 +73,7 @@ export default function SupervisorHomeContent() {
             attentionVendors={data.attentionVendors}
             average={data.depositAverageScore}
             averagePrevious={data.depositAverageScorePrevious}
+            rankedVendors={data.rankedVendors}
           />
         </div>
         <div className="shp-grid__operation" {...panelProps("operation")}>
@@ -80,9 +81,7 @@ export default function SupervisorHomeContent() {
             dayFinalized={data.dayFinalized}
             finalizedAt={data.finalizedAt}
             routeBalance={data.routeBalance}
-            allocatedDrivers={data.allocatedDrivers}
-            totalDrivers={data.totalDrivers}
-            notAllocatedCount={data.notAllocatedDriverNames.length}
+            gamePlan={data.gamePlan}
           />
         </div>
       </div>

@@ -64,11 +64,13 @@ export default function VendorPerformanceCard({
   attentionVendors,
   average,
   averagePrevious,
+  rankedVendors,
 }: {
   topVendors: VendorPerformanceEntry[];
   attentionVendors: VendorPerformanceEntry[];
   average: number;
   averagePrevious: number;
+  rankedVendors: number;
 }) {
   const hasData = topVendors.length > 0 || attentionVendors.length > 0;
 
@@ -113,7 +115,8 @@ export default function VendorPerformanceCard({
             {attentionVendors.map((entry, i) => (
               <VendorRow
                 entry={entry}
-                rank={topVendors.length + i + 1}
+                /* These are the bottom of the ranking, not the rows after the top three. */
+                rank={rankedVendors - attentionVendors.length + i + 1}
                 tone="risk"
                 average={average}
                 key={entry.vendorName}
