@@ -166,19 +166,28 @@
 .shp-grid__vendors { grid-area: vendors; }
 .shp-grid__operation { grid-area: operation; }
 
-@media (min-width: 900px) {
+/* Three across from 1366px — iPad Pro landscape and desktops, the first width
+   where a route row's five tags fit on one line in a third of the page. Below
+   it the tab bar takes over: a narrower three-column view only fits by
+   scrolling inside the cards, which is the thing to avoid. */
+@media (min-width: 1366px) {
   .shp-grid {
-    grid-template-columns: 1.35fr 1fr;
-    grid-template-areas:
-      "routes vendors"
-      "routes operation";
-  }
-}
-@media (min-width: 1400px) {
-  .shp-grid {
-    grid-template-columns: 1.5fr 1.15fr .95fr;
+    /* Routes carries the widest rows, so it gets the most room; the plan table
+       needs the second most. */
+    grid-template-columns: 1.5fr 1fr 1.2fr;
     grid-template-areas: "routes vendors operation";
   }
+  /* Fixed five-up: auto-fit would wrap the last tile onto a row of its own and
+     leave empty cells showing through the strip. */
+  .shp-kpis { grid-template-columns: repeat(5, 1fr); }
+}
+
+/* Columns are narrow at this width, so a card header stacks instead of
+   fighting its stats for the same line. */
+@media (min-width: 1366px) and (max-width: 1599px) {
+  .shp-card__head { flex-direction: column; gap: 8px; }
+  .shp-headstats { width: 100%; justify-content: space-between; }
+  .shp-headstats div { text-align: left; }
 }
 
 /* ---------- card shell ---------- */
@@ -512,16 +521,46 @@
   border: 1px solid var(--line);
 }
 
-.shp-plan { list-style: none; margin: 0 !important; padding: 0 !important; }
+/* A smaller read of the Daily Game Plan's own driver table: same columns, same
+   badge language (see app/(private)/daily-game-plan/styles.css), no actions. */
+.shp-plan__list { list-style: none; margin: 0 !important; padding: 0 !important; }
+.shp-plan__head,
 .shp-plan__row {
   display: grid;
-  grid-template-columns: auto 1fr auto;
-  gap: 10px;
+  grid-template-columns: 52px minmax(0, 1fr) 40px auto;
+  gap: 8px;
   align-items: center;
-  padding: 8px 0;
-  border-top: 1px solid var(--line-soft);
 }
+.shp-plan__head {
+  padding-bottom: 6px;
+  border-bottom: 1px solid var(--line);
+  font: 700 var(--shp-small)/1.2 var(--mono);
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  color: var(--olive);
+}
+.shp-plan__row { padding: 6px 0; border-top: 1px solid var(--line-soft); }
 .shp-plan__row:first-child { border-top: none; }
+
+.shp-plan__route,
+.shp-plan__sort,
+.shp-plan__vehicle {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  justify-self: start;
+  padding: 2px 6px;
+  border: 1px solid transparent;
+  font-size: var(--shp-small);
+  white-space: nowrap;
+}
+.shp-plan__route { background: #e5e5e5; border-color: #a8a8a8; color: #6d6d6d; }
+.shp-plan__route--nalc { background: #f8eaea; border-color: #e6c7c7; color: var(--shp-risk); }
+.shp-plan__sort--yes { background: rgba(4, 120, 87, .14); border-color: #047857; color: #047857; }
+.shp-plan__sort--no { background: #f4f3ed; border-color: #d8d6c7; color: #6f6e65; }
+.shp-plan__vehicle { background: rgba(245, 130, 32, .2); border-color: rgba(245, 130, 32, .4); color: #9a3412; }
+.shp-plan__dot { width: 5px; height: 5px; border-radius: 50%; background: #e0592b; flex: none; }
+
 .shp-plan__driver { display: flex; flex-direction: column; gap: 1px; min-width: 0; }
 .shp-plan__driver span { color: var(--ink); overflow-wrap: anywhere; }
 .shp-plan__driver small { font-size: var(--shp-small); color: var(--muted); }
@@ -564,11 +603,54 @@
   .shp-cta { transition: none; }
 }
 
-/* ---------- phones ----------
-   One section at a time behind a tab bar, and every dense desktop row is
-   re-stacked so nothing is squeezed into a 70px column. */
+/* ---------- short viewports ----------
+   Laptop-height screens showing three columns: pin the shell to the viewport so
+   the page itself never scrolls, tighten the rhythm, and let a card longer than
+   its column scroll inside its own box. */
 
-@media (max-width: 767px) {
+@media (min-width: 1366px) and (max-height: 920px) {
+  .app-imported-page[data-page="supervisor-home"] {
+    height: calc(100vh - 64px);
+    min-height: 0;
+    padding-top: 14px;
+    padding-bottom: 14px;
+    overflow: hidden;
+  }
+  .shp-wrap {
+    --shp-gap: 12px;
+    --shp-pad: 14px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+  }
+  .shp-header { margin-bottom: 12px; }
+  .shp-kpis { margin-bottom: 12px; }
+  .shp-grid { flex: 1; min-height: 0; margin-bottom: 0; }
+  .shp-grid > [data-panel] { height: 100%; min-height: 0; }
+  /* Each card is a fixed-height box that scrolls as a whole if its content runs
+     long — the page itself never does. */
+  .shp-card { overflow-y: auto; }
+
+  /* Denser rows so most cards need no inner scrolling at all. */
+  .shp-route { padding: 6px 0; }
+  .shp-route__body { gap: 5px; }
+  .shp-vendor { padding: 6px 0; }
+  .shp-plan__row { padding: 3px 0; }
+  .shp-tag { padding: 1px 5px; }
+  .shp-card__head { padding-bottom: 8px; margin-bottom: 8px; }
+  .shp-route-total { margin-top: 8px; padding-top: 8px; }
+  .shp-divider { margin: 10px 0 8px; }
+  .shp-cta { margin-top: 12px; }
+  /* The KPI strip's status tile already carries the stage bar at this width. */
+  .shp-stepper { display: none; }
+}
+
+/* ---------- phones and tablets ----------
+   One section at a time behind a tab bar, so each card gets the full width and
+   the page fits the screen instead of running several screens deep. */
+
+@media (max-width: 1365px) {
   .shp-tabs {
     display: grid;
     grid-auto-flow: column;
@@ -579,11 +661,79 @@
     margin-bottom: var(--shp-gap);
   }
   .shp-grid > [data-panel][data-active="false"] { display: none; }
-
-  /* Four tiles, two up. The operation tile is dropped: its card is the
-     default tab right below, so it would say the same thing twice. */
-  .shp-kpis { grid-template-columns: repeat(2, 1fr); }
+  /* The operation tile is dropped: its card is the default tab right below,
+     so it would say the same thing twice. */
   .shp-kpi--status { display: none; }
+}
+
+/* Tablets in either orientation: trim the chrome so the visible section fits
+   the screen without scrolling. */
+@media (min-width: 768px) and (max-width: 1365px) {
+  /* Pin the shell to the viewport so the page never scrolls. The topbar is 65px
+     with its border, which the shell's own min-height does not account for. */
+  .app-imported-page[data-page="supervisor-home"] {
+    height: calc(100vh - 65px);
+    min-height: 0;
+    overflow: hidden;
+    padding-top: 14px;
+    padding-bottom: 14px;
+  }
+  .shp-wrap {
+    --shp-gap: 10px;
+    --shp-pad: 14px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+  }
+  .shp-grid { flex: 1; min-height: 0; margin-bottom: 0; }
+  .shp-grid > [data-panel][data-active="true"] { height: 100%; min-height: 0; }
+  .shp-card { height: 100%; display: flex; flex-direction: column; min-height: 0; }
+  /* Only the long roster scrolls, inside the card — the header, stage bar and
+     action below it stay in place. */
+  .shp-plan { display: flex; flex-direction: column; min-height: 0; }
+  .shp-routes,
+  .shp-vendors,
+  .shp-plan__list { overflow-y: auto; min-height: 0; }
+  .shp-header { margin-bottom: 10px; }
+  .shp-kpis { grid-template-columns: repeat(4, 1fr); }
+  .shp-kpi .shp-spark,
+  .shp-kpi .shp-alloc { display: none; }
+  .shp-card__head { padding-bottom: 8px; margin-bottom: 8px; }
+  .shp-route { padding: 3px 0; }
+  .shp-route__body { gap: 4px; }
+  .shp-route:first-child { padding-top: 2px; }
+  .shp-route-total { margin-top: 6px; padding-top: 6px; }
+  .shp-vendor { padding: 6px 0; }
+  .shp-plan__row { padding: 3px 0; }
+  .shp-divider { margin: 8px 0 6px; }
+}
+
+/* Short landscape tablets (iPad mini is 744px tall): one notch tighter again,
+   so the longest section still clears the fold. */
+@media (min-width: 768px) and (max-width: 1365px) and (max-height: 800px) {
+  .shp-wrap { --shp-text: 11px; --shp-small: 9px; --shp-gap: 8px; --shp-pad: 12px; }
+  .shp-kpi { padding: 10px 12px; }
+  .shp-kpi__num { font-size: 26px; }
+  .shp-bar { height: 5px; }
+  .shp-group-label { margin-bottom: 2px !important; }
+  .shp-card__head { padding-bottom: 6px; margin-bottom: 6px; }
+  .shp-route { padding: 2px 0; }
+  .shp-route__body { gap: 3px; }
+  .shp-route-total { margin-top: 4px; padding-top: 4px; }
+  .shp-vendor { padding: 4px 0; }
+  .shp-plan__row { padding: 2px 0; }
+  .shp-divider { margin: 6px 0 4px; }
+  .shp-chip { padding: 2px 6px; }
+  .shp-header { margin-bottom: 8px; }
+}
+
+/* ---------- phones ----------
+   Every dense desktop row is re-stacked so nothing is squeezed into a 70px
+   column. Tablets keep the desktop rows — the card is full width there. */
+
+@media (max-width: 767px) {
+  .shp-kpis { grid-template-columns: repeat(2, 1fr); }
   .shp-kpi { padding: 13px 14px; gap: 5px; }
 
   .shp-header { margin-bottom: 14px; }

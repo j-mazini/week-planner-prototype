@@ -37,17 +37,13 @@ export type DailySeries = {
   values: number[];
 };
 
-/** One line of today's plan: who is running what. */
-export type GamePlanEntry = {
-  routeCode: string;
-  driverName: string;
-  vehicle: string;
-  sort: "Yes" | "No";
-};
+import type { DriverRow } from "@/app/(private)/daily-game-plan/mockDailyGamePlanData";
 
+/** The deposit's Daily Game Plan, taken from that page's own dataset so the
+ *  home block shows the same drivers and routes and can never drift from it. */
 export type DailyGamePlan = {
-  entries: GamePlanEntry[];
-  notAllocated: string[];
+  lead: string;
+  drivers: DriverRow[];
 };
 
 export type RouteBalanceSummary = {

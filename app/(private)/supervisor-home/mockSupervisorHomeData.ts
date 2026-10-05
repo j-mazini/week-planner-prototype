@@ -9,6 +9,7 @@
  * performance — except `dayFinalized`/`routeBalance`, which reflect
  * today's in-progress operation.
  */
+import { initialDeposits } from "@/app/(private)/daily-game-plan/mockDailyGamePlanData";
 import type { SupervisorHomeSummary } from "./types";
 
 /** The day's lifecycle in Route Balance, in order. `routeBalance.stage` indexes this. */
@@ -30,19 +31,9 @@ export const mockSupervisorHomeSummary: SupervisorHomeSummary = {
   date: previousBusinessDayIso(),
   dayFinalized: false,
   routeBalance: { pendingRoutes: 2, unassignedStops: 14, stage: 1, lastUpdated: "08:42" },
-  gamePlan: {
-    entries: [
-      { routeCode: "B04", driverName: "Adriano Dutra", vehicle: "YF25 OZL", sort: "Yes" },
-      { routeCode: "B07", driverName: "Bruno Ribeiro", vehicle: "LV21 UFT", sort: "No" },
-      { routeCode: "B11", driverName: "Marcos Alves", vehicle: "LV22 JHF", sort: "No" },
-      { routeCode: "B15", driverName: "Rafael Souza", vehicle: "YF24 MTX", sort: "Yes" },
-      { routeCode: "B18", driverName: "Thiago Costa", vehicle: "LV23 KPD", sort: "Yes" },
-      { routeCode: "B19", driverName: "Pedro Monte", vehicle: "LV24 RSW", sort: "Yes" },
-      { routeCode: "B22", driverName: "Diego Santos", vehicle: "YF26 BLN", sort: "No" },
-      { routeCode: "B25", driverName: "Cristian Plesu", vehicle: "LV25 TQD", sort: "Yes" },
-    ],
-    notAllocated: ["GABRIEL LIMA DA SILVA", "LUCAS FERREIRA"],
-  },
+  // Straight from the Daily Game Plan's own dataset — the block is a smaller
+  // view of that page, not a second copy of the same plan.
+  gamePlan: { lead: initialDeposits.BAOP.lead, drivers: initialDeposits.BAOP.drivers },
   allocatedDrivers: 8,
   totalDrivers: 10,
   notAllocatedDriverNames: ["GABRIEL LIMA DA SILVA", "LUCAS FERREIRA"],

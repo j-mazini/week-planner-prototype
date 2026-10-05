@@ -35,6 +35,12 @@ export default function OperationStatusCard({
   const isGamePlan = view === "gameplan";
   const currentStage = dayFinalized ? OPERATION_STAGES.length - 1 : routeBalance.stage;
 
+  // "OFF" and "NALC" are the Daily Game Plan's own route codes for a driver who
+  // is off today and one with no route assigned yet.
+  const off = gamePlan.drivers.filter((d) => d.route === "OFF").length;
+  const notAllocated = gamePlan.drivers.filter((d) => d.route === "NALC").length;
+  const onRoute = gamePlan.drivers.length - off - notAllocated;
+
   const subtitle = isGamePlan
     ? dayFinalized
       ? `Finalized${finalizedAt ? ` at ${finalizedAt}` : ""} — this is the plan drivers are running.`
@@ -92,36 +98,36 @@ export default function OperationStatusCard({
       {isGamePlan ? (
         <>
           <p className="shp-group-label">
-            Allocated ({gamePlan.entries.length}/{gamePlan.entries.length + gamePlan.notAllocated.length})
+            {onRoute} on route · {off} off · {notAllocated} not allocated
           </p>
-          <ul className="shp-plan">
-            {gamePlan.entries.map((entry) => (
-              <li className="shp-plan__row" key={entry.routeCode}>
-                <span className="shp-route__code">{entry.routeCode}</span>
-                <span className="shp-plan__driver">
-                  <span>{entry.driverName}</span>
-                  <small>{entry.vehicle}</small>
-                </span>
-                <span className="shp-tag">Sort {entry.sort}</span>
-              </li>
-            ))}
-          </ul>
-
-          {gamePlan.notAllocated.length > 0 && (
-            <>
-              <div className="shp-divider" />
-              <p className="shp-group-label shp-group-label--risk">
-                Not allocated ({gamePlan.notAllocated.length})
-              </p>
-              <div className="shp-chip-row">
-                {gamePlan.notAllocated.map((name) => (
-                  <span className="shp-chip" key={name}>
-                    {name}
+          <div className="shp-plan">
+            <div className="shp-plan__head" aria-hidden="true">
+              <span>Route</span>
+              <span>Vendor / Driver</span>
+              <span>Sort</span>
+              <span>Vehicle</span>
+            </div>
+            <ul className="shp-plan__list">
+              {gamePlan.drivers.map((driver) => (
+                <li className="shp-plan__row" key={driver.name}>
+                  <span className={`shp-plan__route${driver.route === "NALC" ? " shp-plan__route--nalc" : ""}`}>
+                    {driver.route}
                   </span>
-                ))}
-              </div>
-            </>
-          )}
+                  <span className="shp-plan__driver">
+                    <span>{driver.name}</span>
+                    {driver.notes && <small>{driver.notes}</small>}
+                  </span>
+                  <span className={`shp-plan__sort shp-plan__sort--${driver.sort === "Yes" ? "yes" : "no"}`}>
+                    {driver.sort}
+                  </span>
+                  <span className="shp-plan__vehicle">
+                    <span className="shp-plan__dot" aria-hidden="true" />
+                    {driver.vehicle}
+                  </span>
+                </li>
+              ))}
+            </ul>
+          </div>
         </>
       ) : (
         <div className="shp-opstats">
