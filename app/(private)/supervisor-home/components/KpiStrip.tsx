@@ -34,7 +34,7 @@ function Delta({
 }
 
 export default function KpiStrip({ data }: { data: SupervisorHomeSummary }) {
-  const notAllocated = data.notAllocatedDriverNames.length;
+  const driversOff = data.driversOff.length;
   const allocatedPercent = data.totalDrivers ? (data.allocatedDrivers / data.totalDrivers) * 100 : 0;
   const stage = OPERATION_STAGES[data.routeBalance.stage] ?? OPERATION_STAGES[0];
 
@@ -70,15 +70,15 @@ export default function KpiStrip({ data }: { data: SupervisorHomeSummary }) {
       </article>
 
       <article className="shp-kpi">
-        <span className="shp-kpi__label">Drivers allocated</span>
+        <span className="shp-kpi__label">Drivers on route</span>
         <span className="shp-kpi__num">
           {data.allocatedDrivers}
           <span className="shp-kpi__unit">/{data.totalDrivers}</span>
         </span>
         <span className="shp-delta shp-delta--flat">
-          {notAllocated} not allocated <span className="shp-delta__caption">on the day</span>
+          {driversOff} off <span className="shp-delta__caption">on the day</span>
         </span>
-        <span className="shp-alloc" role="img" aria-label={`${data.allocatedDrivers} of ${data.totalDrivers} drivers allocated`}>
+        <span className="shp-alloc" role="img" aria-label={`${data.allocatedDrivers} of ${data.totalDrivers} drivers ran a route`}>
           <span className="shp-alloc__fill" style={{ width: `${allocatedPercent}%` }} />
         </span>
       </article>

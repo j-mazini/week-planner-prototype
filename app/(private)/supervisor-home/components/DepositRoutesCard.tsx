@@ -9,10 +9,10 @@ import type { DepositRoute } from "../types";
  */
 export default function DepositRoutesCard({
   routes,
-  notAllocated,
+  driversOff,
 }: {
   routes: DepositRoute[];
-  notAllocated: string[];
+  driversOff: string[];
 }) {
   const totalStops = routes.reduce((sum, r) => sum + r.stops, 0);
   const totalPlanned = routes.reduce((sum, r) => sum + r.plannedStops, 0);
@@ -113,13 +113,15 @@ export default function DepositRoutesCard({
         </div>
       )}
 
-      {notAllocated.length > 0 && (
+      {/* A finished day has no unallocated driver: either they ran a route or
+          they were off, so these are off, not pending. */}
+      {driversOff.length > 0 && (
         <>
           <div className="shp-divider" />
-          <p className="shp-group-label shp-group-label--risk">Not allocated ({notAllocated.length})</p>
+          <p className="shp-group-label shp-group-label--muted">Off ({driversOff.length})</p>
           <div className="shp-chip-row">
-            {notAllocated.map((name) => (
-              <span className="shp-chip" key={name}>
+            {driversOff.map((name) => (
+              <span className="shp-chip shp-chip--off" key={name}>
                 {name}
               </span>
             ))}

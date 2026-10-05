@@ -84,7 +84,9 @@ export type SupervisorHomeSummary = {
   gamePlan: DailyGamePlan;
   allocatedDrivers: number;
   totalDrivers: number;
-  notAllocatedDriverNames: string[];
+  /** Drivers who did not run a route. A finished day has no unallocated
+   *  driver — either they ran it or they were off. */
+  driversOff: string[];
   sortRatePercent: number;
   stopsDelivered: number;
   stopsDeliveredPrevious: number;

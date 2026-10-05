@@ -149,7 +149,7 @@ export default function SupervisorHomeContent({
 
       <div className="shp-grid">
         <div className="shp-grid__routes" {...panelProps("routes")}>
-          <DepositRoutesCard key={deposit} routes={data.routes} notAllocated={data.notAllocatedDriverNames} />
+          <DepositRoutesCard key={deposit} routes={data.routes} driversOff={data.driversOff} />
         </div>
         <div className="shp-grid__vendors" {...panelProps("vendors")}>
           <VendorPerformanceCard

@@ -277,6 +277,7 @@
   margin: 0 0 4px !important;
 }
 .shp-group-label--risk { color: var(--shp-risk); }
+.shp-group-label--muted { color: var(--muted); }
 
 .shp-divider { border-top: 1px dashed var(--line); margin: 14px 0 12px; }
 .shp-empty { color: var(--muted); font-size: var(--shp-text); }
@@ -328,6 +329,8 @@
   color: var(--shp-risk);
   padding: 4px 8px;
 }
+/* Being off is a normal state, not something to flag. */
+.shp-chip--off { border-color: var(--line); background: #f1f2e9; color: var(--muted); }
 
 /* ---------- vendor performance ---------- */
 
