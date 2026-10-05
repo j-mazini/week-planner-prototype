@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { DriverRow, SORT_OPTIONS, VEHICLE_OPTIONS } from "../../mockDailyGamePlanData";
+import { DriverRow, PAYMENT_MODE_OPTIONS, SORT_OPTIONS, VEHICLE_OPTIONS } from "../../mockDailyGamePlanData";
 
 type Props = {
   driver: DriverRow;
@@ -68,6 +68,32 @@ export default function DriverEditModal({ driver, onCancel, onSave }: Props) {
                 onChange={(e) => setDraft((d) => ({ ...d, sort: e.target.value as "Yes" | "No" }))}
               >
                 {SORT_OPTIONS.map((v) => (
+                  <option key={v}>{v}</option>
+                ))}
+              </select>
+            </label>
+          </div>
+          <div className="dgp-field-row">
+            <label className="dgp-field">
+              <span>Value</span>
+              <input
+                className="dgp-input"
+                type="number"
+                step="0.01"
+                aria-label="Value"
+                value={draft.value}
+                onChange={(e) => setDraft((d) => ({ ...d, value: Number(e.target.value) }))}
+              />
+            </label>
+            <label className="dgp-field">
+              <span>Payment Mode</span>
+              <select
+                className="dgp-select"
+                aria-label="Payment Mode"
+                value={draft.paymentMode}
+                onChange={(e) => setDraft((d) => ({ ...d, paymentMode: e.target.value }))}
+              >
+                {PAYMENT_MODE_OPTIONS.map((v) => (
                   <option key={v}>{v}</option>
                 ))}
               </select>

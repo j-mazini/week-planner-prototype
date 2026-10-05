@@ -15,6 +15,8 @@ export type DriverRow = {
   vehicle: string;
   sort: "Yes" | "No";
   notes: string;
+  value: number;
+  paymentMode: string;
 };
 
 export type DepositKey = "BAOP" | "LCY" | "MSE" | "LSE";
@@ -28,37 +30,38 @@ export type DepositMock = {
 
 export const VEHICLE_OPTIONS = ["UK OFF", "YF25 OZL", "LV21 UFT", "LV22 JHF"] as const;
 export const SORT_OPTIONS = ["Yes", "No"] as const;
+export const PAYMENT_MODE_OPTIONS = ["Bank Transfer", "Cash", "Invoice"] as const;
 
 const baopDrivers: DriverRow[] = [
-  { name: "PEDRO MONTE", route: "OFF", vehicle: "UK OFF", sort: "No", notes: "MY NOTE" },
-  { name: "GABRIEL LIMA DA SILVA", route: "NALC", vehicle: "UK OFF", sort: "No", notes: "" },
-  { name: "ADRIANO DUTRA", route: "B04", vehicle: "YF25 OZL", sort: "Yes", notes: "" },
-  { name: "BRUNO RIBEIRO", route: "B07", vehicle: "LV21 UFT", sort: "No", notes: "" },
-  { name: "CRISTIAN PLESU", route: "OFF", vehicle: "UK OFF", sort: "No", notes: "" },
-  { name: "MARCOS ALVES", route: "B11", vehicle: "LV22 JHF", sort: "No", notes: "Delayed start" },
-  { name: "RAFAEL SOUZA", route: "B15", vehicle: "YF25 OZL", sort: "Yes", notes: "" },
-  { name: "THIAGO COSTA", route: "B18", vehicle: "LV21 UFT", sort: "No", notes: "" },
-  { name: "LUCAS FERREIRA", route: "NALC", vehicle: "UK OFF", sort: "No", notes: "" },
-  { name: "DIEGO SANTOS", route: "B22", vehicle: "LV22 JHF", sort: "No", notes: "Covering B19" },
+  { name: "PEDRO MONTE", route: "OFF", vehicle: "UK OFF", sort: "No", notes: "MY NOTE", value: 0, paymentMode: "Bank Transfer" },
+  { name: "GABRIEL LIMA DA SILVA", route: "NALC", vehicle: "UK OFF", sort: "No", notes: "", value: 0, paymentMode: "Bank Transfer" },
+  { name: "ADRIANO DUTRA", route: "B04", vehicle: "YF25 OZL", sort: "Yes", notes: "", value: 145, paymentMode: "Bank Transfer" },
+  { name: "BRUNO RIBEIRO", route: "B07", vehicle: "LV21 UFT", sort: "No", notes: "", value: 130, paymentMode: "Invoice" },
+  { name: "CRISTIAN PLESU", route: "OFF", vehicle: "UK OFF", sort: "No", notes: "", value: 0, paymentMode: "Bank Transfer" },
+  { name: "MARCOS ALVES", route: "B11", vehicle: "LV22 JHF", sort: "No", notes: "Delayed start", value: 130, paymentMode: "Cash" },
+  { name: "RAFAEL SOUZA", route: "B15", vehicle: "YF25 OZL", sort: "Yes", notes: "", value: 150, paymentMode: "Bank Transfer" },
+  { name: "THIAGO COSTA", route: "B18", vehicle: "LV21 UFT", sort: "No", notes: "", value: 130, paymentMode: "Invoice" },
+  { name: "LUCAS FERREIRA", route: "NALC", vehicle: "UK OFF", sort: "No", notes: "", value: 0, paymentMode: "Bank Transfer" },
+  { name: "DIEGO SANTOS", route: "B22", vehicle: "LV22 JHF", sort: "No", notes: "Covering B19", value: 140, paymentMode: "Bank Transfer" },
 ];
 
 const lcyDrivers: DriverRow[] = [
-  { name: "FELIPE ARAUJO", route: "L02", vehicle: "LV21 UFT", sort: "No", notes: "" },
-  { name: "JOAO PEREIRA", route: "L05", vehicle: "YF25 OZL", sort: "Yes", notes: "" },
-  { name: "ANDRE NASCIMENTO", route: "OFF", vehicle: "UK OFF", sort: "No", notes: "Day off" },
-  { name: "CARLOS EDUARDO", route: "NALC", vehicle: "UK OFF", sort: "No", notes: "" },
+  { name: "FELIPE ARAUJO", route: "L02", vehicle: "LV21 UFT", sort: "No", notes: "", value: 135, paymentMode: "Bank Transfer" },
+  { name: "JOAO PEREIRA", route: "L05", vehicle: "YF25 OZL", sort: "Yes", notes: "", value: 150, paymentMode: "Cash" },
+  { name: "ANDRE NASCIMENTO", route: "OFF", vehicle: "UK OFF", sort: "No", notes: "Day off", value: 0, paymentMode: "Bank Transfer" },
+  { name: "CARLOS EDUARDO", route: "NALC", vehicle: "UK OFF", sort: "No", notes: "", value: 0, paymentMode: "Bank Transfer" },
 ];
 
 const mseDrivers: DriverRow[] = [
-  { name: "RICARDO GOMES", route: "M03", vehicle: "LV22 JHF", sort: "No", notes: "" },
-  { name: "VINICIUS ROCHA", route: "M06", vehicle: "YF25 OZL", sort: "No", notes: "" },
-  { name: "EDUARDO MARTINS", route: "M09", vehicle: "LV21 UFT", sort: "Yes", notes: "" },
+  { name: "RICARDO GOMES", route: "M03", vehicle: "LV22 JHF", sort: "No", notes: "", value: 130, paymentMode: "Invoice" },
+  { name: "VINICIUS ROCHA", route: "M06", vehicle: "YF25 OZL", sort: "No", notes: "", value: 130, paymentMode: "Bank Transfer" },
+  { name: "EDUARDO MARTINS", route: "M09", vehicle: "LV21 UFT", sort: "Yes", notes: "", value: 150, paymentMode: "Bank Transfer" },
 ];
 
 const lseDrivers: DriverRow[] = [
-  { name: "ANTONIO BARBOSA", route: "S01", vehicle: "UK OFF", sort: "No", notes: "" },
-  { name: "SAMUEL TEIXEIRA", route: "S04", vehicle: "LV22 JHF", sort: "No", notes: "" },
-  { name: "GUSTAVO MOURA", route: "NALC", vehicle: "UK OFF", sort: "No", notes: "" },
+  { name: "ANTONIO BARBOSA", route: "S01", vehicle: "UK OFF", sort: "No", notes: "", value: 135, paymentMode: "Bank Transfer" },
+  { name: "SAMUEL TEIXEIRA", route: "S04", vehicle: "LV22 JHF", sort: "No", notes: "", value: 135, paymentMode: "Cash" },
+  { name: "GUSTAVO MOURA", route: "NALC", vehicle: "UK OFF", sort: "No", notes: "", value: 0, paymentMode: "Bank Transfer" },
 ];
 
 /** @deprecated kept for backwards-compat with anything importing the old name; prefer initialDeposits.BAOP.drivers */

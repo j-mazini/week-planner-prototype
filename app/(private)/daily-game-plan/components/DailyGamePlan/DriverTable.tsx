@@ -20,6 +20,8 @@ export default function DriverTable({ drivers, canEdit, onEdit, onDelete }: Prop
             <th className="dgp-table__col-vendor">VENDOR / DRIVER</th>
             <th className="dgp-table__col-sort">SORT</th>
             <th className="dgp-table__col-vehicle">VEHICLE</th>
+            <th className="dgp-table__col-value">VALUE</th>
+            <th className="dgp-table__col-payment-mode">PAYMENT MODE</th>
             <th>OPS NOTES</th>
             <th className="dgp-table__col-actions">ACTIONS</th>
           </tr>
@@ -46,6 +48,8 @@ export default function DriverTable({ drivers, canEdit, onEdit, onDelete }: Prop
                   {driver.vehicle}
                 </span>
               </td>
+              <td className="dgp-table__value">{driver.value ? `£${driver.value.toFixed(2)}` : <span className="dgp-muted">—</span>}</td>
+              <td className="dgp-table__payment-mode">{driver.paymentMode}</td>
               <td className="dgp-table__notes">{driver.notes || <span className="dgp-muted">Notes...</span>}</td>
               <td className="dgp-table__actions">
                 {canEdit && (
@@ -75,7 +79,7 @@ export default function DriverTable({ drivers, canEdit, onEdit, onDelete }: Prop
           ))}
           {drivers.length === 0 && (
             <tr>
-              <td colSpan={6} className="dgp-table__empty">
+              <td colSpan={8} className="dgp-table__empty">
                 No drivers configured for this depot yet.
               </td>
             </tr>
