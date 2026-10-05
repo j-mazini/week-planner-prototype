@@ -2,7 +2,7 @@
 
 import DepositRoutesCard from "./components/DepositRoutesCard";
 import VendorPerformanceCard from "./components/VendorPerformanceCard";
-import VehiclesOutCard from "./components/VehiclesOutCard";
+import OperationStatusCard from "./components/OperationStatusCard";
 import { mockSupervisorHomeSummary } from "./mockSupervisorHomeData";
 import "./styles.css";
 
@@ -12,7 +12,7 @@ export default function SupervisorHomeContent() {
   const kpis = [
     { label: "Allocated drivers", value: `${data.allocatedDrivers}/${data.totalDrivers}`, tone: "good" },
     { label: "Not allocated", value: String(data.notAllocatedDriverNames.length), tone: "risk" },
-    { label: "Vehicles unavailable (now)", value: String(data.vehiclesOut.length), tone: "warn" },
+    { label: "Day status", value: data.dayFinalized ? "Finalized" : "In progress", tone: data.dayFinalized ? "good" : "warn" },
     { label: "Sort rate", value: `${data.sortRatePercent}%`, tone: "neutral" },
   ] as const;
 
@@ -44,7 +44,13 @@ export default function SupervisorHomeContent() {
       </div>
 
       <div className="shp-grid shp-grid--single">
-        <VehiclesOutCard vehicles={data.vehiclesOut} asOfDate={data.vehiclesAsOfDate} />
+        <OperationStatusCard
+          dayFinalized={data.dayFinalized}
+          routeBalance={data.routeBalance}
+          allocatedDrivers={data.allocatedDrivers}
+          totalDrivers={data.totalDrivers}
+          notAllocatedCount={data.notAllocatedDriverNames.length}
+        />
       </div>
     </div>
   );

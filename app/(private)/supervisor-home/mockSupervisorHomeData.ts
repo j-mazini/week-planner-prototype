@@ -7,7 +7,8 @@
  * - deposit/supervisor resolution would reuse lib/daily-supervisor-check.ts.
  *
  * Everything here is a summary of the previous business day — routes,
- * sort, performance — except `vehiclesOut`, which reflects right now.
+ * sort, performance — except `dayFinalized`/`routeBalance`, which reflect
+ * today's in-progress operation.
  */
 import type { SupervisorHomeSummary } from "./types";
 
@@ -23,7 +24,8 @@ export const mockSupervisorHomeSummary: SupervisorHomeSummary = {
   depositKey: "BAOP",
   depositLead: "Leandro Dias",
   date: previousBusinessDayIso(),
-  vehiclesAsOfDate: new Date().toISOString().slice(0, 10),
+  dayFinalized: false,
+  routeBalance: { pendingRoutes: 2, unassignedStops: 14 },
   allocatedDrivers: 8,
   totalDrivers: 10,
   notAllocatedDriverNames: ["GABRIEL LIMA DA SILVA", "LUCAS FERREIRA"],
@@ -43,9 +45,5 @@ export const mockSupervisorHomeSummary: SupervisorHomeSummary = {
   attentionVendors: [
     { vendorName: "Bruno Ribeiro", routeCode: "B07", score: 83.1, previousScore: 90.4, flag: "4 failed picks" },
     { vendorName: "Marcos Alves", routeCode: "B11", score: 87.6, previousScore: 85.2, flag: "late start" },
-  ],
-  vehiclesOut: [
-    { registration: "LV21 UFT", issueType: "maintenance", reason: "Preventive maintenance", since: "3 days", expectedBack: "Fri, 26 Sep" },
-    { registration: "YF25 OZL", issueType: "unassigned", reason: "No driver assigned for today", since: "Today" },
   ],
 };

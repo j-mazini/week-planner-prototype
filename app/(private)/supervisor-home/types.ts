@@ -23,22 +23,19 @@ export type VendorPerformanceEntry = {
   flag?: string;
 };
 
-export type VehicleIssueType = "maintenance" | "unassigned" | "inactive";
-
-export type VehicleOutOfOperation = {
-  registration: string;
-  issueType: VehicleIssueType;
-  reason: string;
-  since: string;
-  expectedBack?: string;
+export type RouteBalanceSummary = {
+  pendingRoutes: number;
+  unassignedStops: number;
 };
 
 export type SupervisorHomeSummary = {
   depositKey: string;
   depositLead: string;
-  /** The previous business day — everything here is a day-after summary, except `vehiclesOut`. */
+  /** The previous business day — everything here is a day-after summary, except the operation status block below. */
   date: string;
-  vehiclesAsOfDate: string;
+  /** Whether today's operation has been finalized in the Daily Game Plan. Drives the bottom block: Route Balance (not yet finalized) vs. Daily Game Plan (finalized). */
+  dayFinalized: boolean;
+  routeBalance: RouteBalanceSummary;
   allocatedDrivers: number;
   totalDrivers: number;
   notAllocatedDriverNames: string[];
@@ -46,5 +43,4 @@ export type SupervisorHomeSummary = {
   routes: DepositRoute[];
   topVendors: VendorPerformanceEntry[];
   attentionVendors: VendorPerformanceEntry[];
-  vehiclesOut: VehicleOutOfOperation[];
 };

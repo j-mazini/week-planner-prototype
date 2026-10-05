@@ -60,3 +60,12 @@
 
 .shp-empty { color: var(--muted); font-size: 12px; }
 .shp-error { color: #8e3e3e; font-size: 12px; }
+
+.shp-opstatus-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; }
+.shp-opstatus-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 10px 0; border-top: 1px solid var(--line-soft); font-size: 12px; }
+.shp-opstatus-row:first-of-type { border-top: none; }
+.shp-opstatus-row small { color: var(--muted); font-size: 10px; }
+.shp-opstatus-num { font-family: var(--display); font-weight: 700; font-size: 18px; font-variant-numeric: tabular-nums; color: var(--ink); white-space: nowrap; }
+
+.shp-cta { display: inline-flex; align-items: center; gap: 6px; font: 600 11px/1.4 var(--mono); text-transform: uppercase; letter-spacing: .04em; color: var(--teal-deep); text-decoration: none; }
+.shp-cta:hover { color: var(--teal); text-decoration: underline; }
