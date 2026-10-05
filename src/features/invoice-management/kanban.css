@@ -1,0 +1,71 @@
+.invoice-kanban { padding: 28px 32px 40px; color: #1a1c16; font-family: 'Space Grotesk', sans-serif; }
+.ik-heading { display: flex; justify-content: space-between; gap: 24px; align-items: end; padding-bottom: 24px; border-bottom: 1px solid #707979; }
+.ik-heading h1 { font-size: clamp(24px, 2.1vw, 34px); font-weight: 700; letter-spacing: -.04em; text-transform: uppercase; margin: 8px 0; }
+.ik-heading p { margin: 0; color: #3f4849; font-size: 13px; }
+.ik-heading .ik-eyebrow { font: 10px 'IBM Plex Mono', monospace; letter-spacing: .1em; }
+.ik-total { display: grid; gap: 6px; text-align: right; flex-shrink: 0; }
+.ik-total span { font: 10px 'IBM Plex Mono', monospace; color: #707979; }
+.ik-total strong { font-size: 28px; color: #003b3e; }
+.ik-toolbar { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; padding: 22px 0; }
+.ik-search { display: flex; align-items: center; gap: 10px; border: 1px solid #bfc8c9; background: #eeeee4; padding: 10px 12px; flex: 0 1 350px; min-width: 0; }
+.ik-search input { width: 100%; min-width: 0; border: 0; background: transparent; color: #1a1c16; outline: none; font: 11px 'IBM Plex Mono', monospace; }
+.ik-search:focus-within { outline: 2px solid #446900; outline-offset: 2px; }
+.ik-toolbar p { font-size: 12px; color: #3f4849; margin: 0; }
+.ik-prototype { margin-left: auto; color: #707979; font: 9px 'IBM Plex Mono', monospace; }
+.ik-board { display: grid; grid-template-columns: repeat(4, minmax(250px, 1fr)); align-items: start; gap: 16px; overflow-x: auto; padding-bottom: 16px; }
+.ik-column { --stage: #707979; display: grid; grid-template-rows: auto minmax(0, 1fr); height: clamp(420px, calc(100dvh - 380px), 720px); min-width: 0; overflow: hidden; background: #eeeee4; border: 1px solid #bfc8c9; border-top: 4px solid var(--stage); }
+.ik-pending { --stage: #ad7b10; }
+.ik-ready { --stage: #27676c; }
+.ik-invoiced { --stage: #446900; }
+.ik-column-heading { padding: 16px; border-bottom: 1px solid #bfc8c9; }
+.ik-column-heading > div { display: flex; gap: 8px; align-items: baseline; }
+.ik-step { color: var(--stage); font: 10px 'IBM Plex Mono', monospace; }
+.ik-column-heading h2 { font-size: 13px; font-weight: 600; margin: 0; }
+.ik-count { margin-left: auto; font: 11px 'IBM Plex Mono', monospace; }
+.ik-column-heading > strong { display: block; font: 600 24px 'Space Grotesk', sans-serif; color: #003b3e; margin-top: 12px; }
+.ik-cards { display: grid; align-content: start; gap: 12px; padding: 12px; min-height: 0; overflow-y: auto; overscroll-behavior-y: contain; scrollbar-gutter: stable; scrollbar-width: thin; scrollbar-color: #707979 #eeeee4; }
+.ik-cards:focus-visible { outline: 2px solid #446900; outline-offset: -3px; }
+.ik-card { background: #fff; border: 1px solid #bfc8c9; padding: 14px; min-width: 0; }
+.ik-card[draggable=true] { cursor: grab; }
+.ik-card-top { display: flex; align-items: center; justify-content: space-between; color: #707979; font: 10px 'IBM Plex Mono', monospace; }
+.ik-card h3 { font-size: 16px; font-weight: 600; margin: 16px 0 12px; }
+.ik-card-value { display: flex; justify-content: space-between; gap: 8px; align-items: baseline; }
+.ik-card-value span { font: 10px 'IBM Plex Mono', monospace; color: #707979; }
+.ik-card-value strong { font: 600 14px 'IBM Plex Mono', monospace; color: #003b3e; }
+.ik-card footer { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 10px; border-top: 1px solid #e9e9de; padding-top: 12px; margin-top: 16px; }
+.invoice-kanban button, .ik-dialog button { cursor: pointer; }
+.ik-detail { font-size: 11px; text-decoration: underline; text-underline-offset: 3px; background: transparent; border: 0; color: #3f4849; padding: 4px 0; }
+.ik-advance { display: flex; align-items: center; justify-content: center; gap: 6px; font: 10px 'IBM Plex Mono', monospace; background: #27676c; color: #fff; border: 1px solid #27676c; padding: 8px; width: 100%; }
+.ik-ready .ik-advance { background: #b2f746; border-color: #446900; color: #1a1c16; }
+.ik-drop-allowed { outline: 2px dashed #446900; outline-offset: -5px; }
+.ik-empty { color: #707979; font-size: 12px; padding: 24px 8px; text-align: center; }
+.ik-announcement:empty { display: none; }
+.ik-announcement, .ik-notice { padding: 10px 14px; background: #e9e9de; border-left: 3px solid #446900; font-size: 12px; margin: 0 0 16px; }
+.ik-history { grid-template-columns: 1fr; }
+.ik-history .ik-cards { grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); }
+.ik-dialog { background: #fafaef !important; border: 1px solid #bfc8c9 !important; border-radius: 0 !important; font-family: 'Space Grotesk', sans-serif; max-width: min(560px, calc(100vw - 32px)) !important; }
+.ik-dialog-record { display: grid; gap: 8px; padding: 18px; background: #eeeee4; border-left: 4px solid #446900; }
+.ik-dialog-record span { font: 11px 'IBM Plex Mono', monospace; }
+.ik-dialog-record h3 { font-size: 20px; margin: 0; }
+.ik-dialog-record strong { color: #003b3e; font-size: 24px; }
+.ik-transition { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; font: 11px 'IBM Plex Mono', monospace; }
+.ik-review { display: flex; gap: 10px; align-items: start; font-size: 13px; }
+.ik-review input { accent-color: #446900; margin-top: 3px; }
+.ik-demo-note { color: #707979; font-size: 12px; }
+.ik-dialog-actions { display: flex; justify-content: flex-end; gap: 12px; }
+.ik-dialog-actions button { display: inline-flex; align-items: center; gap: 8px; border: 1px solid #bfc8c9; padding: 10px 14px; background: transparent; font-size: 12px; }
+.ik-dialog-actions .ik-confirm { background: #b2f746; border-color: #446900; }
+.invoice-kanban button:disabled, .ik-dialog button:disabled { opacity: .45; cursor: not-allowed; }
+.invoice-kanban button:focus-visible, .ik-dialog button:focus-visible { outline: 2px solid #446900; outline-offset: 3px; }
+@media (min-width: 1800px) { .ik-advance { width: auto; } }
+@media (max-width: 700px) {
+  .invoice-kanban { padding: 24px 16px; }
+  .ik-heading { flex-direction: column; align-items: start; gap: 16px; }
+  .ik-total { text-align: left; }
+  .ik-toolbar { gap: 12px; }
+  .ik-prototype { margin-left: 0; }
+  .ik-search { flex-basis: 100%; }
+  .ik-board { grid-template-columns: repeat(4, minmax(280px, 85vw)); scroll-snap-type: x proximity; }
+  .ik-column { scroll-snap-align: start; height: clamp(420px, 65dvh, 640px); }
+  .ik-history { grid-template-columns: 1fr; }
+}

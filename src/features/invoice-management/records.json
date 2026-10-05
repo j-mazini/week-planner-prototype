@@ -1,0 +1,100 @@
+[
+  {
+    "id": "REC-2025001",
+    "vendor": "Benjamin Harris",
+    "period": "Sep 2026",
+    "amount": 248920,
+    "status": "pending"
+  },
+  {
+    "id": "REC-2025002",
+    "vendor": "James Anderson",
+    "period": "Sep 2026",
+    "amount": 92910,
+    "status": "pending"
+  },
+  {
+    "id": "REC-2025003",
+    "vendor": "Charlotte Walker",
+    "period": "Sep 2026",
+    "amount": 64341,
+    "status": "ready"
+  },
+  {
+    "id": "REC-2025004",
+    "vendor": "Alexander Lee",
+    "period": "Sep 2026",
+    "amount": 254677,
+    "status": "ready"
+  },
+  {
+    "id": "REC-2025005",
+    "vendor": "Emma Wilson",
+    "period": "Sep 2026",
+    "amount": 167029,
+    "status": "invoiced"
+  },
+  {
+    "id": "REC-2025006",
+    "vendor": "Maria Garcia",
+    "period": "Sep 2026",
+    "amount": 179810,
+    "status": "current"
+  },
+  {
+    "id": "REC-2025007",
+    "vendor": "Maria Garcia",
+    "period": "Sep 2026",
+    "amount": 132402,
+    "status": "pending"
+  },
+  {
+    "id": "REC-2025008",
+    "vendor": "Olivia Taylor",
+    "period": "Sep 2026",
+    "amount": 210202,
+    "status": "invoiced"
+  },
+  {
+    "id": "REC-2025009",
+    "vendor": "Amelia Lewis",
+    "period": "Sep 2026",
+    "amount": 269766,
+    "status": "current"
+  },
+  {
+    "id": "REC-2025010",
+    "vendor": "Sarah Brown",
+    "period": "Sep 2026",
+    "amount": 301118,
+    "status": "pending"
+  },
+  {
+    "id": "REC-2025027",
+    "vendor": "Mia Rodriguez",
+    "period": "Sep 2026",
+    "amount": 152947,
+    "status": "current"
+  },
+  {
+    "id": "REC-2025028",
+    "vendor": "Amelia Lewis",
+    "period": "Sep 2026",
+    "amount": 144286,
+    "status": "current"
+  },
+  {
+    "id": "REC-2025029",
+    "vendor": "Robert Johnson",
+    "period": "Sep 2026",
+    "amount": 224020,
+    "status": "pending"
+  },
+  {
+    "id": "REC-2025030",
+    "vendor": "Amelia Lewis",
+    "period": "Sep 2026",
+    "amount": 57377,
+    "status": "invoiced"
+  }
+]

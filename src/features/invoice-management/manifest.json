@@ -1,0 +1,326 @@
+[
+  {
+    "id": "41:2474",
+    "slug": "41-2474",
+    "name": "Processamento de invoices",
+    "figmaName": "Invoice Manangement - Invoice Processing Workflow",
+    "width": 1440,
+    "height": 1506,
+    "group": "Telas"
+  },
+  {
+    "id": "50:4736",
+    "slug": "50-4736",
+    "name": "Deduções — visão geral",
+    "figmaName": "Invoice Manangement - Deductions e Recharges",
+    "width": 1440,
+    "height": 1379,
+    "group": "Telas"
+  },
+  {
+    "id": "50:4816",
+    "slug": "50-4816",
+    "name": "Deduções — reparos e danos",
+    "figmaName": "Invoice Manangement - Deductions e Recharges",
+    "width": 1440,
+    "height": 1099,
+    "group": "Telas"
+  },
+  {
+    "id": "50:4926",
+    "slug": "50-4926",
+    "name": "Deduções — adiantamentos",
+    "figmaName": "Invoice Manangement - Deductions e Recharges",
+    "width": 1440,
+    "height": 1039,
+    "group": "Telas"
+  },
+  {
+    "id": "50:5031",
+    "slug": "50-5031",
+    "name": "Deduções — liquidação",
+    "figmaName": "Invoice Manangement - Deductions e Recharges",
+    "width": 1440,
+    "height": 930,
+    "group": "Telas"
+  },
+  {
+    "id": "50:5115",
+    "slug": "50-5115",
+    "name": "Deduções — multas",
+    "figmaName": "Invoice Manangement - Deductions e Recharges",
+    "width": 1440,
+    "height": 930,
+    "group": "Telas"
+  },
+  {
+    "id": "50:5205",
+    "slug": "50-5205",
+    "name": "Deduções — outras",
+    "figmaName": "Invoice Manangement - Deductions e Recharges",
+    "width": 1440,
+    "height": 938,
+    "group": "Telas"
+  },
+  {
+    "id": "50:5289",
+    "slug": "50-5289",
+    "name": "Reparos — etapa 1",
+    "figmaName": "Invoice Manangement - Deductions e Recharges",
+    "width": 1440,
+    "height": 1216,
+    "group": "Modais"
+  },
+  {
+    "id": "50:5421",
+    "slug": "50-5421",
+    "name": "Reparos — etapa 2",
+    "figmaName": "Invoice Manangement - Deductions e Recharges",
+    "width": 1440,
+    "height": 1216,
+    "group": "Modais"
+  },
+  {
+    "id": "50:5577",
+    "slug": "50-5577",
+    "name": "Reparos — etapa 3",
+    "figmaName": "Invoice Manangement - Deductions e Recharges",
+    "width": 1440,
+    "height": 1216,
+    "group": "Modais"
+  },
+  {
+    "id": "50:5727",
+    "slug": "50-5727",
+    "name": "Adiantamentos — etapa 1",
+    "figmaName": "Invoice Manangement - Deductions e Recharges",
+    "width": 1440,
+    "height": 1156,
+    "group": "Modais"
+  },
+  {
+    "id": "50:5855",
+    "slug": "50-5855",
+    "name": "Adiantamentos — etapa 2",
+    "figmaName": "Invoice Manangement - Deductions e Recharges",
+    "width": 1440,
+    "height": 1156,
+    "group": "Modais"
+  },
+  {
+    "id": "50:6014",
+    "slug": "50-6014",
+    "name": "Adiantamentos — etapa 3",
+    "figmaName": "Invoice Manangement - Deductions e Recharges",
+    "width": 1440,
+    "height": 1156,
+    "group": "Modais"
+  },
+  {
+    "id": "50:6159",
+    "slug": "50-6159",
+    "name": "Liquidação — etapa 1",
+    "figmaName": "Invoice Manangement - Deductions e Recharges",
+    "width": 1440,
+    "height": 1013,
+    "group": "Modais"
+  },
+  {
+    "id": "50:6268",
+    "slug": "50-6268",
+    "name": "Liquidação — etapa 2",
+    "figmaName": "Invoice Manangement - Deductions e Recharges",
+    "width": 1440,
+    "height": 1013,
+    "group": "Modais"
+  },
+  {
+    "id": "50:6393",
+    "slug": "50-6393",
+    "name": "Liquidação — etapa 3",
+    "figmaName": "Invoice Manangement - Deductions e Recharges",
+    "width": 1440,
+    "height": 1013,
+    "group": "Modais"
+  },
+  {
+    "id": "50:6517",
+    "slug": "50-6517",
+    "name": "Multas — etapa 1",
+    "figmaName": "Invoice Manangement - Deductions e Recharges",
+    "width": 1440,
+    "height": 1013,
+    "group": "Modais"
+  },
+  {
+    "id": "50:6634",
+    "slug": "50-6634",
+    "name": "Multas — etapa 2",
+    "figmaName": "Invoice Manangement - Deductions e Recharges",
+    "width": 1440,
+    "height": 1013,
+    "group": "Modais"
+  },
+  {
+    "id": "50:6765",
+    "slug": "50-6765",
+    "name": "Multas — etapa 3",
+    "figmaName": "Invoice Manangement - Deductions e Recharges",
+    "width": 1440,
+    "height": 1013,
+    "group": "Modais"
+  },
+  {
+    "id": "50:6898",
+    "slug": "50-6898",
+    "name": "Outras deduções — etapa 1",
+    "figmaName": "Invoice Manangement - Deductions e Recharges",
+    "width": 1440,
+    "height": 1013,
+    "group": "Modais"
+  },
+  {
+    "id": "50:7003",
+    "slug": "50-7003",
+    "name": "Outras deduções — etapa 2",
+    "figmaName": "Invoice Manangement - Deductions e Recharges",
+    "width": 1440,
+    "height": 1013,
+    "group": "Modais"
+  },
+  {
+    "id": "50:7128",
+    "slug": "50-7128",
+    "name": "Outras deduções — etapa 3",
+    "figmaName": "Modal / Other / 3",
+    "width": 1440,
+    "height": 1013,
+    "group": "Modais"
+  },
+  {
+    "id": "82:7755",
+    "slug": "82-7755",
+    "name": "Agendamento de pagamentos",
+    "figmaName": "Invoice Manangement - Schedule for Payment",
+    "width": 1440,
+    "height": 1449,
+    "group": "Telas"
+  },
+  {
+    "id": "82:7814",
+    "slug": "82-7814",
+    "name": "Alterar data de pagamento",
+    "figmaName": "Invoice Manangement - Schedule for Payment",
+    "width": 1440,
+    "height": 1473,
+    "group": "Modais"
+  },
+  {
+    "id": "82:8787",
+    "slug": "82-8787",
+    "name": "Histórico de invoices",
+    "figmaName": "Invoice Manangement - Invoices History",
+    "width": 1440,
+    "height": 1518,
+    "group": "Telas"
+  },
+  {
+    "id": "82:9197",
+    "slug": "82-9197",
+    "name": "Detalhes da invoice",
+    "figmaName": "Invoice Manangement - Invoice Processing Workflow",
+    "width": 1440,
+    "height": 1504,
+    "group": "Modais"
+  },
+  {
+    "id": "82:9457",
+    "slug": "82-9457",
+    "name": "Exportar invoices",
+    "figmaName": "Invoice Manangement - Invoice Processing Workflow",
+    "width": 1440,
+    "height": 1504,
+    "group": "Modais"
+  },
+  {
+    "id": "82:9565",
+    "slug": "82-9565",
+    "name": "Relatório PDF",
+    "figmaName": "PDF",
+    "width": 794,
+    "height": 1123,
+    "group": "Referências"
+  },
+  {
+    "id": "82:9735",
+    "slug": "82-9735",
+    "name": "Relatório PDF vazio",
+    "figmaName": "PDF - sem infos",
+    "width": 794,
+    "height": 1123,
+    "group": "Referências"
+  },
+  {
+    "id": "82:9770",
+    "slug": "82-9770",
+    "name": "Invoice PDF",
+    "figmaName": "PDF - nota",
+    "width": 794,
+    "height": 1123,
+    "group": "Referências"
+  },
+  {
+    "id": "82:9956",
+    "slug": "82-9956",
+    "name": "Verificar registro",
+    "figmaName": "Invoice Manangement - Invoice Processing Workflow",
+    "width": 1440,
+    "height": 1504,
+    "group": "Modais"
+  },
+  {
+    "id": "82:10061",
+    "slug": "82-10061",
+    "name": "Gerar invoice",
+    "figmaName": "Invoice Manangement - Invoice Processing Workflow",
+    "width": 1440,
+    "height": 1504,
+    "group": "Modais"
+  },
+  {
+    "id": "82:10168",
+    "slug": "82-10168",
+    "name": "Agendar pagamento",
+    "figmaName": "Invoice Manangement - Invoice Processing Workflow",
+    "width": 1440,
+    "height": 1504,
+    "group": "Modais"
+  },
+  {
+    "id": "82:10280",
+    "slug": "82-10280",
+    "name": "Ação em lote",
+    "figmaName": "Invoice Manangement - Invoice Processing Workflow",
+    "width": 1440,
+    "height": 1504,
+    "group": "Modais"
+  },
+  {
+    "id": "98:14325",
+    "slug": "98-14325",
+    "name": "Invoice PDF — variante 2",
+    "figmaName": "PDF2",
+    "width": 794,
+    "height": 1123,
+    "group": "Referências"
+  },
+  {
+    "id": "1:90",
+    "slug": "1-90",
+    "name": "Capa",
+    "figmaName": "Capa",
+    "width": 1280,
+    "height": 720,
+    "group": "Referências"
+  }
+]

@@ -65,7 +65,6 @@ const importedGroups = [
     items: [
       ["/assets", "Assets", Package], ["/contract-management", "Contracts", ShieldCheck],
       ["/requests-inbox", "Requests inbox", ListChecks],
-      ["/requests-admin", "Requests admin", ShieldCheck],
       ["/vendor", "Vendor", Users], ["/vendor-performance", "Vendor performance", BarChart3],
     ],
   },
