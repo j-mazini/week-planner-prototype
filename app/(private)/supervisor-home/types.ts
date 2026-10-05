@@ -1,7 +1,11 @@
+/** A route's day, named the way Daily Operations Insights
+ *  (`/daily-operations-reports`) names it: Route, Vendor, VRN, TW %, Depart,
+ *  Arrive, Work Hours, Stops, Note. */
 export type DepositRoute = {
   routeCode: string;
-  driverName: string;
-  vehicle: string;
+  vendorName: string;
+  /** Vehicle Registration Number. */
+  vrn: string;
   sort: "Yes" | "No";
   /** Stops delivered. A route is always run to the end, so the gap against
    *  `plannedStops` is `notReceived + failedPick`, never unattempted stops. */
@@ -11,23 +15,32 @@ export type DepositRoute = {
   notReceived: number;
   /** Failed Pick */
   failedPick: number;
-  /** Stops per hour */
-  sph: number;
+  /** Stops per route-hour — "SPOR-H" across the rest of the app. */
+  sporH: number;
   /** TW — deliveries made inside their time window, as a percentage
    *  (`route_time_windows.percentage_ot_tw_dl` on the backend). */
   timeWindowPercent: number;
   departTime: string;
   arriveTime: string;
+  workHours: string;
   note?: string;
 };
 
+/** A vendor's week, carrying the columns `/vendor-performance` breaks a vendor
+ *  down by: NR, FP, SPOR-H and RTW. */
 export type VendorPerformanceEntry = {
   vendorName: string;
   routeCode: string;
   score: number;
   /** Score for the same period a week before — drives the trend delta. */
   previousScore: number;
-  flag?: string;
+  /** Not Received */
+  notReceived: number;
+  /** Failed Pick */
+  failedPick: number;
+  sporH: number;
+  /** Route Time Window %. */
+  rtw: number;
 };
 
 /** A metric measured once per business day, oldest first. */

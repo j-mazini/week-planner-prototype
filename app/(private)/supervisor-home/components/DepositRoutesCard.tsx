@@ -1,5 +1,12 @@
+import Link from "next/link";
 import type { DepositRoute } from "../types";
 
+/**
+ * A smaller read of Daily Operations Insights (`/daily-operations-reports`):
+ * the same columns in the same order — Route, Vendor, VRN, TW %, Depart,
+ * Arrive, Work Hours, Stops, Note — for one deposit and one day, so there is
+ * no second vocabulary for the supervisor to learn.
+ */
 export default function DepositRoutesCard({
   routes,
   notAllocated,
@@ -9,10 +16,8 @@ export default function DepositRoutesCard({
 }) {
   const totalStops = routes.reduce((sum, r) => sum + r.stops, 0);
   const totalPlanned = routes.reduce((sum, r) => sum + r.plannedStops, 0);
-  const totalNotReceived = routes.reduce((sum, r) => sum + r.notReceived, 0);
-  const totalFailedPick = routes.reduce((sum, r) => sum + r.failedPick, 0);
-  const avgSph = routes.length ? routes.reduce((sum, r) => sum + r.sph, 0) / routes.length : 0;
-  const totalCompletion = totalPlanned ? Math.round((totalStops / totalPlanned) * 100) : 0;
+  const totalFailures = routes.reduce((sum, r) => sum + r.notReceived + r.failedPick, 0);
+  const avgSporH = routes.length ? routes.reduce((sum, r) => sum + r.sporH, 0) / routes.length : 0;
   // TW is per delivery, so the deposit figure weighs each route by its stops.
   const depositTw = totalStops
     ? routes.reduce((sum, r) => sum + r.timeWindowPercent * r.stops, 0) / totalStops
@@ -35,15 +40,15 @@ export default function DepositRoutesCard({
           </div>
           <div>
             <dt>Failures</dt>
-            <dd>{totalNotReceived + totalFailedPick}</dd>
+            <dd>{totalFailures}</dd>
           </div>
           <div title="Deliveries made inside their time window">
-            <dt>TW</dt>
-            <dd>{depositTw.toFixed(1)}%</dd>
+            <dt>TW %</dt>
+            <dd>{depositTw.toFixed(1)}</dd>
           </div>
-          <div>
-            <dt>Avg SPH</dt>
-            <dd>{avgSph.toFixed(1)}</dd>
+          <div title="Stops per route-hour">
+            <dt>SPOR-H</dt>
+            <dd>{avgSporH.toFixed(1)}</dd>
           </div>
         </dl>
       </header>
@@ -51,81 +56,67 @@ export default function DepositRoutesCard({
       {routes.length === 0 ? (
         <p className="shp-empty">No routes recorded for the previous day.</p>
       ) : (
-        <div className="shp-routes">
-          {routes.map((route) => {
-            const completion = route.plannedStops ? Math.round((route.stops / route.plannedStops) * 100) : 0;
-            const failed = route.notReceived + route.failedPick;
-            return (
-              <article className="shp-route" key={route.routeCode}>
-                <span className="shp-route__code">{route.routeCode}</span>
-
-                <div className="shp-route__body">
-                  <div className="shp-route__top">
-                    <span className="shp-route__driver">{route.driverName}</span>
-                    <span className="shp-route__vehicle">{route.vehicle}</span>
-                    <span className="shp-route__count">
-                      {route.stops}
-                      <span className="shp-route__of">/{route.plannedStops} stops</span>
-                      <span className="shp-route__pct">{completion}%</span>
-                    </span>
-                  </div>
-
-                  <span
-                    className="shp-bar"
-                    role="img"
-                    aria-label={`${completion}% of planned stops delivered`}
-                    title={`${route.stops} of ${route.plannedStops} stops`}
-                  >
-                    <span
-                      className={`shp-bar__fill${completion < 90 ? " shp-bar__fill--short" : ""}`}
-                      style={{ width: `${completion}%` }}
-                    />
-                  </span>
-
-                  <div className="shp-route__meta">
-                    {failed === 0 && <span className="shp-tag shp-tag--good">No failures</span>}
-                    {route.notReceived > 0 && (
-                      <span className="shp-tag shp-tag--risk" title="Not Received">
-                        NR {route.notReceived}
-                      </span>
-                    )}
-                    {route.failedPick > 0 && (
-                      <span className="shp-tag shp-tag--risk" title="Failed Pick">
-                        FP {route.failedPick}
-                      </span>
-                    )}
-                    <span className="shp-tag">Sort {route.sort}</span>
-                    <span
-                      className={`shp-tag${route.timeWindowPercent < 90 ? " shp-tag--risk" : ""}`}
-                      title="Deliveries made inside their time window"
-                    >
-                      TW {route.timeWindowPercent.toFixed(1)}%
-                    </span>
-                    <span className="shp-tag">{route.sph.toFixed(1)} SPH</span>
-                    <span className="shp-tag">
-                      {route.departTime}–{route.arriveTime}
-                    </span>
-                    {route.note && <span className="shp-route__note">{route.note}</span>}
-                  </div>
-                </div>
-              </article>
-            );
-          })}
+        <div className="shp-table">
+          <div className="shp-table__scroll">
+            <table className="shp-ops">
+              <thead>
+                <tr>
+                  <th>Route</th>
+                  <th>Vendor</th>
+                  <th>VRN</th>
+                  <th title="Deliveries made inside their time window">TW %</th>
+                  <th>Depart</th>
+                  <th>Arrive</th>
+                  <th>Work hours</th>
+                  <th>Stops</th>
+                </tr>
+              </thead>
+              <tbody>
+                {routes.map((route) => {
+                  const failures = route.notReceived + route.failedPick;
+                  return (
+                    <tr key={route.routeCode}>
+                      <td>
+                        <span className="shp-plan__route">{route.routeCode}</span>
+                      </td>
+                      <td className="shp-ops__vendor">
+                        <span>{route.vendorName}</span>
+                        {route.note && <small>{route.note}</small>}
+                      </td>
+                      <td>
+                        <span className="shp-plan__vehicle">
+                          <span className="shp-plan__dot" aria-hidden="true" />
+                          {route.vrn}
+                        </span>
+                      </td>
+                      <td className={route.timeWindowPercent < 90 ? "shp-ops__num shp-ops__num--risk" : "shp-ops__num"}>
+                        {route.timeWindowPercent.toFixed(1)}
+                      </td>
+                      <td className="shp-ops__num">{route.departTime}</td>
+                      <td className="shp-ops__num">{route.arriveTime}</td>
+                      <td className="shp-ops__num">{route.workHours}</td>
+                      <td className="shp-ops__num">
+                        {route.stops}
+                        <span className="shp-ops__of">/{route.plannedStops}</span>
+                        {failures > 0 && (
+                          <span className="shp-ops__fail" title={`Not Received ${route.notReceived} · Failed Pick ${route.failedPick}`}>
+                            NR {route.notReceived} · FP {route.failedPick}
+                          </span>
+                        )}
+                      </td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </div>
         </div>
       )}
-
-      <footer className="shp-route-total">
-        <span className="shp-route-total__label">Deposit total</span>
-        <span className="shp-bar" role="img" aria-label={`${totalCompletion}% of planned stops delivered across the deposit`}>
-          <span className="shp-bar__fill" style={{ width: `${totalCompletion}%` }} />
-        </span>
-        <span className="shp-route-total__value">{totalCompletion}%</span>
-      </footer>
 
       {notAllocated.length > 0 && (
         <>
           <div className="shp-divider" />
-          <p className="shp-card__sub">Not allocated ({notAllocated.length})</p>
+          <p className="shp-group-label shp-group-label--risk">Not allocated ({notAllocated.length})</p>
           <div className="shp-chip-row">
             {notAllocated.map((name) => (
               <span className="shp-chip" key={name}>
@@ -135,6 +126,11 @@ export default function DepositRoutesCard({
           </div>
         </>
       )}
+
+      <Link className="shp-cta" prefetch={false} href="/daily-operations-reports">
+        Open Daily Operations Insights
+        <span aria-hidden="true">→</span>
+      </Link>
     </section>
   );
 }

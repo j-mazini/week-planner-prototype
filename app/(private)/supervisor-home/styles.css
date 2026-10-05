@@ -166,11 +166,10 @@
 .shp-grid__vendors { grid-area: vendors; }
 .shp-grid__operation { grid-area: operation; }
 
-/* Three across from 1366px — iPad Pro landscape and desktops, the first width
-   where a route row's five tags fit on one line in a third of the page. Below
-   it the tab bar takes over: a narrower three-column view only fits by
-   scrolling inside the cards, which is the thing to avoid. */
-@media (min-width: 1366px) {
+/* Three across from 1440px — desktops. Every iPad, the 12.9" in landscape
+   included, stays on the tab bar: three columns there only fit by scrolling,
+   which is the thing to avoid. */
+@media (min-width: 1440px) {
   .shp-grid {
     /* Routes carries the widest rows, so it gets the most room; the plan table
        needs the second most. */
@@ -184,7 +183,7 @@
 
 /* Columns are narrow at this width, so a card header stacks instead of
    fighting its stats for the same line. */
-@media (min-width: 1366px) and (max-width: 1599px) {
+@media (min-width: 1440px) and (max-width: 1699px) {
   .shp-card__head { flex-direction: column; gap: 8px; }
   .shp-headstats { width: 100%; justify-content: space-between; }
   .shp-headstats div { text-align: left; }
@@ -256,104 +255,43 @@
 .shp-empty { color: var(--muted); font-size: var(--shp-text); }
 .shp-error { color: var(--shp-risk); font-size: var(--shp-text); }
 
-/* ---------- routes ---------- */
+/* ---------- routes: the Daily Operations Insights table, smaller ---------- */
 
-.shp-routes { display: flex; flex-direction: column; }
-.shp-route {
-  display: grid;
-  grid-template-columns: auto 1fr;
-  gap: clamp(10px, .8vw, 18px);
-  align-items: start;
-  padding: clamp(10px, .8vw, 16px) 0;
-  border-top: 1px solid var(--line-soft);
-}
-.shp-route:first-child { border-top: none; padding-top: 4px; }
-.shp-route__code {
-  font-family: var(--display);
-  font-weight: 700;
-  font-size: clamp(13px, .95vw, 17px);
-  color: var(--teal-deep);
-  background: #eef1df;
-  border: 1px solid #c8d5a7;
-  padding: 3px 7px;
-  min-width: 46px;
-  text-align: center;
-}
-.shp-route__body { display: flex; flex-direction: column; gap: 7px; min-width: 0; }
-.shp-route__top { display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap; }
-.shp-route__driver { color: var(--ink); font-weight: 500; }
-.shp-route__vehicle {
-  font-size: var(--shp-small);
-  color: var(--muted);
-  border: 1px solid var(--line-soft);
-  padding: 1px 5px;
-}
-.shp-route__count {
-  margin-left: auto;
-  font-variant-numeric: tabular-nums;
-  color: var(--ink);
+.shp-table { display: flex; flex-direction: column; min-height: 0; }
+.shp-table__scroll { overflow: auto; min-height: 0; }
+.shp-ops { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; }
+.shp-ops th {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  background: var(--paper) !important;
+  text-align: left;
   white-space: nowrap;
-}
-.shp-route__of { color: var(--muted); font-size: .85em; margin-left: 2px; }
-.shp-route__pct {
-  font-family: var(--display);
-  font-weight: 700;
-  margin-left: 8px;
-  color: var(--teal-deep);
-}
-
-.shp-bar {
-  display: block;
-  position: relative;
-  width: 100%;
-  height: 7px;
-  background: var(--shp-track);
-  border: 1px solid var(--line-soft);
-}
-.shp-bar__fill {
-  position: absolute;
-  inset: 0 auto 0 0;
-  background: var(--teal);
-  border-radius: 0 3px 3px 0;
-}
-.shp-bar__fill--short { background: var(--shp-amber); }
-
-.shp-route__meta { display: flex; flex-wrap: wrap; gap: 5px; align-items: center; }
-.shp-tag {
-  font-size: var(--shp-small);
-  font-variant-numeric: tabular-nums;
-  color: var(--muted);
-  border: 1px solid var(--line-soft);
-  background: #f6f6ef;
-  padding: 2px 6px;
-  white-space: nowrap;
-}
-.shp-tag--risk { color: var(--shp-risk); border-color: #e6c7c7; background: #f8eaea; }
-.shp-tag--good { color: var(--olive); border-color: #c8d5a7; background: #eef1df; }
-.shp-route__note { font-size: var(--shp-small); color: var(--muted); font-style: italic; }
-
-.shp-route-total {
-  display: grid;
-  grid-template-columns: auto 1fr auto;
-  align-items: center;
-  gap: 10px;
-  margin-top: 12px;
-  padding-top: 12px;
-  border-top: 1px solid var(--line);
-}
-.shp-route-total__label {
-  font-size: var(--shp-small);
+  padding: 0 8px 6px 0 !important;
+  border-bottom: 1px solid var(--line) !important;
+  font: 700 var(--shp-small)/1.2 var(--mono);
   text-transform: uppercase;
   letter-spacing: .06em;
-  color: var(--muted);
+  color: var(--olive) !important;
 }
-.shp-route-total__value {
-  font-family: var(--display);
-  font-weight: 700;
-  font-size: clamp(14px, 1vw, 18px);
-  color: var(--ink);
-  font-variant-numeric: tabular-nums;
+.shp-ops td {
+  padding: 5px 8px 5px 0 !important;
+  border-bottom: 1px solid var(--line-soft) !important;
+  font-size: var(--shp-small);
+  vertical-align: middle;
+  white-space: nowrap;
 }
+.shp-ops tr:last-child td { border-bottom: none !important; }
+.shp-ops tbody tr:hover { background: transparent !important; }
+.shp-ops__vendor { white-space: normal !important; }
+.shp-ops__vendor span { color: var(--ink); font-size: var(--shp-text); }
+.shp-ops__vendor small { display: block; color: var(--muted); font-style: italic; }
+.shp-ops__num { color: var(--ink); }
+.shp-ops__num--risk { color: var(--shp-risk); font-weight: 600; }
+.shp-ops__of { color: var(--muted); }
+.shp-ops__fail { display: block; color: var(--shp-risk); font-size: .92em; }
+
+/* ---------- routes ---------- */
 
 .shp-chip-row { display: flex; flex-wrap: wrap; gap: 6px; }
 .shp-chip {
@@ -608,7 +546,7 @@
    the page itself never scrolls, tighten the rhythm, and let a card longer than
    its column scroll inside its own box. */
 
-@media (min-width: 1366px) and (max-height: 920px) {
+@media (min-width: 1440px) and (max-height: 920px) {
   .app-imported-page[data-page="supervisor-home"] {
     height: calc(100vh - 64px);
     min-height: 0;
@@ -633,13 +571,11 @@
   .shp-card { overflow-y: auto; }
 
   /* Denser rows so most cards need no inner scrolling at all. */
-  .shp-route { padding: 6px 0; }
-  .shp-route__body { gap: 5px; }
+  .shp-ops td { padding-top: 4px !important; padding-bottom: 4px !important; }
   .shp-vendor { padding: 6px 0; }
   .shp-plan__row { padding: 3px 0; }
   .shp-tag { padding: 1px 5px; }
   .shp-card__head { padding-bottom: 8px; margin-bottom: 8px; }
-  .shp-route-total { margin-top: 8px; padding-top: 8px; }
   .shp-divider { margin: 10px 0 8px; }
   .shp-cta { margin-top: 12px; }
   /* The KPI strip's status tile already carries the stage bar at this width. */
@@ -650,7 +586,7 @@
    One section at a time behind a tab bar, so each card gets the full width and
    the page fits the screen instead of running several screens deep. */
 
-@media (max-width: 1365px) {
+@media (max-width: 1439px) {
   .shp-tabs {
     display: grid;
     grid-auto-flow: column;
@@ -660,6 +596,9 @@
     border: 1px solid var(--line);
     margin-bottom: var(--shp-gap);
   }
+  /* One panel at a time, so the grid's named rows would otherwise leave the
+     hidden sections' tracks as empty space above and below the visible one. */
+  .shp-grid { display: block; }
   .shp-grid > [data-panel][data-active="false"] { display: none; }
   /* The operation tile is dropped: its card is the default tab right below,
      so it would say the same thing twice. */
@@ -668,7 +607,7 @@
 
 /* Tablets in either orientation: trim the chrome so the visible section fits
    the screen without scrolling. */
-@media (min-width: 768px) and (max-width: 1365px) {
+@media (min-width: 768px) and (max-width: 1439px) {
   /* Pin the shell to the viewport so the page never scrolls. The topbar is 65px
      with its border, which the shell's own min-height does not account for. */
   .app-imported-page[data-page="supervisor-home"] {
@@ -692,7 +631,11 @@
   /* Only the long roster scrolls, inside the card — the header, stage bar and
      action below it stay in place. */
   .shp-plan { display: flex; flex-direction: column; min-height: 0; }
-  .shp-routes,
+  /* Natural height when there is room, shrinking into its own scroller only
+     when the card runs out — so a short table does not leave a hole above the
+     footer. */
+  .shp-table { flex: 0 1 auto; }
+  .shp-table__scroll,
   .shp-vendors,
   .shp-plan__list { overflow-y: auto; min-height: 0; }
   .shp-header { margin-bottom: 10px; }
@@ -700,10 +643,7 @@
   .shp-kpi .shp-spark,
   .shp-kpi .shp-alloc { display: none; }
   .shp-card__head { padding-bottom: 8px; margin-bottom: 8px; }
-  .shp-route { padding: 3px 0; }
-  .shp-route__body { gap: 4px; }
-  .shp-route:first-child { padding-top: 2px; }
-  .shp-route-total { margin-top: 6px; padding-top: 6px; }
+  .shp-ops td { padding-top: 3px !important; padding-bottom: 3px !important; }
   .shp-vendor { padding: 6px 0; }
   .shp-plan__row { padding: 3px 0; }
   .shp-divider { margin: 8px 0 6px; }
@@ -711,16 +651,13 @@
 
 /* Short landscape tablets (iPad mini is 744px tall): one notch tighter again,
    so the longest section still clears the fold. */
-@media (min-width: 768px) and (max-width: 1365px) and (max-height: 800px) {
+@media (min-width: 768px) and (max-width: 1439px) and (max-height: 800px) {
   .shp-wrap { --shp-text: 11px; --shp-small: 9px; --shp-gap: 8px; --shp-pad: 12px; }
   .shp-kpi { padding: 10px 12px; }
   .shp-kpi__num { font-size: 26px; }
-  .shp-bar { height: 5px; }
   .shp-group-label { margin-bottom: 2px !important; }
   .shp-card__head { padding-bottom: 6px; margin-bottom: 6px; }
-  .shp-route { padding: 2px 0; }
-  .shp-route__body { gap: 3px; }
-  .shp-route-total { margin-top: 4px; padding-top: 4px; }
+  .shp-ops td { padding-top: 2px !important; padding-bottom: 2px !important; }
   .shp-vendor { padding: 4px 0; }
   .shp-plan__row { padding: 2px 0; }
   .shp-divider { margin: 6px 0 4px; }
@@ -741,13 +678,6 @@
   .shp-headstats { width: 100%; justify-content: space-between; }
   .shp-headstats div { text-align: left; }
 
-  /* Route: the code gets its own line, the detail spans the full width below. */
-  .shp-route {
-    grid-template-columns: 1fr;
-    gap: 8px;
-  }
-  .shp-route__code { justify-self: start; }
-  .shp-route__count { margin-left: 0; width: 100%; }
 
   /* Vendor: identity and score on top, the scale full width underneath. */
   .shp-vendor {

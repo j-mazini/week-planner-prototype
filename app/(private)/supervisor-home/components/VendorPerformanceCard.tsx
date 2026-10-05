@@ -1,3 +1,4 @@
+import Link from "next/link";
 import type { VendorPerformanceEntry } from "../types";
 
 /** Scores cluster in the high range, so the scale starts at 75 rather than 0 — a dot
@@ -37,9 +38,10 @@ function VendorRow({
       <span className="shp-vendor__rank">{String(rank).padStart(2, "0")}</span>
       <span className="shp-vendor__id">
         <span className="shp-vendor__name">{entry.vendorName}</span>
+        {/* The columns /vendor-performance breaks a vendor down by. */}
         <small>
-          {entry.routeCode}
-          {entry.flag ? ` · ${entry.flag}` : ""}
+          {entry.routeCode} · NR {entry.notReceived} · FP {entry.failedPick} · SPOR-H{" "}
+          {entry.sporH.toFixed(1)} · RTW {entry.rtw.toFixed(1)}%
         </small>
       </span>
       <span
@@ -134,6 +136,11 @@ export default function VendorPerformanceCard({
         </span>
         <span />
       </div>
+
+      <Link className="shp-cta" prefetch={false} href="/vendor-performance">
+        Open Vendor performance
+        <span aria-hidden="true">→</span>
+      </Link>
     </section>
   );
 }
