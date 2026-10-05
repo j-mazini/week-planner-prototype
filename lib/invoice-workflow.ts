@@ -19,6 +19,12 @@ export function nextInvoiceStage(status: InvoiceStage): InvoiceStage | undefined
   return INVOICE_STAGES[INVOICE_STAGES.findIndex(stage => stage.id === status) + 1]?.id;
 }
 
+/** Undoes one step, for a record returned to the queue from the session column. */
+export function previousInvoiceStage(status: InvoiceStage): InvoiceStage | undefined {
+  const index = INVOICE_STAGES.findIndex(stage => stage.id === status);
+  return index > 0 ? INVOICE_STAGES[index - 1].id : undefined;
+}
+
 export function moveInvoice(records: WorkflowRecord[], id: string, from: InvoiceStage, to: InvoiceStage): WorkflowRecord[] {
   if (nextInvoiceStage(from) !== to) return records;
   return records.map(record => record.id === id && record.status === from ? { ...record, status: to } : record);

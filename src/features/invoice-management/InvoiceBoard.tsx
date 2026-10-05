@@ -1,26 +1,48 @@
 'use client';
 
 import { useEffect, useMemo, useState } from 'react';
-import { ArrowRight, Search, GripVertical, FileText } from 'lucide-react';
-import { Dialog, DialogContent, DialogTitle, DialogDescription } from '@/components/ui/dialog';
-import { INVOICE_STAGES, nextInvoiceStage, moveInvoice, restoreInvoiceStages, type InvoiceStage, type WorkflowRecord } from '@/lib/invoice-workflow';
+import { AnimatePresence, motion, useReducedMotion } from 'framer-motion';
+import { ArrowRight, Check, FileText, Search } from 'lucide-react';
+import {
+  INVOICE_STAGES,
+  moveInvoice,
+  nextInvoiceStage,
+  previousInvoiceStage,
+  restoreInvoiceStages,
+  type InvoiceStage,
+  type WorkflowRecord,
+} from '@/lib/invoice-workflow';
+// Shared with /clearing-desk on purpose: the two desks work the same way, so a
+// card leaving one column and arriving in the other should move identically.
+import {
+  APPROVE_CONFIRM_MS,
+  CARD_ENTER,
+  CARD_SETTLED,
+  CLEARED_EXIT,
+  QUEUE_EXIT,
+  cardTransition,
+} from '@/app/(private)/clearing-desk/motion';
 import seedData from './records.json';
-import './kanban.css';
+import './desk.css';
 
 const seed = seedData as WorkflowRecord[];
 const storageKey = 'logix.invoice-workflow.v1';
 const currency = (pence: number) => new Intl.NumberFormat('en-GB', { style: 'currency', currency: 'GBP' }).format(pence / 100);
-type Selection = { id: string; from: InvoiceStage; to?: InvoiceStage };
+const stageOf = (id: InvoiceStage) => INVOICE_STAGES.find(stage => stage.id === id);
 
 export default function InvoiceBoard({ history = false }: { history?: boolean }) {
   const [records, setRecords] = useState(seed);
   const [loaded, setLoaded] = useState(false);
   const [query, setQuery] = useState('');
-  const [selection, setSelection] = useState<Selection | null>(null);
+  const [selectedId, setSelectedId] = useState<string | null>(null);
+  /** Records moved on in this session, newest first — the right-hand column. */
+  const [clearedIds, setClearedIds] = useState<string[]>([]);
   const [reviewed, setReviewed] = useState(false);
-  const [draggedId, setDraggedId] = useState<string | null>(null);
+  const [confirming, setConfirming] = useState(false);
   const [notice, setNotice] = useState('');
   const [storageError, setStorageError] = useState('');
+  const reduced = useReducedMotion() ?? false;
+  const { enter, exit } = cardTransition(reduced);
 
   useEffect(() => {
     try {
@@ -37,73 +59,253 @@ export default function InvoiceBoard({ history = false }: { history?: boolean })
     } catch { setStorageError('Changes could not be saved in this browser. Keep this page open to retain your progress.'); }
   }, [records, loaded]);
 
-  const filtered = useMemo(() => records.filter(record => `${record.id} ${record.vendor} ${record.period}`.toLowerCase().includes(query.trim().toLowerCase())), [records, query]);
-  const selected = records.find(record => record.id === selection?.id);
-  const visibleStages = history ? INVOICE_STAGES.filter(stage => stage.id === 'invoiced') : INVOICE_STAGES;
-  const dragged = records.find(record => record.id === draggedId);
-  const total = records.reduce((sum, record) => sum + record.amount, 0);
+  useEffect(() => {
+    if (!notice) return;
+    const timer = setTimeout(() => setNotice(''), 3000);
+    return () => clearTimeout(timer);
+  }, [notice]);
 
-  function open(record: WorkflowRecord, to?: InvoiceStage) {
-    setReviewed(false);
-    setSelection({ id: record.id, from: record.status, to });
+  const byId = useMemo(() => new Map(records.map(record => [record.id, record])), [records]);
+  const total = records.reduce((sum, record) => sum + record.amount, 0);
+  const invoiced = records.filter(record => record.status === 'invoiced');
+
+  /** The desk holds whatever still needs work and has not been handled yet today. */
+  const open = records.filter(record => record.status !== 'invoiced' && !clearedIds.includes(record.id));
+  const matches = open.filter(record =>
+    `${record.id} ${record.vendor} ${record.period}`.toLowerCase().includes(query.trim().toLowerCase()));
+  const active = open.find(record => record.id === selectedId) ?? open[0];
+  const activeStage = active ? stageOf(active.status) : undefined;
+  const nextStage = active ? nextInvoiceStage(active.status) : undefined;
+  const needsReview = active?.status === 'pending';
+  const clearedTotal = clearedIds.reduce((sum, id) => sum + (byId.get(id)?.amount ?? 0), 0);
+
+  function advance() {
+    if (!active || confirming) return;
+    const to = nextInvoiceStage(active.status);
+    if (!to || (needsReview && !reviewed)) return;
+    const { id, status } = active;
+    // The tick stays long enough to read as registered, then the card leaves.
+    setConfirming(true);
+    setTimeout(() => {
+      setRecords(current => moveInvoice(current, id, status, to));
+      setClearedIds(current => [id, ...current]);
+      setSelectedId(null);
+      setReviewed(false);
+      setConfirming(false);
+      setNotice(`${id} moved to ${stageOf(to)?.label}.`);
+    }, reduced ? 0 : APPROVE_CONFIRM_MS);
   }
 
-  function confirm() {
-    if (!selection?.to || !selected || selected.status !== selection.from || (selected.status === 'pending' && !reviewed)) return;
-    const { id, from, to } = selection;
-    setRecords(current => moveInvoice(current, id, from, to));
-    setNotice(`${id} moved to ${INVOICE_STAGES.find(stage => stage.id === to)?.label}.`);
-    setSelection(null);
+  function restore(id: string) {
+    const record = byId.get(id);
+    const back = record && previousInvoiceStage(record.status);
+    if (!record || !back) return;
+    // `moveInvoice` only ever goes forward, so a return steps the record back
+    // directly — `previousInvoiceStage` is what keeps it to one stage.
+    setRecords(current => current.map(item => item.id === id ? { ...item, status: back } : item));
+    setClearedIds(current => current.filter(item => item !== id));
+    setSelectedId(id);
+    setNotice(`${id} returned to ${stageOf(back)?.label}.`);
+  }
+
+  if (history) {
+    return (
+      <section className="invoice-desk" aria-label="Invoices history">
+        <header className="idk-heading">
+          <div>
+            <p className="idk-eyebrow">FINANCE / INVOICES</p>
+            <h1>Invoices history</h1>
+            <p>Records that completed the workflow.</p>
+          </div>
+          <div className="idk-total">
+            <span>{invoiced.length} INVOICED / TOTAL VALUE</span>
+            <strong>{currency(invoiced.reduce((sum, record) => sum + record.amount, 0))}</strong>
+          </div>
+        </header>
+        <div className="idk-history">
+          {invoiced.map(record => (
+            <article className="idk-history-row" key={record.id}>
+              <FileText size={15} aria-hidden="true" />
+              <span className="idk-id">{record.id}</span>
+              <h3>{record.vendor}</h3>
+              <span className="idk-period">{record.period}</span>
+              <strong>{currency(record.amount)}</strong>
+            </article>
+          ))}
+          {!invoiced.length && <p className="idk-empty">No invoices issued yet.</p>}
+        </div>
+      </section>
+    );
   }
 
   return (
-    <section className="invoice-kanban" aria-label={history ? 'Invoices history' : 'Invoice kanban'}>
-      <header className="ik-heading">
-        <div><p className="ik-eyebrow">FINANCE / INVOICES</p><h1>{history ? 'Invoices history' : 'Invoice Processing Workflow'}</h1><p>Track each record from the current period to invoicing.</p></div>
-        <div className="ik-total"><span>{records.length} RECORDS / TOTAL VALUE</span><strong>{currency(total)}</strong></div>
+    <section className="invoice-desk" aria-label="Invoice processing desk">
+      <header className="idk-heading">
+        <div>
+          <p className="idk-eyebrow">FINANCE / INVOICES</p>
+          <h1>Invoice Processing Workflow</h1>
+          <p>Work the queue one record at a time, from the current period to invoicing.</p>
+        </div>
+        <div className="idk-total">
+          <span>{records.length} RECORDS / TOTAL VALUE</span>
+          <strong>{currency(total)}</strong>
+        </div>
       </header>
-      <div className="ik-toolbar">
-        <label className="ik-search"><Search size={16} /><input type="search" aria-label="Search invoice records" placeholder="Search subcontractor or record ID…" value={query} onChange={event => setQuery(event.target.value)} /></label>
-        <p>{history ? 'Completed invoices' : 'Move records one stage at a time. Drag a card or use its action.'}</p>
-        <span className="ik-prototype">PROTOTYPE · SAVED IN THIS BROWSER</span>
-      </div>
-      {storageError && <p className="ik-notice" role="alert">{storageError}</p>}
-      <p className="ik-announcement" role="status" aria-live="polite">{notice}</p>
-      <div className={`ik-board ${history ? 'ik-history' : ''}`}>
-        {visibleStages.map(stage => {
-          const all = records.filter(record => record.status === stage.id);
-          const cards = filtered.filter(record => record.status === stage.id);
-          const canDrop = Boolean(dragged && nextInvoiceStage(dragged.status) === stage.id);
-          return <section key={stage.id} className={`ik-column ik-${stage.id} ${canDrop ? 'ik-drop-allowed' : ''}`} aria-label={stage.label} onDragOver={event => { if (canDrop) { event.preventDefault(); event.dataTransfer.dropEffect = 'move'; } }} onDrop={event => {
-            event.preventDefault();
-            if (canDrop && dragged) open(dragged, stage.id);
-            setDraggedId(null);
-          }}>
-            <header className="ik-column-heading"><div><span className="ik-step">0{INVOICE_STAGES.indexOf(stage) + 1}</span><h2>{stage.label}</h2><span className="ik-count">{all.length}</span></div><strong>{currency(all.reduce((sum, record) => sum + record.amount, 0))}</strong></header>
-            <div className="ik-cards" role="region" aria-label={`${stage.label} records`} tabIndex={0}>
-              {cards.map(record => <article key={record.id} className="ik-card" data-record-id={record.id} draggable={loaded && stage.id !== 'invoiced'} onDragStart={event => { setDraggedId(record.id); event.dataTransfer.setData('text/plain', record.id); event.dataTransfer.effectAllowed = 'move'; }} onDragEnd={() => setDraggedId(null)}>
-                <div className="ik-card-top"><span>{record.id}</span>{stage.id !== 'invoiced' ? <GripVertical size={15} aria-hidden="true" /> : <FileText size={15} aria-hidden="true" />}</div>
-                <h3>{record.vendor}</h3><div className="ik-card-value"><span>{record.period}</span><strong>{currency(record.amount)}</strong></div>
-                <footer><button className="ik-detail" onClick={() => open(record)}>View details</button>{stage.action && <button disabled={!loaded} className="ik-advance" onClick={() => open(record, nextInvoiceStage(record.status))}>{stage.action}<ArrowRight size={13} /></button>}</footer>
-              </article>)}
-              {!cards.length && <p className="ik-empty">{query ? 'No matching records in this stage.' : 'No records in this stage.'}</p>}
+
+      {storageError && <p className="idk-notice" role="alert">{storageError}</p>}
+      <p className="idk-announcement" role="status" aria-live="polite">{notice}</p>
+
+      <div className="idk-columns">
+        <aside className="idk-queue" aria-label="Records awaiting action">
+          <div className="idk-queue-head">
+            <h2>AWAITING ACTION</h2>
+            <span>{open.length} TOTAL</span>
+          </div>
+          <label className="idk-search">
+            <Search size={15} aria-hidden="true" />
+            <input
+              value={query}
+              onChange={event => setQuery(event.target.value)}
+              placeholder="SEARCH..."
+              aria-label="Search records"
+            />
+          </label>
+          <AnimatePresence initial={false}>
+            {matches.map(record => (
+              <motion.button
+                layout
+                key={record.id}
+                initial={CARD_ENTER}
+                animate={{ ...CARD_SETTLED, transition: enter }}
+                exit={{ ...QUEUE_EXIT, transition: exit }}
+                type="button"
+                className={`idk-queue-card${record.id === active?.id ? ' selected' : ''}`}
+                aria-pressed={record.id === active?.id}
+                onClick={() => { setSelectedId(record.id); setReviewed(false); }}
+              >
+                <span className="idk-card-row">
+                  <span className="idk-id">{record.id}</span>
+                  <span className="idk-stage-badge">{stageOf(record.status)?.label}</span>
+                </span>
+                <span className="idk-card-row">
+                  <span>{record.vendor}</span>
+                  <strong>{currency(record.amount)}</strong>
+                </span>
+                <span className="idk-period">{record.period}</span>
+              </motion.button>
+            ))}
+          </AnimatePresence>
+          {!matches.length && <p className="idk-empty">{query ? 'No matching records.' : 'Nothing left to action.'}</p>}
+        </aside>
+
+        <section className="idk-bench" aria-label="Selected record">
+          {active ? (
+            <>
+              <article className="idk-record">
+                <div className="idk-record-seam">RECORD: {active.id}</div>
+                <div className="idk-record-body">
+                  <h3>{active.vendor}</h3>
+                  <dl className="idk-record-facts">
+                    <div><dt>Period</dt><dd>{active.period}</dd></div>
+                    <div><dt>Value</dt><dd>{currency(active.amount)}</dd></div>
+                    <div><dt>Stage</dt><dd>{activeStage?.label}</dd></div>
+                  </dl>
+                </div>
+                <div className="idk-approve">
+                  <span className="idk-approve-next">
+                    {activeStage?.label}
+                    <ArrowRight size={13} aria-hidden="true" />
+                    {nextStage && stageOf(nextStage)?.label}
+                  </span>
+                  <button
+                    type="button"
+                    className={`idk-approve-btn${confirming ? ' is-confirming' : ''}`}
+                    disabled={!loaded || (needsReview && !reviewed)}
+                    onClick={advance}
+                  >
+                    {confirming ? <><Check size={15} aria-hidden="true" /> Registered</> : activeStage?.action}
+                  </button>
+                </div>
+              </article>
+
+              {needsReview && (
+                <label className="idk-review">
+                  <input type="checkbox" checked={reviewed} onChange={event => setReviewed(event.target.checked)} />
+                  I have reviewed the routes, rates and deductions for this record.
+                </label>
+              )}
+
+              <ol className="idk-stages" aria-label="Workflow stages">
+                {INVOICE_STAGES.map((stage, index) => {
+                  const position = INVOICE_STAGES.findIndex(item => item.id === active.status);
+                  return (
+                    <li
+                      key={stage.id}
+                      className={`idk-stage${index < position ? ' is-done' : ''}${index === position ? ' is-current' : ''}`}
+                      aria-current={index === position ? 'step' : undefined}
+                    >
+                      <span className="idk-stage-dot" aria-hidden="true" />
+                      <span>{stage.label}</span>
+                    </li>
+                  );
+                })}
+              </ol>
+
+              <p className="idk-demo-note">
+                Prototype, saved in this browser. No invoice is issued or sent.
+              </p>
+            </>
+          ) : (
+            <div className="idk-done">
+              <Check size={22} aria-hidden="true" />
+              <h3>The queue is clear</h3>
+              <p>Every record has been moved on for this session.</p>
             </div>
-          </section>;
-        })}
+          )}
+        </section>
+
+        <aside className="idk-session" aria-label="Moved on in this session">
+          <div className="idk-session-counter">
+            <h2>{clearedIds.length} MOVED ON</h2>
+            <div><span style={{ width: `${records.length ? (clearedIds.length / records.length) * 100 : 0}%` }} /></div>
+          </div>
+          <div className="idk-session-head">
+            THIS SESSION
+            {clearedIds.length > 0 && <span>TOTAL: {currency(clearedTotal)}</span>}
+          </div>
+          <div className="idk-session-list">
+            <AnimatePresence initial={false}>
+              {clearedIds.map(id => {
+                const record = byId.get(id);
+                if (!record) return null;
+                return (
+                  <motion.article
+                    layout
+                    key={id}
+                    initial={CARD_ENTER}
+                    animate={{ ...CARD_SETTLED, transition: enter }}
+                    exit={{ ...CLEARED_EXIT, transition: exit }}
+                    className="idk-session-card"
+                  >
+                    <div className="idk-card-row">
+                      <span className="idk-id">{record.id}</span>
+                      <span className="idk-stage-badge is-done">{stageOf(record.status)?.label}</span>
+                    </div>
+                    <h3>{record.vendor}</h3>
+                    <div className="idk-card-row">
+                      <strong>{currency(record.amount)}</strong>
+                      <button type="button" onClick={() => restore(id)} aria-label={`Return ${record.vendor} to the queue`}>
+                        <span aria-hidden="true">⤺</span> RETURN
+                      </button>
+                    </div>
+                  </motion.article>
+                );
+              })}
+            </AnimatePresence>
+            {!clearedIds.length && <p className="idk-empty">Nothing moved on yet.</p>}
+          </div>
+        </aside>
       </div>
-      <Dialog open={Boolean(selection)} onOpenChange={isOpen => { if (!isOpen) setSelection(null); }}>
-        <DialogContent className="ik-dialog">
-          <DialogTitle>{selection?.to ? INVOICE_STAGES.find(stage => stage.id === selection.from)?.action : 'Record details'}</DialogTitle>
-          <DialogDescription>{selection?.to ? 'Review this record before moving it to the next stage.' : 'The current status and details of this record.'}</DialogDescription>
-          {selected && <>
-            <div className="ik-dialog-record"><span>{selected.id}</span><h3>{selected.vendor}</h3><strong>{currency(selected.amount)}</strong><span>{selected.period}</span></div>
-            <div className="ik-transition"><span>{INVOICE_STAGES.find(stage => stage.id === selected.status)?.label}</span>{selection?.to && <><ArrowRight size={16} /><strong>{INVOICE_STAGES.find(stage => stage.id === selection.to)?.label}</strong></>}</div>
-            {selection?.to && selected.status === 'pending' && <label className="ik-review"><input type="checkbox" checked={reviewed} onChange={event => setReviewed(event.target.checked)} />I have reviewed the routes, rates and deductions for this record.</label>}
-            {selection?.to === 'invoiced' && <p className="ik-demo-note">This updates the prototype status. No invoice is issued or sent.</p>}
-            <div className="ik-dialog-actions"><button onClick={() => setSelection(null)}>{selection?.to ? 'Cancel' : 'Close'}</button>{selection?.to && <button className="ik-confirm" disabled={selected.status === 'pending' && !reviewed} onClick={confirm}>{selected.status === 'pending' ? 'Mark as verified' : INVOICE_STAGES.find(stage => stage.id === selected.status)?.action}<ArrowRight size={14} /></button>}</div>
-          </>}
-        </DialogContent>
-      </Dialog>
     </section>
   );
 }

@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { INVOICE_STAGES, moveInvoice, nextInvoiceStage, restoreInvoiceStages, type WorkflowRecord } from './invoice-workflow';
+import { INVOICE_STAGES, moveInvoice, nextInvoiceStage, previousInvoiceStage, restoreInvoiceStages, type WorkflowRecord } from './invoice-workflow';
 
 const records: WorkflowRecord[] = [
   { id: 'A', vendor: 'Vendor A', period: 'Sep 2026', amount: 248920, status: 'current' },
@@ -30,6 +30,18 @@ describe('invoice workflow', () => {
     const advanced = moveInvoice(records, 'A', 'current', 'pending');
     expect(moveInvoice(advanced, 'A', 'current', 'pending')).toEqual(advanced);
     expect(moveInvoice(records, 'unknown', 'current', 'pending')).toEqual(records);
+  });
+
+  it('steps back one stage at a time and stops at the first', () => {
+    expect(previousInvoiceStage('invoiced')).toBe('ready');
+    expect(previousInvoiceStage('ready')).toBe('pending');
+    expect(previousInvoiceStage('pending')).toBe('current');
+    expect(previousInvoiceStage('current')).toBeUndefined();
+    // A return is an advance read backwards, so the pair round-trips.
+    for (const stage of INVOICE_STAGES) {
+      const next = nextInvoiceStage(stage.id);
+      if (next) expect(previousInvoiceStage(next)).toBe(stage.id);
+    }
   });
 
   it('restores valid saved stages without accepting unknown stages or altering amounts', () => {
