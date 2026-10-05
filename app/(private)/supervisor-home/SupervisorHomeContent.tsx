@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import type { DepositKey } from "@/app/(private)/daily-game-plan/mockDailyGamePlanData";
 import { useAuth } from "@/hooks/useAuth";
 import { BUSINESS_RULES } from "@/src/constants/businessRules";
@@ -23,10 +23,48 @@ const TABS = [
 type TabId = (typeof TABS)[number]["id"];
 type DepositFilter = DepositKey | "ALL";
 
-export default function SupervisorHomeContent() {
+/** The page each section is a smaller read of. */
+export type DashboardSource = { href: string; label: string };
+
+const SOURCES: Record<string, DashboardSource> = {
+  routes: { href: "/daily-operations-reports", label: "Daily Operations Insights" },
+  vendors: { href: "/vendor-performance", label: "Vendor performance" },
+  balance: { href: "/route-balance", label: "Route Balance" },
+  gameplan: { href: "/daily-game-plan", label: "Daily Game Plan" },
+  all: { href: "/supervisor-home", label: "full dashboard" },
+};
+
+/** Matches the width at which styles.css stops using the tab bar and shows all
+ *  three cards at once — with no single visible section, there is no single
+ *  source page to point at. */
+const ALL_SECTIONS_QUERY = "(min-width: 1440px)";
+
+export default function SupervisorHomeContent({
+  onSourceChange,
+}: {
+  onSourceChange?: (source: DashboardSource) => void;
+} = {}) {
   const [tab, setTab] = useState<TabId>("operation");
   const [deposit, setDeposit] = useState<DepositFilter>("ALL");
+  const [operationView, setOperationView] = useState<"balance" | "gameplan">("balance");
+  const [showsAllSections, setShowsAllSections] = useState(false);
   const { user } = useAuth();
+
+  useEffect(() => {
+    const mq = window.matchMedia(ALL_SECTIONS_QUERY);
+    const sync = () => setShowsAllSections(mq.matches);
+    sync();
+    mq.addEventListener("change", sync);
+    return () => mq.removeEventListener("change", sync);
+  }, []);
+
+  useEffect(() => {
+    if (!onSourceChange) return;
+    const key = showsAllSections ? "all" : tab === "operation" ? operationView : tab;
+    onSourceChange(SOURCES[key]);
+  }, [onSourceChange, showsAllSections, tab, operationView]);
+
+  const handleViewChange = useCallback((view: "balance" | "gameplan") => setOperationView(view), []);
 
   // A supervisor is scoped to their own deposit; an admin sees every deposit
   // and can narrow to one.
@@ -126,6 +164,7 @@ export default function SupervisorHomeContent() {
             finalizedAt={data.finalizedAt}
             routeBalance={data.routeBalance}
             gamePlan={data.gamePlan}
+            onViewChange={handleViewChange}
           />
         </div>
       </div>

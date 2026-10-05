@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { StatusBadge } from "@/components/status-badge";
 import { OPERATION_STAGES } from "../mockSupervisorHomeData";
@@ -23,16 +23,23 @@ export default function OperationStatusCard({
   finalizedAt,
   routeBalance,
   gamePlan,
+  onViewChange,
 }: {
   dayFinalized: boolean;
   finalizedAt?: string;
   routeBalance: RouteBalanceSummary;
   gamePlan: DailyGamePlan;
+  /** Lets a host — the home modal — point its own link at the page being shown. */
+  onViewChange?: (view: View) => void;
 }) {
   // Opens on whichever view matches the day; the switch lets the supervisor
   // look at the other one without leaving the dashboard.
   const [view, setView] = useState<View>(dayFinalized ? "gameplan" : "balance");
   const isGamePlan = view === "gameplan";
+
+  useEffect(() => {
+    onViewChange?.(view);
+  }, [view, onViewChange]);
   const currentStage = dayFinalized ? OPERATION_STAGES.length - 1 : routeBalance.stage;
 
   // "OFF" and "NALC" are the Daily Game Plan's own route codes for a driver who

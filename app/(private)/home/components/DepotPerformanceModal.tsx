@@ -1,9 +1,9 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { ArrowUpRight, X } from "lucide-react";
-import SupervisorHomeContent from "@/app/(private)/supervisor-home/SupervisorHomeContent";
+import SupervisorHomeContent, { type DashboardSource } from "@/app/(private)/supervisor-home/SupervisorHomeContent";
 import { useBodyScrollLock } from "@/hooks/useBodyScrollLock";
 
 /**
@@ -17,6 +17,10 @@ import { useBodyScrollLock } from "@/hooks/useBodyScrollLock";
  */
 export default function DepotPerformanceModal({ onClose }: { onClose: () => void }) {
   const panelRef = useRef<HTMLDivElement>(null);
+  // Each section is a smaller read of a real page, so the header link follows
+  // whichever one is on screen.
+  const [source, setSource] = useState<DashboardSource>({ href: "/supervisor-home", label: "full dashboard" });
+  const handleSourceChange = useCallback((next: DashboardSource) => setSource(next), []);
   useBodyScrollLock(true);
 
   useEffect(() => {
@@ -41,8 +45,8 @@ export default function DepotPerformanceModal({ onClose }: { onClose: () => void
         <header className="depot-modal__head">
           <h2 id="depot-modal-title">Depot performance</h2>
           <div className="depot-modal__actions">
-            <Link prefetch={false} className="depot-modal__full" href="/supervisor-home">
-              Open full page <ArrowUpRight size={13} />
+            <Link prefetch={false} className="depot-modal__full" href={source.href}>
+              Open {source.label} <ArrowUpRight size={13} />
             </Link>
             <button type="button" className="depot-modal__close" onClick={onClose} aria-label="Close depot performance">
               <X size={17} />
@@ -50,7 +54,7 @@ export default function DepotPerformanceModal({ onClose }: { onClose: () => void
           </div>
         </header>
         <div className="depot-modal__body">
-          <SupervisorHomeContent />
+          <SupervisorHomeContent onSourceChange={handleSourceChange} />
         </div>
       </div>
     </div>
