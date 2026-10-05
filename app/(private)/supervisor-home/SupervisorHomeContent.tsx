@@ -80,9 +80,7 @@ export default function SupervisorHomeContent() {
             dayFinalized={data.dayFinalized}
             finalizedAt={data.finalizedAt}
             routeBalance={data.routeBalance}
-            allocatedDrivers={data.allocatedDrivers}
-            totalDrivers={data.totalDrivers}
-            notAllocatedCount={data.notAllocatedDriverNames.length}
+            gamePlan={data.gamePlan}
           />
         </div>
       </div>

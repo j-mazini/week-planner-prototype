@@ -37,6 +37,19 @@ export type DailySeries = {
   values: number[];
 };
 
+/** One line of today's plan: who is running what. */
+export type GamePlanEntry = {
+  routeCode: string;
+  driverName: string;
+  vehicle: string;
+  sort: "Yes" | "No";
+};
+
+export type DailyGamePlan = {
+  entries: GamePlanEntry[];
+  notAllocated: string[];
+};
+
 export type RouteBalanceSummary = {
   pendingRoutes: number;
   unassignedStops: number;
@@ -54,6 +67,8 @@ export type SupervisorHomeSummary = {
   dayFinalized: boolean;
   finalizedAt?: string;
   routeBalance: RouteBalanceSummary;
+  /** Today's allocation, listed when the operation block is on the game-plan view. */
+  gamePlan: DailyGamePlan;
   allocatedDrivers: number;
   totalDrivers: number;
   notAllocatedDriverNames: string[];
