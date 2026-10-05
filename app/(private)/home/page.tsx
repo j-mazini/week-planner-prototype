@@ -53,6 +53,10 @@ export default function HomePage() {
     return <DriverHome />;
   }
 
+  // The deposit dashboard spans every deposit, so it is an admin destination —
+  // a service partner also lands on this page and should not see the link.
+  const isAdmin = user?.userTypeId === BUSINESS_RULES.USER_TYPE.ADMIN || Boolean(user?.roles?.includes("admin"));
+
   return (
     <NavbarWrapper>
       <main className="home-new">
@@ -64,6 +68,9 @@ export default function HomePage() {
           </div>
           <div className="home-new__hero-actions">
             <button className="home-new__refresh" type="button" onClick={() => setRefreshed(true)}><RefreshCw size={14} /> {refreshed ? "Updated" : "Refresh view"}</button>
+            {isAdmin && (
+              <Link prefetch={false} className="home-new__secondary" href="/supervisor-home"><Gauge size={15} /> See my depots performance</Link>
+            )}
             <Link prefetch={false} className="home-new__primary" href="/daily-game-plan"><Plus size={15} /> Start daily plan</Link>
           </div>
         </section>
