@@ -24,6 +24,10 @@ export default function DepositRoutesCard({
   const totalFailedPick = routes.reduce((sum, r) => sum + r.failedPick, 0);
   const avgSph = routes.length ? routes.reduce((sum, r) => sum + r.sph, 0) / routes.length : 0;
   const totalCompletion = totalPlanned ? Math.round((totalStops / totalPlanned) * 100) : 0;
+  // TW is per delivery, so the deposit figure weighs each route by its stops.
+  const depositTw = totalStops
+    ? routes.reduce((sum, r) => sum + r.timeWindowPercent * r.stops, 0) / totalStops
+    : 0;
 
   return (
     <section className="shp-card shp-card--routes">
@@ -43,6 +47,10 @@ export default function DepositRoutesCard({
           <div>
             <dt>Failures</dt>
             <dd>{totalNotReceived + totalFailedPick}</dd>
+          </div>
+          <div title="Deliveries made inside their time window">
+            <dt>TW</dt>
+            <dd>{depositTw.toFixed(1)}%</dd>
           </div>
           <div>
             <dt>Avg SPH</dt>
@@ -98,6 +106,12 @@ export default function DepositRoutesCard({
                       </span>
                     )}
                     <span className="shp-tag">Sort {route.sort}</span>
+                    <span
+                      className={`shp-tag${route.timeWindowPercent < 90 ? " shp-tag--risk" : ""}`}
+                      title="Deliveries made inside their time window"
+                    >
+                      TW {route.timeWindowPercent.toFixed(1)}%
+                    </span>
                     <span className="shp-tag">{route.sph.toFixed(1)} SPH</span>
                     <span className="shp-tag">
                       {route.departTime}–{route.arriveTime}

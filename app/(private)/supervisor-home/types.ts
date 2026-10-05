@@ -14,6 +14,9 @@ export type DepositRoute = {
   failedPick: number;
   /** Stops per hour */
   sph: number;
+  /** TW — deliveries made inside their time window, as a percentage
+   *  (`route_time_windows.percentage_ot_tw_dl` on the backend). */
+  timeWindowPercent: number;
   departTime: string;
   arriveTime: string;
   note?: string;
