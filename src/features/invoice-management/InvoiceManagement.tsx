@@ -23,9 +23,12 @@ export default function InvoiceManagement() {
   }, []);
 
   const screen = manifest.find(item => item.slug === screenId) ?? manifest[0];
+  // The desk is pinned to the viewport; the imported Figma screens are a fixed
+  // 1277px canvas that still needs the shell to scroll.
+  const isDesk = screenId === initialScreen || screenId === '82-8787';
 
   return (
-    <main className="invoice-management" aria-label="Invoice management">
+    <main className={`invoice-management${isDesk ? ' is-desk' : ''}`} aria-label="Invoice management">
       <nav className="invoice-management-tabs" aria-label="Invoice sections">
         {[
           ['41-2474', 'Invoice processing'],
@@ -36,7 +39,7 @@ export default function InvoiceManagement() {
           <a key={id} href={`#${id}`} aria-current={screenId === id ? 'page' : undefined}>{label}</a>
         ))}
       </nav>
-      {screenId === initialScreen || screenId === '82-8787' ? <InvoiceBoard history={screenId === '82-8787'} /> : <div className="invoice-management-canvas" style={{ minHeight: screen.height - 64 }}>
+      {isDesk ? <InvoiceBoard history={screenId === '82-8787'} /> : <div className="invoice-management-canvas" style={{ minHeight: screen.height - 64 }}>
         <ScreenRouter screenId={screenId} />
       </div>}
     </main>

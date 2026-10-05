@@ -15,14 +15,35 @@
   --idk-lime: #b2f746;
   --idk-mono: 'IBM Plex Mono', monospace;
 
-  padding: 28px 32px 40px;
+  padding: 20px 28px 22px;
   color: var(--idk-ink);
   font-family: 'Space Grotesk', sans-serif;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-height: 0;
+  flex: 1;
+}
+
+/* ---------- the desk fills the screen ----------
+   From tablet up the page itself does not scroll: the shell is pinned under
+   the topbar (64px plus its 1px border) and each column scrolls in its own
+   box. Below that a single column is the honest layout, and it scrolls. */
+
+@media (min-width: 768px) {
+  .invoice-management.is-desk {
+    height: calc(100vh - 65px);
+    min-height: 0;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+  .invoice-management.is-desk .invoice-management-tabs { flex: none; }
 }
 
 /* ---------- heading ---------- */
 
-.idk-heading { display: flex; justify-content: space-between; gap: 24px; align-items: end; padding-bottom: 20px; border-bottom: 1px solid #707979; }
+.idk-heading { flex: none; display: flex; justify-content: space-between; gap: 24px; align-items: end; padding-bottom: 14px; border-bottom: 1px solid #707979; }
 .idk-heading h1 { font-size: clamp(24px, 2.1vw, 34px); font-weight: 700; letter-spacing: -.04em; text-transform: uppercase; margin: 8px 0; }
 .idk-heading p { margin: 0; color: #3f4849; font-size: 13px; }
 .idk-eyebrow { font: 10px var(--idk-mono); letter-spacing: .1em; color: var(--idk-muted); }
@@ -35,11 +56,43 @@
 
 /* ---------- three columns ---------- */
 
-.idk-columns { display: grid; grid-template-columns: minmax(230px, 1fr) minmax(0, 1.9fr) minmax(230px, 1fr); gap: 16px; align-items: start; margin-top: 10px; }
-@media (max-width: 1100px) { .idk-columns { grid-template-columns: 1fr; } }
+.idk-columns {
+  display: grid;
+  gap: 14px;
+  grid-template-columns: 1fr;
+  grid-template-areas: "queue" "bench" "session";
+  min-height: 0;
+}
+.idk-queue { grid-area: queue; }
+.idk-bench { grid-area: bench; }
+.idk-session { grid-area: session; }
+
+/* Tablet: the queue keeps its full height beside the bench, and the session
+   sits under the record — all three stay on screen. */
+@media (min-width: 768px) {
+  .idk-columns {
+    flex: 1;
+    grid-template-columns: minmax(210px, 1fr) minmax(0, 2.4fr);
+    grid-template-areas: "queue bench" "queue session";
+    grid-template-rows: minmax(0, 1fr) auto;
+    align-items: stretch;
+  }
+}
+
+/* Desktop: three across. */
+@media (min-width: 1280px) {
+  .idk-columns {
+    grid-template-columns: minmax(230px, 1fr) minmax(0, 2fr) minmax(240px, 1fr);
+    grid-template-areas: "queue bench session";
+    grid-template-rows: minmax(0, 1fr);
+  }
+}
 
 .idk-queue,
-.idk-session { display: flex; flex-direction: column; gap: 8px; padding: 14px; border: 1px solid var(--idk-line); background: var(--idk-paper); }
+.idk-session { display: flex; flex-direction: column; gap: 8px; padding: 14px; border: 1px solid var(--idk-line); background: var(--idk-paper); min-height: 0; }
+.idk-queue-head, .idk-search, .idk-session-counter, .idk-session-head { flex: none; }
+/* Only the lists scroll, so the search box and the totals stay put. */
+.idk-queue-scroll, .idk-session-list { overflow-y: auto; min-height: 0; display: flex; flex-direction: column; gap: 8px; }
 
 .idk-queue-head,
 .idk-session-head { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; }
@@ -71,7 +124,7 @@
 
 /* ---------- bench ---------- */
 
-.idk-bench { display: flex; flex-direction: column; gap: 14px; min-width: 0; }
+.idk-bench { display: flex; flex-direction: column; gap: 12px; min-width: 0; min-height: 0; overflow-y: auto; }
 
 .idk-record { display: grid; grid-template-columns: minmax(0, 1fr) minmax(210px, auto); border: 1px solid var(--idk-line); background: var(--idk-paper); }
 @media (max-width: 760px) { .idk-record { grid-template-columns: 1fr; } }
@@ -121,7 +174,7 @@
 .idk-session-counter div span { display: block; height: 100%; background: var(--idk-lime); }
 .idk-session-head { font: 700 10px var(--idk-mono); letter-spacing: .09em; color: var(--idk-muted); padding-top: 4px; border-top: 1px solid var(--idk-line-soft); }
 .idk-session-head span { color: var(--idk-deep); }
-.idk-session-list { display: flex; flex-direction: column; gap: 8px; }
+
 
 .idk-session-card { display: flex; flex-direction: column; gap: 5px; padding: 11px; border: 1px solid #c8d5a7; background: #f6f8ec; }
 .idk-session-card h3 { margin: 0; font-size: 13px; font-weight: 600; }

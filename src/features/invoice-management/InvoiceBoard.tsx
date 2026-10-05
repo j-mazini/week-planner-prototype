@@ -170,6 +170,7 @@ export default function InvoiceBoard({ history = false }: { history?: boolean })
               aria-label="Search records"
             />
           </label>
+          <div className="idk-queue-scroll">
           <AnimatePresence initial={false}>
             {matches.map(record => (
               <motion.button
@@ -196,6 +197,7 @@ export default function InvoiceBoard({ history = false }: { history?: boolean })
             ))}
           </AnimatePresence>
           {!matches.length && <p className="idk-empty">{query ? 'No matching records.' : 'Nothing left to action.'}</p>}
+          </div>
         </aside>
 
         <section className="idk-bench" aria-label="Selected record">
