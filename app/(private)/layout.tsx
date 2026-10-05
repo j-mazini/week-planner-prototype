@@ -17,7 +17,7 @@ export default function PrivateLayout({ children }: { children: ReactNode }) {
   const dailyBlocked = Boolean(pathname === "/daily" || pathname?.startsWith("/daily/"));
   useEffect(() => {
     if (dailyBlocked) router.replace("/home");
-    else if (supervisorBlocked) router.replace("/week-planner");
+    else if (supervisorBlocked) router.replace("/supervisor-home");
     else if (driverBlocked) router.replace("/daily-performance-insight");
   }, [router, dailyBlocked, supervisorBlocked, driverBlocked]);
   if (loading || dailyBlocked || supervisorBlocked || driverBlocked) return <div className="app-global-page" />;

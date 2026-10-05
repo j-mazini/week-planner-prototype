@@ -25,6 +25,7 @@ const TITLES: Record<string, string> = {
   "/requests-inbox": "REQUESTS INBOX",
   "/schedule": "SCHEDULE",
   "/service-partner-invoices": "SERVICE PARTNER INVOICES",
+  "/supervisor-home": "HOME",
   "/vehicles": "VEHICLES",
   "/vendor": "VENDOR",
   "/vendor-performance": "VENDOR PERFORMANCE",

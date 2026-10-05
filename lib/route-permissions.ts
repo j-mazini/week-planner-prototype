@@ -27,6 +27,7 @@ export const USER_TYPE_3_ALLOWED = [
   ...MY_PERFORMANCE_ROUTES,
   "/route-balance",
   "/week-planner",
+  "/supervisor-home",
   "/daily-game-plan",
   "/vendor",
   "/vehicles",

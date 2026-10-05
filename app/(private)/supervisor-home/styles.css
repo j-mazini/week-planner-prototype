@@ -1,0 +1,47 @@
+/* Supervisor Home — reuses the paper/teal/lime tokens already declared on
+   .app-imported-page by app/(private)/components/NavbarWrapper.css. */
+
+.shp-wrap { max-width: 1180px; margin: 0 auto; }
+
+.shp-header { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; margin-bottom: 22px; flex-wrap: wrap; }
+.shp-header h1 { margin: 0; }
+.shp-eyebrow { font: 600 10px/1.4 var(--mono); text-transform: uppercase; letter-spacing: .08em; color: var(--muted); margin: 0 0 6px; }
+.shp-meta { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: .05em; }
+
+.shp-kpis { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--line); border: 1px solid var(--line); margin-bottom: 26px; }
+.shp-kpi { background: var(--paper); padding: 16px 18px; display: flex; flex-direction: column; gap: 6px; }
+.shp-kpi__num { font-family: var(--display); font-size: 28px; font-weight: 700; line-height: 1; font-variant-numeric: tabular-nums; color: var(--ink); }
+.shp-kpi__label { font-size: 10px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); }
+.shp-kpi--risk .shp-kpi__num { color: #8e3e3e; }
+.shp-kpi--warn .shp-kpi__num { color: #6a5725; }
+.shp-kpi--good .shp-kpi__num { color: var(--olive); }
+
+.shp-grid { display: grid; grid-template-columns: 1.3fr 1fr; gap: 18px; align-items: start; margin-bottom: 18px; }
+.shp-grid--single { grid-template-columns: 1fr; }
+@media (max-width: 860px) { .shp-grid { grid-template-columns: 1fr; } }
+
+.shp-card { background: var(--paper); border: 1px solid var(--line); padding: 18px 20px 20px; }
+.shp-card h2 { margin: 0 0 2px !important; }
+.shp-card__sub { font-size: 11px !important; color: var(--muted); margin: 0 0 14px !important; }
+
+.shp-route-row { display: grid; grid-template-columns: 56px 1fr auto; gap: 12px; align-items: center; padding: 10px 0; border-top: 1px solid var(--line-soft); }
+.shp-route-row:first-of-type { border-top: none; }
+.shp-route-code { font-family: var(--display); font-weight: 700; font-size: 14px; }
+.shp-route-driver { display: flex; flex-direction: column; gap: 2px; font-size: 12px; }
+.shp-route-driver small { color: var(--muted); font-size: 10px; }
+
+.shp-divider { border-top: 1px dashed var(--line); margin: 16px 0 14px; }
+
+.shp-chip-row { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 4px; }
+.shp-chip { font: 500 10px/1.4 var(--mono); border: 1px solid #e6c7c7; background: #f8eaea; color: #8e3e3e; padding: 4px 8px; }
+
+.shp-vp-list { display: flex; flex-direction: column; }
+.shp-vp-row { display: grid; grid-template-columns: 1fr auto; gap: 10px; align-items: center; padding: 9px 0; border-top: 1px solid var(--line-soft); font-size: 12px; }
+.shp-vp-row:first-child { border-top: none; }
+.shp-vp-name { font-size: 12px; color: var(--ink); }
+.shp-vp-score { font-family: var(--display); font-weight: 700; font-size: 14px; font-variant-numeric: tabular-nums; }
+.shp-vp-score--good { color: var(--olive); }
+.shp-vp-score--risk { color: #8e3e3e; }
+
+.shp-empty { color: var(--muted); font-size: 12px; }
+.shp-error { color: #8e3e3e; font-size: 12px; }
