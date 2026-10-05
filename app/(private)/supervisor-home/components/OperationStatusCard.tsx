@@ -109,12 +109,15 @@ export default function OperationStatusCard({
             </div>
             <ul className="shp-plan__list">
               {gamePlan.drivers.map((driver) => (
-                <li className="shp-plan__row" key={driver.name}>
+                <li className="shp-plan__row" key={`${driver.deposit ?? ""}${driver.name}`}>
                   <span className={`shp-plan__route${driver.route === "NALC" ? " shp-plan__route--nalc" : ""}`}>
                     {driver.route}
                   </span>
                   <span className="shp-plan__driver">
-                    <span>{driver.name}</span>
+                    <span>
+                      {driver.name}
+                      {driver.deposit && <em className="shp-plan__deposit">{driver.deposit}</em>}
+                    </span>
                     {driver.notes && <small>{driver.notes}</small>}
                   </span>
                   <span className={`shp-plan__sort shp-plan__sort--${driver.sort === "Yes" ? "yes" : "no"}`}>

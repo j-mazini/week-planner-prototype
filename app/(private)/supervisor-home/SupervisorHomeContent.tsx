@@ -1,16 +1,19 @@
 "use client";
 
-import { useState } from "react";
+import { useMemo, useState } from "react";
+import type { DepositKey } from "@/app/(private)/daily-game-plan/mockDailyGamePlanData";
+import { useAuth } from "@/hooks/useAuth";
+import { BUSINESS_RULES } from "@/src/constants/businessRules";
 import DepositRoutesCard from "./components/DepositRoutesCard";
 import VendorPerformanceCard from "./components/VendorPerformanceCard";
 import OperationStatusCard from "./components/OperationStatusCard";
 import KpiStrip from "./components/KpiStrip";
-import { mockSupervisorHomeSummary } from "./mockSupervisorHomeData";
+import { DEPOSIT_KEYS, aggregateDeposits } from "./mockSupervisorHomeData";
 import "./styles.css";
 
-/** On phones the three cards become one section at a time — a 4-screen scroll
- *  otherwise. The tab bar is hidden from tablet up, where all three fit side by
- *  side and every panel is shown. */
+/** On phones and tablets the three cards become one section at a time — a
+ *  several-screen scroll otherwise. The tab bar is hidden from 1440px, where
+ *  all three fit side by side and every panel is shown. */
 const TABS = [
   { id: "operation", label: "Today" },
   { id: "routes", label: "Routes" },
@@ -18,10 +21,27 @@ const TABS = [
 ] as const;
 
 type TabId = (typeof TABS)[number]["id"];
+type DepositFilter = DepositKey | "ALL";
 
 export default function SupervisorHomeContent() {
-  const data = mockSupervisorHomeSummary;
   const [tab, setTab] = useState<TabId>("operation");
+  const [deposit, setDeposit] = useState<DepositFilter>("ALL");
+  const { user } = useAuth();
+
+  // A supervisor is scoped to their own deposit; an admin sees every deposit
+  // and can narrow to one.
+  const isSupervisor =
+    user?.userTypeId === BUSINESS_RULES.USER_TYPE.SUPERVISOR || Boolean(user?.roles?.includes("supervisor"));
+  const isDriver =
+    user?.userTypeId === BUSINESS_RULES.USER_TYPE.DRIVER || Boolean(user?.roles?.includes("driver"));
+  const canPickDeposit = !isSupervisor && !isDriver;
+
+  const data = useMemo(() => {
+    // TODO(data): a supervisor's own deposit comes from daily_supervisor_check
+    // (lib/daily-supervisor-check.ts); the mock pins them to the first one.
+    if (!canPickDeposit) return aggregateDeposits([DEPOSIT_KEYS[0]]);
+    return aggregateDeposits(deposit === "ALL" ? DEPOSIT_KEYS : [deposit]);
+  }, [canPickDeposit, deposit]);
 
   const panelProps = (id: TabId) => ({
     "data-panel": id,
@@ -36,13 +56,37 @@ export default function SupervisorHomeContent() {
       <header className="shp-header">
         <div>
           <p className="shp-eyebrow">
-            Deposit {data.depositKey}
+            {canPickDeposit && deposit === "ALL" ? "All deposits" : `Deposit ${data.depositKey}`}
             {data.depositLead ? ` · ${data.depositLead}` : ""}
           </p>
           <h1>Previous day summary</h1>
         </div>
         <span className="shp-meta">{data.date}</span>
       </header>
+
+      {canPickDeposit && (
+        <div className="shp-deposits" role="group" aria-label="Deposit">
+          <button
+            type="button"
+            className={`shp-deposit${deposit === "ALL" ? " shp-deposit--active" : ""}`}
+            aria-pressed={deposit === "ALL"}
+            onClick={() => setDeposit("ALL")}
+          >
+            All
+          </button>
+          {DEPOSIT_KEYS.map((key) => (
+            <button
+              key={key}
+              type="button"
+              className={`shp-deposit${deposit === key ? " shp-deposit--active" : ""}`}
+              aria-pressed={deposit === key}
+              onClick={() => setDeposit(key)}
+            >
+              {key}
+            </button>
+          ))}
+        </div>
+      )}
 
       <KpiStrip data={data} />
 
@@ -77,6 +121,7 @@ export default function SupervisorHomeContent() {
         </div>
         <div className="shp-grid__operation" {...panelProps("operation")}>
           <OperationStatusCard
+            key={data.depositKey}
             dayFinalized={data.dayFinalized}
             finalizedAt={data.finalizedAt}
             routeBalance={data.routeBalance}

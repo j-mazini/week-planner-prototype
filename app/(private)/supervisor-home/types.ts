@@ -54,9 +54,13 @@ import type { DriverRow } from "@/app/(private)/daily-game-plan/mockDailyGamePla
 
 /** The deposit's Daily Game Plan, taken from that page's own dataset so the
  *  home block shows the same drivers and routes and can never drift from it. */
+/** `deposit` is set only when the view spans more than one, since a route code
+ *  is depot-prefixed but "OFF" and "NALC" are not. */
+export type GamePlanDriver = DriverRow & { deposit?: string };
+
 export type DailyGamePlan = {
   lead: string;
-  drivers: DriverRow[];
+  drivers: GamePlanDriver[];
 };
 
 export type RouteBalanceSummary = {
