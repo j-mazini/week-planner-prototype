@@ -1,11 +1,10 @@
-export type RouteStatus = "completed" | "incomplete";
-
 export type DepositRoute = {
   routeCode: string;
   driverName: string;
   vehicle: string;
   sort: "Yes" | "No";
-  status: RouteStatus;
+  /** Stops delivered. A route is always run to the end, so the gap against
+   *  `plannedStops` is `notReceived + failedPick`, never unattempted stops. */
   stops: number;
   plannedStops: number;
   /** Not Received */

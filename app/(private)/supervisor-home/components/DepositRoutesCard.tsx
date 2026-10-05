@@ -1,15 +1,4 @@
-import { StatusBadge } from "@/components/status-badge";
 import type { DepositRoute } from "../types";
-
-const STATUS_LABEL: Record<DepositRoute["status"], string> = {
-  completed: "Completed",
-  incomplete: "Incomplete",
-};
-
-const STATUS_BADGE_TYPE: Record<DepositRoute["status"], string> = {
-  completed: "active",
-  incomplete: "pending",
-};
 
 export default function DepositRoutesCard({
   routes,
@@ -119,8 +108,6 @@ export default function DepositRoutesCard({
                     {route.note && <span className="shp-route__note">{route.note}</span>}
                   </div>
                 </div>
-
-                <StatusBadge status={STATUS_BADGE_TYPE[route.status]}>{STATUS_LABEL[route.status]}</StatusBadge>
               </article>
             );
           })}

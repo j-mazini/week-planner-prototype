@@ -1,7 +1,12 @@
+"use client";
+
+import { useState } from "react";
 import Link from "next/link";
 import { StatusBadge } from "@/components/status-badge";
 import { OPERATION_STAGES } from "../mockSupervisorHomeData";
 import type { RouteBalanceSummary } from "../types";
+
+type View = "balance" | "gameplan";
 
 function Stat({ label, hint, value }: { label: string; hint: string; value: string | number }) {
   return (
@@ -28,26 +33,52 @@ export default function OperationStatusCard({
   totalDrivers: number;
   notAllocatedCount: number;
 }) {
+  // Opens on whichever view matches the day; the switch lets the supervisor
+  // look at the other one without leaving the dashboard.
+  const [view, setView] = useState<View>(dayFinalized ? "gameplan" : "balance");
+  const isGamePlan = view === "gameplan";
   const currentStage = dayFinalized ? OPERATION_STAGES.length - 1 : routeBalance.stage;
-  const href = dayFinalized ? "/daily-game-plan" : "/route-balance";
+
+  const subtitle = isGamePlan
+    ? dayFinalized
+      ? `Finalized${finalizedAt ? ` at ${finalizedAt}` : ""} — this is the plan drivers are running.`
+      : "Allocation so far — today's plan is not finalized yet."
+    : dayFinalized
+      ? "Balancing is closed for today."
+      : `Routes are still being balanced — last updated ${routeBalance.lastUpdated}.`;
 
   return (
     <section className="shp-card shp-card--operation">
       <header className="shp-card__head">
         <div>
           <p className="shp-card__eyebrow">Today</p>
-          <h2>{dayFinalized ? "Daily Game Plan" : "Route Balance"}</h2>
+          <h2>{isGamePlan ? "Daily Game Plan" : "Route Balance"}</h2>
         </div>
         <StatusBadge status={dayFinalized ? "active" : "pending"}>
           {dayFinalized ? "Finalized" : "In progress"}
         </StatusBadge>
       </header>
 
-      <p className="shp-card__sub">
-        {dayFinalized
-          ? `Today's operation was finalized${finalizedAt ? ` at ${finalizedAt}` : ""} — this is the plan drivers are running.`
-          : `Routes are still being balanced — last updated ${routeBalance.lastUpdated}.`}
-      </p>
+      <div className="shp-switch" role="group" aria-label="Operation view">
+        <button
+          type="button"
+          className={`shp-switch__btn${!isGamePlan ? " shp-switch__btn--active" : ""}`}
+          aria-pressed={!isGamePlan}
+          onClick={() => setView("balance")}
+        >
+          Route Balance
+        </button>
+        <button
+          type="button"
+          className={`shp-switch__btn${isGamePlan ? " shp-switch__btn--active" : ""}`}
+          aria-pressed={isGamePlan}
+          onClick={() => setView("gameplan")}
+        >
+          Daily Game Plan
+        </button>
+      </div>
+
+      <p className="shp-card__sub">{subtitle}</p>
 
       <ol className="shp-stepper">
         {OPERATION_STAGES.map((name, i) => (
@@ -63,14 +94,18 @@ export default function OperationStatusCard({
       </ol>
 
       <div className="shp-opstats">
-        {dayFinalized ? (
+        {isGamePlan ? (
           <>
             <Stat
               label="Drivers allocated"
-              hint="Final count for today"
+              hint={dayFinalized ? "Final count for today" : "Allocated so far"}
               value={`${allocatedDrivers}/${totalDrivers}`}
             />
-            <Stat label="Not allocated" hint="Left out of the plan" value={notAllocatedCount} />
+            <Stat
+              label="Not allocated"
+              hint={dayFinalized ? "Left out of the plan" : "Still without a route"}
+              value={notAllocatedCount}
+            />
           </>
         ) : (
           <>
@@ -88,8 +123,8 @@ export default function OperationStatusCard({
         )}
       </div>
 
-      <Link className="shp-cta" prefetch={false} href={href}>
-        {dayFinalized ? "View Daily Game Plan" : "Open Route Balance"}
+      <Link className="shp-cta" prefetch={false} href={isGamePlan ? "/daily-game-plan" : "/route-balance"}>
+        {isGamePlan ? "View Daily Game Plan" : "Open Route Balance"}
         <span aria-hidden="true">→</span>
       </Link>
     </section>

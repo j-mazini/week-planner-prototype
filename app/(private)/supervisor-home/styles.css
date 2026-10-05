@@ -252,7 +252,7 @@
 .shp-routes { display: flex; flex-direction: column; }
 .shp-route {
   display: grid;
-  grid-template-columns: auto 1fr auto;
+  grid-template-columns: auto 1fr;
   gap: clamp(10px, .8vw, 18px);
   align-items: start;
   padding: clamp(10px, .8vw, 16px) 0;
@@ -431,6 +431,29 @@
 
 /* ---------- operation status ---------- */
 
+.shp-switch {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1px;
+  background: var(--line);
+  border: 1px solid var(--line);
+  margin-bottom: 12px;
+}
+.shp-switch__btn {
+  background: var(--paper);
+  border: 0;
+  padding: 8px 6px;
+  font: 600 var(--shp-small)/1.3 var(--mono);
+  text-transform: uppercase;
+  letter-spacing: .05em;
+  color: var(--muted);
+  cursor: pointer;
+}
+.shp-switch__btn:hover { background: #eef1df; color: var(--teal-deep); }
+.shp-switch__btn--active { background: var(--teal-deep); color: #fafaef; }
+.shp-switch__btn--active:hover { background: var(--teal); color: #fafaef; }
+.shp-switch__btn:focus-visible { outline: 2px solid var(--teal-deep); outline-offset: -3px; }
+
 .shp-stepper {
   display: grid;
   grid-auto-flow: column;
@@ -554,17 +577,12 @@
   .shp-headstats { width: 100%; justify-content: space-between; }
   .shp-headstats div { text-align: left; }
 
-  /* Route: code and status share the top line, everything else spans below. */
+  /* Route: the code gets its own line, the detail spans the full width below. */
   .shp-route {
-    grid-template-columns: auto 1fr;
-    grid-template-areas:
-      "code badge"
-      "body body";
-    gap: 8px 10px;
+    grid-template-columns: 1fr;
+    gap: 8px;
   }
-  .shp-route__code { grid-area: code; }
-  .shp-route__body { grid-area: body; }
-  .shp-route > .status-badge { grid-area: badge; justify-self: end; align-self: center; }
+  .shp-route__code { justify-self: start; }
   .shp-route__count { margin-left: 0; width: 100%; }
 
   /* Vendor: identity and score on top, the scale full width underneath. */
