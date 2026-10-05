@@ -19,7 +19,6 @@ const TITLES: Record<string, string> = {
   "/financial-performance": "FINANCIAL PERFORMANCE",
   "/invoice-history": "INVOICE HISTORY",
   "/invoice-processing-workflow": "INVOICE PROCESSING WORKFLOW",
-  "/logistics": "LOGISTICS",
   "/operations-management": "OPERATIONS MANAGEMENT",
   "/requests": "REQUESTS",
   "/requests-inbox": "REQUESTS INBOX",

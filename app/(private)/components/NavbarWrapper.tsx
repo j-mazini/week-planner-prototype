@@ -40,7 +40,7 @@ const importedGroups = [
     items: [
       ["/daily-game-plan", "Game plan", ListChecks],
       ["/daily-operations-management", "Daily operations", ClipboardList],
-      ["/daily-operations-reports", "Operations reports", FileBarChart], ["/logistics", "Logistics", Truck],
+      ["/daily-operations-reports", "Operations reports", FileBarChart],
       ["/op-dashboard", "Operations dashboard", LayoutDashboard], ["/operations-management", "Operations management", Settings2],
       ["/op-management", "Operations control", Settings2],
       ["/current-month", "Current month", CalendarDays],
