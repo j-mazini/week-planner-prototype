@@ -6,7 +6,11 @@ export type DepositRoute = {
   sort: "Yes" | "No";
   status: RouteStatus;
   stops: number;
-  failed: number;
+  plannedStops: number;
+  /** Not Received */
+  notReceived: number;
+  /** Failed Pick */
+  failedPick: number;
   note?: string;
 };
 
@@ -14,13 +18,19 @@ export type VendorPerformanceEntry = {
   vendorName: string;
   routeCode: string;
   score: number;
+  /** Score for the same period a week before — drives the trend arrow. */
+  previousScore: number;
   flag?: string;
 };
 
+export type VehicleIssueType = "maintenance" | "unassigned" | "inactive";
+
 export type VehicleOutOfOperation = {
   registration: string;
+  issueType: VehicleIssueType;
   reason: string;
   since: string;
+  expectedBack?: string;
 };
 
 export type SupervisorHomeSummary = {

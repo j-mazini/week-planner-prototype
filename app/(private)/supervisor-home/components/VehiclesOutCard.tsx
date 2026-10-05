@@ -1,5 +1,17 @@
 import { StatusBadge } from "@/components/status-badge";
-import type { VehicleOutOfOperation } from "../types";
+import type { VehicleIssueType, VehicleOutOfOperation } from "../types";
+
+const ISSUE_LABEL: Record<VehicleIssueType, string> = {
+  maintenance: "Maintenance",
+  unassigned: "Unassigned",
+  inactive: "Inactive",
+};
+
+const ISSUE_BADGE_TYPE: Record<VehicleIssueType, string> = {
+  maintenance: "maintenance",
+  unassigned: "pending",
+  inactive: "inactive",
+};
 
 export default function VehiclesOutCard({
   vehicles,
@@ -18,13 +30,18 @@ export default function VehiclesOutCard({
       ) : (
         <div className="shp-vp-list">
           {vehicles.map((vehicle) => (
-            <div className="shp-vp-row" key={vehicle.registration}>
-              <span>
-                <span className="shp-vp-name">{vehicle.registration}</span>
-                <br />
-                <small>{vehicle.reason}</small>
+            <div className="shp-route-row" key={vehicle.registration}>
+              <span className="shp-route-code">{vehicle.registration}</span>
+              <span className="shp-route-body">
+                <span className="shp-route-top">
+                  <span className="shp-route-driver-name">{vehicle.reason}</span>
+                </span>
+                <span className="shp-route-meta">
+                  <span>Since {vehicle.since}</span>
+                  {vehicle.expectedBack && <span>Expected back {vehicle.expectedBack}</span>}
+                </span>
               </span>
-              <StatusBadge status="maintenance">{vehicle.since}</StatusBadge>
+              <StatusBadge status={ISSUE_BADGE_TYPE[vehicle.issueType]}>{ISSUE_LABEL[vehicle.issueType]}</StatusBadge>
             </div>
           ))}
         </div>
