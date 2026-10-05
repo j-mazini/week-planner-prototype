@@ -4,7 +4,7 @@ import { useEffect, useState, type ReactNode } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import {
-  ArrowRightLeft, Building2, Handshake, Inbox, TrendingUp, Wallet, Activity, BarChart3, CalendarDays, CarFront, ClipboardCheck, ClipboardList, FileBarChart,
+  ArrowRightLeft, Building2, Handshake, Inbox, TrendingUp, Wallet, BarChart3, CalendarDays, CarFront, ClipboardCheck, ClipboardList, FileBarChart,
   FileSpreadsheet, FileText, Gauge, Home, Landmark, LayoutDashboard, ListChecks,
   Menu, Package, Receipt, Route as RouteIcon, Scale, Settings2, ShieldCheck, Truck, Users, ChevronDown, LogOut, UserRound, type LucideIcon,
 } from "lucide-react";
@@ -38,7 +38,7 @@ const importedGroups = [
   {
     label: "OPERATIONS",
     items: [
-      ["/daily", "Daily", Activity], ["/daily-game-plan", "Game plan", ListChecks],
+      ["/daily-game-plan", "Game plan", ListChecks],
       ["/daily-operations-management", "Daily operations", ClipboardList],
       ["/daily-operations-reports", "Operations reports", FileBarChart], ["/logistics", "Logistics", Truck],
       ["/op-dashboard", "Operations dashboard", LayoutDashboard], ["/operations-management", "Operations management", Settings2],
