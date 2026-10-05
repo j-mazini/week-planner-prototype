@@ -1,16 +1,18 @@
 /**
  * Mock data for the Supervisor Home visual-only build — not wired to the
- * real API yet. See lib/supervisor-home-api.ts (not created) and the
- * open items tracked for this page before it reads real data:
+ * real API yet. Open items before it reads real data:
  * - no backend endpoint returns a 7-day vendor performance ranking scoped
  *   to one deposit yet (/bff/daily-overview returns per-user/day rows);
  * - deposit/supervisor resolution would reuse lib/daily-supervisor-check.ts.
  *
- * Everything here is a summary of the previous business day — routes,
- * sort, performance — except `dayFinalized`/`routeBalance`, which reflect
+ * Everything here summarizes the previous business day — routes, sort,
+ * performance — except `dayFinalized`/`routeBalance`, which reflect
  * today's in-progress operation.
  */
 import type { SupervisorHomeSummary } from "./types";
+
+/** The day's lifecycle in Route Balance, in order. `routeBalance.stage` indexes this. */
+export const OPERATION_STAGES = ["Routes imported", "Balanced", "Sent to drivers", "Finalized"] as const;
 
 function previousBusinessDayIso(): string {
   const d = new Date();
@@ -20,30 +22,42 @@ function previousBusinessDayIso(): string {
   return d.toISOString().slice(0, 10);
 }
 
+const WEEK_LABELS = ["Mon", "Tue", "Wed", "Thu", "Fri", "Mon", "Tue"];
+
 export const mockSupervisorHomeSummary: SupervisorHomeSummary = {
   depositKey: "BAOP",
   depositLead: "Leandro Dias",
   date: previousBusinessDayIso(),
   dayFinalized: false,
-  routeBalance: { pendingRoutes: 2, unassignedStops: 14 },
+  routeBalance: { pendingRoutes: 2, unassignedStops: 14, stage: 1, lastUpdated: "08:42" },
   allocatedDrivers: 8,
   totalDrivers: 10,
   notAllocatedDriverNames: ["GABRIEL LIMA DA SILVA", "LUCAS FERREIRA"],
   sortRatePercent: 80,
+  sortRatePrevious: 75,
+  stopsDelivered: 661,
+  stopsDeliveredPrevious: 648,
+  failures: 7,
+  failuresPrevious: 11,
+  stopsSeries: { labels: WEEK_LABELS, values: [612, 634, 648, 655, 627, 648, 661] },
+  failuresSeries: { labels: WEEK_LABELS, values: [14, 9, 12, 8, 15, 11, 7] },
+  sortRateSeries: { labels: WEEK_LABELS, values: [60, 60, 80, 75, 60, 75, 80] },
   routes: [
-    { routeCode: "B04", driverName: "Adriano Dutra", sort: "Yes", status: "completed", stops: 142, plannedStops: 142, notReceived: 0, failedPick: 0 },
-    { routeCode: "B07", driverName: "Bruno Ribeiro", sort: "No", status: "completed", stops: 138, plannedStops: 142, notReceived: 3, failedPick: 1 },
-    { routeCode: "B11", driverName: "Marcos Alves", sort: "No", status: "incomplete", stops: 96, plannedStops: 130, notReceived: 1, failedPick: 1, note: "Late start" },
-    { routeCode: "B15", driverName: "Rafael Souza", sort: "Yes", status: "completed", stops: 150, plannedStops: 150, notReceived: 0, failedPick: 0 },
-    { routeCode: "B22", driverName: "Diego Santos", sort: "No", status: "completed", stops: 135, plannedStops: 136, notReceived: 1, failedPick: 0, note: "Covering B19" },
+    { routeCode: "B04", driverName: "Adriano Dutra", vehicle: "YF25 OZL", sort: "Yes", status: "completed", stops: 142, plannedStops: 142, notReceived: 0, failedPick: 0, sph: 17.8, departTime: "09:12", arriveTime: "17:04" },
+    { routeCode: "B07", driverName: "Bruno Ribeiro", vehicle: "LV21 UFT", sort: "No", status: "completed", stops: 138, plannedStops: 142, notReceived: 3, failedPick: 1, sph: 16.2, departTime: "09:05", arriveTime: "17:38" },
+    { routeCode: "B11", driverName: "Marcos Alves", vehicle: "LV22 JHF", sort: "No", status: "incomplete", stops: 96, plannedStops: 130, notReceived: 1, failedPick: 1, sph: 13.4, departTime: "10:26", arriveTime: "17:41", note: "Late start" },
+    { routeCode: "B15", driverName: "Rafael Souza", vehicle: "YF25 OZL", sort: "Yes", status: "completed", stops: 150, plannedStops: 150, notReceived: 0, failedPick: 0, sph: 18.9, departTime: "08:58", arriveTime: "16:52" },
+    { routeCode: "B22", driverName: "Diego Santos", vehicle: "LV22 JHF", sort: "No", status: "completed", stops: 135, plannedStops: 136, notReceived: 1, failedPick: 0, sph: 16.9, departTime: "09:18", arriveTime: "17:12", note: "Covering B19" },
   ],
+  depositAverageScore: 93.1,
+  depositAverageScorePrevious: 92.4,
   topVendors: [
     { vendorName: "Rafael Souza", routeCode: "B15", score: 99.2, previousScore: 98.0 },
     { vendorName: "Adriano Dutra", routeCode: "B04", score: 98.1, previousScore: 98.6 },
     { vendorName: "Diego Santos", routeCode: "B22", score: 97.4, previousScore: 95.9 },
   ],
   attentionVendors: [
+    { vendorName: "Marcos Alves", routeCode: "B11", score: 87.6, previousScore: 85.2, flag: "Late start" },
     { vendorName: "Bruno Ribeiro", routeCode: "B07", score: 83.1, previousScore: 90.4, flag: "4 failed picks" },
-    { vendorName: "Marcos Alves", routeCode: "B11", score: 87.6, previousScore: 85.2, flag: "late start" },
   ],
 };

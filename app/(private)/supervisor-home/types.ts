@@ -3,6 +3,7 @@ export type RouteStatus = "completed" | "incomplete";
 export type DepositRoute = {
   routeCode: string;
   driverName: string;
+  vehicle: string;
   sort: "Yes" | "No";
   status: RouteStatus;
   stops: number;
@@ -11,6 +12,10 @@ export type DepositRoute = {
   notReceived: number;
   /** Failed Pick */
   failedPick: number;
+  /** Stops per hour */
+  sph: number;
+  departTime: string;
+  arriveTime: string;
   note?: string;
 };
 
@@ -18,14 +23,24 @@ export type VendorPerformanceEntry = {
   vendorName: string;
   routeCode: string;
   score: number;
-  /** Score for the same period a week before — drives the trend arrow. */
+  /** Score for the same period a week before — drives the trend delta. */
   previousScore: number;
   flag?: string;
+};
+
+/** A metric measured once per business day, oldest first. */
+export type DailySeries = {
+  /** Short day labels aligned with `values`, e.g. ["Mon", "Tue", …]. */
+  labels: string[];
+  values: number[];
 };
 
 export type RouteBalanceSummary = {
   pendingRoutes: number;
   unassignedStops: number;
+  /** Index into OPERATION_STAGES — how far today's operation has progressed. */
+  stage: number;
+  lastUpdated: string;
 };
 
 export type SupervisorHomeSummary = {
@@ -35,12 +50,24 @@ export type SupervisorHomeSummary = {
   date: string;
   /** Whether today's operation has been finalized in the Daily Game Plan. Drives the bottom block: Route Balance (not yet finalized) vs. Daily Game Plan (finalized). */
   dayFinalized: boolean;
+  finalizedAt?: string;
   routeBalance: RouteBalanceSummary;
   allocatedDrivers: number;
   totalDrivers: number;
   notAllocatedDriverNames: string[];
   sortRatePercent: number;
+  stopsDelivered: number;
+  stopsDeliveredPrevious: number;
+  failures: number;
+  failuresPrevious: number;
+  sortRatePrevious: number;
+  stopsSeries: DailySeries;
+  failuresSeries: DailySeries;
+  sortRateSeries: DailySeries;
   routes: DepositRoute[];
+  /** Deposit-wide average used as the reference marker on the vendor scale. */
+  depositAverageScore: number;
+  depositAverageScorePrevious: number;
   topVendors: VendorPerformanceEntry[];
   attentionVendors: VendorPerformanceEntry[];
 };

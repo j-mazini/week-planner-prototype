@@ -19,54 +19,107 @@ export default function DepositRoutesCard({
   notAllocated: string[];
 }) {
   const totalStops = routes.reduce((sum, r) => sum + r.stops, 0);
-  const totalFailed = routes.reduce((sum, r) => sum + r.notReceived + r.failedPick, 0);
+  const totalPlanned = routes.reduce((sum, r) => sum + r.plannedStops, 0);
+  const totalNotReceived = routes.reduce((sum, r) => sum + r.notReceived, 0);
+  const totalFailedPick = routes.reduce((sum, r) => sum + r.failedPick, 0);
+  const avgSph = routes.length ? routes.reduce((sum, r) => sum + r.sph, 0) / routes.length : 0;
+  const totalCompletion = totalPlanned ? Math.round((totalStops / totalPlanned) * 100) : 0;
 
   return (
-    <section className="shp-card">
-      <h2>Route summary</h2>
-      <p className="shp-card__sub">
-        Previous day · {totalStops} stops across {routes.length} routes · {totalFailed} failure
-        {totalFailed === 1 ? "" : "s"}
-      </p>
+    <section className="shp-card shp-card--routes">
+      <header className="shp-card__head">
+        <div>
+          <p className="shp-card__eyebrow">Previous day</p>
+          <h2>Route summary</h2>
+        </div>
+        <dl className="shp-headstats">
+          <div>
+            <dt>Stops</dt>
+            <dd>
+              {totalStops}
+              <span className="shp-headstats__of">/{totalPlanned}</span>
+            </dd>
+          </div>
+          <div>
+            <dt>Failures</dt>
+            <dd>{totalNotReceived + totalFailedPick}</dd>
+          </div>
+          <div>
+            <dt>Avg SPH</dt>
+            <dd>{avgSph.toFixed(1)}</dd>
+          </div>
+        </dl>
+      </header>
 
       {routes.length === 0 ? (
         <p className="shp-empty">No routes recorded for the previous day.</p>
       ) : (
-        routes.map((route) => {
-          const completion = route.plannedStops ? Math.round((route.stops / route.plannedStops) * 100) : 0;
-          const failed = route.notReceived + route.failedPick;
-          return (
-            <div className="shp-route-row" key={route.routeCode}>
-              <span className="shp-route-code">{route.routeCode}</span>
-              <span className="shp-route-body">
-                <span className="shp-route-top">
-                  <span className="shp-route-driver-name">{route.driverName}</span>
-                  <span className="shp-route-stops">
-                    {route.stops}/{route.plannedStops} stops
+        <div className="shp-routes">
+          {routes.map((route) => {
+            const completion = route.plannedStops ? Math.round((route.stops / route.plannedStops) * 100) : 0;
+            const failed = route.notReceived + route.failedPick;
+            return (
+              <article className="shp-route" key={route.routeCode}>
+                <span className="shp-route__code">{route.routeCode}</span>
+
+                <div className="shp-route__body">
+                  <div className="shp-route__top">
+                    <span className="shp-route__driver">{route.driverName}</span>
+                    <span className="shp-route__vehicle">{route.vehicle}</span>
+                    <span className="shp-route__count">
+                      {route.stops}
+                      <span className="shp-route__of">/{route.plannedStops} stops</span>
+                      <span className="shp-route__pct">{completion}%</span>
+                    </span>
+                  </div>
+
+                  <span
+                    className="shp-bar"
+                    role="img"
+                    aria-label={`${completion}% of planned stops delivered`}
+                    title={`${route.stops} of ${route.plannedStops} stops`}
+                  >
+                    <span
+                      className={`shp-bar__fill${completion < 90 ? " shp-bar__fill--short" : ""}`}
+                      style={{ width: `${completion}%` }}
+                    />
                   </span>
-                </span>
-                <span className="shp-bar-track">
-                  <span className="shp-bar-fill" style={{ width: `${completion}%` }} />
-                </span>
-                <span className="shp-route-meta">
-                  <span>
-                    {failed > 0 ? (
-                      <>
-                        NR {route.notReceived} · FP {route.failedPick}
-                      </>
-                    ) : (
-                      "No failures"
+
+                  <div className="shp-route__meta">
+                    {failed === 0 && <span className="shp-tag shp-tag--good">No failures</span>}
+                    {route.notReceived > 0 && (
+                      <span className="shp-tag shp-tag--risk" title="Not Received">
+                        NR {route.notReceived}
+                      </span>
                     )}
-                  </span>
-                  <span>Sort: {route.sort}</span>
-                  {route.note && <span className="shp-route-note">{route.note}</span>}
-                </span>
-              </span>
-              <StatusBadge status={STATUS_BADGE_TYPE[route.status]}>{STATUS_LABEL[route.status]}</StatusBadge>
-            </div>
-          );
-        })
+                    {route.failedPick > 0 && (
+                      <span className="shp-tag shp-tag--risk" title="Failed Pick">
+                        FP {route.failedPick}
+                      </span>
+                    )}
+                    <span className="shp-tag">Sort {route.sort}</span>
+                    <span className="shp-tag">{route.sph.toFixed(1)} SPH</span>
+                    <span className="shp-tag">
+                      {route.departTime}–{route.arriveTime}
+                    </span>
+                    {route.note && <span className="shp-route__note">{route.note}</span>}
+                  </div>
+                </div>
+
+                <StatusBadge status={STATUS_BADGE_TYPE[route.status]}>{STATUS_LABEL[route.status]}</StatusBadge>
+              </article>
+            );
+          })}
+        </div>
       )}
+
+      <footer className="shp-route-total">
+        <span className="shp-route-total__label">Deposit total</span>
+        <span className="shp-bar" role="img" aria-label={`${totalCompletion}% of planned stops delivered across the deposit`}>
+          <span className="shp-bar__fill" style={{ width: `${totalCompletion}%` }} />
+        </span>
+        <span className="shp-route-total__value">{totalCompletion}%</span>
+      </footer>
 
       {notAllocated.length > 0 && (
         <>
