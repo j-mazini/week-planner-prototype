@@ -48,6 +48,7 @@ interface NavigationData {
 
 const NAVIGATION_DATA: NavigationData = {
   projects: [
+    { name: "Home", url: "/supervisor-home", icon: Home },
     { name: "Vendor", url: "/vendor", icon: Building2 },
     { name: "Vehicles", url: "/vehicles", icon: Truck },
     { name: "Contract Management", url: "/contract-management", icon: Route },

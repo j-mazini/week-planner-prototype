@@ -234,7 +234,14 @@ export default function NavbarWrapper({ children, title }: { children: ReactNode
           {collapsed ? "›" : "‹"}
         </button>
         <nav className="app-nav" id="sidebar-navigation">
-          <div className="app-navprimary">{primaryItems.filter(([href]) => href === "/home" && canShowSearchPage(href)).map(renderItem)}</div>
+          <div className="app-navprimary">
+            {primaryItems
+              .filter(([href]) => href === "/home")
+              .map(([, label, Icon]) => {
+                const href = isSupervisor ? "/supervisor-home" : "/home";
+                return canShowSearchPage(href) ? renderItem([href, label, Icon]) : null;
+              })}
+          </div>
           {visibleGroups.map(group => {
             const Icon = groupIcons[group.label] ?? Menu;
             const open = !collapsed && openGroup === group.label;
