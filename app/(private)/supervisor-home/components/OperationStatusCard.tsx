@@ -4,7 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { StatusBadge } from "@/components/status-badge";
 import { OPERATION_STAGES } from "../mockSupervisorHomeData";
-import type { DailyGamePlan, RouteBalanceSummary } from "../types";
+import type { RouteBalanceSummary } from "../types";
 
 type View = "balance" | "gameplan";
 
@@ -22,12 +22,16 @@ export default function OperationStatusCard({
   dayFinalized,
   finalizedAt,
   routeBalance,
-  gamePlan,
+  allocatedDrivers,
+  totalDrivers,
+  notAllocatedCount,
 }: {
   dayFinalized: boolean;
   finalizedAt?: string;
   routeBalance: RouteBalanceSummary;
-  gamePlan: DailyGamePlan;
+  allocatedDrivers: number;
+  totalDrivers: number;
+  notAllocatedCount: number;
 }) {
   // Opens on whichever view matches the day; the switch lets the supervisor
   // look at the other one without leaving the dashboard.
@@ -89,54 +93,35 @@ export default function OperationStatusCard({
         ))}
       </ol>
 
-      {isGamePlan ? (
-        <>
-          <p className="shp-group-label">
-            Allocated ({gamePlan.entries.length}/{gamePlan.entries.length + gamePlan.notAllocated.length})
-          </p>
-          <ul className="shp-plan">
-            {gamePlan.entries.map((entry) => (
-              <li className="shp-plan__row" key={entry.routeCode}>
-                <span className="shp-route__code">{entry.routeCode}</span>
-                <span className="shp-plan__driver">
-                  <span>{entry.driverName}</span>
-                  <small>{entry.vehicle}</small>
-                </span>
-                <span className="shp-tag">Sort {entry.sort}</span>
-              </li>
-            ))}
-          </ul>
-
-          {gamePlan.notAllocated.length > 0 && (
-            <>
-              <div className="shp-divider" />
-              <p className="shp-group-label shp-group-label--risk">
-                Not allocated ({gamePlan.notAllocated.length})
-              </p>
-              <div className="shp-chip-row">
-                {gamePlan.notAllocated.map((name) => (
-                  <span className="shp-chip" key={name}>
-                    {name}
-                  </span>
-                ))}
-              </div>
-            </>
-          )}
-        </>
-      ) : (
-        <div className="shp-opstats">
-          <Stat
-            label="Pending routes"
-            hint="Waiting on a final assignment"
-            value={routeBalance.pendingRoutes}
-          />
-          <Stat
-            label="Unassigned stops"
-            hint="Across all pending routes"
-            value={routeBalance.unassignedStops}
-          />
-        </div>
-      )}
+      <div className="shp-opstats">
+        {isGamePlan ? (
+          <>
+            <Stat
+              label="Drivers allocated"
+              hint={dayFinalized ? "Final count for today" : "Allocated so far"}
+              value={`${allocatedDrivers}/${totalDrivers}`}
+            />
+            <Stat
+              label="Not allocated"
+              hint={dayFinalized ? "Left out of the plan" : "Still without a route"}
+              value={notAllocatedCount}
+            />
+          </>
+        ) : (
+          <>
+            <Stat
+              label="Pending routes"
+              hint="Waiting on a final assignment"
+              value={routeBalance.pendingRoutes}
+            />
+            <Stat
+              label="Unassigned stops"
+              hint="Across all pending routes"
+              value={routeBalance.unassignedStops}
+            />
+          </>
+        )}
+      </div>
 
       <Link className="shp-cta" prefetch={false} href={isGamePlan ? "/daily-game-plan" : "/route-balance"}>
         {isGamePlan ? "View Daily Game Plan" : "Open Route Balance"}
