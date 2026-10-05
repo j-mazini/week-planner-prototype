@@ -8,6 +8,7 @@ import {
 } from "lucide-react";
 import NavbarWrapper from "@/components/navbar-wrapper";
 import DriverHome from "./DriverHome";
+import DepotPerformanceModal from "./components/DepotPerformanceModal";
 import { useAuth } from "@/hooks/useAuth";
 import { greet } from "@/lib/greeting";
 import { BUSINESS_RULES } from "@/src/constants/businessRules";
@@ -47,6 +48,7 @@ export default function HomePage() {
   const [activeDate, setActiveDate] = useState("Today");
   const [refreshed, setRefreshed] = useState(false);
   const [pageSearch, setPageSearch] = useState("");
+  const [depotModal, setDepotModal] = useState(false);
   const dateLabel = useMemo(() => new Intl.DateTimeFormat("en-GB", { weekday: "long", day: "2-digit", month: "short", year: "numeric" }).format(new Date()), []);
 
   if (user?.userTypeId === BUSINESS_RULES.USER_TYPE.DRIVER || user?.roles?.includes("driver")) {
@@ -69,7 +71,7 @@ export default function HomePage() {
           <div className="home-new__hero-actions">
             <button className="home-new__refresh" type="button" onClick={() => setRefreshed(true)}><RefreshCw size={14} /> {refreshed ? "Updated" : "Refresh view"}</button>
             {isAdmin && (
-              <Link prefetch={false} className="home-new__secondary" href="/supervisor-home"><Gauge size={15} /> See my depots performance</Link>
+              <button className="home-new__secondary" type="button" onClick={() => setDepotModal(true)}><Gauge size={15} /> See my depots performance</button>
             )}
             <Link prefetch={false} className="home-new__primary" href="/daily-game-plan"><Plus size={15} /> Start daily plan</Link>
           </div>
@@ -112,6 +114,8 @@ export default function HomePage() {
             <div className="home-new__notice"><CircleAlert size={17} /><div><b>2 exceptions need review</b><small>One route is missing a vehicle assignment.</small></div><Link prefetch={false} href="/requests-inbox" aria-label="Review exceptions"><ChevronRight size={16} /></Link></div>
           </aside>
         </section>
+
+        {depotModal && <DepotPerformanceModal onClose={() => setDepotModal(false)} />}
       </main>
     </NavbarWrapper>
   );
