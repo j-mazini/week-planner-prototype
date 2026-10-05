@@ -31,9 +31,9 @@ export const mockSupervisorHomeSummary: SupervisorHomeSummary = {
   routes: [
     { routeCode: "B04", driverName: "Adriano Dutra", sort: "Yes", status: "completed", stops: 142, failed: 0 },
     { routeCode: "B07", driverName: "Bruno Ribeiro", sort: "No", status: "completed", stops: 138, failed: 4, note: "4 failed picks" },
-    { routeCode: "B11", driverName: "Marcos Alves", sort: "No", status: "incomplete", stops: 96, failed: 2, note: "Início atrasado" },
+    { routeCode: "B11", driverName: "Marcos Alves", sort: "No", status: "incomplete", stops: 96, failed: 2, note: "Late start" },
     { routeCode: "B15", driverName: "Rafael Souza", sort: "Yes", status: "completed", stops: 150, failed: 0 },
-    { routeCode: "B22", driverName: "Diego Santos", sort: "No", status: "completed", stops: 135, failed: 1, note: "Cobrindo B19" },
+    { routeCode: "B22", driverName: "Diego Santos", sort: "No", status: "completed", stops: 135, failed: 1, note: "Covering B19" },
   ],
   topVendors: [
     { vendorName: "Rafael Souza", routeCode: "B15", score: 99.2 },
@@ -42,7 +42,7 @@ export const mockSupervisorHomeSummary: SupervisorHomeSummary = {
   ],
   attentionVendors: [
     { vendorName: "Bruno Ribeiro", routeCode: "B07", score: 83.1, flag: "4 failed picks" },
-    { vendorName: "Marcos Alves", routeCode: "B11", score: 87.6, flag: "início atrasado" },
+    { vendorName: "Marcos Alves", routeCode: "B11", score: 87.6, flag: "late start" },
   ],
-  vehiclesOut: [{ registration: "LV21 UFT", reason: "Manutenção preventiva", since: "3 dias" }],
+  vehiclesOut: [{ registration: "LV21 UFT", reason: "Preventive maintenance", since: "3 days" }],
 };

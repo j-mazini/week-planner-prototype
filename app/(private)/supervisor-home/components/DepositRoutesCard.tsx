@@ -2,8 +2,8 @@ import { StatusBadge } from "@/components/status-badge";
 import type { DepositRoute } from "../types";
 
 const STATUS_LABEL: Record<DepositRoute["status"], string> = {
-  completed: "Concluída",
-  incomplete: "Incompleta",
+  completed: "Completed",
+  incomplete: "Incomplete",
 };
 
 const STATUS_BADGE_TYPE: Record<DepositRoute["status"], string> = {
@@ -20,11 +20,11 @@ export default function DepositRoutesCard({
 }) {
   return (
     <section className="shp-card">
-      <h2>Resumo das rotas</h2>
-      <p className="shp-card__sub">Dia anterior · stops, falhas e sort por rota</p>
+      <h2>Route summary</h2>
+      <p className="shp-card__sub">Previous day · stops, failures and sort per route</p>
 
       {routes.length === 0 ? (
-        <p className="shp-empty">Nenhuma rota registrada no dia anterior.</p>
+        <p className="shp-empty">No routes recorded for the previous day.</p>
       ) : (
         routes.map((route) => (
           <div className="shp-route-row" key={route.routeCode}>
@@ -32,7 +32,7 @@ export default function DepositRoutesCard({
             <span className="shp-route-driver">
               <span>{route.driverName}</span>
               <small>
-                {route.stops} stops · {route.failed} falha{route.failed === 1 ? "" : "s"} · Sort: {route.sort === "Yes" ? "Sim" : "Não"}
+                {route.stops} stops · {route.failed} failure{route.failed === 1 ? "" : "s"} · Sort: {route.sort}
                 {route.note ? ` · ${route.note}` : ""}
               </small>
             </span>
@@ -44,7 +44,7 @@ export default function DepositRoutesCard({
       {notAllocated.length > 0 && (
         <>
           <div className="shp-divider" />
-          <p className="shp-card__sub">Não alocados ({notAllocated.length})</p>
+          <p className="shp-card__sub">Not allocated ({notAllocated.length})</p>
           <div className="shp-chip-row">
             {notAllocated.map((name) => (
               <span className="shp-chip" key={name}>

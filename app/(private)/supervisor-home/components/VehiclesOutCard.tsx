@@ -10,11 +10,11 @@ export default function VehiclesOutCard({
 }) {
   return (
     <section className="shp-card">
-      <h2>Veículos fora de operação</h2>
-      <p className="shp-card__sub">Seu depósito · agora · {asOfDate}</p>
+      <h2>Vehicles out of operation</h2>
+      <p className="shp-card__sub">Your deposit · now · {asOfDate}</p>
 
       {vehicles.length === 0 ? (
-        <p className="shp-empty">Todos os veículos do depósito estão ativos.</p>
+        <p className="shp-empty">All vehicles in the deposit are active.</p>
       ) : (
         <div className="shp-vp-list">
           {vehicles.map((vehicle) => (

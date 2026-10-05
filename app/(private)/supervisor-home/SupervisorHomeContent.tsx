@@ -10,9 +10,9 @@ export default function SupervisorHomeContent() {
   const data = mockSupervisorHomeSummary;
 
   const kpis = [
-    { label: "Drivers alocados", value: `${data.allocatedDrivers}/${data.totalDrivers}`, tone: "good" },
-    { label: "Não alocados", value: String(data.notAllocatedDriverNames.length), tone: "risk" },
-    { label: "Veículos indisponíveis (hoje)", value: String(data.vehiclesOut.length), tone: "warn" },
+    { label: "Allocated drivers", value: `${data.allocatedDrivers}/${data.totalDrivers}`, tone: "good" },
+    { label: "Not allocated", value: String(data.notAllocatedDriverNames.length), tone: "risk" },
+    { label: "Vehicles unavailable (now)", value: String(data.vehiclesOut.length), tone: "warn" },
     { label: "Sort rate", value: `${data.sortRatePercent}%`, tone: "neutral" },
   ] as const;
 
@@ -24,7 +24,7 @@ export default function SupervisorHomeContent() {
             {data.depositKey}
             {data.depositLead ? ` · ${data.depositLead}` : ""}
           </p>
-          <h1>Resumo do dia anterior</h1>
+          <h1>Previous day summary</h1>
         </div>
         <span className="shp-meta">{data.date}</span>
       </header>

@@ -27,10 +27,10 @@ export default function VendorPerformanceCard({
 
   return (
     <section className="shp-card">
-      <h2>Performance de vendors</h2>
-      <p className="shp-card__sub">Seu depósito · últimos 7 dias</p>
+      <h2>Vendor performance</h2>
+      <p className="shp-card__sub">Your deposit · last 7 days</p>
 
-      {!hasData && <p className="shp-empty">Sem dados de performance para o período.</p>}
+      {!hasData && <p className="shp-empty">No performance data for this period.</p>}
 
       {topVendors.length > 0 && (
         <div className="shp-vp-list">
@@ -43,7 +43,7 @@ export default function VendorPerformanceCard({
       {attentionVendors.length > 0 && (
         <>
           <div className="shp-divider" />
-          <p className="shp-card__sub">Precisam de atenção</p>
+          <p className="shp-card__sub">Needs attention</p>
           <div className="shp-vp-list">
             {attentionVendors.map((entry) => (
               <VendorRow entry={entry} tone="risk" key={entry.vendorName} />
