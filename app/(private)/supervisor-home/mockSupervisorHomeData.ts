@@ -5,23 +5,35 @@
  * - no backend endpoint returns a 7-day vendor performance ranking scoped
  *   to one deposit yet (/bff/daily-overview returns per-user/day rows);
  * - deposit/supervisor resolution would reuse lib/daily-supervisor-check.ts.
+ *
+ * Everything here is a summary of the previous business day — routes,
+ * sort, performance — except `vehiclesOut`, which reflects right now.
  */
 import type { SupervisorHomeSummary } from "./types";
+
+function previousBusinessDayIso(): string {
+  const d = new Date();
+  d.setDate(d.getDate() - 1);
+  if (d.getDay() === 0) d.setDate(d.getDate() - 2); // Sunday -> Friday
+  if (d.getDay() === 6) d.setDate(d.getDate() - 1); // Saturday -> Friday
+  return d.toISOString().slice(0, 10);
+}
 
 export const mockSupervisorHomeSummary: SupervisorHomeSummary = {
   depositKey: "BAOP",
   depositLead: "Leandro Dias",
-  date: new Date().toISOString().slice(0, 10),
+  date: previousBusinessDayIso(),
+  vehiclesAsOfDate: new Date().toISOString().slice(0, 10),
   allocatedDrivers: 8,
   totalDrivers: 10,
   notAllocatedDriverNames: ["GABRIEL LIMA DA SILVA", "LUCAS FERREIRA"],
   sortRatePercent: 80,
   routes: [
-    { routeCode: "B04", driverName: "Adriano Dutra", sort: "Yes", status: "on-track" },
-    { routeCode: "B07", driverName: "Bruno Ribeiro", sort: "No", status: "on-track" },
-    { routeCode: "B11", driverName: "Marcos Alves", sort: "No", status: "attention", note: "Início atrasado" },
-    { routeCode: "B15", driverName: "Rafael Souza", sort: "Yes", status: "on-track" },
-    { routeCode: "B22", driverName: "Diego Santos", sort: "No", status: "on-track", note: "Cobrindo B19" },
+    { routeCode: "B04", driverName: "Adriano Dutra", sort: "Yes", status: "completed", stops: 142, failed: 0 },
+    { routeCode: "B07", driverName: "Bruno Ribeiro", sort: "No", status: "completed", stops: 138, failed: 4, note: "4 failed picks" },
+    { routeCode: "B11", driverName: "Marcos Alves", sort: "No", status: "incomplete", stops: 96, failed: 2, note: "Início atrasado" },
+    { routeCode: "B15", driverName: "Rafael Souza", sort: "Yes", status: "completed", stops: 150, failed: 0 },
+    { routeCode: "B22", driverName: "Diego Santos", sort: "No", status: "completed", stops: 135, failed: 1, note: "Cobrindo B19" },
   ],
   topVendors: [
     { vendorName: "Rafael Souza", routeCode: "B15", score: 99.2 },

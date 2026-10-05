@@ -1,11 +1,17 @@
 import { StatusBadge } from "@/components/status-badge";
 import type { VehicleOutOfOperation } from "../types";
 
-export default function VehiclesOutCard({ vehicles }: { vehicles: VehicleOutOfOperation[] }) {
+export default function VehiclesOutCard({
+  vehicles,
+  asOfDate,
+}: {
+  vehicles: VehicleOutOfOperation[];
+  asOfDate: string;
+}) {
   return (
     <section className="shp-card">
       <h2>Veículos fora de operação</h2>
-      <p className="shp-card__sub">Seu depósito · manutenção ou sem driver atribuído</p>
+      <p className="shp-card__sub">Seu depósito · agora · {asOfDate}</p>
 
       {vehicles.length === 0 ? (
         <p className="shp-empty">Todos os veículos do depósito estão ativos.</p>

@@ -1,10 +1,12 @@
-export type RouteStatus = "on-track" | "attention" | "off";
+export type RouteStatus = "completed" | "incomplete";
 
 export type DepositRoute = {
   routeCode: string;
   driverName: string;
   sort: "Yes" | "No";
   status: RouteStatus;
+  stops: number;
+  failed: number;
   note?: string;
 };
 
@@ -24,7 +26,9 @@ export type VehicleOutOfOperation = {
 export type SupervisorHomeSummary = {
   depositKey: string;
   depositLead: string;
+  /** The previous business day — everything here is a day-after summary, except `vehiclesOut`. */
   date: string;
+  vehiclesAsOfDate: string;
   allocatedDrivers: number;
   totalDrivers: number;
   notAllocatedDriverNames: string[];

@@ -12,8 +12,8 @@ export default function SupervisorHomeContent() {
   const kpis = [
     { label: "Drivers alocados", value: `${data.allocatedDrivers}/${data.totalDrivers}`, tone: "good" },
     { label: "Não alocados", value: String(data.notAllocatedDriverNames.length), tone: "risk" },
-    { label: "Veículos indisponíveis", value: String(data.vehiclesOut.length), tone: "warn" },
-    { label: "Sort rate do dia", value: `${data.sortRatePercent}%`, tone: "neutral" },
+    { label: "Veículos indisponíveis (hoje)", value: String(data.vehiclesOut.length), tone: "warn" },
+    { label: "Sort rate", value: `${data.sortRatePercent}%`, tone: "neutral" },
   ] as const;
 
   return (
@@ -24,7 +24,7 @@ export default function SupervisorHomeContent() {
             {data.depositKey}
             {data.depositLead ? ` · ${data.depositLead}` : ""}
           </p>
-          <h1>Visão geral do dia</h1>
+          <h1>Resumo do dia anterior</h1>
         </div>
         <span className="shp-meta">{data.date}</span>
       </header>
@@ -44,7 +44,7 @@ export default function SupervisorHomeContent() {
       </div>
 
       <div className="shp-grid shp-grid--single">
-        <VehiclesOutCard vehicles={data.vehiclesOut} />
+        <VehiclesOutCard vehicles={data.vehiclesOut} asOfDate={data.vehiclesAsOfDate} />
       </div>
     </div>
   );
