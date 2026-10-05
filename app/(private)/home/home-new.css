@@ -44,3 +44,8 @@
 .depot-modal__full:focus-visible,.depot-modal__close:focus-visible { outline:2px solid var(--home-deep); outline-offset:2px; }
 .depot-modal__body { flex:1; min-height:0; overflow:auto; padding:16px; }
 @media (max-width:700px) { .depot-modal { padding:0; } .depot-modal__body { padding:12px; } }
+@keyframes depot-modal-in { from { opacity:0; } to { opacity:1; } }
+@keyframes depot-panel-in { from { opacity:0; transform:translateY(8px) scale(.994); } to { opacity:1; transform:none; } }
+.depot-modal { animation:depot-modal-in .16s ease-out backwards; }
+.depot-modal__panel { animation:depot-panel-in .24s cubic-bezier(.22,.61,.36,1) backwards; }
+@media (prefers-reduced-motion:reduce) { .depot-modal,.depot-modal__panel { animation:none; } }

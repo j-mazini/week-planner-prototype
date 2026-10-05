@@ -571,8 +571,52 @@
 .shp-cta:hover { background: var(--teal); border-color: var(--teal); color: #fafaef; }
 .shp-cta:focus-visible { outline: 2px solid var(--teal-deep); outline-offset: 2px; }
 
+/* ---------- motion ----------
+   Light entrance only: a short fade and rise, staggered down the page, and the
+   same on a section or deposit change. Everything is at its resting state
+   within a few hundred milliseconds — nothing waits on a scroll observer. */
+
+@keyframes shp-rise {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: none; }
+}
+
+.shp-header,
+.shp-deposits,
+.shp-tabs,
+.shp-card {
+  /* `backwards`, not `both`: the resting state stays the element's own CSS
+     instead of the animation's final keyframe. */
+  animation: shp-rise .26s cubic-bezier(.22, .61, .36, 1) backwards;
+}
+.shp-deposits { animation-delay: .04s; }
+.shp-tabs { animation-delay: .1s; }
+/* On the card rather than its panel: this replays on a tab switch, when the
+   panel goes from display:none to shown, and on a deposit change, when the
+   card remounts. */
+.shp-card { animation-delay: .14s; }
+
+/* The tiles arrive in sequence rather than as one block. */
+.shp-kpi { animation: shp-rise .24s cubic-bezier(.22, .61, .36, 1) backwards; }
+.shp-kpi:nth-child(1) { animation-delay: .07s; }
+.shp-kpi:nth-child(2) { animation-delay: .09s; }
+.shp-kpi:nth-child(3) { animation-delay: .11s; }
+.shp-kpi:nth-child(4) { animation-delay: .13s; }
+.shp-kpi:nth-child(5) { animation-delay: .15s; }
+
+/* Switching the operation view swaps the body under a fixed header. */
+.shp-plan,
+.shp-opstats { animation: shp-rise .2s ease-out backwards; }
+
 @media (prefers-reduced-motion: reduce) {
   .shp-cta { transition: none; }
+  .shp-header,
+  .shp-deposits,
+  .shp-kpi,
+  .shp-tabs,
+  .shp-card,
+  .shp-plan,
+  .shp-opstats { animation: none; }
 }
 
 /* ---------- short viewports ----------

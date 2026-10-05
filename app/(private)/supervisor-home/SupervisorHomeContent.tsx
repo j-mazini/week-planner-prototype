@@ -126,7 +126,9 @@ export default function SupervisorHomeContent({
         </div>
       )}
 
-      <KpiStrip data={data} />
+      {/* Keyed by deposit so a change remounts the cards and replays their
+          entrance, rather than swapping numbers in place. */}
+      <KpiStrip data={data} key={deposit} />
 
       <div className="shp-tabs" role="tablist" aria-label="Dashboard sections">
         {TABS.map((t) => (
@@ -147,10 +149,11 @@ export default function SupervisorHomeContent({
 
       <div className="shp-grid">
         <div className="shp-grid__routes" {...panelProps("routes")}>
-          <DepositRoutesCard routes={data.routes} notAllocated={data.notAllocatedDriverNames} />
+          <DepositRoutesCard key={deposit} routes={data.routes} notAllocated={data.notAllocatedDriverNames} />
         </div>
         <div className="shp-grid__vendors" {...panelProps("vendors")}>
           <VendorPerformanceCard
+            key={deposit}
             topVendors={data.topVendors}
             attentionVendors={data.attentionVendors}
             average={data.depositAverageScore}
@@ -159,7 +162,7 @@ export default function SupervisorHomeContent({
         </div>
         <div className="shp-grid__operation" {...panelProps("operation")}>
           <OperationStatusCard
-            key={data.depositKey}
+            key={deposit}
             dayFinalized={data.dayFinalized}
             finalizedAt={data.finalizedAt}
             routeBalance={data.routeBalance}
