@@ -2,8 +2,8 @@
  * A deterministic number stream from a piece of text.
  *
  * The prototype derives figures it has no system to ask for — the days behind
- * an invoice, the bonus an SPMS would carry. They must not change between two
- * renders of the same record, so they come from here rather than `Math.random`.
+ * an invoice, say. They must not change between two renders of the same
+ * record, so they come from here rather than `Math.random`.
  */
 
 /** FNV-1a: short, stable, and enough to separate one record from another. */

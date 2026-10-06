@@ -8,14 +8,12 @@ import {
   buildSchedule,
   closeRun,
   hold,
-  registerSpms,
   release,
   reschedule,
   type PayableRecord,
   type PaymentMethod,
   type PaymentRun,
   type ScheduleState,
-  type SpmsLog,
 } from '@/lib/payment-runs';
 import seedData from './records.json';
 import './schedule.css';
@@ -38,9 +36,8 @@ const labelOf = (method: PaymentMethod) => PAYMENT_METHODS.find(item => item.id 
 export default function PaymentSchedule() {
   const [records, setRecords] = useState(seed);
   const [state, setState] = useState<ScheduleState>({});
-  const [spms, setSpms] = useState<SpmsLog>({});
   const [method, setMethod] = useState<PaymentMethod>('weekly-bank');
-  /** Which run is open: two runs can share a date, so the kind is part of it. */
+  /** Which run is open: a Friday can fall on the 25th, so the method is part of it. */
   const [openKey, setOpenKey] = useState<string | null>(null);
   const [loaded, setLoaded] = useState(false);
   /** The run date the user has armed for closing — the one irreversible step. */
@@ -53,27 +50,23 @@ export default function PaymentSchedule() {
       const stages = localStorage.getItem(workflowKey);
       if (stages) setRecords(restoreInvoiceStages(seed, JSON.parse(stages)) as PayableRecord[]);
       const saved = localStorage.getItem(scheduleKey);
-      if (saved) {
-        const parsed = JSON.parse(saved);
-        // The desk stored a bare invoice map before it knew about the SPMS.
-        setState(parsed.invoices ?? parsed);
-        setSpms(parsed.spms ?? {});
-      }
+      // Earlier versions wrapped the map in an envelope; both shapes read.
+      if (saved) setState(JSON.parse(saved).invoices ?? JSON.parse(saved));
     } catch { /* A prototype that cannot read its storage simply starts fresh. */ }
     setLoaded(true);
   }, []);
 
   useEffect(() => {
     if (!loaded) return;
-    try { localStorage.setItem(scheduleKey, JSON.stringify({ invoices: state, spms })); }
+    try { localStorage.setItem(scheduleKey, JSON.stringify(state)); }
     catch { /* The desk still works for this session without storage. */ }
-  }, [state, spms, loaded]);
+  }, [state, loaded]);
 
   const schedule = useMemo(
-    () => buildSchedule(records, state, spms, today, RUNS_AHEAD),
-    [records, state, spms, today]);
-  const keyOf = (run: PaymentRun) => `${run.kind}-${run.date.getTime()}`;
-  const forMethod = schedule.runs.filter(run => run.method === method && run.kind === 'payment');
+    () => buildSchedule(records, state, today, RUNS_AHEAD),
+    [records, state, today]);
+  const keyOf = (run: PaymentRun) => `${run.method}-${run.date.getTime()}`;
+  const forMethod = schedule.runs.filter(run => run.method === method);
   const open = schedule.runs.find(run => keyOf(run) === openKey) ?? forMethod[0];
   const net = schedule.runs.reduce((sum, run) => sum + run.net, 0);
   const scheduled = schedule.runs.reduce((sum, run) => sum + run.invoices.length, 0);
@@ -94,8 +87,7 @@ export default function PaymentSchedule() {
 
       <div className="pay-methods" aria-label="Payment methods">
         {PAYMENT_METHODS.map(item => {
-          const next = schedule.runs.find(run => run.method === item.id && run.kind === 'payment');
-          const waiting = item.id === 'weekly-bank' ? schedule.awaiting.length : 0;
+          const next = schedule.runs.find(run => run.method === item.id);
           return (
             <button
               key={item.id}
@@ -111,11 +103,6 @@ export default function PaymentSchedule() {
                 <span>{next?.invoices.length ?? 0} INVOICES</span>
                 <strong>{money(next?.net ?? 0)}</strong>
               </span>
-              {waiting > 0 && (
-                <span className="pay-method-waiting">
-                  BONUS AWAITING SPMS · {waiting} {waiting === 1 ? 'WEEK' : 'WEEKS'}
-                </span>
-              )}
             </button>
           );
         })}
@@ -126,13 +113,13 @@ export default function PaymentSchedule() {
           <button
             key={keyOf(run)}
             type="button"
-            className={`pay-slot${keyOf(run) === keyOf(open!) ? ' selected' : ''}${run.kind === 'bonus' ? ' is-bonus' : ''}`}
+            className={`pay-slot${keyOf(run) === keyOf(open!) ? ' selected' : ''}`}
             aria-pressed={keyOf(run) === keyOf(open!)}
             onClick={() => { setMethod(run.method); setOpenKey(keyOf(run)); setClosing(null); }}
           >
             <span className="pay-slot-date">{shortDate(run.date)}</span>
             <span className="pay-slot-method">
-              {run.kind === 'bonus' ? 'BONUS' : run.method === 'weekly-bank' ? 'BANK' : 'SELF-BILLING'}
+              {run.method === 'weekly-bank' ? 'BANK' : 'SELF-BILLING'}
             </span>
             <span className="pay-slot-count">{run.invoices.length}</span>
           </button>
@@ -146,9 +133,7 @@ export default function PaymentSchedule() {
             <div>
               <p className="pay-run-when">{longDate(open.date)}</p>
               <p className="pay-run-meta">
-                {weekday(open.date)} · {open.kind === 'bonus'
-                  ? `BONUS · WEEK OF ${longDate(open.week!)}`
-                  : labelOf(open.method)} · {open.invoices.length} INVOICES
+                {weekday(open.date)} · {labelOf(open.method)} · {open.invoices.length} INVOICES
               </p>
             </div>
             <dl className="pay-run-totals">
@@ -215,23 +200,17 @@ export default function PaymentSchedule() {
                     <td className="pay-right">− {money(invoice.deduction)}</td>
                     <td className="pay-right pay-net">{money(invoice.net)}</td>
                     <td>
-                      <span className={`pay-status${invoice.shift && open.kind === 'payment' ? ' is-moved' : ''}`}>
-                        {open.kind === 'bonus' ? 'BONUS' : invoice.shift ? 'RESCHEDULED' : 'SCHEDULED'}
+                      <span className={`pay-status${invoice.shift ? ' is-moved' : ''}`}>
+                        {invoice.shift ? 'RESCHEDULED' : 'SCHEDULED'}
                       </span>
                     </td>
                     <td className="pay-actions">
-                      {open.kind === 'payment' ? (
-                        <>
-                          <button type="button" onClick={() => setState(current => reschedule(current, invoice.record.id))}>
-                            RESCHEDULE
-                          </button>
-                          <button type="button" onClick={() => setState(current => hold(current, invoice.record.id))}>
-                            HOLD
-                          </button>
-                        </>
-                      ) : (
-                        <span className="pay-id">FROM SPMS</span>
-                      )}
+                      <button type="button" onClick={() => setState(current => reschedule(current, invoice.record.id))}>
+                        RESCHEDULE
+                      </button>
+                      <button type="button" onClick={() => setState(current => hold(current, invoice.record.id))}>
+                        HOLD
+                      </button>
                     </td>
                   </tr>
                 ))}
@@ -245,26 +224,6 @@ export default function PaymentSchedule() {
           <p className="pay-empty">No runs ahead for this method.</p>
         )}
       </section>
-
-      {schedule.awaiting.length > 0 && (
-        <section className="pay-awaiting" aria-label="Bonus awaiting SPMS">
-          <h2>AWAITING SPMS · {schedule.awaiting.length}</h2>
-          <p className="pay-awaiting-note">
-            The day rate is paid on its own date. A week&apos;s bonus takes a payment date only once
-            its SPMS has arrived.
-          </p>
-          {schedule.awaiting.map(week => (
-            <article className="pay-awaiting-row" key={week.week.toISOString()}>
-              <span className="pay-id">WEEK OF {longDate(week.week)}</span>
-              <span className="pay-awaiting-count">{week.invoices.length} WITH BONUS</span>
-              <strong>{money(week.net)}</strong>
-              <button type="button" onClick={() => setSpms(current => registerSpms(current, week.week, new Date()))}>
-                REGISTER SPMS
-              </button>
-            </article>
-          ))}
-        </section>
-      )}
 
       {schedule.held.length > 0 && (
         <section className="pay-held" aria-label="Held invoices">

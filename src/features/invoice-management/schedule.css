@@ -130,19 +130,3 @@
 .pay-close-pair button:not(.pay-close-go):hover { border-color: var(--pay-teal); color: var(--pay-deep); }
 .pay-close button:focus-visible { outline: 2px solid var(--pay-deep); outline-offset: 2px; }
 
-/* ---------- the bonus behind the weekly run ---------- */
-
-.pay-method-waiting { font: 9px var(--pay-mono); letter-spacing: .05em; color: #6a5725; }
-
-.pay-slot.is-bonus { border-style: dashed; }
-.pay-slot.is-bonus .pay-slot-method { color: #6a5725; }
-
-.pay-awaiting { display: flex; flex-direction: column; gap: 8px; padding: 14px 16px; border: 1px dashed var(--pay-line); background: var(--pay-surface); }
-.pay-awaiting h2 { margin: 0; font: 700 11px var(--pay-mono); letter-spacing: .09em; color: var(--pay-deep); }
-.pay-awaiting-note { margin: 0; max-width: 68ch; font: 10px/1.5 var(--pay-mono); color: var(--pay-muted); }
-.pay-awaiting-row { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; padding: 9px 11px; border: 1px solid var(--pay-soft); background: var(--pay-paper); }
-.pay-awaiting-count { flex: 1 1 auto; min-width: 120px; font: 10px var(--pay-mono); letter-spacing: .05em; color: var(--pay-muted); }
-.pay-awaiting-row strong { color: var(--pay-deep); font-size: 13px; }
-.pay-awaiting-row button { border: 1px solid var(--pay-deep); background: transparent; color: var(--pay-deep); padding: 6px 11px; font: 600 9px var(--pay-mono); letter-spacing: .06em; cursor: pointer; }
-.pay-awaiting-row button:hover { background: var(--pay-deep); color: #fafaef; }
-.pay-awaiting-row button:focus-visible { outline: 2px solid var(--pay-deep); outline-offset: 2px; }

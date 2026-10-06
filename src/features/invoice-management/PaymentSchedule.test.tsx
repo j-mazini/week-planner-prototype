@@ -135,64 +135,12 @@ describe('closing a run', () => {
   });
 });
 
-const awaiting = () => within(screen.getByLabelText('Bonus awaiting SPMS'));
-
-describe('the bonus behind the weekly run', () => {
-  it('shows the week whose SPMS has not arrived, with no payment date', () => {
-    render(<PaymentSchedule />);
-    expect(awaiting().getByRole('button', { name: /REGISTER SPMS/i })).toBeInTheDocument();
-    // It is waiting, so it has no slot on the calendar yet.
-    expect(strip().queryAllByText('BONUS')).toHaveLength(0);
-  });
-
-  it('never lets the bonus hold up the day rate', () => {
-    render(<PaymentSchedule />);
-    const before = run().getByText(/NET PAYABLE/).parentElement!.textContent;
-    expect(run().getByRole('button', { name: /CLOSE RUN/i })).toBeEnabled();
-    expect(before).toBeTruthy();
-  });
-
-  it('gives the bonus a date once the SPMS is registered', () => {
-    render(<PaymentSchedule />);
-    fireEvent.click(awaiting().getByRole('button', { name: /REGISTER SPMS/i }));
-
-    expect(screen.queryByLabelText('Bonus awaiting SPMS')).not.toBeInTheDocument();
-    expect(strip().getAllByText('BONUS').length).toBeGreaterThan(0);
-  });
-
-  it('opens the bonus run from the strip and settles it on its own', () => {
-    render(<PaymentSchedule />);
-    fireEvent.click(awaiting().getByRole('button', { name: /REGISTER SPMS/i }));
-
-    const slot = strip().getAllByRole('button').find(item => within(item).queryByText('BONUS'))!;
-    fireEvent.click(slot);
-    // The rows carry a BONUS status too, so match the run's own line.
-    expect(run().getByText(/BONUS · WEEK OF/)).toBeInTheDocument();
-
-    fireEvent.click(run().getByRole('button', { name: /CLOSE RUN/i }));
-    fireEvent.click(run().getByRole('button', { name: /CONFIRM/i }));
-
-    // Settled, the bonus run is gone from the calendar and the desk falls back
-    // to the day rate run — which is still owed, because a bonus pays no invoice.
-    expect(strip().queryAllByText('BONUS')).toHaveLength(0);
-    expect(run().getByRole('row', { name: /REC-2025005/ })).toBeInTheDocument();
-  });
-
-  it('still owes the bonus after the day rate run is settled', () => {
-    render(<PaymentSchedule />);
-    fireEvent.click(run().getByRole('button', { name: /CLOSE RUN/i }));
-    fireEvent.click(run().getByRole('button', { name: /CONFIRM/i }));
-
-    expect(awaiting().getByRole('button', { name: /REGISTER SPMS/i })).toBeInTheDocument();
-  });
-});
-
 describe('opening the desk on storage an older version wrote', () => {
   it('renders a settled run that has no date recorded for it', () => {
-    // What the previous version saved: the invoice map on its own, with no
-    // `paidOn` on a settled invoice and no SPMS log beside it.
+    // A version that wrote fields this one no longer has, and left out ones it
+    // now expects. Both are read through the defaults.
     localStorage.setItem('logix.payment-schedule.v1', JSON.stringify({
-      'REC-2025005': { held: false, shift: 0, paid: true },
+      'REC-2025005': { paid: true, paidOn: 1760572800000 },
       'REC-2025030': { held: true, shift: 1 },
     }));
 
