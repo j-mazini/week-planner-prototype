@@ -1,5 +1,8 @@
 # Contrato de API para as pages — logix-sphere-backend
 
+> **Conferido em 06/10/2026**, no commit `62f6b79`. Descreve o repositório **logix-sphere-backend**, não este. Nada
+> aqui foi reconferido contra aquele código nesta data — o conteúdo é de 21/09/2026.
+
 **Para:** quem constrói uma tela no `logix-sphere-frontend-nextjs` e precisa saber o que o servidor
 entrega, e para quem no backend vai criar o endpoint que essa tela consome.
 **Data do mapeamento:** 21/09/2026 — a partir do código real de `main`.

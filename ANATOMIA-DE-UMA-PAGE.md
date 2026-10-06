@@ -1,5 +1,9 @@
 # Anatomia de uma page — logix-sphere-frontend-nextjs
 
+> **Conferido em 06/10/2026**, no commit `62f6b79`. As referências de navegação apontavam para `components/beam-sidebar.tsx`, apagada
+> com o resto do código que ninguém importava; a sidebar real é `app/(private)/components/NavbarWrapper.tsx`.
+> O resto do documento é de 21/09/2026 e **não foi reconferido**.
+
 **Para:** qualquer pessoa (ou IA) que vá criar, alterar ou revisar uma tela do LogixSphere.
 **Repositórios cobertos:** `logix-sphere-frontend-nextjs` (`ba-express` v1.0.7) e `logix-sphere-backend` (`ba-express-backend`).
 **Data do mapeamento:** 21/09/2026 — feito a partir do código real de `main` nos dois repositórios.
@@ -99,7 +103,7 @@ Este é o percurso completo de um clique até o pixel. Cada número é um ponto 
 | UI genérica | `components/` e `components/ui/` | Design System do projeto (Radix + Tailwind + `class-variance-authority`). |
 | Permissão de rota | `lib/route-permissions.ts` | Whitelist por `userTypeId`. Usada pelo middleware, pela sidebar e pelo Quick Access da home. |
 | IDs fixos do banco | `src/constants/businessRules.ts` | `Object.freeze` em todos os níveis, cada ID documentado com origem e impacto. |
-| Navegação | `components/beam-sidebar.tsx`, `nav-operations.tsx`, `nav-financial.tsx` | Onde a rota nova precisa ser declarada para aparecer no menu. |
+| Navegação | `app/(private)/components/NavbarWrapper.tsx` | Onde a rota nova precisa ser declarada para aparecer no menu. |
 
 O alias de import é `@/*` → raiz do projeto (`tsconfig.json`).
 
@@ -252,7 +256,7 @@ outra tela montada pode estar exibindo o dado antigo.
    dos componentes.
 7. **Monte a UI** com os componentes de `app/(private)/components` (`StandardPageLayout`, `PageHeader`,
    `PageContent`, `PageSection`) e com `components/ui`. Não crie um padrão de header novo.
-8. **Registre a rota na navegação**: adicione a entrada em `components/beam-sidebar.tsx` (bloco de
+8. **Registre a rota na navegação**: adicione a entrada em `app/(private)/components/NavbarWrapper.tsx` (bloco de
    operações ou financeiro, conforme o caso) e, se for o caso, no Quick Access da home.
 9. **Libere o acesso**: adicione o path às whitelists de `lib/route-permissions.ts` para cada perfil
    que deve enxergar a tela. Sem isso, só admin entra.
@@ -266,7 +270,7 @@ outra tela montada pode estar exibindo o dado antigo.
 
 - **Nunca** `fetch` dentro de um `.tsx`. Acesso a dado mora em `lib/`. Hoje há quatro arquivos
   violando isso — `schedule/page.tsx`, `daily-performance-insight/page.tsx`,
-  `week-planner/components/AvailableVendors.tsx` e `week-planner-operations/page.new.tsx` (este
+  `week-planner/components/AvailableVendors.tsx` (este
   último sequer é uma rota: `.new.tsx` é arquivo morto). Não aumente a conta.
 - **Nunca** inventar um endpoint que não esteja em `routes.ts` do backend.
 - **Nunca** confiar na tipagem de uma resposta obtida por `fetch` direto. Ou use `api-client` (que
@@ -295,7 +299,7 @@ outra tela montada pode estar exibindo o dado antigo.
 [ ] queryKey nova não colide com nenhuma existente
 [ ] Mutation invalida as queries afetadas
 [ ] Rota adicionada às whitelists de lib/route-permissions.ts para cada perfil que deve ver a tela
-[ ] Rota declarada na sidebar (beam-sidebar / nav-operations / nav-financial)
+[ ] Rota declarada na sidebar (`app/(private)/components/NavbarWrapper.tsx`)
 [ ] loading.tsx criado
 [ ] Estados de loading, vazio e erro validados
 [ ] Desktop e mobile validados

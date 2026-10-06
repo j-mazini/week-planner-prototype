@@ -1,5 +1,12 @@
 # Inventário de UI por page — logix-sphere-frontend-nextjs
 
+> **Conferido em 06/10/2026**, no commit `62f6b79`. As referências a `beam-sidebar.tsx`, `MobileMenuButton.tsx`,
+> `month-select.tsx`, `page.new.tsx` e `page-refactored.tsx` saíram: esses ficheiros foram apagados
+> com o resto do código que ninguém importava. Sete páginas continuam sem entrada aqui —
+> `/clearing-desk`, `/driver-route-balance`, `/route-balance`, `/supervisor-home`,
+> `/financial-management`, `/financial-performance` e `/week-planner-operations`. O resto é de
+> 21/09/2026 e **não foi reconferido**.
+
 **Para:** quem vai mexer numa tela e precisa saber, antes de abrir o editor, quais menus, modais,
 cards, tabelas e ações já existem ali — e quais já existem em outra tela e podem ser reaproveitados.
 **Data do mapeamento:** 21/09/2026, a partir do código real de `main`.
@@ -17,7 +24,7 @@ outra tela. A seção 3 lista quais.
 Não existe um arquivo único de navegação. A rota nova precisa ser declarada em até três lugares
 diferentes, e os três têm conteúdo distinto.
 
-### Sidebar desktop — `components/beam-sidebar.tsx`
+### Sidebar desktop — `app/(private)/components/NavbarWrapper.tsx`
 
 Uma constante `NAVIGATION_DATA` com dois grupos. A visibilidade de cada grupo vem de
 `getBeamSidebarAccess(userTypeId)` em `lib/route-permissions.ts`: admin vê tudo; supervisor vê a
@@ -55,7 +62,7 @@ inglês. É a correção mais barata deste documento.
 
 ### Quick Access e menu mobile da home — `app/(private)/home/`
 
-`components/MobileMenuButton.tsx` repete, item por item, a mesma lista da sidebar — mantê-las em
+O menu mobile repete, item por item, a mesma lista da sidebar — mantê-las em
 sincronia é manual. Já `constants.ts` monta o Quick Access e as notificações com uma lista própria,
 que inclui **oito rotas que não existem** (`/admin-settings`, `/admin-settings/backups`,
 `/security/alerts`, `/operations-management/routes`, `/operations-management/kpis`,
@@ -89,7 +96,7 @@ em `NavbarWrapper`.
 conjunto compartilhado.
 
 **Navegação temporal.** `MonthCarousel` (4 telas), `MonthSelector` (4), `DaysCarousel` (2),
-`PeriodCarousel`, `DateCarousel`, `MonthYearSelect`, e o componente global `month-select.tsx` /
+`PeriodCarousel`, `DateCarousel`, `MonthYearSelect` /
 `period-picker.tsx`.
 
 **Desktop vs mobile.** O padrão é um par `DesktopView` / `MobileView` (3 e 4 telas), com
@@ -103,7 +110,7 @@ conjunto compartilhado.
 `invoice-details-modal`, `new-invoice-modal`, `multiple-invoices-modal`,
 `service-partner-invoice-preview-modal`, `status-badge`, `service-partner-badge`, `vrn-plate`,
 `user-card`, `export-button`, `modern-page-header`, `page-header`, `table-header`, `styled-button`,
-`andon-status`, `period-picker`, `month-select`.
+`period-picker`.
 
 ---
 
@@ -150,7 +157,7 @@ rota flex (`handleAddFlexRoute`) e exportação CSV.
 **Atenção.** Doze componentes desta pasta têm nome idêntico aos do `/week-planner`: `DailyView`,
 `WeeklyView`, `PlannerView`, `PlannerContext`, `DayCell`, `VendorChip`, `VendorList`, `RouteLabel`,
 `VendorCard`, `AssignmentModal`, `DayOffModal` e `FlexRouteVisibilityControls`. As duas telas são um
-fork uma da outra. Há ainda um `page.new.tsx` aqui, fora da rota.
+fork uma da outra.
 
 #### `/daily-game-plan`
 **Modais.** `OperationFormModal`, `OpenOperationModal`, `PendingDayModal`, `MessageModal`,
@@ -278,7 +285,7 @@ células.
 **Apoio.** `FilterBar`, `FilterToggles`, `Pagination`, `Toast`, `EmptyState`, `LoadingSpinner`.
 **Ações.** 15 handlers, incluindo criação (`handleAddNewRegister`), edição e exclusão de operação a
 partir da linha, e limpeza de filtros.
-**Atenção.** Existe um `page-refactored.tsx` na pasta, fora da rota.
+**Atenção.** Havia um `page-refactored.tsx` fora da rota; foi removido.
 
 #### `/daily-financials`
 **Componentes.** Nenhum próprio. Selects de depósito e de service type, e download do relatório.
@@ -326,7 +333,7 @@ Avg Paid / Stop, DHL Route Cost, % vs target.
 `handleClearNotifications`.
 **Chat.** `VendorVoiceChat`, com `handleNewMessage` e `handleConversationSeen` sobre socket.
 **Upload.** `DiscoExcelUpload` e `handleFileSelect` — parsing de Excel no navegador.
-**Navegação.** `QuickAccessSection`, `NavigationCard`, `MobileMenuButton`.
+**Navegação.** `QuickAccessSection`, `NavigationCard`.
 **API local.** `fetchDayOverview`, `fetchStatus`, `fetchSpStatus`, `getVehicles`, `getVendors`,
 `getVehiclesForCompliance`, `getVendorsForCompliance`, `getLiquidationDamageDeductions`,
 `getLiquidationDamagesWithDetails` — distribuídas em cinco arquivos (`api.ts`, `sp-api.ts`,

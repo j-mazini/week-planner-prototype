@@ -1,5 +1,9 @@
 # Catálogo de pages — logix-sphere-frontend-nextjs
 
+> **Conferido em 06/10/2026**, no commit `62f6b79`: 39 páginas com `page.tsx` em `app/(private)`.
+> As seções 1 a 5 vêm de 21/09/2026 e **não foram reconferidas** nesta data; a seção 6 foi
+> reescrita contra o código. Uma ficha sem data é uma ficha em que não se pode confiar.
+
 **Para:** quem precisa saber o que cada tela do LogixSphere faz, quem a enxerga e o que ela tem de
 particular — antes de mexer nela ou de criar uma parecida.
 **Data do mapeamento:** 21/09/2026, a partir do código real de `main`.
@@ -46,7 +50,6 @@ Referência de perfis: `2` = driver/vendor, `3` = supervisor, `5` = service part
 | `/daily-financials` | — | — | ~900 linhas |
 | `/schedule` | — | — | ~1.100 linhas |
 | `/requests-inbox` | — | — | ~2.000 linhas |
-| `/requests-admin` | — | — | ~550 linhas |
 | `/daily-performance-insight` | 2, 3 | mobile | ~1.100 linhas |
 | `/subcontractor` | 2, 3 | mobile | ~1.500 linhas |
 | `/current-month` | 2, 3 | mobile | ~1.700 linhas |
@@ -259,22 +262,9 @@ fluxo usa (rota OFF = 48, veículo placeholder = 37, depósito OFF = 4) estão e
 **Quem vê.** Só admin. **Menu:** nenhum.
 **Dado.** `lib/vendor-requests-api` (`approveVendorRequestWithoutDayOffInsert`,
 `rejectVendorRequest`), `lib/day-off-api`, `lib/vendors-api`, hook `useDayOffItems`.
-**Particularidades.** Existem **duas** telas administrativas de pedido — esta e `/requests-admin` —
+**Particularidades.** Havia **duas** telas administrativas de pedido; `/requests-admin` foi removida, e esta —
 e nenhuma das duas está em menu. A diferença é que esta trata o day-off em si; vale decidir qual
 fica.
-
-### `/requests-admin` — Administração de pedidos
-**Função.** Aprovação e rejeição de pedidos de vendor, em tabela.
-**Quem vê.** Só admin. **Menu:** nenhum.
-**Dado.** `lib/vendor-requests-api`, `lib/vendors-api`, hook `useServicePartners`.
-**Particularidades.** Dois arquivos, ~550 linhas. Ver a observação em `/requests-inbox`.
-
----
-
-## 5. Portal do motorista e do vendor (mobile)
-
-Estas sete telas formam a barra de navegação mobile e são o sistema inteiro do ponto de vista de
-quem dirige. Todas são pensadas primeiro para telefone.
 
 ### `/daily-performance-insight` — Performance do dia
 **Função.** O desempenho do dia do próprio motorista: paradas, códigos de falha ("Not Received",
@@ -347,42 +337,77 @@ scroll com modal aberto.
 
 ---
 
+### `/clearing-desk` — Mesa de liberação
+**Função.** Fila de autorizações pendentes trabalhada uma a uma: o registo em causa fica ao centro,
+o que foi liberado na sessão à direita, e cada liberação pode ser devolvida à fila.
+**Quem vê.** Supervisor. **Menu:** sidebar.
+**Dado.** `useClearingDesk`, mais `/bff/cost-models` para o seletor do editor.
+**Particularidades.** O movimento das fichas entre as colunas está em `clearing-desk/motion.ts` e é
+partilhado com o desk de invoices — as duas mesas trabalham igual, então uma ficha que sai de uma
+coluna e chega noutra tem de se mover igual. É das poucas telas com teste de componente.
+
+### `/route-balance` e `/driver-route-balance` — Balanço de rota
+**Função.** O acerto da rota do dia. `/route-balance` é a vista de escritório; `/driver-route-balance`
+é a do motorista, no telemóvel, com relato de ocorrência e ordenação de paragens.
+**Quem vê.** `/route-balance` supervisor; `/driver-route-balance` motorista. **Menu:** sidebar.
+**Dado.** `/bff/daily-overview/`.
+**Particularidades.** `/driver-route-balance` dimensiona os seus blocos por **container query**
+(`@container driver-route`), não por largura de janela — é a única page do sistema que o faz, e é o
+padrão a seguir quando um bloco tem de reagir à coluna em que está e não ao ecrã.
+
+### `/supervisor-home` — Home do supervisor
+**Função.** O estado do dia para quem supervisiona: o que está alocado, o que falta, e o que já
+fechou.
+**Quem vê.** Supervisor. **Menu:** é a home do perfil.
+**Dado.** `/bff/daily-overview`.
+**Particularidades.** Usa o adaptador `components/navbar-wrapper.tsx` sem `title`, deixando o
+título vir do mapa de rotas.
+
 ## 6. Telas órfãs, duplicadas e protótipos
 
-Esta seção não é enfeite: são **onze das 37 rotas privadas**. Cada uma precisa de uma decisão —
-completar, remover ou ligar ao menu.
+Conferida linha a linha em 06/10/2026. Duas das onze entradas que esta seção listava deixaram de
+existir e três mudaram de natureza — o que é a razão de a seção existir: elas são decisões adiadas,
+e decisões adiadas se movem sozinhas.
 
 ### Duplicatas de operações
-`/op-management` (~1.340 linhas) e `/operations-management` (~1.720 linhas) têm o mesmo título na
-interface — "Daily Operations Management" — que a tela oficial `/daily-operations-management`. Ambas
-consomem `lib/operations-management-api` de verdade, ambas estão fora de qualquer menu e de qualquer
-whitelist. `/operations-management` ainda é referenciada pelo `constants.ts` da home. São três telas
-para o mesmo trabalho.
+`/op-management` (~1.140 linhas) e `/operations-management` (~1.235 linhas) têm o mesmo título na
+interface — "Daily Operations Management" — que a tela oficial. Ambas consomem
+`lib/operations-management-api` de verdade e ambas estão fora de qualquer menu. São três telas para
+o mesmo trabalho.
 
-### Redirect
-`/week-planner-operations` tem `page.tsx` completo, mas o `next.config.ts` a redireciona
-permanentemente para `/daily-operations-management` — que por sua vez reexporta este mesmo
-`page.tsx`. A rota nunca é alcançada pelo utilizador; a pasta é onde o código realmente mora.
+### Reexportação, não redirect
+`/daily-operations-management/page.tsx` tem **uma linha**: reexporta o `page.tsx` de
+`/week-planner-operations`, onde as 12.117 linhas realmente moram. Não há redirect:
+`next.config.js` não declara nenhum. **As duas rotas são alcançáveis e servem a mesma tela.**
+
+### Redirects de verdade
+Duas rotas existem só para não quebrar favoritos:
+
+| Rota | Vai para | Por quê |
+|---|---|---|
+| `/performance` | `/current-performance` | o protótipo de dados aleatórios foi substituído pelo painel mensal |
+| `/financial-performance` | `/daily-financial-insights` | o painel financeiro implementado |
 
 ### Protótipos sem camada de dados
-Estas cinco telas **não fazem nenhuma chamada ao backend** — renderizam dados fixos no próprio
-código:
+Renderizam dados fixos no próprio código, sem nenhuma chamada ao backend:
 
 | Rota | Porte | O que aparenta ser |
 |---|---|---|
-| `/daily` | ~680 linhas | dashboard diário com calendário de dias úteis e métricas calculadas localmente (`metricsCalculator.ts`) |
-| `/logistics` | ~910 linhas | visualização de rotas em loop |
-| `/op-dashboard` | ~550 linhas | "Operations Dashboard" |
-| `/performance` | ~540 linhas | tabela de performance por dia (stops, SPH, TW, arrive) |
-| `/invoice-history` | ~1.370 linhas | "Invoice history and management", com dados fixos |
+| `/daily` | ~306 linhas | dashboard diário com métricas calculadas localmente |
+| `/op-dashboard` | ~305 linhas | "Operations Dashboard" |
+| `/invoice-history` | ~684 linhas | "Invoice history and management", de `./mockData` |
 
-`/invoice-history` é a mais delicada das cinco: está linkada no `constants.ts` da home, então um
-utilizador pode chegar nela e ver números que não são reais.
+`/logistics` saiu desta lista porque foi removida do repositório.
 
-### Placeholders
-`/financial-management` (13 linhas) e `/financial-performance` (44 linhas) renderizam apenas um
-título — o segundo diz literalmente que as métricas "serão exibidas aqui". Ambos exibem o mesmo
-título "Financial Management".
+**`/invoice-history` é a mais delicada:** está linkada no menu, então um utilizador chega nela e vê
+números que não são reais. **E não é a única tela com esse nome** — a aba "Invoices history" dentro
+de `/invoice-processing-workflow#82-8787` é outra coisa, construída sobre o mesmo seed do desk de
+processamento. Duas telas chamadas histórico de invoices, com números diferentes.
+
+### Já não são placeholders
+`/financial-management` virou um hub real: seis cartões para insights, invoices, invoices de
+parceiro, processamento, deduções e agenda de pagamento. `/financial-performance` virou o redirect
+acima. A entrada anterior desta seção descrevia as duas como telas que só renderizavam um título.
 
 ---
 
@@ -396,11 +421,13 @@ está sinalizada na interface como incompleta.
 **Três telas disputam o mesmo trabalho de gestão de operações**, e a que está no menu é a única cujo
 código não está na própria pasta.
 
-**Duas telas administrativas de pedidos** (`/requests-inbox` e `/requests-admin`) fazem trabalho
-sobreposto e nenhuma está em menu.
+**Havia duas telas administrativas de pedidos** (`/requests-inbox` e `/requests-admin`), com
+trabalho sobreposto. `/requests-admin` foi removida desde então; a observação fica como registo de
+que a duplicação existiu e de como se resolveu.
 
-**O Quick Access da home aponta para oito rotas inexistentes**, além de linkar um protótipo com
-dados fictícios.
+**O Quick Access da home já não aponta para rota inexistente** — conferi as ligações de
+`app/(private)/home/page.tsx` em 06/10/2026 e todas resolvem. Continua a linkar `/invoice-history`,
+que é um protótipo com dados fictícios.
 
 **As duas maiores telas do sistema concentram 53.000 das ~141.000 linhas de `app/`** — `/week-planner`
 e `/daily-operations-management`. Qualquer refatoração de padrão que não as inclua não muda o
