@@ -110,5 +110,213 @@
     "period": "Sep 2026",
     "amount": 57377,
     "status": "invoiced"
+  },
+  {
+    "id": "REC-2025011",
+    "vendor": "Daniel Rocha",
+    "method": "weekly-bank",
+    "period": "Sep 2026",
+    "amount": 187455,
+    "status": "current"
+  },
+  {
+    "id": "REC-2025012",
+    "vendor": "Isabella Martins",
+    "method": "monthly-self-billing",
+    "period": "Sep 2026",
+    "amount": 264310,
+    "status": "pending"
+  },
+  {
+    "id": "REC-2025013",
+    "vendor": "Lucas Santos",
+    "method": "weekly-bank",
+    "period": "Sep 2026",
+    "amount": 98720,
+    "status": "ready"
+  },
+  {
+    "id": "REC-2025014",
+    "vendor": "Sofia Almeida",
+    "method": "weekly-bank",
+    "period": "Sep 2026",
+    "amount": 231604,
+    "status": "current"
+  },
+  {
+    "id": "REC-2025015",
+    "vendor": "Rafael Souza",
+    "method": "monthly-self-billing",
+    "period": "Sep 2026",
+    "amount": 145980,
+    "status": "pending"
+  },
+  {
+    "id": "REC-2025016",
+    "vendor": "Clara Pereira",
+    "method": "weekly-bank",
+    "period": "Sep 2026",
+    "amount": 276115,
+    "status": "invoiced"
+  },
+  {
+    "id": "REC-2025017",
+    "vendor": "Henry Scott",
+    "method": "monthly-self-billing",
+    "period": "Sep 2026",
+    "amount": 112345,
+    "status": "current"
+  },
+  {
+    "id": "REC-2025018",
+    "vendor": "Grace Bennett",
+    "method": "weekly-bank",
+    "period": "Sep 2026",
+    "amount": 198870,
+    "status": "ready"
+  },
+  {
+    "id": "REC-2025019",
+    "vendor": "Nathan Price",
+    "method": "weekly-bank",
+    "period": "Sep 2026",
+    "amount": 305440,
+    "status": "pending"
+  },
+  {
+    "id": "REC-2025020",
+    "vendor": "Chloe Hughes",
+    "method": "monthly-self-billing",
+    "period": "Sep 2026",
+    "amount": 87215,
+    "status": "current"
+  },
+  {
+    "id": "REC-2025021",
+    "vendor": "Owen Fletcher",
+    "method": "weekly-bank",
+    "period": "Sep 2026",
+    "amount": 242990,
+    "status": "invoiced"
+  },
+  {
+    "id": "REC-2025022",
+    "vendor": "Ruby Chapman",
+    "method": "monthly-self-billing",
+    "period": "Sep 2026",
+    "amount": 169530,
+    "status": "ready"
+  },
+  {
+    "id": "REC-2025023",
+    "vendor": "Felix Moreau",
+    "method": "weekly-bank",
+    "period": "Sep 2026",
+    "amount": 213775,
+    "status": "pending"
+  },
+  {
+    "id": "REC-2025024",
+    "vendor": "Benjamin Harris",
+    "method": "weekly-bank",
+    "period": "Sep 2026",
+    "amount": 156240,
+    "status": "current"
+  },
+  {
+    "id": "REC-2025025",
+    "vendor": "Olivia Taylor",
+    "method": "monthly-self-billing",
+    "period": "Sep 2026",
+    "amount": 128905,
+    "status": "pending"
+  },
+  {
+    "id": "REC-2025026",
+    "vendor": "Mia Rodriguez",
+    "method": "weekly-bank",
+    "period": "Sep 2026",
+    "amount": 291060,
+    "status": "current"
+  },
+  {
+    "id": "REC-2025031",
+    "vendor": "Benjamin Harris",
+    "method": "weekly-bank",
+    "period": "Aug 2026",
+    "amount": 234510,
+    "status": "invoiced"
+  },
+  {
+    "id": "REC-2025032",
+    "vendor": "James Anderson",
+    "method": "monthly-self-billing",
+    "period": "Aug 2026",
+    "amount": 101470,
+    "status": "invoiced"
+  },
+  {
+    "id": "REC-2025033",
+    "vendor": "Charlotte Walker",
+    "method": "weekly-bank",
+    "period": "Aug 2026",
+    "amount": 77320,
+    "status": "invoiced"
+  },
+  {
+    "id": "REC-2025034",
+    "vendor": "Emma Wilson",
+    "method": "weekly-bank",
+    "period": "Aug 2026",
+    "amount": 182645,
+    "status": "invoiced"
+  },
+  {
+    "id": "REC-2025035",
+    "vendor": "Maria Garcia",
+    "method": "weekly-bank",
+    "period": "Aug 2026",
+    "amount": 165890,
+    "status": "invoiced"
+  },
+  {
+    "id": "REC-2025036",
+    "vendor": "Amelia Lewis",
+    "method": "weekly-bank",
+    "period": "Aug 2026",
+    "amount": 248015,
+    "status": "invoiced"
+  },
+  {
+    "id": "REC-2025037",
+    "vendor": "Daniel Rocha",
+    "method": "weekly-bank",
+    "period": "Aug 2026",
+    "amount": 193260,
+    "status": "invoiced"
+  },
+  {
+    "id": "REC-2025038",
+    "vendor": "Isabella Martins",
+    "method": "monthly-self-billing",
+    "period": "Aug 2026",
+    "amount": 259745,
+    "status": "invoiced"
+  },
+  {
+    "id": "REC-2025039",
+    "vendor": "Grace Bennett",
+    "method": "weekly-bank",
+    "period": "Aug 2026",
+    "amount": 141380,
+    "status": "invoiced"
+  },
+  {
+    "id": "REC-2025040",
+    "vendor": "Owen Fletcher",
+    "method": "weekly-bank",
+    "period": "Aug 2026",
+    "amount": 226930,
+    "status": "invoiced"
   }
 ]

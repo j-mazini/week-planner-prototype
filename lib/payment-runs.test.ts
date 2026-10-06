@@ -78,6 +78,9 @@ import { buildInvoiceDocument } from './invoice-document';
 
 const today = on('2026-10-06');
 const invoiced = records.filter(record => record.status === 'invoiced');
+/** The seed grows; what a run holds is derived from it, never written down. */
+const invoicedBy = (method: string) =>
+  invoiced.filter(record => record.method === method).map(record => record.id).sort();
 const runOn = (state: ScheduleState, date: string) =>
   buildSchedule(records, state, {}, today).runs.find(run => run.kind === 'payment' && iso(run.date) === date);
 
@@ -85,8 +88,8 @@ describe('which run an invoice sits in', () => {
   it('puts each invoiced record in the next run of its own method', () => {
     const bank = runOn({}, '2026-10-09')!;
     const self = runOn({}, '2026-10-25')!;
-    expect(bank.invoices.map(invoice => invoice.record.id).sort()).toEqual(['REC-2025005', 'REC-2025030']);
-    expect(self.invoices.map(invoice => invoice.record.id)).toEqual(['REC-2025008']);
+    expect(bank.invoices.map(invoice => invoice.record.id).sort()).toEqual(invoicedBy('weekly-bank'));
+    expect(self.invoices.map(invoice => invoice.record.id).sort()).toEqual(invoicedBy('monthly-self-billing'));
   });
 
   it('leaves records short of invoiced off the desk entirely', () => {
@@ -111,7 +114,8 @@ describe('which run an invoice sits in', () => {
 
   it('pushes a rescheduled invoice one run on, never to the other method', () => {
     const state: ScheduleState = { 'REC-2025005': { ...EMPTY_ENTRY, shift: 1 } };
-    expect(runOn(state, '2026-10-09')!.invoices.map(invoice => invoice.record.id)).toEqual(['REC-2025030']);
+    expect(runOn(state, '2026-10-09')!.invoices.map(invoice => invoice.record.id).sort())
+      .toEqual(invoicedBy('weekly-bank').filter(id => id !== 'REC-2025005'));
     expect(runOn(state, '2026-10-16')!.invoices.map(invoice => invoice.record.id)).toEqual(['REC-2025005']);
   });
 
@@ -127,7 +131,7 @@ describe('which run an invoice sits in', () => {
   it('takes a paid invoice off the desk', () => {
     const state: ScheduleState = { 'REC-2025008': { ...EMPTY_ENTRY, paid: true } };
     const schedule = buildSchedule(records, state, {}, today);
-    expect(schedule.runs.flatMap(run => run.invoices)).toHaveLength(2);
+    expect(schedule.runs.flatMap(run => run.invoices)).toHaveLength(invoiced.length - 1);
     expect(schedule.held).toHaveLength(0);
   });
 
@@ -164,8 +168,9 @@ describe('what finance does to an invoice', () => {
     expect(closed['REC-2025005'].paid).toBe(true);
     expect(closed['REC-2025030'].paid).toBe(true);
     expect(closed['REC-2025008']).toBeUndefined();
+    // Closing the bank run leaves exactly the self-billing side still owed.
     expect(buildSchedule(records, closed, {}, today).runs.flatMap(item => item.invoices)
-      .map(invoice => invoice.record.id)).toEqual(['REC-2025008']);
+      .map(invoice => invoice.record.id).sort()).toEqual(invoicedBy('monthly-self-billing'));
   });
 
   it('never writes through the state it was given', () => {

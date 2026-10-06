@@ -102,8 +102,9 @@ describe('closing a run', () => {
     render(<PaymentSchedule />);
     fireEvent.click(run().getByRole('button', { name: /CLOSE RUN/i }));
     expect(run().getByRole('button', { name: /CONFIRM/i })).toBeInTheDocument();
-    // "2 INVOICES" also reads in the run's own meta line, so match the ask.
-    expect(run().getByText(/SETTLE .+ 2 INVOICES .+ £/)).toBeInTheDocument();
+    // The ask names the run, not just a count — the seed decides how many.
+    const rows = run().getAllByRole('row').length - 1;
+    expect(run().getByText(new RegExp(`SETTLE .+ ${rows} INVOICES .+ £`))).toBeInTheDocument();
   });
 
   it('settles the batch and leaves the run empty', () => {
