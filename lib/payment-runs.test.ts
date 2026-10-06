@@ -137,3 +137,41 @@ describe('which run an invoice sits in', () => {
     expect(schedule.runs.map(run => iso(run.date))).toEqual([...schedule.runs.map(run => iso(run.date))].sort());
   });
 });
+
+import { closeRun, hold, release, reschedule } from './payment-runs';
+
+describe('what finance does to an invoice', () => {
+  it('holds it out of the runs and releases it back', () => {
+    const held = hold({}, 'REC-2025005');
+    expect(held['REC-2025005'].held).toBe(true);
+    expect(release(held, 'REC-2025005')['REC-2025005'].held).toBe(false);
+  });
+
+  it('keeps a released invoice at the run it was pushed to', () => {
+    const pushed = hold(reschedule({}, 'REC-2025005'), 'REC-2025005');
+    expect(release(pushed, 'REC-2025005')['REC-2025005'].shift).toBe(1);
+  });
+
+  it('pushes one run at a time', () => {
+    const once = reschedule({}, 'REC-2025005');
+    expect(once['REC-2025005'].shift).toBe(1);
+    expect(reschedule(once, 'REC-2025005')['REC-2025005'].shift).toBe(2);
+  });
+
+  it('settles every invoice in the run it closes, and nothing else', () => {
+    const run = buildSchedule(records, {}, today).runs.find(item => iso(item.date) === '2026-10-09')!;
+    const closed = closeRun({}, run);
+    expect(closed['REC-2025005'].paid).toBe(true);
+    expect(closed['REC-2025030'].paid).toBe(true);
+    expect(closed['REC-2025008']).toBeUndefined();
+    expect(buildSchedule(records, closed, today).runs.flatMap(item => item.invoices)
+      .map(invoice => invoice.record.id)).toEqual(['REC-2025008']);
+  });
+
+  it('never writes through the state it was given', () => {
+    const state: ScheduleState = {};
+    hold(state, 'REC-2025005');
+    reschedule(state, 'REC-2025005');
+    expect(state).toEqual({});
+  });
+});

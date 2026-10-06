@@ -144,3 +144,24 @@ export function buildSchedule(
   });
   return { runs, held: waiting.filter(invoice => invoice.date === null) };
 }
+
+const write = (state: ScheduleState, id: string, change: Partial<ScheduleEntry>): ScheduleState =>
+  ({ ...state, [id]: { ...entryOf(state, id), ...change } });
+
+/** Out of every run, under no date, until someone releases it. */
+export const hold = (state: ScheduleState, id: string): ScheduleState => write(state, id, { held: true });
+
+/**
+ * Back into the runs. The shift stays as it was: an invoice released after
+ * being pushed returns to the run it was pushed to, not to one already past.
+ */
+export const release = (state: ScheduleState, id: string): ScheduleState => write(state, id, { held: false });
+
+/** One run on, in its own cadence. Never to the other method. */
+export const reschedule = (state: ScheduleState, id: string): ScheduleState =>
+  write(state, id, { shift: entryOf(state, id).shift + 1 });
+
+/** The batch is settled: its invoices are paid and leave the desk. */
+export function closeRun(state: ScheduleState, run: PaymentRun): ScheduleState {
+  return run.invoices.reduce((current, invoice) => write(current, invoice.record.id, { paid: true }), state);
+}
