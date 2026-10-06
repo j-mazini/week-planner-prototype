@@ -1,4 +1,5 @@
 import { buildInvoiceDocument } from './invoice-document';
+import { seededRandom } from './seeded-random';
 import type { WorkflowRecord } from './invoice-workflow';
 
 /**
@@ -73,11 +74,17 @@ export interface ScheduleEntry {
   /** How many runs it has been pushed past the next one. */
   shift: number;
   paid: boolean;
+  /** The run that settled it, so its bonus still knows which week it belongs to. */
+  paidOn: number | null;
+  bonusPaid: boolean;
 }
+
+/** When the SPMS for a bank run arrived, keyed by that run's date in ms. */
+export type SpmsLog = Record<string, string>;
 
 export type ScheduleState = Record<string, ScheduleEntry>;
 
-export const EMPTY_ENTRY: ScheduleEntry = { held: false, shift: 0, paid: false };
+export const EMPTY_ENTRY: ScheduleEntry = { held: false, shift: 0, paid: false, paidOn: null, bonusPaid: false };
 
 export interface ScheduledInvoice {
   record: PayableRecord;
@@ -90,17 +97,52 @@ export interface ScheduledInvoice {
   net: number;
 }
 
+/** A run pays either the day rate the invoice carries, or the bonus behind it. */
+export type RunKind = 'payment' | 'bonus';
+
 export interface PaymentRun extends RunSlot {
+  kind: RunKind;
+  /** For a bonus run, the payment run whose week it settles. */
+  week: Date | null;
   invoices: ScheduledInvoice[];
   gross: number;
   deductions: number;
   net: number;
 }
 
+/** A week's bonus with nowhere to go yet: its SPMS has not arrived. */
+export interface PendingBonus {
+  /** The payment run whose week this bonus belongs to. */
+  week: Date;
+  invoices: ScheduledInvoice[];
+  net: number;
+}
+
 export interface Schedule {
   runs: PaymentRun[];
   held: ScheduledInvoice[];
+  awaiting: PendingBonus[];
 }
+
+/**
+ * The bonus the SPMS carries for a record, in pence. Most carry none — the
+ * company grants some — and the same record always carries the same one.
+ *
+ * The SPMS is a weekly document covering the day-rate drivers, so a monthly
+ * self-billing record never has one. There is no SPMS file to read here, so
+ * the figure is derived rather than looked up.
+ */
+export function bonusOf(record: PayableRecord): number {
+  if (record.method !== 'weekly-bank') return 0;
+  const next = seededRandom(`${record.id}|${record.vendor}|spms`);
+  if (next() >= 0.45) return 0;
+  // £25 to £150, in the £5 steps a granted bonus is written in.
+  return 2500 + Math.floor(next() * 26) * 500;
+}
+
+/** The document for `runDate` landed on `arrivedOn`; its bonus can be dated. */
+export const registerSpms = (log: SpmsLog, runDate: Date, arrivedOn: Date): SpmsLog =>
+  ({ ...log, [String(runDate.getTime())]: arrivedOn.toISOString() });
 
 const entryOf = (state: ScheduleState, id: string) => state[id] ?? EMPTY_ENTRY;
 
@@ -128,21 +170,89 @@ function place(record: PayableRecord, state: ScheduleState, today: Date): Schedu
  * them. Records short of invoiced are not here — they are still work on the
  * processing desk.
  */
+/** The bonus row for a record: the SPMS figure, with nothing taken off it. */
+function bonusRow(record: PayableRecord, state: ScheduleState, date: Date | null): ScheduledInvoice {
+  const amount = bonusOf(record);
+  return { record, method: record.method, date, shift: entryOf(state, record.id).shift, gross: amount, deduction: 0, net: amount };
+}
+
+/**
+ * Which records a bank run's bonus covers: those it is about to pay, and those
+ * it already paid. A settled run still owes its week's bonus, so the link
+ * survives the settlement through `paidOn`.
+ */
+function bonusMembers(records: PayableRecord[], state: ScheduleState, week: number, today: Date) {
+  return records.filter(record => {
+    // A record short of invoiced is still work on the processing desk; its
+    // week has not been paid, so there is no bonus behind it yet.
+    if (record.status !== 'invoiced') return false;
+    if (record.method !== 'weekly-bank' || bonusOf(record) === 0) return false;
+    const entry = entryOf(state, record.id);
+    if (entry.bonusPaid) return false;
+    if (entry.paid) return entry.paidOn === week;
+    if (entry.held) return false;
+    return runDates(record.method, today, entry.shift + 1)[entry.shift].getTime() === week;
+  });
+}
+
+/**
+ * The desk: the runs ahead with their invoices, whatever is held out of them,
+ * and the weeks whose bonus is still waiting on its SPMS.
+ *
+ * Records short of invoiced are not here — they are still work on the
+ * processing desk.
+ */
 export function buildSchedule(
   records: PayableRecord[],
   state: ScheduleState,
+  spms: SpmsLog,
   today: Date,
   count = RUNS_AHEAD,
 ): Schedule {
   const waiting = records.filter(record => payable(record, state)).map(record => place(record, state, today));
-  const runs = upcomingRuns(today, count).map(slot => {
+  const payments: PaymentRun[] = upcomingRuns(today, count).map(slot => {
     const invoices = waiting.filter(invoice =>
       invoice.method === slot.method && invoice.date?.getTime() === slot.date.getTime());
     const gross = invoices.reduce((sum, invoice) => sum + invoice.gross, 0);
     const deductions = invoices.reduce((sum, invoice) => sum + invoice.deduction, 0);
-    return { ...slot, invoices, gross, deductions, net: gross - deductions };
+    return { ...slot, kind: 'payment' as const, week: null, invoices, gross, deductions, net: gross - deductions };
   });
-  return { runs, held: waiting.filter(invoice => invoice.date === null) };
+
+  // Every bank run has a bonus behind it: the ones ahead, and the ones already
+  // settled whose document has still not arrived.
+  const weeks = new Set<number>([
+    ...payments.filter(run => run.method === 'weekly-bank').map(run => run.date.getTime()),
+    ...Object.values(state).map(entry => entry.paidOn).filter((date): date is number => date !== null),
+  ]);
+
+  const bonuses: PaymentRun[] = [];
+  const awaiting: PendingBonus[] = [];
+  for (const week of [...weeks].sort((a, b) => a - b)) {
+    const members = bonusMembers(records, state, week, today);
+    if (!members.length) continue;
+    const arrival = spms[String(week)];
+    const net = members.reduce((sum, record) => sum + bonusOf(record), 0);
+    if (!arrival) {
+      awaiting.push({ week: new Date(week), invoices: members.map(record => bonusRow(record, state, null)), net });
+      continue;
+    }
+    // The money leaves on a run day, so the bonus pays on the first bank date
+    // on or after the document landed.
+    const date = nextRunDate('weekly-bank', new Date(arrival));
+    bonuses.push({
+      kind: 'bonus',
+      method: 'weekly-bank',
+      date,
+      week: new Date(week),
+      invoices: members.map(record => bonusRow(record, state, date)),
+      gross: net,
+      deductions: 0,
+      net,
+    });
+  }
+
+  const runs = [...payments, ...bonuses].sort((a, b) => a.date.getTime() - b.date.getTime());
+  return { runs, held: waiting.filter(invoice => invoice.date === null), awaiting };
 }
 
 const write = (state: ScheduleState, id: string, change: Partial<ScheduleEntry>): ScheduleState =>
@@ -161,7 +271,14 @@ export const release = (state: ScheduleState, id: string): ScheduleState => writ
 export const reschedule = (state: ScheduleState, id: string): ScheduleState =>
   write(state, id, { shift: entryOf(state, id).shift + 1 });
 
-/** The batch is settled: its invoices are paid and leave the desk. */
+/**
+ * The batch is settled. A payment run pays the invoices and remembers which
+ * run paid them, so their bonus still knows its week; a bonus run settles only
+ * the bonus, and leaves the day rate owed.
+ */
 export function closeRun(state: ScheduleState, run: PaymentRun): ScheduleState {
-  return run.invoices.reduce((current, invoice) => write(current, invoice.record.id, { paid: true }), state);
+  const change: Partial<ScheduleEntry> = run.kind === 'bonus'
+    ? { bonusPaid: true }
+    : { paid: true, paidOn: run.date.getTime() };
+  return run.invoices.reduce((current, invoice) => write(current, invoice.record.id, change), state);
 }
