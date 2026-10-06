@@ -148,12 +148,14 @@ export function calculateInstallments(
   // Format expected: RPD-GSOUZA-130925-001 (contains "RPD" at start)
   const isFixDamageDeduction = referenceNumber.toUpperCase().startsWith('RPD-');
   
-  // First installment is the last calendar day of the current month.
-  // If entry date is already on the last day of the month, push to next month.
+  // The schedule starts at the last calendar day of the entry month. If that
+  // day has already come, there is no month left to collect in, so it starts
+  // next month — except for a repair, which always starts in the month it was
+  // entered.
   const currentMonthLastDay = getLastDayOfMonth(entry);
-  const firstInstallmentDate = entry.getDate() >= currentMonthLastDay.getDate()
-    ? getLastDayOfMonth(new Date(entry.getFullYear(), entry.getMonth() + 1, 1))
-    : currentMonthLastDay;
+  const scheduleStart = isFixDamageDeduction || entry.getDate() < currentMonthLastDay.getDate()
+    ? currentMonthLastDay
+    : getLastDayOfMonth(new Date(entry.getFullYear(), entry.getMonth() + 1, 1));
 
   // Generate installments
   for (let i = 0; i < numberOfInstallments; i++) {
@@ -179,27 +181,14 @@ export function calculateInstallments(
       }
     }
 
-    // Rule: Other installments should be on day 30 of following months
-    // Create a new date based on firstInstallmentDate and increment months
-    let installmentDate: Date;
-    
-    // For fix damage deductions, first installment is in current month, others in following months
-    if (isFixDamageDeduction && i === 0) {
-      // First installment: last calendar day of current month
-      installmentDate = getLastDayOfMonth(entry);
-    } else {
-      // Other installments: increment based on index
-      // Start from the first installment date's year and month, then add months
-      const baseYear = firstInstallmentDate.getFullYear();
-      const baseMonth = firstInstallmentDate.getMonth();
-      
-      // Create a new date for the target month (using day 1 to avoid date overflow issues)
-      const targetMonth = baseMonth + i;
-      installmentDate = new Date(baseYear, targetMonth, 1);
-      
-      // Use the last calendar day of the target month
-      installmentDate = getLastDayOfMonth(installmentDate);
-    }
+    // Every installment is the last calendar day of its month, counted from the
+    // month the schedule starts in. One base for all of them: when the first
+    // installment had a rule of its own, a repair entered on the last day of a
+    // month started in that month and then jumped to the month after next,
+    // skipping one entirely.
+    // Day 1 is used only to name the month without overflowing it.
+    const installmentDate = getLastDayOfMonth(
+      new Date(scheduleStart.getFullYear(), scheduleStart.getMonth() + i, 1));
 
     // Calculate installment value
     let currentInstallmentValue = installmentValue;
