@@ -49,12 +49,14 @@ export const Timeline = React.memo<TimelineProps>(({ operation }) => {
           >
             <i className={`bi ${item.icon} ${dailyPerformanceInsightStyles.timelineDotIcon}`} />
           </motion.div>
+          {/* Two lines, not one string of HTML: the break is layout, and the
+              value comes from the API. */}
           <div 
             className={`${dailyPerformanceInsightStyles.timelineLabel} ${item.highlighted ? dailyPerformanceInsightStyles.timelineLabelHighlighted : dailyPerformanceInsightStyles.timelineLabelDefault}`}
-            dangerouslySetInnerHTML={{ 
-              __html: `${item.label}<br>${item.value}` 
-            }} 
-          />
+          >
+            <span style={{ display: 'block' }}>{item.label}</span>
+            <span style={{ display: 'block' }}>{item.value}</span>
+          </div>
         </div>
       ))}
     </div>
