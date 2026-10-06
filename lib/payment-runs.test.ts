@@ -73,7 +73,7 @@ describe('when the runs fall', () => {
   });
 });
 
-import { RUNS_AHEAD, buildSchedule, type ScheduleState } from './payment-runs';
+import { EMPTY_ENTRY, RUNS_AHEAD, buildSchedule, type ScheduleState } from './payment-runs';
 import { buildInvoiceDocument } from './invoice-document';
 
 const today = on('2026-10-06');
@@ -110,13 +110,13 @@ describe('which run an invoice sits in', () => {
   });
 
   it('pushes a rescheduled invoice one run on, never to the other method', () => {
-    const state: ScheduleState = { 'REC-2025005': { held: false, shift: 1, paid: false } };
+    const state: ScheduleState = { 'REC-2025005': { ...EMPTY_ENTRY, shift: 1 } };
     expect(runOn(state, '2026-10-09')!.invoices.map(invoice => invoice.record.id)).toEqual(['REC-2025030']);
     expect(runOn(state, '2026-10-16')!.invoices.map(invoice => invoice.record.id)).toEqual(['REC-2025005']);
   });
 
   it('holds an invoice out of every run, under no date at all', () => {
-    const state: ScheduleState = { 'REC-2025008': { held: true, shift: 0, paid: false } };
+    const state: ScheduleState = { 'REC-2025008': { ...EMPTY_ENTRY, held: true } };
     const schedule = buildSchedule(records, state, {}, today);
     expect(schedule.runs.flatMap(run => run.invoices).map(invoice => invoice.record.id))
       .not.toContain('REC-2025008');
@@ -125,7 +125,7 @@ describe('which run an invoice sits in', () => {
   });
 
   it('takes a paid invoice off the desk', () => {
-    const state: ScheduleState = { 'REC-2025008': { held: false, shift: 0, paid: true } };
+    const state: ScheduleState = { 'REC-2025008': { ...EMPTY_ENTRY, paid: true } };
     const schedule = buildSchedule(records, state, {}, today);
     expect(schedule.runs.flatMap(run => run.invoices)).toHaveLength(2);
     expect(schedule.held).toHaveLength(0);
