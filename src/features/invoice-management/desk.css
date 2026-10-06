@@ -31,7 +31,8 @@
    box. Below that a single column is the honest layout, and it scrolls. */
 
 @media (min-width: 768px) {
-  .invoice-management.is-desk {
+  /* The payment desk scrolls with the page; only the column desks are pinned. */
+  .invoice-management.is-desk:not(:has(.pay-desk)) {
     height: calc(100vh - 65px);
     min-height: 0;
     overflow: hidden;
