@@ -138,8 +138,8 @@ export default function InvoiceBoard({ history = false }: { history?: boolean })
   const total = records.reduce((sum, record) => sum + record.amount, 0);
   const invoiced = records.filter(record => record.status === 'invoiced');
 
-  /** The desk holds whatever still needs work and has not been handled yet today. */
-  const open = records.filter(record => record.status !== 'invoiced' && !clearedIds.includes(record.id));
+  /** The desk holds every record still short of invoiced, whatever stage it is at. */
+  const open = records.filter(record => record.status !== 'invoiced');
   const matches = open.filter(record =>
     `${record.id} ${record.vendor} ${record.period}`.toLowerCase().includes(query.trim().toLowerCase()));
   const active = open.find(record => record.id === selectedId) ?? open[0];
@@ -151,12 +151,20 @@ export default function InvoiceBoard({ history = false }: { history?: boolean })
     const to = nextInvoiceStage(active.status);
     if (!to || (needsReview && !reviewed)) return;
     const { id, status } = active;
-    // The tick stays long enough to read as registered, then the card leaves.
+    // Only invoicing takes a record off the desk. Every stage before it is
+    // still work to do, so the card stays in the queue and changes its badge.
+    const leaves = to === 'invoiced';
+    // The tick stays long enough to read as registered, then the card moves.
     setConfirming(true);
     setTimeout(() => {
       setRecords(current => moveInvoice(current, id, status, to));
-      setClearedIds(current => [id, ...current]);
-      setSelectedId(null);
+      if (leaves) {
+        setClearedIds(current => [id, ...current]);
+        setSelectedId(null);
+      } else {
+        // The desk carries on with the same record, one stage further along.
+        setSelectedId(id);
+      }
       setReviewed(false);
       setConfirming(false);
       setNotice(`${id} moved to ${stageOf(to)?.label}.`);

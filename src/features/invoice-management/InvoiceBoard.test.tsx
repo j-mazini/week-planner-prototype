@@ -2,12 +2,14 @@
 import React from 'react';
 import '@testing-library/jest-dom/vitest';
 import { afterEach, describe, expect, it } from 'vitest';
-import { cleanup, fireEvent, render, screen, within } from '@testing-library/react';
+import { cleanup, fireEvent, render, screen, waitFor, within } from '@testing-library/react';
 import InvoiceBoard from './InvoiceBoard';
 import records from './records.json';
 
 const first = records[0];
 const second = records[1];
+/** The one record that starts a stage short of invoicing. */
+const ready = records.find(record => record.status === 'ready')!;
 
 afterEach(() => {
   cleanup();
@@ -15,6 +17,9 @@ afterEach(() => {
 });
 
 const bench = () => within(screen.getByLabelText('Selected record'));
+const queue = () => within(screen.getByLabelText('Records awaiting action'));
+const session = () => within(screen.getByLabelText('Moved on in this session'));
+const card = (id: string) => queue().queryByRole('button', { name: new RegExp(id) });
 
 describe('invoice desk', () => {
   it('shows the selected record\'s invoice on the bench, not over it', () => {
@@ -39,12 +44,34 @@ describe('invoice desk', () => {
     // The vendor reads twice on the bench — on the record and on its invoice.
     expect(within(bench().getByLabelText(/Self billing invoice/)).getByText(first.vendor)).toBeInTheDocument();
 
-    const queue = within(screen.getByLabelText('Records awaiting action'));
-    fireEvent.click(queue.getByRole('button', { name: new RegExp(second.id) }));
+    fireEvent.click(card(second.id)!);
 
     const sheet = bench().getByLabelText(/Self billing invoice/);
     expect(within(sheet).getByText(second.vendor)).toBeInTheDocument();
     expect(within(sheet).queryByText(first.vendor)).not.toBeInTheDocument();
     expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
+  });
+});
+
+describe('a record leaves the queue only once it is invoiced', () => {
+  it('keeps the card on the left and moves its badge on at every stage before', async () => {
+    render(<InvoiceBoard />);
+    fireEvent.click(card(first.id)!);
+    fireEvent.click(bench().getByRole('checkbox'));
+    fireEvent.click(bench().getByRole('button', { name: /Verify record/i }));
+
+    await waitFor(() => expect(within(card(first.id)!).getByText('Ready for Invoicing')).toBeInTheDocument());
+    expect(session().getByText('Nothing moved on yet.')).toBeInTheDocument();
+    // The desk stays on the record it just moved, one stage further along.
+    expect(bench().getByRole('button', { name: /Generate invoice/i })).toBeInTheDocument();
+  });
+
+  it('takes the card off the desk when invoicing is the stage it reaches', async () => {
+    render(<InvoiceBoard />);
+    fireEvent.click(card(ready.id)!);
+    fireEvent.click(bench().getByRole('button', { name: /Generate invoice/i }));
+
+    await waitFor(() => expect(card(ready.id)).not.toBeInTheDocument());
+    expect(session().getByText(ready.id)).toBeInTheDocument();
   });
 });
