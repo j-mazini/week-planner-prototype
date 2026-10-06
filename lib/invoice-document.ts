@@ -1,3 +1,4 @@
+import { seededRandom } from './seeded-random';
 import type { WorkflowRecord } from './invoice-workflow';
 
 /**
@@ -52,26 +53,6 @@ const DEDUCTION_REASONS = [
 ];
 const MONTHS = ['jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sep', 'oct', 'nov', 'dec'];
 
-/** A record's id and vendor are its identity, so the document seeds from both. */
-function seedOf(text: string): number {
-  let hash = 2166136261;
-  for (let index = 0; index < text.length; index += 1) {
-    hash ^= text.charCodeAt(index);
-    hash = Math.imul(hash, 16777619);
-  }
-  return hash >>> 0;
-}
-
-function random(seed: number) {
-  let state = seed || 1;
-  return () => {
-    state = (state + 0x6d2b79f5) >>> 0;
-    let value = Math.imul(state ^ (state >>> 15), 1 | state);
-    value = (value + Math.imul(value ^ (value >>> 7), 61 | value)) ^ value;
-    return ((value ^ (value >>> 14)) >>> 0) / 4294967296;
-  };
-}
-
 const initialsOf = (vendor: string) =>
   vendor.split(/\s+/).filter(Boolean).map(part => part[0].toUpperCase()).join('').slice(0, 2) || 'XX';
 
@@ -119,7 +100,7 @@ function billLines(balance: number, next: () => number): number[] {
 }
 
 export function buildInvoiceDocument(record: WorkflowRecord): InvoiceDocument {
-  const next = random(seedOf(`${record.id}|${record.vendor}|${record.period}`));
+  const next = seededRandom(`${record.id}|${record.vendor}|${record.period}`);
   const { year, month } = parsePeriod(record.period);
   const issuedDate = new Date(Date.UTC(year, month + 1, 0));
   const dueDate = new Date(Date.UTC(year, month + 1, 15));
