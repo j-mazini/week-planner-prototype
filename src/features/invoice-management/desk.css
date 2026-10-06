@@ -193,9 +193,10 @@
 .idk-history-row h3 { margin: 0; font-size: 14px; font-weight: 600; }
 .idk-history-row strong { color: var(--idk-deep); }
 
-/* ---------- the opened record ----------
-   A record is read and actioned in the middle of the screen: the desk stays
-   visible but dimmed behind it, so the column it came from is never lost. */
+/* ---------- the opened invoice ----------
+   The record is read as the document it becomes: the A4 sheet sits in the
+   middle of the screen, the desk dimmed behind it, with the one action that
+   moves the record on in a bar above the paper. */
 
 .idk-overlay {
   position: fixed;
@@ -205,44 +206,60 @@
   align-items: center;
   justify-content: center;
   padding: 24px;
-  background: #1a1c1659;
+  background: #1a1c1673;
   backdrop-filter: blur(2px);
 }
 
-.idk-dialog {
-  position: relative;
+.idk-sheet {
   display: flex;
   flex-direction: column;
-  gap: 12px;
-  width: min(620px, 100%);
+  width: min(842px, 100%);
   max-height: 100%;
-  overflow-y: auto;
-  padding: 18px;
-  border: 1px solid var(--idk-deep);
+  min-height: 0;
   background: var(--idk-surface);
+  border: 1px solid var(--idk-deep);
   box-shadow: 0 18px 44px #00000026;
 }
 
-/* The close button sits on the record's seam, which runs the panel's width. */
-.idk-dialog-close {
-  position: absolute;
-  top: 24px;
-  right: 24px;
+/* The bar belongs to the desk, not to the invoice, so it keeps the desk's
+   colours and sits clear of the paper. */
+.idk-sheet-bar {
+  flex: none;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--idk-line);
+}
+.idk-sheet-ref { flex: 1 1 auto; min-width: 0; font: 10px var(--idk-mono); letter-spacing: .07em; color: var(--idk-muted); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.idk-sheet-bar .idk-approve-btn { flex: none; min-height: 34px; }
+
+.idk-sheet-review { flex: none; display: flex; align-items: center; gap: 7px; font-size: 11px; color: #3f4849; white-space: nowrap; }
+
+.idk-sheet-close {
+  flex: none;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 26px;
-  height: 26px;
+  width: 30px;
+  height: 30px;
   padding: 0;
   border: 1px solid var(--idk-line);
   background: var(--idk-paper);
   color: var(--idk-muted);
   cursor: pointer;
 }
-.idk-dialog-close:hover { border-color: var(--idk-deep); color: var(--idk-deep); }
-.idk-dialog-close:focus-visible { outline: 2px solid var(--idk-deep); outline-offset: 2px; }
+.idk-sheet-close:hover { border-color: var(--idk-deep); color: var(--idk-deep); }
+.idk-sheet-close:focus-visible { outline: 2px solid var(--idk-deep); outline-offset: 2px; }
 
-/* Stacked inside the panel: the facts read first, the action sits under them. */
-.idk-dialog .idk-record { grid-template-columns: 1fr; }
-.idk-dialog .idk-approve { border-left: 0; border-top: 1px solid var(--idk-line); }
-.idk-dialog .idk-record-seam { padding-right: 44px; }
+/* The sheet is a fixed-width document; the box around it is what scrolls. */
+.idk-sheet-scroll { flex: 1 1 auto; min-height: 0; overflow: auto; display: flex; justify-content: center; padding: 20px; }
+
+/* Below the sheet's own width the bar wraps rather than squeezing the action. */
+@media (max-width: 880px) {
+  .idk-overlay { padding: 0; }
+  .idk-sheet { width: 100%; max-height: 100%; }
+  .idk-sheet-bar { flex-wrap: wrap; }
+  .idk-sheet-ref { flex-basis: 100%; }
+  .idk-sheet-scroll { padding: 12px; }
+}

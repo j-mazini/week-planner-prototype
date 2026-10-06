@@ -22,6 +22,7 @@ import {
   QUEUE_EXIT,
   cardTransition,
 } from '@/app/(private)/clearing-desk/motion';
+import InvoiceDocument from './InvoiceDocument';
 import seedData from './records.json';
 import './desk.css';
 
@@ -100,11 +101,13 @@ function RecordDetail({ record, loaded, reviewed, onReview, confirming, onAdvanc
 }
 
 /**
- * The record opens centred over the desk: clicking a queue card puts the whole
- * record under the eye, with the columns dimmed behind it. Escape, the close
- * button or the backdrop put it back down.
+ * The invoice opens centred over the desk: clicking a queue card puts the
+ * document itself under the eye — the sheet that will be issued, not a summary
+ * of it — with the columns dimmed behind. Escape, the close button or the
+ * backdrop put it back down. The action that moves the record on rides above
+ * the sheet, so the paper stays paper.
  */
-function RecordDialog({ record, reduced, onClose, children }: {
+function RecordSheet({ record, reduced, onClose, children }: {
   record: WorkflowRecord;
   reduced: boolean;
   onClose: () => void;
@@ -126,7 +129,7 @@ function RecordDialog({ record, reduced, onClose, children }: {
   function onKeyDown(event: React.KeyboardEvent) {
     if (event.key === 'Escape') { event.stopPropagation(); onClose(); return; }
     if (event.key !== 'Tab' || !panel.current) return;
-    // The desk stays behind the dialog, so keep Tab inside the panel.
+    // The desk stays behind the sheet, so keep Tab inside the panel.
     const stops = Array.from(panel.current.querySelectorAll<HTMLElement>(FOCUSABLE));
     const edge = event.shiftKey ? stops[0] : stops[stops.length - 1];
     if (stops.length && document.activeElement === edge) {
@@ -147,19 +150,25 @@ function RecordDialog({ record, reduced, onClose, children }: {
     >
       <motion.div
         ref={panel}
-        className="idk-dialog"
+        className="idk-sheet"
         role="dialog"
         aria-modal="true"
-        aria-label={`Record ${record.id}, ${record.vendor}`}
+        aria-label={`Invoice for record ${record.id}, ${record.vendor}`}
         initial={reduced ? { opacity: 0 } : { opacity: 0, y: 10, scale: 0.98 }}
         animate={{ opacity: 1, y: 0, scale: 1 }}
         exit={reduced ? { opacity: 0 } : { opacity: 0, y: 6, scale: 0.99 }}
         transition={{ duration: reduced ? 0 : 0.2, ease: [0.4, 0, 0.2, 1] }}
       >
-        <button type="button" className="idk-dialog-close" onClick={onClose} aria-label="Close record">
-          <X size={16} aria-hidden="true" />
-        </button>
-        {children}
+        <div className="idk-sheet-bar">
+          <span className="idk-sheet-ref">RECORD {record.id} · {stageOf(record.status)?.label}</span>
+          {children}
+          <button type="button" className="idk-sheet-close" onClick={onClose} aria-label="Close invoice">
+            <X size={16} aria-hidden="true" />
+          </button>
+        </div>
+        <div className="idk-sheet-scroll">
+          <InvoiceDocument record={record} />
+        </div>
       </motion.div>
     </motion.div>
   );
@@ -414,16 +423,24 @@ export default function InvoiceBoard({ history = false }: { history?: boolean })
 
       <AnimatePresence>
         {opened && (
-          <RecordDialog key={opened.id} record={opened} reduced={reduced} onClose={closeDialog}>
-            <RecordDetail
-              record={opened}
-              loaded={loaded}
-              reviewed={reviewed}
-              onReview={setReviewed}
-              confirming={confirming}
-              onAdvance={advance}
-            />
-          </RecordDialog>
+          <RecordSheet key={opened.id} record={opened} reduced={reduced} onClose={closeDialog}>
+            {opened.status === 'pending' && (
+              <label className="idk-sheet-review">
+                <input type="checkbox" checked={reviewed} onChange={event => setReviewed(event.target.checked)} />
+                Routes, rates and deductions reviewed
+              </label>
+            )}
+            <button
+              type="button"
+              className={`idk-approve-btn${confirming ? ' is-confirming' : ''}`}
+              disabled={!loaded || (opened.status === 'pending' && !reviewed)}
+              onClick={advance}
+            >
+              {confirming
+                ? <><Check size={15} aria-hidden="true" /> Registered</>
+                : stageOf(opened.status)?.action}
+            </button>
+          </RecordSheet>
         )}
       </AnimatePresence>
     </section>
