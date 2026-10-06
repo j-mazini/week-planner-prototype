@@ -44,3 +44,55 @@ describe('the payment schedule desk', () => {
     expect(dates[dates.length - 1]).toHaveAttribute('aria-pressed', 'true');
   });
 });
+
+const held = () => within(screen.getByLabelText('Held invoices'));
+
+describe('working the run', () => {
+  it('lists each invoice with the money its document carries', () => {
+    render(<PaymentSchedule />);
+    const row = run().getByRole('row', { name: /REC-2025005/ });
+    expect(within(row).getByText('Emma Wilson')).toBeInTheDocument();
+    expect(within(row).getByText('£1,670.29')).toBeInTheDocument();
+  });
+
+  it('holds an invoice out of the run and into its own block', () => {
+    render(<PaymentSchedule />);
+    const row = run().getByRole('row', { name: /REC-2025005/ });
+    fireEvent.click(within(row).getByRole('button', { name: /HOLD/i }));
+
+    expect(run().queryByRole('row', { name: /REC-2025005/ })).not.toBeInTheDocument();
+    expect(held().getByText('REC-2025005')).toBeInTheDocument();
+  });
+
+  it('releases a held invoice back into the run', () => {
+    render(<PaymentSchedule />);
+    fireEvent.click(within(run().getByRole('row', { name: /REC-2025005/ })).getByRole('button', { name: /HOLD/i }));
+    fireEvent.click(held().getByRole('button', { name: /RELEASE/i }));
+
+    expect(run().getByRole('row', { name: /REC-2025005/ })).toBeInTheDocument();
+    expect(screen.queryByLabelText('Held invoices')).not.toBeInTheDocument();
+  });
+
+  it('pushes a rescheduled invoice to the next date of the same method', () => {
+    render(<PaymentSchedule />);
+    fireEvent.click(within(run().getByRole('row', { name: /REC-2025005/ })).getByRole('button', { name: /RESCHEDULE/i }));
+    expect(run().queryByRole('row', { name: /REC-2025005/ })).not.toBeInTheDocument();
+
+    // The desk reads the real clock, so the strip's order shifts with the day.
+    // Pick the second BANK slot by its method rather than by position.
+    const bankDates = strip().getAllByRole('button').filter(slot => within(slot).queryByText('BANK'));
+    fireEvent.click(bankDates[1]);
+    expect(run().getByRole('row', { name: /REC-2025005/ })).toBeInTheDocument();
+    // Still a bank run — rescheduling never changes the method.
+    expect(run().getByText(/Weekly · Bank/)).toBeInTheDocument();
+  });
+
+  it('remembers what it was told, across a remount', () => {
+    const first = render(<PaymentSchedule />);
+    fireEvent.click(within(run().getByRole('row', { name: /REC-2025005/ })).getByRole('button', { name: /HOLD/i }));
+    first.unmount();
+
+    render(<PaymentSchedule />);
+    expect(held().getByText('REC-2025005')).toBeInTheDocument();
+  });
+});

@@ -76,3 +76,39 @@
 
 .pay-empty { margin: 6px 0; font: 11px var(--pay-mono); color: var(--pay-muted); }
 .pay-note { margin: 0; font: 10px var(--pay-mono); color: var(--pay-muted); }
+
+/* ---------- the run's table ---------- */
+
+.pay-table { width: 100%; border-collapse: collapse; }
+.pay-table th { padding: 8px 10px; border-bottom: 1px solid var(--pay-ink); font: 600 9px var(--pay-mono); letter-spacing: .08em; color: var(--pay-muted); text-align: left; white-space: nowrap; }
+.pay-table td { padding: 9px 10px; border-bottom: 1px solid var(--pay-soft); font-size: 12px; vertical-align: middle; }
+.pay-table tr:last-child td { border-bottom: 0; }
+.pay-right { text-align: right; }
+.pay-net { font-weight: 700; color: var(--pay-deep); }
+.pay-id { font: 10px var(--pay-mono); color: var(--pay-muted); letter-spacing: .04em; white-space: nowrap; }
+.pay-vendor { display: block; font-weight: 600; }
+.pay-period { display: block; font: 9px var(--pay-mono); color: var(--pay-muted); letter-spacing: .05em; }
+.pay-status { padding: 2px 6px; border: 1px solid var(--pay-line); background: var(--pay-surface); font: 9px var(--pay-mono); letter-spacing: .05em; color: var(--pay-muted); white-space: nowrap; }
+.pay-status.is-moved { border-color: #e4d9af; background: #f6f1df; color: #6a5725; }
+.pay-actions { display: flex; gap: 6px; }
+.pay-actions button { border: 1px solid var(--pay-line); background: transparent; color: var(--pay-muted); padding: 4px 8px; font: 9px var(--pay-mono); letter-spacing: .05em; cursor: pointer; white-space: nowrap; }
+.pay-actions button:hover { border-color: var(--pay-teal); color: var(--pay-deep); }
+.pay-actions button:focus-visible { outline: 2px solid var(--pay-deep); outline-offset: 2px; }
+
+/* ---------- held out of every run ---------- */
+
+.pay-held { display: flex; flex-direction: column; gap: 8px; padding: 14px 16px; border: 1px solid #e4d9af; background: #f9f6ea; }
+.pay-held h2 { margin: 0; font: 700 11px var(--pay-mono); letter-spacing: .09em; color: #6a5725; }
+.pay-held-note { margin: 0; font: 10px var(--pay-mono); color: var(--pay-muted); }
+.pay-held-row { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; padding: 9px 11px; border: 1px solid var(--pay-soft); background: var(--pay-paper); }
+.pay-held-row .pay-vendor { flex: 1 1 auto; min-width: 120px; font-size: 13px; }
+.pay-held-method { font: 9px var(--pay-mono); letter-spacing: .05em; color: var(--pay-muted); }
+.pay-held-row strong { color: var(--pay-deep); font-size: 13px; }
+.pay-held-row button { border: 1px solid var(--pay-line); background: transparent; color: var(--pay-muted); padding: 4px 9px; font: 9px var(--pay-mono); letter-spacing: .05em; cursor: pointer; }
+.pay-held-row button:hover { border-color: var(--pay-teal); color: var(--pay-deep); }
+.pay-held-row button:focus-visible { outline: 2px solid var(--pay-deep); outline-offset: 2px; }
+
+@media (max-width: 860px) {
+  .pay-run { overflow-x: auto; }
+  .pay-table { min-width: 720px; }
+}
