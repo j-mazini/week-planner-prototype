@@ -1,6 +1,7 @@
-/* The self-billing invoice as paper: an A4 sheet, 794pt wide in the Figma
-   source, laid out in the desk's own type. It is a document, not a panel —
-   white, squared off, and read at a fixed width so the columns stay aligned. */
+/* The self-billing invoice as paper: the A4 sheet from the Figma source, laid
+   out in the desk's own type. It is a document, not a panel — white, squared
+   off, and never wider than the 794px it was drawn at, but it takes the width
+   of the column it is placed in and reflows to that, not to the window. */
 
 .idoc {
   --doc-ink: #1a1c16;
@@ -12,7 +13,8 @@
   display: flex;
   flex-direction: column;
   gap: 16px;
-  width: 794px;
+  width: 100%;
+  max-width: 794px;
   padding: 44px 48px;
   background: #fff;
   color: var(--doc-ink);
@@ -80,10 +82,15 @@
 .idoc-footer p { margin: 0; font-size: 9px; color: var(--doc-muted); }
 .idoc-meta { display: flex; justify-content: space-between; gap: 12px; margin-top: 6px !important; font: 8px 'IBM Plex Mono', monospace; color: var(--doc-faint); letter-spacing: .06em; }
 
-/* Narrower than the sheet: it scales down rather than scrolling sideways. */
-@media (max-width: 880px) {
-  .idoc { width: 100%; padding: 28px 24px; }
+/* In a narrow column the sheet stacks rather than squeezing its columns. */
+@container invoice-doc (max-width: 620px) {
+  .idoc { padding: 28px 24px; }
   .idoc-parties { flex-direction: column; }
   .idoc-totals { flex-direction: column; }
   .idoc-summary { width: 100%; }
+}
+
+/* No container around it — on the standalone page the window is the measure. */
+@media (max-width: 620px) {
+  .idoc { padding: 28px 24px; }
 }

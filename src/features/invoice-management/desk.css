@@ -193,73 +193,17 @@
 .idk-history-row h3 { margin: 0; font-size: 14px; font-weight: 600; }
 .idk-history-row strong { color: var(--idk-deep); }
 
-/* ---------- the opened invoice ----------
-   The record is read as the document it becomes: the A4 sheet sits in the
-   middle of the screen, the desk dimmed behind it, with the one action that
-   moves the record on in a bar above the paper. */
+/* ---------- the invoice on the bench ----------
+   The selected record carries its invoice with it: the sheet sits under the
+   record, inside the bench's own scroll, so the whole screen stays one desk.
+   It is the document's own container, so the sheet reflows to the column it
+   is given rather than to the window. */
 
-.idk-overlay {
-  position: fixed;
-  inset: 0;
-  z-index: 60;
+.idk-paper {
+  container: invoice-doc / inline-size;
   display: flex;
-  align-items: center;
   justify-content: center;
-  padding: 24px;
-  background: #1a1c1673;
-  backdrop-filter: blur(2px);
-}
-
-.idk-sheet {
-  display: flex;
-  flex-direction: column;
-  width: min(842px, 100%);
-  max-height: 100%;
-  min-height: 0;
-  background: var(--idk-surface);
-  border: 1px solid var(--idk-deep);
-  box-shadow: 0 18px 44px #00000026;
-}
-
-/* The bar belongs to the desk, not to the invoice, so it keeps the desk's
-   colours and sits clear of the paper. */
-.idk-sheet-bar {
-  flex: none;
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 10px 14px;
-  border-bottom: 1px solid var(--idk-line);
-}
-.idk-sheet-ref { flex: 1 1 auto; min-width: 0; font: 10px var(--idk-mono); letter-spacing: .07em; color: var(--idk-muted); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.idk-sheet-bar .idk-approve-btn { flex: none; min-height: 34px; }
-
-.idk-sheet-review { flex: none; display: flex; align-items: center; gap: 7px; font-size: 11px; color: #3f4849; white-space: nowrap; }
-
-.idk-sheet-close {
-  flex: none;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 30px;
-  height: 30px;
-  padding: 0;
+  padding: 16px;
   border: 1px solid var(--idk-line);
-  background: var(--idk-paper);
-  color: var(--idk-muted);
-  cursor: pointer;
-}
-.idk-sheet-close:hover { border-color: var(--idk-deep); color: var(--idk-deep); }
-.idk-sheet-close:focus-visible { outline: 2px solid var(--idk-deep); outline-offset: 2px; }
-
-/* The sheet is a fixed-width document; the box around it is what scrolls. */
-.idk-sheet-scroll { flex: 1 1 auto; min-height: 0; overflow: auto; display: flex; justify-content: center; padding: 20px; }
-
-/* Below the sheet's own width the bar wraps rather than squeezing the action. */
-@media (max-width: 880px) {
-  .idk-overlay { padding: 0; }
-  .idk-sheet { width: 100%; max-height: 100%; }
-  .idk-sheet-bar { flex-wrap: wrap; }
-  .idk-sheet-ref { flex-basis: 100%; }
-  .idk-sheet-scroll { padding: 12px; }
+  background: var(--idk-surface);
 }

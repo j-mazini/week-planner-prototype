@@ -1,8 +1,8 @@
 'use client';
 
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion';
-import { ArrowRight, Check, FileText, Search, X } from 'lucide-react';
+import { ArrowRight, Check, FileText, Search } from 'lucide-react';
 import {
   INVOICE_STAGES,
   moveInvoice,
@@ -30,7 +30,6 @@ const seed = seedData as WorkflowRecord[];
 const storageKey = 'logix.invoice-workflow.v1';
 const currency = (pence: number) => new Intl.NumberFormat('en-GB', { style: 'currency', currency: 'GBP' }).format(pence / 100);
 const stageOf = (id: InvoiceStage) => INVOICE_STAGES.find(stage => stage.id === id);
-const FOCUSABLE = 'button:not(:disabled), input:not(:disabled), [href], [tabindex]:not([tabindex="-1"])';
 
 type DetailProps = {
   record: WorkflowRecord;
@@ -100,87 +99,11 @@ function RecordDetail({ record, loaded, reviewed, onReview, confirming, onAdvanc
   );
 }
 
-/**
- * The invoice opens centred over the desk: clicking a queue card puts the
- * document itself under the eye — the sheet that will be issued, not a summary
- * of it — with the columns dimmed behind. Escape, the close button or the
- * backdrop put it back down. The action that moves the record on rides above
- * the sheet, so the paper stays paper.
- */
-function RecordSheet({ record, reduced, onClose, children }: {
-  record: WorkflowRecord;
-  reduced: boolean;
-  onClose: () => void;
-  children: React.ReactNode;
-}) {
-  const panel = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const returnTo = document.activeElement as HTMLElement | null;
-    const scroll = document.body.style.overflow;
-    document.body.style.overflow = 'hidden';
-    panel.current?.querySelector<HTMLElement>(FOCUSABLE)?.focus();
-    return () => {
-      document.body.style.overflow = scroll;
-      returnTo?.focus?.();
-    };
-  }, []);
-
-  function onKeyDown(event: React.KeyboardEvent) {
-    if (event.key === 'Escape') { event.stopPropagation(); onClose(); return; }
-    if (event.key !== 'Tab' || !panel.current) return;
-    // The desk stays behind the sheet, so keep Tab inside the panel.
-    const stops = Array.from(panel.current.querySelectorAll<HTMLElement>(FOCUSABLE));
-    const edge = event.shiftKey ? stops[0] : stops[stops.length - 1];
-    if (stops.length && document.activeElement === edge) {
-      event.preventDefault();
-      (event.shiftKey ? stops[stops.length - 1] : stops[0]).focus();
-    }
-  }
-
-  return (
-    <motion.div
-      className="idk-overlay"
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      transition={{ duration: reduced ? 0 : 0.16 }}
-      onMouseDown={event => { if (event.target === event.currentTarget) onClose(); }}
-      onKeyDown={onKeyDown}
-    >
-      <motion.div
-        ref={panel}
-        className="idk-sheet"
-        role="dialog"
-        aria-modal="true"
-        aria-label={`Invoice for record ${record.id}, ${record.vendor}`}
-        initial={reduced ? { opacity: 0 } : { opacity: 0, y: 10, scale: 0.98 }}
-        animate={{ opacity: 1, y: 0, scale: 1 }}
-        exit={reduced ? { opacity: 0 } : { opacity: 0, y: 6, scale: 0.99 }}
-        transition={{ duration: reduced ? 0 : 0.2, ease: [0.4, 0, 0.2, 1] }}
-      >
-        <div className="idk-sheet-bar">
-          <span className="idk-sheet-ref">RECORD {record.id} · {stageOf(record.status)?.label}</span>
-          {children}
-          <button type="button" className="idk-sheet-close" onClick={onClose} aria-label="Close invoice">
-            <X size={16} aria-hidden="true" />
-          </button>
-        </div>
-        <div className="idk-sheet-scroll">
-          <InvoiceDocument record={record} />
-        </div>
-      </motion.div>
-    </motion.div>
-  );
-}
-
 export default function InvoiceBoard({ history = false }: { history?: boolean }) {
   const [records, setRecords] = useState(seed);
   const [loaded, setLoaded] = useState(false);
   const [query, setQuery] = useState('');
   const [selectedId, setSelectedId] = useState<string | null>(null);
-  /** The record opened over the desk — null while the desk is clear to read. */
-  const [openId, setOpenId] = useState<string | null>(null);
   /** Records moved on in this session, newest first — the right-hand column. */
   const [clearedIds, setClearedIds] = useState<string[]>([]);
   const [reviewed, setReviewed] = useState(false);
@@ -220,16 +143,8 @@ export default function InvoiceBoard({ history = false }: { history?: boolean })
   const matches = open.filter(record =>
     `${record.id} ${record.vendor} ${record.period}`.toLowerCase().includes(query.trim().toLowerCase()));
   const active = open.find(record => record.id === selectedId) ?? open[0];
-  const opened = openId ? open.find(record => record.id === openId) : undefined;
   const needsReview = active?.status === 'pending';
   const clearedTotal = clearedIds.reduce((sum, id) => sum + (byId.get(id)?.amount ?? 0), 0);
-
-  // The dialog holds the open record; nothing on the desk may remove it under it.
-  useEffect(() => {
-    if (openId && !opened) setOpenId(null);
-  }, [openId, opened]);
-
-  const closeDialog = useCallback(() => setOpenId(null), []);
 
   function advance() {
     if (!active || confirming) return;
@@ -242,7 +157,6 @@ export default function InvoiceBoard({ history = false }: { history?: boolean })
       setRecords(current => moveInvoice(current, id, status, to));
       setClearedIds(current => [id, ...current]);
       setSelectedId(null);
-      setOpenId(null);
       setReviewed(false);
       setConfirming(false);
       setNotice(`${id} moved to ${stageOf(to)?.label}.`);
@@ -334,9 +248,8 @@ export default function InvoiceBoard({ history = false }: { history?: boolean })
                 exit={{ ...QUEUE_EXIT, transition: exit }}
                 type="button"
                 className={`idk-queue-card${record.id === active?.id ? ' selected' : ''}`}
-                aria-haspopup="dialog"
-                aria-expanded={record.id === openId}
-                onClick={() => { setSelectedId(record.id); setReviewed(false); setOpenId(record.id); }}
+                aria-pressed={record.id === active?.id}
+                onClick={() => { setSelectedId(record.id); setReviewed(false); }}
               >
                 <span className="idk-card-row">
                   <span className="idk-id">{record.id}</span>
@@ -362,9 +275,12 @@ export default function InvoiceBoard({ history = false }: { history?: boolean })
                 loaded={loaded}
                 reviewed={reviewed}
                 onReview={setReviewed}
-                confirming={confirming && !openId}
+                confirming={confirming}
                 onAdvance={advance}
               />
+              <div className="idk-paper">
+                <InvoiceDocument record={active} />
+              </div>
               <p className="idk-demo-note">
                 Prototype, saved in this browser. No invoice is issued or sent.
               </p>
@@ -420,29 +336,6 @@ export default function InvoiceBoard({ history = false }: { history?: boolean })
           </div>
         </aside>
       </div>
-
-      <AnimatePresence>
-        {opened && (
-          <RecordSheet key={opened.id} record={opened} reduced={reduced} onClose={closeDialog}>
-            {opened.status === 'pending' && (
-              <label className="idk-sheet-review">
-                <input type="checkbox" checked={reviewed} onChange={event => setReviewed(event.target.checked)} />
-                Routes, rates and deductions reviewed
-              </label>
-            )}
-            <button
-              type="button"
-              className={`idk-approve-btn${confirming ? ' is-confirming' : ''}`}
-              disabled={!loaded || (opened.status === 'pending' && !reviewed)}
-              onClick={advance}
-            >
-              {confirming
-                ? <><Check size={15} aria-hidden="true" /> Registered</>
-                : stageOf(opened.status)?.action}
-            </button>
-          </RecordSheet>
-        )}
-      </AnimatePresence>
     </section>
   );
 }
