@@ -12,6 +12,14 @@ const config = [
     ],
   },
   ...compat.extends("next/core-web-vitals"),
+  {
+    // Screens exported from Figma, not written here. They use <img> because the
+    // exporter emits <img>, and 704 warnings nobody can act on were burying the
+    // dozen that are actually ours. Reimporting a screen regenerates the file,
+    // so editing them to satisfy the rule would not last the week.
+    files: ["src/features/*/design/**/*.{ts,tsx}"],
+    rules: { "@next/next/no-img-element": "off" },
+  },
 ];
 
 export default config;
