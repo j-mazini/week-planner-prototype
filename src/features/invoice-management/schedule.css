@@ -112,3 +112,20 @@
   .pay-run { overflow-x: auto; }
   .pay-table { min-width: 720px; }
 }
+
+/* ---------- settling a run ---------- */
+
+.pay-close { display: flex; flex-direction: column; align-items: flex-end; gap: 7px; }
+.pay-close-ask { margin: 0; font: 10px var(--pay-mono); letter-spacing: .05em; color: #6a5725; text-align: right; }
+.pay-close-pair { display: flex; gap: 7px; }
+.pay-close-go {
+  display: inline-flex; align-items: center; justify-content: center;
+  min-height: 38px; padding: 0 16px;
+  border: 1px solid var(--pay-deep); background: var(--pay-deep); color: #fafaef;
+  font: 600 11px var(--pay-mono); letter-spacing: .06em; cursor: pointer;
+}
+.pay-close-go:hover:not(:disabled) { background: var(--pay-teal); border-color: var(--pay-teal); }
+.pay-close-go:disabled { opacity: .45; cursor: not-allowed; }
+.pay-close-pair button:not(.pay-close-go) { min-height: 38px; padding: 0 14px; border: 1px solid var(--pay-line); background: transparent; color: var(--pay-muted); font: 600 11px var(--pay-mono); letter-spacing: .06em; cursor: pointer; }
+.pay-close-pair button:not(.pay-close-go):hover { border-color: var(--pay-teal); color: var(--pay-deep); }
+.pay-close button:focus-visible { outline: 2px solid var(--pay-deep); outline-offset: 2px; }

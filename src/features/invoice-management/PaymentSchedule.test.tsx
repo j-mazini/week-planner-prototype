@@ -96,3 +96,40 @@ describe('working the run', () => {
     expect(held().getByText('REC-2025005')).toBeInTheDocument();
   });
 });
+
+describe('closing a run', () => {
+  it('asks before settling, naming the date, the count and the net', () => {
+    render(<PaymentSchedule />);
+    fireEvent.click(run().getByRole('button', { name: /CLOSE RUN/i }));
+    expect(run().getByRole('button', { name: /CONFIRM/i })).toBeInTheDocument();
+    // "2 INVOICES" also reads in the run's own meta line, so match the ask.
+    expect(run().getByText(/SETTLE .+ 2 INVOICES .+ £/)).toBeInTheDocument();
+  });
+
+  it('settles the batch and leaves the run empty', () => {
+    render(<PaymentSchedule />);
+    fireEvent.click(run().getByRole('button', { name: /CLOSE RUN/i }));
+    fireEvent.click(run().getByRole('button', { name: /CONFIRM/i }));
+
+    expect(run().getByText('Nothing scheduled for this date.')).toBeInTheDocument();
+    expect(run().queryByRole('row', { name: /REC-2025005/ })).not.toBeInTheDocument();
+  });
+
+  it('leaves the run of the other method untouched', () => {
+    render(<PaymentSchedule />);
+    fireEvent.click(run().getByRole('button', { name: /CLOSE RUN/i }));
+    fireEvent.click(run().getByRole('button', { name: /CONFIRM/i }));
+
+    fireEvent.click(methods().getByRole('button', { name: /Monthly · Self-billing/ }));
+    expect(run().getByRole('row', { name: /REC-2025008/ })).toBeInTheDocument();
+  });
+
+  it('backs out when the confirmation is dismissed', () => {
+    render(<PaymentSchedule />);
+    fireEvent.click(run().getByRole('button', { name: /CLOSE RUN/i }));
+    fireEvent.click(run().getByRole('button', { name: /CANCEL/i }));
+
+    expect(run().queryByRole('button', { name: /CONFIRM/i })).not.toBeInTheDocument();
+    expect(run().getByRole('row', { name: /REC-2025005/ })).toBeInTheDocument();
+  });
+});

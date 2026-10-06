@@ -6,6 +6,7 @@ import {
   PAYMENT_METHODS,
   RUNS_AHEAD,
   buildSchedule,
+  closeRun,
   hold,
   release,
   reschedule,
@@ -37,6 +38,8 @@ export default function PaymentSchedule() {
   const [method, setMethod] = useState<PaymentMethod>('weekly-bank');
   const [openDate, setOpenDate] = useState<number | null>(null);
   const [loaded, setLoaded] = useState(false);
+  /** The run date the user has armed for closing — the one irreversible step. */
+  const [closing, setClosing] = useState<number | null>(null);
   // Fixed for the life of the desk: the runs must not slide under the user.
   const [today] = useState(() => new Date());
 
@@ -85,7 +88,7 @@ export default function PaymentSchedule() {
               type="button"
               className={`pay-method${item.id === method ? ' selected' : ''}`}
               aria-pressed={item.id === method}
-              onClick={() => { setMethod(item.id); setOpenDate(null); }}
+              onClick={() => { setMethod(item.id); setOpenDate(null); setClosing(null); }}
             >
               <span className="pay-method-name">{item.label}</span>
               <span className="pay-method-cadence">{item.cadence}</span>
@@ -106,7 +109,7 @@ export default function PaymentSchedule() {
             type="button"
             className={`pay-slot${run.date.getTime() === open?.date.getTime() ? ' selected' : ''}`}
             aria-pressed={run.date.getTime() === open?.date.getTime()}
-            onClick={() => { setMethod(run.method); setOpenDate(run.date.getTime()); }}
+            onClick={() => { setMethod(run.method); setOpenDate(run.date.getTime()); setClosing(null); }}
           >
             <span className="pay-slot-date">{shortDate(run.date)}</span>
             <span className="pay-slot-method">
@@ -132,6 +135,37 @@ export default function PaymentSchedule() {
               <div><dt>DEDUCTIONS</dt><dd>− {money(open.deductions)}</dd></div>
               <div className="pay-run-net"><dt>NET PAYABLE</dt><dd>{money(open.net)}</dd></div>
             </dl>
+            <div className="pay-close">
+              {closing === open.date.getTime() ? (
+                <>
+                  <p className="pay-close-ask">
+                    SETTLE {longDate(open.date)} · {open.invoices.length} INVOICES · {money(open.net)}
+                  </p>
+                  <div className="pay-close-pair">
+                    <button
+                      type="button"
+                      className="pay-close-go"
+                      onClick={() => {
+                        setState(current => closeRun(current, open));
+                        setClosing(null);
+                      }}
+                    >
+                      CONFIRM
+                    </button>
+                    <button type="button" onClick={() => setClosing(null)}>CANCEL</button>
+                  </div>
+                </>
+              ) : (
+                <button
+                  type="button"
+                  className="pay-close-go"
+                  disabled={!open.invoices.length}
+                  onClick={() => setClosing(open.date.getTime())}
+                >
+                  CLOSE RUN
+                </button>
+              )}
+            </div>
           </header>
 
             <table className="pay-table">
