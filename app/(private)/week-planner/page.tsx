@@ -165,7 +165,7 @@ function formatDate(iso: string): string {
 
 export default function WeekPlannerPage() {
   return (
-    <NavbarWrapper title="WEEK PLANNER" active="week-planner">
+    <NavbarWrapper title="WEEK PLANNER">
       <ToastProvider>
         <WeekPlannerBoard />
       </ToastProvider>

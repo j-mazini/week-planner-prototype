@@ -5,7 +5,7 @@ import ClearingDeskContent from './ClearingDeskContent';
 
 export default function Page() {
   return (
-    <NavbarWrapper title="CLEARING DESK" active="clearing-desk">
+    <NavbarWrapper title="CLEARING DESK">
       <ClearingDeskContent />
     </NavbarWrapper>
   );

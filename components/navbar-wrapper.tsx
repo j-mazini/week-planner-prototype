@@ -38,7 +38,7 @@ export default function NavbarWrapper({ children }: { children: ReactNode }) {
 
   return (
     <SidebarProvider defaultOpen={false}>
-      <Shell title={title} active="home">
+      <Shell title={title}>
         <div className="app-imported-page" data-page={route.slice(1)}>{children}</div>
       </Shell>
     </SidebarProvider>

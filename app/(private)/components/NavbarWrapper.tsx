@@ -26,7 +26,6 @@ function CurrentDate() {
   return <>{date}</>;
 }
 
-type NavKey = "home" | "week-planner" | "route-balance" | "clearing-desk";
 
 const importedGroups = [
   {
@@ -137,7 +136,7 @@ for (const group of [...sidebarGroups, ...importedGroups]) {
 }
 const groupIcons: Record<string, LucideIcon> = { 'My Performance': Gauge, Operations: Truck, Financial: Wallet, Control: Settings2 };
 
-export default function NavbarWrapper({ children, title }: { children: ReactNode; title?: string; active?: NavKey }) {
+export default function NavbarWrapper({ children, title }: { children: ReactNode; title?: string }) {
   const [collapsed, setCollapsed] = useState(true);
   const [search, setSearch] = useState("");
   const [expandedGroup, setExpandedGroup] = useState<string | null | undefined>(undefined);

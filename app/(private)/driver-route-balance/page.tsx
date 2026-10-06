@@ -14,7 +14,7 @@ export default function DriverRouteBalancePage() {
   const userId = Number(user?.id) || undefined;
 
   return (
-    <NavbarWrapper title="My Route" active="route-balance">
+    <NavbarWrapper title="My Route">
       <main className="driver-route-balance-page">
         <MobileRouteBalance driverName={driverName} userId={userId} />
       </main>
