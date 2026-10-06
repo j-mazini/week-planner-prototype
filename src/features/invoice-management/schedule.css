@@ -1,0 +1,78 @@
+/* The payment schedule desk. Same ink and type as the processing desk next
+   door — it is the same screen's other half of the job. */
+
+.pay-desk {
+  --pay-ink: #1a1c16;
+  --pay-muted: #707979;
+  --pay-line: #bfc8c9;
+  --pay-soft: #d9ded6;
+  --pay-paper: #fffef8;
+  --pay-surface: #eeeee4;
+  --pay-teal: #27676c;
+  --pay-deep: #003b3e;
+  --pay-olive: #446900;
+  --pay-lime: #b2f746;
+  --pay-mono: 'IBM Plex Mono', monospace;
+
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 20px 28px 22px;
+  color: var(--pay-ink);
+  font-family: 'Space Grotesk', sans-serif;
+}
+
+.pay-heading { display: flex; justify-content: space-between; gap: 24px; align-items: end; padding-bottom: 14px; border-bottom: 1px solid var(--pay-muted); }
+.pay-heading h1 { margin: 8px 0; font-size: clamp(24px, 2.1vw, 34px); font-weight: 700; letter-spacing: -.04em; text-transform: uppercase; }
+.pay-heading p { margin: 0; color: #3f4849; font-size: 13px; }
+.pay-eyebrow { font: 10px var(--pay-mono); letter-spacing: .1em; color: var(--pay-muted); }
+.pay-total { display: grid; gap: 6px; text-align: right; flex-shrink: 0; }
+.pay-total span { font: 10px var(--pay-mono); color: var(--pay-muted); }
+.pay-total strong { font-size: 28px; color: var(--pay-deep); }
+
+/* ---------- the two methods ---------- */
+
+.pay-methods { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 12px; }
+.pay-method {
+  display: grid; gap: 6px; padding: 14px; text-align: left;
+  border: 1px solid var(--pay-soft); background: var(--pay-surface);
+  color: var(--pay-ink); font: inherit; cursor: pointer;
+}
+.pay-method:hover { border-color: var(--pay-teal); }
+.pay-method.selected { border-color: var(--pay-deep); background: var(--pay-paper); box-shadow: inset 3px 0 var(--pay-lime); }
+.pay-method:focus-visible { outline: 2px solid var(--pay-deep); outline-offset: 2px; }
+.pay-method-name { font-size: 15px; font-weight: 700; }
+.pay-method-cadence { font: 10px var(--pay-mono); letter-spacing: .06em; color: var(--pay-muted); }
+.pay-method-date { font: 600 12px var(--pay-mono); letter-spacing: .05em; color: var(--pay-deep); }
+.pay-method-figures { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; padding-top: 6px; border-top: 1px solid var(--pay-soft); }
+.pay-method-figures span { font: 10px var(--pay-mono); color: var(--pay-muted); }
+.pay-method-figures strong { font-size: 16px; color: var(--pay-deep); }
+
+/* ---------- the dates ahead ---------- */
+
+.pay-strip { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 4px; }
+.pay-slot {
+  flex: none; display: grid; gap: 3px; min-width: 104px; padding: 9px 11px; text-align: left;
+  border: 1px solid var(--pay-soft); background: var(--pay-paper);
+  color: var(--pay-ink); font: inherit; cursor: pointer;
+}
+.pay-slot:hover { border-color: var(--pay-teal); }
+.pay-slot.selected { border-color: var(--pay-deep); background: var(--pay-surface); }
+.pay-slot:focus-visible { outline: 2px solid var(--pay-deep); outline-offset: 2px; }
+.pay-slot-date { font: 600 12px var(--pay-mono); letter-spacing: .04em; }
+.pay-slot-method { font: 9px var(--pay-mono); letter-spacing: .06em; color: var(--pay-muted); }
+.pay-slot-count { font: 9px var(--pay-mono); color: var(--pay-olive); }
+
+/* ---------- the run ---------- */
+
+.pay-run { display: flex; flex-direction: column; gap: 12px; border: 1px solid var(--pay-line); background: var(--pay-paper); padding: 16px; }
+.pay-run-head { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 18px; align-items: end; }
+.pay-run-when { margin: 0; font-size: 22px; font-weight: 700; letter-spacing: -.03em; }
+.pay-run-meta { margin: 4px 0 0; font: 10px var(--pay-mono); letter-spacing: .06em; color: var(--pay-muted); }
+.pay-run-totals { display: flex; flex-wrap: wrap; gap: 22px; margin: 0; }
+.pay-run-totals dt { font: 10px var(--pay-mono); letter-spacing: .07em; color: var(--pay-muted); }
+.pay-run-totals dd { margin: 4px 0 0; font-size: 17px; font-weight: 700; }
+.pay-run-net dd { color: var(--pay-deep); }
+
+.pay-empty { margin: 6px 0; font: 11px var(--pay-mono); color: var(--pay-muted); }
+.pay-note { margin: 0; font: 10px var(--pay-mono); color: var(--pay-muted); }
