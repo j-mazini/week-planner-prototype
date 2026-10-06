@@ -28,3 +28,47 @@ describe('payment methods', () => {
     expect(new Set(waiting.map(record => record.method)).size).toBe(2);
   });
 });
+
+import { nextRunDate, runDates, upcomingRuns } from './payment-runs';
+
+const iso = (date: Date) => date.toISOString().slice(0, 10);
+const on = (text: string) => new Date(`${text}T00:00:00.000Z`);
+
+describe('when the runs fall', () => {
+  it('pays the bank run on the next Friday, today included', () => {
+    expect(iso(nextRunDate('weekly-bank', on('2026-10-06')))).toBe('2026-10-09');
+    expect(iso(nextRunDate('weekly-bank', on('2026-10-09')))).toBe('2026-10-09');
+    expect(iso(nextRunDate('weekly-bank', on('2026-10-10')))).toBe('2026-10-16');
+  });
+
+  it('pays self-billing on the 25th, rolling into the next month once it is past', () => {
+    expect(iso(nextRunDate('monthly-self-billing', on('2026-10-06')))).toBe('2026-10-25');
+    expect(iso(nextRunDate('monthly-self-billing', on('2026-10-25')))).toBe('2026-10-25');
+    expect(iso(nextRunDate('monthly-self-billing', on('2026-10-26')))).toBe('2026-11-25');
+  });
+
+  it('rolls over the end of the year', () => {
+    expect(iso(nextRunDate('monthly-self-billing', on('2026-12-26')))).toBe('2027-01-25');
+    expect(iso(nextRunDate('weekly-bank', on('2026-12-28')))).toBe('2027-01-01');
+  });
+
+  it('counts forward one cadence at a time', () => {
+    expect(runDates('weekly-bank', on('2026-10-06'), 3).map(iso))
+      .toEqual(['2026-10-09', '2026-10-16', '2026-10-23']);
+    expect(runDates('monthly-self-billing', on('2026-10-06'), 3).map(iso))
+      .toEqual(['2026-10-25', '2026-11-25', '2026-12-25']);
+  });
+
+  it('interleaves the two cadences in date order', () => {
+    const slots = upcomingRuns(on('2026-10-06'), 6);
+    expect(slots.map(slot => iso(slot.date))).toEqual([...slots.map(slot => iso(slot.date))].sort());
+    expect(slots.map(slot => `${iso(slot.date)} ${slot.method}`)).toEqual([
+      '2026-10-09 weekly-bank',
+      '2026-10-16 weekly-bank',
+      '2026-10-23 weekly-bank',
+      '2026-10-25 monthly-self-billing',
+      '2026-10-30 weekly-bank',
+      '2026-11-06 weekly-bank',
+    ]);
+  });
+});
