@@ -1,8 +1,8 @@
 'use client';
 
-import { useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion';
-import { ArrowRight, Check, FileText, Search } from 'lucide-react';
+import { ArrowRight, Check, FileText, Search, X } from 'lucide-react';
 import {
   INVOICE_STAGES,
   moveInvoice,
@@ -29,12 +29,149 @@ const seed = seedData as WorkflowRecord[];
 const storageKey = 'logix.invoice-workflow.v1';
 const currency = (pence: number) => new Intl.NumberFormat('en-GB', { style: 'currency', currency: 'GBP' }).format(pence / 100);
 const stageOf = (id: InvoiceStage) => INVOICE_STAGES.find(stage => stage.id === id);
+const FOCUSABLE = 'button:not(:disabled), input:not(:disabled), [href], [tabindex]:not([tabindex="-1"])';
+
+type DetailProps = {
+  record: WorkflowRecord;
+  loaded: boolean;
+  reviewed: boolean;
+  onReview: (value: boolean) => void;
+  confirming: boolean;
+  onAdvance: () => void;
+};
+
+/** The record itself: facts, the action that moves it on, and where it sits. */
+function RecordDetail({ record, loaded, reviewed, onReview, confirming, onAdvance }: DetailProps) {
+  const stage = stageOf(record.status);
+  const next = nextInvoiceStage(record.status);
+  const needsReview = record.status === 'pending';
+  const position = INVOICE_STAGES.findIndex(item => item.id === record.status);
+
+  return (
+    <>
+      <article className="idk-record">
+        <div className="idk-record-seam">RECORD: {record.id}</div>
+        <div className="idk-record-body">
+          <h3>{record.vendor}</h3>
+          <dl className="idk-record-facts">
+            <div><dt>Period</dt><dd>{record.period}</dd></div>
+            <div><dt>Value</dt><dd>{currency(record.amount)}</dd></div>
+            <div><dt>Stage</dt><dd>{stage?.label}</dd></div>
+          </dl>
+        </div>
+        <div className="idk-approve">
+          <span className="idk-approve-next">
+            {stage?.label}
+            <ArrowRight size={13} aria-hidden="true" />
+            {next && stageOf(next)?.label}
+          </span>
+          <button
+            type="button"
+            className={`idk-approve-btn${confirming ? ' is-confirming' : ''}`}
+            disabled={!loaded || (needsReview && !reviewed)}
+            onClick={onAdvance}
+          >
+            {confirming ? <><Check size={15} aria-hidden="true" /> Registered</> : stage?.action}
+          </button>
+        </div>
+      </article>
+
+      {needsReview && (
+        <label className="idk-review">
+          <input type="checkbox" checked={reviewed} onChange={event => onReview(event.target.checked)} />
+          I have reviewed the routes, rates and deductions for this record.
+        </label>
+      )}
+
+      <ol className="idk-stages" aria-label="Workflow stages">
+        {INVOICE_STAGES.map((item, index) => (
+          <li
+            key={item.id}
+            className={`idk-stage${index < position ? ' is-done' : ''}${index === position ? ' is-current' : ''}`}
+            aria-current={index === position ? 'step' : undefined}
+          >
+            <span className="idk-stage-dot" aria-hidden="true" />
+            <span>{item.label}</span>
+          </li>
+        ))}
+      </ol>
+    </>
+  );
+}
+
+/**
+ * The record opens centred over the desk: clicking a queue card puts the whole
+ * record under the eye, with the columns dimmed behind it. Escape, the close
+ * button or the backdrop put it back down.
+ */
+function RecordDialog({ record, reduced, onClose, children }: {
+  record: WorkflowRecord;
+  reduced: boolean;
+  onClose: () => void;
+  children: React.ReactNode;
+}) {
+  const panel = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const returnTo = document.activeElement as HTMLElement | null;
+    const scroll = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    panel.current?.querySelector<HTMLElement>(FOCUSABLE)?.focus();
+    return () => {
+      document.body.style.overflow = scroll;
+      returnTo?.focus?.();
+    };
+  }, []);
+
+  function onKeyDown(event: React.KeyboardEvent) {
+    if (event.key === 'Escape') { event.stopPropagation(); onClose(); return; }
+    if (event.key !== 'Tab' || !panel.current) return;
+    // The desk stays behind the dialog, so keep Tab inside the panel.
+    const stops = Array.from(panel.current.querySelectorAll<HTMLElement>(FOCUSABLE));
+    const edge = event.shiftKey ? stops[0] : stops[stops.length - 1];
+    if (stops.length && document.activeElement === edge) {
+      event.preventDefault();
+      (event.shiftKey ? stops[stops.length - 1] : stops[0]).focus();
+    }
+  }
+
+  return (
+    <motion.div
+      className="idk-overlay"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: reduced ? 0 : 0.16 }}
+      onMouseDown={event => { if (event.target === event.currentTarget) onClose(); }}
+      onKeyDown={onKeyDown}
+    >
+      <motion.div
+        ref={panel}
+        className="idk-dialog"
+        role="dialog"
+        aria-modal="true"
+        aria-label={`Record ${record.id}, ${record.vendor}`}
+        initial={reduced ? { opacity: 0 } : { opacity: 0, y: 10, scale: 0.98 }}
+        animate={{ opacity: 1, y: 0, scale: 1 }}
+        exit={reduced ? { opacity: 0 } : { opacity: 0, y: 6, scale: 0.99 }}
+        transition={{ duration: reduced ? 0 : 0.2, ease: [0.4, 0, 0.2, 1] }}
+      >
+        <button type="button" className="idk-dialog-close" onClick={onClose} aria-label="Close record">
+          <X size={16} aria-hidden="true" />
+        </button>
+        {children}
+      </motion.div>
+    </motion.div>
+  );
+}
 
 export default function InvoiceBoard({ history = false }: { history?: boolean }) {
   const [records, setRecords] = useState(seed);
   const [loaded, setLoaded] = useState(false);
   const [query, setQuery] = useState('');
   const [selectedId, setSelectedId] = useState<string | null>(null);
+  /** The record opened over the desk — null while the desk is clear to read. */
+  const [openId, setOpenId] = useState<string | null>(null);
   /** Records moved on in this session, newest first — the right-hand column. */
   const [clearedIds, setClearedIds] = useState<string[]>([]);
   const [reviewed, setReviewed] = useState(false);
@@ -74,10 +211,16 @@ export default function InvoiceBoard({ history = false }: { history?: boolean })
   const matches = open.filter(record =>
     `${record.id} ${record.vendor} ${record.period}`.toLowerCase().includes(query.trim().toLowerCase()));
   const active = open.find(record => record.id === selectedId) ?? open[0];
-  const activeStage = active ? stageOf(active.status) : undefined;
-  const nextStage = active ? nextInvoiceStage(active.status) : undefined;
+  const opened = openId ? open.find(record => record.id === openId) : undefined;
   const needsReview = active?.status === 'pending';
   const clearedTotal = clearedIds.reduce((sum, id) => sum + (byId.get(id)?.amount ?? 0), 0);
+
+  // The dialog holds the open record; nothing on the desk may remove it under it.
+  useEffect(() => {
+    if (openId && !opened) setOpenId(null);
+  }, [openId, opened]);
+
+  const closeDialog = useCallback(() => setOpenId(null), []);
 
   function advance() {
     if (!active || confirming) return;
@@ -90,6 +233,7 @@ export default function InvoiceBoard({ history = false }: { history?: boolean })
       setRecords(current => moveInvoice(current, id, status, to));
       setClearedIds(current => [id, ...current]);
       setSelectedId(null);
+      setOpenId(null);
       setReviewed(false);
       setConfirming(false);
       setNotice(`${id} moved to ${stageOf(to)?.label}.`);
@@ -181,8 +325,9 @@ export default function InvoiceBoard({ history = false }: { history?: boolean })
                 exit={{ ...QUEUE_EXIT, transition: exit }}
                 type="button"
                 className={`idk-queue-card${record.id === active?.id ? ' selected' : ''}`}
-                aria-pressed={record.id === active?.id}
-                onClick={() => { setSelectedId(record.id); setReviewed(false); }}
+                aria-haspopup="dialog"
+                aria-expanded={record.id === openId}
+                onClick={() => { setSelectedId(record.id); setReviewed(false); setOpenId(record.id); }}
               >
                 <span className="idk-card-row">
                   <span className="idk-id">{record.id}</span>
@@ -203,56 +348,14 @@ export default function InvoiceBoard({ history = false }: { history?: boolean })
         <section className="idk-bench" aria-label="Selected record">
           {active ? (
             <>
-              <article className="idk-record">
-                <div className="idk-record-seam">RECORD: {active.id}</div>
-                <div className="idk-record-body">
-                  <h3>{active.vendor}</h3>
-                  <dl className="idk-record-facts">
-                    <div><dt>Period</dt><dd>{active.period}</dd></div>
-                    <div><dt>Value</dt><dd>{currency(active.amount)}</dd></div>
-                    <div><dt>Stage</dt><dd>{activeStage?.label}</dd></div>
-                  </dl>
-                </div>
-                <div className="idk-approve">
-                  <span className="idk-approve-next">
-                    {activeStage?.label}
-                    <ArrowRight size={13} aria-hidden="true" />
-                    {nextStage && stageOf(nextStage)?.label}
-                  </span>
-                  <button
-                    type="button"
-                    className={`idk-approve-btn${confirming ? ' is-confirming' : ''}`}
-                    disabled={!loaded || (needsReview && !reviewed)}
-                    onClick={advance}
-                  >
-                    {confirming ? <><Check size={15} aria-hidden="true" /> Registered</> : activeStage?.action}
-                  </button>
-                </div>
-              </article>
-
-              {needsReview && (
-                <label className="idk-review">
-                  <input type="checkbox" checked={reviewed} onChange={event => setReviewed(event.target.checked)} />
-                  I have reviewed the routes, rates and deductions for this record.
-                </label>
-              )}
-
-              <ol className="idk-stages" aria-label="Workflow stages">
-                {INVOICE_STAGES.map((stage, index) => {
-                  const position = INVOICE_STAGES.findIndex(item => item.id === active.status);
-                  return (
-                    <li
-                      key={stage.id}
-                      className={`idk-stage${index < position ? ' is-done' : ''}${index === position ? ' is-current' : ''}`}
-                      aria-current={index === position ? 'step' : undefined}
-                    >
-                      <span className="idk-stage-dot" aria-hidden="true" />
-                      <span>{stage.label}</span>
-                    </li>
-                  );
-                })}
-              </ol>
-
+              <RecordDetail
+                record={active}
+                loaded={loaded}
+                reviewed={reviewed}
+                onReview={setReviewed}
+                confirming={confirming && !openId}
+                onAdvance={advance}
+              />
               <p className="idk-demo-note">
                 Prototype, saved in this browser. No invoice is issued or sent.
               </p>
@@ -308,6 +411,21 @@ export default function InvoiceBoard({ history = false }: { history?: boolean })
           </div>
         </aside>
       </div>
+
+      <AnimatePresence>
+        {opened && (
+          <RecordDialog key={opened.id} record={opened} reduced={reduced} onClose={closeDialog}>
+            <RecordDetail
+              record={opened}
+              loaded={loaded}
+              reviewed={reviewed}
+              onReview={setReviewed}
+              confirming={confirming}
+              onAdvance={advance}
+            />
+          </RecordDialog>
+        )}
+      </AnimatePresence>
     </section>
   );
 }
