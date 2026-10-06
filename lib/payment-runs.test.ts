@@ -254,3 +254,24 @@ describe('the bonus run', () => {
       .toHaveLength(paying().invoices.length);
   });
 });
+
+describe('state written before the desk knew about the SPMS', () => {
+  /** What the previous version stored: no `paidOn`, no `bonusPaid`. */
+  const legacy = { 'REC-2025005': { held: false, shift: 0, paid: true } } as unknown as ScheduleState;
+
+  it('never derives a week from a settlement it has no date for', () => {
+    const schedule = buildSchedule(records, legacy, {}, today);
+    for (const week of schedule.awaiting) expect(Number.isNaN(week.week.getTime())).toBe(false);
+    for (const run of schedule.runs) expect(Number.isNaN(run.date.getTime())).toBe(false);
+  });
+
+  it('reads a legacy entry as one that has simply never been bonus-paid', () => {
+    const schedule = buildSchedule(records, legacy, {}, today);
+    // REC-2025005 was settled by a run this state cannot name, so its bonus
+    // belongs to no week — but REC-2025030 is still waiting on its own.
+    expect(schedule.awaiting.every(week => week.invoices.every(invoice => invoice.record.id !== 'REC-2025005')))
+      .toBe(true);
+    expect(schedule.runs.flatMap(run => run.invoices).map(invoice => invoice.record.id))
+      .not.toContain('REC-2025005');
+  });
+});

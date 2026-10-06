@@ -144,7 +144,14 @@ export function bonusOf(record: PayableRecord): number {
 export const registerSpms = (log: SpmsLog, runDate: Date, arrivedOn: Date): SpmsLog =>
   ({ ...log, [String(runDate.getTime())]: arrivedOn.toISOString() });
 
-const entryOf = (state: ScheduleState, id: string) => state[id] ?? EMPTY_ENTRY;
+/**
+ * Entries come from this browser's storage, which an older version of the desk
+ * may have written without the fields added since. Reading through the
+ * defaults means a missing field is simply one that never happened, rather
+ * than an `undefined` travelling into arithmetic or a date.
+ */
+const entryOf = (state: ScheduleState, id: string): ScheduleEntry =>
+  state[id] ? { ...EMPTY_ENTRY, ...state[id] } : EMPTY_ENTRY;
 
 /** Only an issued, unpaid invoice is waiting for a payment date. */
 const payable = (record: PayableRecord, state: ScheduleState) =>
@@ -222,7 +229,11 @@ export function buildSchedule(
   // settled whose document has still not arrived.
   const weeks = new Set<number>([
     ...payments.filter(run => run.method === 'weekly-bank').map(run => run.date.getTime()),
-    ...Object.values(state).map(entry => entry.paidOn).filter((date): date is number => date !== null),
+    // A settlement with no date names no week: storage written by an earlier
+    // version of the desk has none, and `new Date(undefined)` is not a date.
+    ...Object.keys(state)
+      .map(id => entryOf(state, id).paidOn)
+      .filter((date): date is number => typeof date === 'number' && Number.isFinite(date)),
   ]);
 
   const bonuses: PaymentRun[] = [];

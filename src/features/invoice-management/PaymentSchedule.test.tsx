@@ -185,3 +185,20 @@ describe('the bonus behind the weekly run', () => {
     expect(awaiting().getByRole('button', { name: /REGISTER SPMS/i })).toBeInTheDocument();
   });
 });
+
+describe('opening the desk on storage an older version wrote', () => {
+  it('renders a settled run that has no date recorded for it', () => {
+    // What the previous version saved: the invoice map on its own, with no
+    // `paidOn` on a settled invoice and no SPMS log beside it.
+    localStorage.setItem('logix.payment-schedule.v1', JSON.stringify({
+      'REC-2025005': { held: false, shift: 0, paid: true },
+      'REC-2025030': { held: true, shift: 1 },
+    }));
+
+    render(<PaymentSchedule />);
+    expect(screen.getByLabelText('Schedule for payment')).toBeInTheDocument();
+    expect(screen.getByLabelText('Selected payment run')).toBeInTheDocument();
+    // The held invoice is still held, and its push survived the version change.
+    expect(within(screen.getByLabelText('Held invoices')).getByText('REC-2025030')).toBeInTheDocument();
+  });
+});
