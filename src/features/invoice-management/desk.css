@@ -208,3 +208,20 @@
   border: 1px solid var(--idk-line);
   background: var(--idk-surface);
 }
+
+/* ---------- the history's months ----------
+   Only the months something was issued in, so the row is a summary of the
+   record as well as a way to narrow it. */
+
+.idk-months { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
+.idk-month {
+  display: grid; gap: 3px; min-width: 128px; padding: 9px 12px; text-align: left;
+  border: 1px solid var(--idk-line-soft); background: var(--idk-surface);
+  color: var(--idk-ink); font: inherit; cursor: pointer;
+}
+.idk-month:hover { border-color: var(--idk-teal); }
+.idk-month.selected { border-color: var(--idk-deep); background: var(--idk-paper); box-shadow: inset 3px 0 var(--idk-lime); }
+.idk-month:focus-visible { outline: 2px solid var(--idk-deep); outline-offset: 2px; }
+.idk-month-name { font: 600 12px var(--idk-mono); letter-spacing: .05em; }
+.idk-month-count { font: 9px var(--idk-mono); letter-spacing: .04em; color: var(--idk-muted); }
+.idk-month.selected .idk-month-count { color: var(--idk-deep); }

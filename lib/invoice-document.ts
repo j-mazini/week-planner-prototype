@@ -59,6 +59,16 @@ const initialsOf = (vendor: string) =>
 const pad = (value: number, length = 2) => String(value).padStart(length, '0');
 const stamp = (date: Date) => `${date.getUTCFullYear()}${pad(date.getUTCMonth() + 1)}${pad(date.getUTCDate())}`;
 
+/**
+ * "Sep 2026" as a sortable key, "2026-09". Months are written as names, so
+ * sorting the text puts August before September by luck and December before
+ * February by mistake; this is what to sort on instead.
+ */
+export function periodKey(period: string): string {
+  const { year, month } = parsePeriod(period);
+  return `${year}-${String(month + 1).padStart(2, '0')}`;
+}
+
 /** "Sep 2026" — the month the work was done. Anything unreadable bills the current month. */
 function parsePeriod(period: string): { year: number; month: number } {
   const [name, year] = period.trim().split(/\s+/);

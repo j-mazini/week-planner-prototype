@@ -22,6 +22,7 @@ import {
   QUEUE_EXIT,
   cardTransition,
 } from '@/app/(private)/clearing-desk/motion';
+import { periodKey } from '@/lib/invoice-document';
 import InvoiceDocument from './InvoiceDocument';
 import seedData from './records.json';
 import './desk.css';
@@ -104,6 +105,8 @@ export default function InvoiceBoard({ history = false }: { history?: boolean })
   const [loaded, setLoaded] = useState(false);
   const [query, setQuery] = useState('');
   const [selectedId, setSelectedId] = useState<string | null>(null);
+  /** The history tab's month filter — null is every month there is. */
+  const [month, setMonth] = useState<string | null>(null);
   /** Records moved on in this session, newest first — the right-hand column. */
   const [clearedIds, setClearedIds] = useState<string[]>([]);
   const [reviewed, setReviewed] = useState(false);
@@ -184,6 +187,21 @@ export default function InvoiceBoard({ history = false }: { history?: boolean })
   }
 
   if (history) {
+    // Only the months something was issued in, newest first. They come from the
+    // records rather than from a calendar, so the list cannot offer an empty one.
+    const months = [...new Map(invoiced.map(record => [record.period, record])).values()]
+      .map(record => {
+        const of = invoiced.filter(item => item.period === record.period);
+        return {
+          period: record.period,
+          key: periodKey(record.period),
+          count: of.length,
+          total: of.reduce((sum, item) => sum + item.amount, 0),
+        };
+      })
+      .sort((a, b) => b.key.localeCompare(a.key));
+    const shown = month ? invoiced.filter(record => record.period === month) : invoiced;
+
     return (
       <section className="invoice-desk" aria-label="Invoices history">
         <header className="idk-heading">
@@ -193,12 +211,39 @@ export default function InvoiceBoard({ history = false }: { history?: boolean })
             <p>Records that completed the workflow.</p>
           </div>
           <div className="idk-total">
-            <span>{invoiced.length} INVOICED / TOTAL VALUE</span>
-            <strong>{currency(invoiced.reduce((sum, record) => sum + record.amount, 0))}</strong>
+            {/* The total follows the filter: one that did not would be reading
+                for a month nobody is looking at. */}
+            <span>{shown.length} INVOICED / TOTAL VALUE</span>
+            <strong>{currency(shown.reduce((sum, record) => sum + record.amount, 0))}</strong>
           </div>
         </header>
+
+        <div className="idk-months" aria-label="Invoice months">
+          <button
+            type="button"
+            className={`idk-month${month === null ? ' selected' : ''}`}
+            aria-pressed={month === null}
+            onClick={() => setMonth(null)}
+          >
+            <span className="idk-month-name">ALL MONTHS</span>
+            <span className="idk-month-count">{invoiced.length} INVOICED</span>
+          </button>
+          {months.map(item => (
+            <button
+              key={item.key}
+              type="button"
+              className={`idk-month${month === item.period ? ' selected' : ''}`}
+              aria-pressed={month === item.period}
+              onClick={() => setMonth(item.period)}
+            >
+              <span className="idk-month-name">{item.period.toUpperCase()}</span>
+              <span className="idk-month-count">{item.count} · {currency(item.total)}</span>
+            </button>
+          ))}
+        </div>
+
         <div className="idk-history">
-          {invoiced.map(record => (
+          {shown.map(record => (
             <article className="idk-history-row" key={record.id}>
               <FileText size={15} aria-hidden="true" />
               <span className="idk-id">{record.id}</span>
@@ -207,7 +252,9 @@ export default function InvoiceBoard({ history = false }: { history?: boolean })
               <strong>{currency(record.amount)}</strong>
             </article>
           ))}
-          {!invoiced.length && <p className="idk-empty">No invoices issued yet.</p>}
+          {!shown.length && (
+            <p className="idk-empty">{month ? `Nothing issued in ${month}.` : 'No invoices issued yet.'}</p>
+          )}
         </div>
       </section>
     );
