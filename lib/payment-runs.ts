@@ -1,3 +1,4 @@
+import { buildInvoiceDocument } from './invoice-document';
 import type { WorkflowRecord } from './invoice-workflow';
 
 /**
@@ -61,4 +62,85 @@ export function upcomingRuns(today: Date, count: number): RunSlot[] {
     .flatMap(method => runDates(method.id, today, count).map(date => ({ method: method.id, date })))
     .sort((a, b) => a.date.getTime() - b.date.getTime())
     .slice(0, count);
+}
+
+/** How far ahead the strip looks. */
+export const RUNS_AHEAD = 6;
+
+/** What the desk knows about an invoice that the record itself does not. */
+export interface ScheduleEntry {
+  held: boolean;
+  /** How many runs it has been pushed past the next one. */
+  shift: number;
+  paid: boolean;
+}
+
+export type ScheduleState = Record<string, ScheduleEntry>;
+
+export const EMPTY_ENTRY: ScheduleEntry = { held: false, shift: 0, paid: false };
+
+export interface ScheduledInvoice {
+  record: PayableRecord;
+  method: PaymentMethod;
+  /** The run it sits in, or null while it is held out of all of them. */
+  date: Date | null;
+  shift: number;
+  gross: number;
+  deduction: number;
+  net: number;
+}
+
+export interface PaymentRun extends RunSlot {
+  invoices: ScheduledInvoice[];
+  gross: number;
+  deductions: number;
+  net: number;
+}
+
+export interface Schedule {
+  runs: PaymentRun[];
+  held: ScheduledInvoice[];
+}
+
+const entryOf = (state: ScheduleState, id: string) => state[id] ?? EMPTY_ENTRY;
+
+/** Only an issued, unpaid invoice is waiting for a payment date. */
+const payable = (record: PayableRecord, state: ScheduleState) =>
+  record.status === 'invoiced' && !entryOf(state, record.id).paid;
+
+function place(record: PayableRecord, state: ScheduleState, today: Date): ScheduledInvoice {
+  const { held, shift } = entryOf(state, record.id);
+  // The figures are the invoice's own, so the desk and the document agree.
+  const doc = buildInvoiceDocument(record);
+  return {
+    record,
+    method: record.method,
+    date: held ? null : runDates(record.method, today, shift + 1)[shift],
+    shift,
+    gross: doc.subtotal,
+    deduction: doc.deductionsTotal,
+    net: doc.balance,
+  };
+}
+
+/**
+ * The desk: the runs ahead with their invoices, and whatever is held out of
+ * them. Records short of invoiced are not here — they are still work on the
+ * processing desk.
+ */
+export function buildSchedule(
+  records: PayableRecord[],
+  state: ScheduleState,
+  today: Date,
+  count = RUNS_AHEAD,
+): Schedule {
+  const waiting = records.filter(record => payable(record, state)).map(record => place(record, state, today));
+  const runs = upcomingRuns(today, count).map(slot => {
+    const invoices = waiting.filter(invoice =>
+      invoice.method === slot.method && invoice.date?.getTime() === slot.date.getTime());
+    const gross = invoices.reduce((sum, invoice) => sum + invoice.gross, 0);
+    const deductions = invoices.reduce((sum, invoice) => sum + invoice.deduction, 0);
+    return { ...slot, invoices, gross, deductions, net: gross - deductions };
+  });
+  return { runs, held: waiting.filter(invoice => invoice.date === null) };
 }

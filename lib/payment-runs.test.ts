@@ -72,3 +72,68 @@ describe('when the runs fall', () => {
     ]);
   });
 });
+
+import { RUNS_AHEAD, buildSchedule, type ScheduleState } from './payment-runs';
+import { buildInvoiceDocument } from './invoice-document';
+
+const today = on('2026-10-06');
+const invoiced = records.filter(record => record.status === 'invoiced');
+const runOn = (state: ScheduleState, date: string) =>
+  buildSchedule(records, state, today).runs.find(run => iso(run.date) === date);
+
+describe('which run an invoice sits in', () => {
+  it('puts each invoiced record in the next run of its own method', () => {
+    const bank = runOn({}, '2026-10-09')!;
+    const self = runOn({}, '2026-10-25')!;
+    expect(bank.invoices.map(invoice => invoice.record.id).sort()).toEqual(['REC-2025005', 'REC-2025030']);
+    expect(self.invoices.map(invoice => invoice.record.id)).toEqual(['REC-2025008']);
+  });
+
+  it('leaves records short of invoiced off the desk entirely', () => {
+    const scheduled = buildSchedule(records, {}, today).runs.flatMap(run => run.invoices);
+    expect(scheduled).toHaveLength(invoiced.length);
+    expect(scheduled.every(invoice => invoice.record.status === 'invoiced')).toBe(true);
+  });
+
+  it('bills each row exactly what its invoice says', () => {
+    const row = runOn({}, '2026-10-09')!.invoices.find(invoice => invoice.record.id === 'REC-2025005')!;
+    const doc = buildInvoiceDocument(row.record);
+    expect([row.gross, row.deduction, row.net]).toEqual([doc.subtotal, doc.deductionsTotal, doc.balance]);
+    expect(row.net).toBe(row.record.amount);
+  });
+
+  it('totals a run from its own rows', () => {
+    const run = runOn({}, '2026-10-09')!;
+    expect(run.gross).toBe(run.invoices.reduce((sum, invoice) => sum + invoice.gross, 0));
+    expect(run.deductions).toBe(run.invoices.reduce((sum, invoice) => sum + invoice.deduction, 0));
+    expect(run.net).toBe(run.gross - run.deductions);
+  });
+
+  it('pushes a rescheduled invoice one run on, never to the other method', () => {
+    const state: ScheduleState = { 'REC-2025005': { held: false, shift: 1, paid: false } };
+    expect(runOn(state, '2026-10-09')!.invoices.map(invoice => invoice.record.id)).toEqual(['REC-2025030']);
+    expect(runOn(state, '2026-10-16')!.invoices.map(invoice => invoice.record.id)).toEqual(['REC-2025005']);
+  });
+
+  it('holds an invoice out of every run, under no date at all', () => {
+    const state: ScheduleState = { 'REC-2025008': { held: true, shift: 0, paid: false } };
+    const schedule = buildSchedule(records, state, today);
+    expect(schedule.runs.flatMap(run => run.invoices).map(invoice => invoice.record.id))
+      .not.toContain('REC-2025008');
+    expect(schedule.held.map(invoice => invoice.record.id)).toEqual(['REC-2025008']);
+    expect(schedule.held[0].date).toBeNull();
+  });
+
+  it('takes a paid invoice off the desk', () => {
+    const state: ScheduleState = { 'REC-2025008': { held: false, shift: 0, paid: true } };
+    const schedule = buildSchedule(records, state, today);
+    expect(schedule.runs.flatMap(run => run.invoices)).toHaveLength(2);
+    expect(schedule.held).toHaveLength(0);
+  });
+
+  it('shows the runs ahead in date order, both methods merged', () => {
+    const schedule = buildSchedule(records, {}, today);
+    expect(schedule.runs).toHaveLength(RUNS_AHEAD);
+    expect(schedule.runs.map(run => iso(run.date))).toEqual([...schedule.runs.map(run => iso(run.date))].sort());
+  });
+});
