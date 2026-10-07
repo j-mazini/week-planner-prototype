@@ -43,7 +43,7 @@ export default function ClearingDeskContent() {
   }
 
   return (
-    <div className="clearing-desk">
+    <div className="clearing-desk page-stagger">
       <header className="page-heading">
         <h1>CLEARING DESK</h1>
         <p>Payment authorization &amp; clearing</p>

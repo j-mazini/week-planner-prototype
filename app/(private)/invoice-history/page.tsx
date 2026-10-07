@@ -241,7 +241,7 @@ export default function InvoiceDashboard() {
     <NavbarWrapper>
       <div className="invoice-dashboard-container pt-6">
         <div className="wrapper">
-          <div id="main-content">
+          <div id="main-content" className="page-stagger">
             
             {/* PAGE HEADER */}
             <div className="mb-4">

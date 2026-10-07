@@ -75,10 +75,10 @@ const MobileView = memo(function MobileView({
   }, [currentMonth]);
 
   return (
-    <div className="pt-16 pb-20 space-y-[clamp(8px,1vw,12px)]">
+    <div className="pt-16 pb-20 space-y-[clamp(8px,1vw,12px)] page-stagger">
       {/* Loading Overlay */}
       {loading && (
-        <div className="fixed top-0 left-0 w-full h-full bg-white/90 flex items-center justify-center z-[9999] backdrop-blur-sm">
+        <div data-no-stagger className="fixed top-0 left-0 w-full h-full bg-white/90 flex items-center justify-center z-[9999] backdrop-blur-sm">
           <div className="w-10 h-10 border-4 border-blue-500 border-t-transparent rounded-full animate-spin" />
         </div>
       )}

@@ -304,7 +304,7 @@ export default function FinancialInvoicesPage() {
           containerClassName="mx-auto w-full px-0"
           className="font-sans text-slate-800 text-sm"
         >
-          <div id="main-content" className="flex-grow flex flex-col min-w-0 relative">
+          <div id="main-content" className="flex-grow flex flex-col min-w-0 relative page-stagger">
             {/* Desktop SP filter */}
             {servicePartners.length > 0 && (
               <div className="hidden md:flex justify-start px-6 pt-6 pb-0">

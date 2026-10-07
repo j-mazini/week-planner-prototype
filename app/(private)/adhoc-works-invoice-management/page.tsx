@@ -361,7 +361,7 @@ export default function AdhocWorksInvoiceManagementPage() {
         >
           <div id="main-content" className="flex-grow flex flex-col min-w-0 relative">
             <div className="hidden md:block">
-              <main className="pt-6 space-y-4">
+              <main className="pt-6 space-y-4 page-stagger">
                 <div className="mb-4">
                   <ModernPageHeader
                     title=" Management"

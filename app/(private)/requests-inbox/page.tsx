@@ -516,7 +516,7 @@ export default function RequestsInboxPage() {
         >
           <div id="main-content" className="flex-grow flex flex-col min-w-0 relative">
             <div className="hidden md:block">
-              <main className="pt-[2%] md:pt-6 space-y-[2%] md:space-y-4">
+              <main className="pt-[2%] md:pt-6 space-y-[2%] md:space-y-4 page-stagger">
                 <div className="mb-[2%] md:mb-4">
                   <ModernPageHeader
                     title="Vendor requests"

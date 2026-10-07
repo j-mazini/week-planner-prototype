@@ -300,7 +300,7 @@ export default function RequestsPage() {
             className="font-sans text-slate-800 text-sm"
           >
             <div id="main-content" className="flex-grow flex flex-col min-w-0 relative">
-              <main className="mx-auto w-full max-w-[86rem] space-y-5 md:space-y-7">
+              <main className="mx-auto w-full max-w-[86rem] space-y-5 md:space-y-7 page-stagger">
                 <div className="mb-1">
                   <ModernPageHeader
                     title="Requests"

@@ -97,7 +97,7 @@ export default function DailyGamePlanContent() {
   }
 
   return (
-    <div className="dgp-page">
+    <div className="dgp-page page-stagger">
       <div className="dgp-page-title">
         <div>
           <h1 className="dgp-page-title__heading">Daily Game Plan</h1>

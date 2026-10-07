@@ -363,7 +363,7 @@ const SchedulePayment = () => {
   return (
     <NavbarWrapper>
       <div className="wrapper">
-        <div id="main-content">
+        <div id="main-content" className="page-stagger">
 
           {/* Header */}
           <header className="page-header">

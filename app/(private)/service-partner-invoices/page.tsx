@@ -101,7 +101,7 @@ export default function ServicePartnerInvoicesPage() {
           width="ultra"
           className="font-sans text-slate-800 text-sm"
         >
-          <div className="space-y-6 py-6">
+          <div className="space-y-6 py-6 page-stagger">
             {/* Header with Glassmorphism */}
             <div className="backdrop-blur-md bg-white/30 border border-white/40 rounded-2xl p-6 shadow-lg">
               <div className="flex justify-between items-start">

@@ -80,10 +80,10 @@ const DesktopView = memo(function DesktopView({
   }, [currentMonth]);
 
   return (
-    <div className="pt-6">
+    <div className="pt-6 page-stagger">
       {/* Loading Overlay */}
       {loading && (
-        <div className="fixed top-0 left-0 w-full h-full bg-white/90 flex items-center justify-center z-[9999] backdrop-blur-sm">
+        <div data-no-stagger className="fixed top-0 left-0 w-full h-full bg-white/90 flex items-center justify-center z-[9999] backdrop-blur-sm">
           <div className="w-12 h-12 border-4 border-blue-500 border-t-transparent rounded-full animate-spin" />
         </div>
       )}

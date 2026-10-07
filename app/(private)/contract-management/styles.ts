@@ -452,8 +452,8 @@ export const contractManagementStyles = {
   // Page container
   pageContainer: "font-['Inter',sans-serif] text-slate-800 text-[0.95rem] [&_*]:font-['Inter',sans-serif]",
   mainContent: "flex-grow flex flex-col min-w-0",
-  desktopMain: "hidden md:block pt-6 space-y-6",
-  mobileMain: "block md:hidden pb-20 space-y-2",
+  desktopMain: "hidden md:block pt-6 space-y-6 page-stagger",
+  mobileMain: "block md:hidden pb-20 space-y-2 page-stagger",
   
   // Tabs
   tabsContainer: "w-full",
