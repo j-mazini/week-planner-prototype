@@ -2,6 +2,8 @@
 
 import { usePathname } from "next/navigation";
 import type { ReactNode } from "react";
+import { motion } from "framer-motion";
+import { pageEnter } from "@/lib/motion";
 import Shell from "@/app/(private)/components/NavbarWrapper";
 import { SidebarProvider } from "@/components/ui/sidebar";
 
@@ -39,7 +41,20 @@ export default function NavbarWrapper({ children }: { children: ReactNode }) {
   return (
     <SidebarProvider defaultOpen={false}>
       <Shell title={title}>
-        <div className="app-imported-page" data-page={route.slice(1)}>{children}</div>
+        {/* Entrada de página, num sítio só: este div embrulha exactamente o
+            conteúdo da page e deixa o navbar de fora. O `key` por rota é o que
+            faz o fade repetir a cada navegação — sem ele, o motion.div fica na
+            mesma posição da árvore e `initial` só correria no primeiro mount. */}
+        <motion.div
+          key={route}
+          initial={pageEnter.initial}
+          animate={pageEnter.animate}
+          transition={pageEnter.transition}
+          className="app-imported-page"
+          data-page={route.slice(1)}
+        >
+          {children}
+        </motion.div>
       </Shell>
     </SidebarProvider>
   );

@@ -13,7 +13,7 @@ const sections = [
 export default function FinancialManagementPage() {
   return (
     <NavbarWrapper>
-      <main className="mx-auto w-full min-w-0 max-w-content-wide space-y-6">
+      <main className="mx-auto w-full min-w-0 max-w-content-wide space-y-6 page-stagger">
         <p className="max-w-2xl text-sm">Choose a financial workspace to review performance, manage invoices or track payments.</p>
         <nav aria-label="Financial workspaces" className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3">
           {sections.map(({ href, title, description }) => (

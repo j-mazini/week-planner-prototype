@@ -116,10 +116,6 @@ module.exports = {
           from: { height: "var(--radix-accordion-content-height)" },
           to: { height: 0 },
         },
-        fadeIn: {
-          from: { opacity: "0", transform: "translateY(10px)" },
-          to: { opacity: "1", transform: "translateY(0)" },
-        },
         scaleIn: {
           from: { opacity: "0", transform: "scale(0.9)" },
           to: { opacity: "1", transform: "scale(1)" },
@@ -135,10 +131,6 @@ module.exports = {
         fadeInRight: {
           from: { opacity: "0", transform: "translateX(30px)" },
           to: { opacity: "1", transform: "translateX(0)" },
-        },
-        fadeIn: {
-          from: { opacity: "0", transform: "translateY(8px) scale(0.98)" },
-          to: { opacity: "1", transform: "translateY(0) scale(1)" },
         },
         shimmer: {
           "0%, 100%": { opacity: "0.4", transform: "translateX(-100%)" },
@@ -238,6 +230,9 @@ module.exports = {
           from: { opacity: "0" },
           to: { opacity: "1" },
         },
+        // Única `fadeIn` — duas declarações anteriores, mais ricas, estavam a ser
+        // silenciosamente sobrepostas por esta e foram removidas. Para entrada
+        // com deslocação use `fadeInUp` ou a utility `.page-stagger`.
         fadeIn: {
           to: { opacity: "1" },
         },

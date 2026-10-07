@@ -165,7 +165,7 @@ export default function AssetsPage() {
       <BootstrapLoader />
       <DgpPageFrame width="ultra" containerClassName="mx-auto px-4 py-6 sm:px-6 lg:px-8">
         {/* Desktop */}
-        <main className="hidden md:block space-y-6">
+        <main className="hidden md:block space-y-6 page-stagger">
           <Tabs value={activeTab} onValueChange={(v) => setActiveTab(v as AssetsTabValue)} className="w-full">
             <AssetsHeader userFullName={userFullName} currentDate={currentDate} />
 

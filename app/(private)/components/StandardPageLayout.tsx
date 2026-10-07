@@ -1,7 +1,6 @@
 "use client";
 
 import { ReactNode } from "react";
-import { motion } from "framer-motion";
 import { GradientDotsBackground } from "@/components/gradient-dots-background";
 import { WelcomeHeader } from "@/components/ui/welcome-header";
 import NavbarWrapper from "@/components/navbar-wrapper";
@@ -47,14 +46,11 @@ export function StandardPageLayout({
           </div>
         )}
 
-        <motion.main
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.22, ease: [0.4, 0, 0.2, 1] }}
-          className={`mx-auto w-full ${widthClass[width]} min-w-0 px-[clamp(0.75rem,4vw,1rem)] sm:px-6 lg:px-10 pt-4 sm:pt-8 lg:pt-9 pb-12 lg:pb-14 relative z-[1]`}
+        <main
+          className={`page-stagger mx-auto w-full ${widthClass[width]} min-w-0 px-[clamp(0.75rem,4vw,1rem)] sm:px-6 lg:px-10 pt-4 sm:pt-8 lg:pt-9 pb-12 lg:pb-14 relative z-[1]`}
         >
           {children}
-        </motion.main>
+        </main>
 
         {/* Safe area no rodapé */}
         <div

@@ -2,8 +2,8 @@ export const vehiclesStyles = {
   // Page layout
   pageContainer: "font-['Inter',sans-serif] text-slate-800 text-[0.9rem] [&_*]:font-['Inter',sans-serif]",
   mainContent: "flex-grow flex flex-col min-w-0 transition-[margin-left] duration-300 ease-in-out ml-0",
-  desktopMain: "hidden md:block pt-6 space-y-4 md:space-y-6",
-  mobileMain: "block md:hidden pt-6 pb-20 space-y-2",
+  desktopMain: "hidden md:block pt-6 space-y-4 md:space-y-6 page-stagger",
+  mobileMain: "block md:hidden pt-6 pb-20 space-y-2 page-stagger",
   mobileTitle: "text-lg font-bold text-[#2c3e50]",
   
   // Filters

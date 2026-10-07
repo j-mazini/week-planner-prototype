@@ -61,7 +61,7 @@ export default function HomePage() {
 
   return (
     <NavbarWrapper>
-      <main className="home-new">
+      <main className="home-new page-stagger">
         <section className="home-new__hero">
           <div>
             <div className="home-new__eyebrow"><span className="home-new__pulse" /> OPERATIONS CONTROL / LIVE MOCK DATA</div>

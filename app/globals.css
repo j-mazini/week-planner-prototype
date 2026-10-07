@@ -78,3 +78,62 @@ body { -webkit-font-smoothing: antialiased; }
 .auth-page .bg-primary:hover { background-color: #003b3e !important; }
 .auth-page a { color: #27676c; }
 .auth-page :is(button, a, input):focus-visible { outline: 2px solid #446900; outline-offset: 2px; }
+
+/* ── Movimento ──────────────────────────────────────────────────────────────
+   Espelho em CSS dos tokens de `lib/motion.ts`. Os números repetem-se porque
+   o framer-motion não lê custom properties; nunca devem divergir.
+   Ver docs/superpowers/specs/2026-10-07-page-animations-design.md */
+:root {
+  --motion-fast: 150ms;
+  --motion-base: 220ms;
+  --motion-slow: 320ms;
+  --motion-stagger: 55ms;
+  --motion-offset: 8px;
+  --motion-ease: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes sectionIn {
+  from { opacity: 0; transform: translateY(var(--motion-offset)); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Cascata de entrada das secções de uma page.
+   Aplicar no contentor cujos filhos directos SÃO as secções — tipicamente o
+   <main> interno, não o wrapper `#main-content`, que costuma ter um filho só.
+   Não aplicar a contentores com descendentes `sticky`/`fixed`: o `transform`
+   do keyframe cria um containing block e o sticky deixa de colar. */
+.page-stagger > * {
+  animation: sectionIn var(--motion-base) var(--motion-ease) backwards;
+}
+.page-stagger > *:nth-child(1) { animation-delay: 0ms; }
+.page-stagger > *:nth-child(2) { animation-delay: 55ms; }
+.page-stagger > *:nth-child(3) { animation-delay: 110ms; }
+.page-stagger > *:nth-child(4) { animation-delay: 165ms; }
+.page-stagger > *:nth-child(5) { animation-delay: 220ms; }
+.page-stagger > *:nth-child(6) { animation-delay: 275ms; }
+.page-stagger > *:nth-child(7) { animation-delay: 330ms; }
+/* A partir do 8.º a cascata estabiliza: mais atraso só faria a página
+   parecer lenta a carregar. */
+.page-stagger > *:nth-child(n + 8) { animation-delay: 385ms; }
+
+/* Cascatas aninhadas somam atrasos e a page entra aos soluços. Se duas
+   `.page-stagger` ficarem uma dentro da outra, só a de fora anima. */
+.page-stagger .page-stagger > * { animation: none; }
+
+/* Válvula de escape: um filho `position: fixed` (overlay de loading, modal)
+   não deve entrar na cascata — o `transform` do keyframe no irmão não lhe
+   toca, mas no próprio prende-o ao contentor em vez do viewport. */
+.page-stagger > [data-no-stagger] { animation: none; }
+
+/* Quem pediu menos movimento ao sistema operativo recebe o conteúdo já no
+   sítio. Não desliga a animação (`none` partiria estados finais que dependem
+   dela): colapsa-a para um instante. */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-delay: 0ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

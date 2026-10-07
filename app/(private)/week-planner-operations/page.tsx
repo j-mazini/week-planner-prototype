@@ -6,7 +6,6 @@ import React, { useState, useMemo, useEffect, useCallback, useRef } from "react"
 import NavbarWrapper from "@/components/navbar-wrapper";
 import { useSidebar } from "@/components/ui/sidebar";
 import { format } from 'date-fns';
-import { motion } from 'framer-motion';
 import { FadeIn } from '@/components/animations/page-animation';
 import { DgpPageFrame } from '@/app/(private)/components';
 import { fetchWeekPlannersPaginated, fetchAllWeekPlannersForDate, updateWeekPlanner, deleteWeekPlanner, createWeekPlanner, createOperationsFromWeekPlanners } from './services/apiService';
@@ -2234,14 +2233,13 @@ export default function OperationsManagement() {
                 containerClassName="mx-auto w-full px-0"
                 className="font-['Inter',sans-serif] text-slate-800 text-[0.9rem] [&_*]:font-['Inter',sans-serif]"
             >
-                <motion.div
+                {/* O fade de entrada vem agora do DgpPageFrame; este div ficou
+                    só com o layout e a cascata das secções. */}
+                <div
                     className="relative w-full"
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ duration: 0.5 }}
                     style={{ width: '100%', maxWidth: '100%', boxSizing: 'border-box' }}
                 >
-                    <div className="w-full px-2 sm:px-4 md:px-6 pt-4 sm:pt-6 pb-4 sm:pb-6" style={{ width: '100%', maxWidth: '100%', boxSizing: 'border-box' }}>
+                    <div className="w-full px-2 sm:px-4 md:px-6 pt-4 sm:pt-6 pb-4 sm:pb-6 page-stagger" style={{ width: '100%', maxWidth: '100%', boxSizing: 'border-box' }}>
                     {/* Header */}
                     <FadeIn delay={0.1}>
                         <OperationsHeaderControls
@@ -2492,7 +2490,7 @@ export default function OperationsManagement() {
 
                 {/* --- Modal de Anima��o de Sucesso --- */}
                 <SuccessCelebration show={showSuccessAnimation} confettiPieces={confettiPieces} />
-                    </motion.div>
+                    </div>
                 </DgpPageFrame>
             </div>
         </NavbarWrapper>

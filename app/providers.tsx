@@ -1,6 +1,7 @@
 "use client";
 
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { MotionConfig } from "framer-motion";
 import dynamic from "next/dynamic";
 import { MOCK_MODE } from "@/lib/mock-api";
 import { useState, useEffect } from "react";
@@ -42,9 +43,14 @@ export default function Providers({ children }: { children: React.ReactNode }) {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <AuthProvider>
-        <AlreadySubmittedProvider>{children}</AlreadySubmittedProvider>
-      </AuthProvider>
+      {/* `reducedMotion="user"` faz o framer-motion respeitar a preferência do
+          sistema em toda a app, incluindo as animações já existentes. O bloco
+          @media em globals.css cobre o lado CSS. */}
+      <MotionConfig reducedMotion="user">
+        <AuthProvider>
+          <AlreadySubmittedProvider>{children}</AlreadySubmittedProvider>
+        </AuthProvider>
+      </MotionConfig>
       {ReactQueryDevtools && <ReactQueryDevtools initialIsOpen={false} />}
     </QueryClientProvider>
   );

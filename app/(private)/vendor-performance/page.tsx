@@ -206,7 +206,7 @@ export default function VendorPerformancePage() {
         )}
 
         {/* Desktop */}
-        <main className="hidden md:block space-y-4">
+        <main className="hidden md:block space-y-4 page-stagger">
           <ModernPageHeader
             title="Vendor Performance"
             subtitle={subtitle}

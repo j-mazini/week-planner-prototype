@@ -2,8 +2,8 @@ export const vendorStyles = {
   // Page layout
   pageContainer: "font-['Inter',sans-serif] text-slate-800 text-[0.9rem] [&_*]:font-['Inter',sans-serif]",
   mainContent: "flex-grow flex flex-col min-w-0",
-  desktopMain: "hidden md:block pt-6 space-y-4 md:space-y-6",
-  mobileMain: "block md:hidden p-3 pb-20",
+  desktopMain: "hidden md:block pt-6 space-y-4 md:space-y-6 page-stagger",
+  mobileMain: "block md:hidden p-3 pb-20 page-stagger",
   
   // Filters
   filtersCard: "bg-white rounded-xl p-6 shadow-[0_4px_6px_-1px_rgb(0_0_0/0.1),0_2px_4px_-2px_rgb(0_0_0/0.1)] mb-6 [&_*]:relative [&_*]:z-[1]",

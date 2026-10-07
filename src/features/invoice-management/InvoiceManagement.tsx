@@ -39,7 +39,7 @@ export default function InvoiceManagement() {
   }
 
   return (
-    <main className={`invoice-management${isDesk ? ' is-desk' : ''}`} aria-label="Invoice management">
+    <main className={`invoice-management page-stagger${isDesk ? ' is-desk' : ''}`} aria-label="Invoice management">
       <nav className="invoice-management-tabs" aria-label="Invoice sections">
         {[
           ['41-2474', 'Invoice processing'],

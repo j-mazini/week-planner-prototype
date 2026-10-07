@@ -90,7 +90,7 @@ export default function SupervisorHomeContent({
   });
 
   return (
-    <div className="shp-wrap">
+    <div className="shp-wrap page-stagger">
       <header className="shp-header">
         <div>
           <p className="shp-eyebrow">

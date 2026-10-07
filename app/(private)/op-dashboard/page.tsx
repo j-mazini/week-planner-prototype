@@ -108,7 +108,7 @@ const OperationsDashboard = () => {
 
   return (
     <NavbarWrapper>
-      <div className="pt-16">
+      <div className="pt-16 page-stagger">
 
         <header className="page-header">
           <h1 className="page-title">Operations Dashboard</h1>

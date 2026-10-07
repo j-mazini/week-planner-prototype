@@ -1,8 +1,8 @@
 export const dailyFinancialInsightsStyles = {
   pageContainer: "font-sans text-slate-800 text-sm",
   mainContent: "flex-grow flex flex-col min-w-0",
-  desktopMain: "hidden md:block pt-4 sm:pt-5 md:pt-6 space-y-3 sm:space-y-3.5 md:space-y-4 lg:space-y-6",
-  mobileMain: "block md:hidden pt-16 pb-20 space-y-2",
+  desktopMain: "hidden md:block pt-4 sm:pt-5 md:pt-6 space-y-3 sm:space-y-3.5 md:space-y-4 lg:space-y-6 page-stagger",
+  mobileMain: "block md:hidden pt-16 pb-20 space-y-2 page-stagger",
 
   filtersContainer: "rounded-xl border border-slate-200 bg-white shadow-sm overflow-hidden mb-2",
   filtersInner: "flex flex-wrap items-center gap-3 md:gap-4 w-full min-w-0 px-3 sm:px-4 md:px-5 py-3 md:py-4",
